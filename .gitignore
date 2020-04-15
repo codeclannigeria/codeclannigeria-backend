@@ -385,8 +385,4 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-=======
-# Local
-docker-compose.yml
-.env
-dist
+.history/
