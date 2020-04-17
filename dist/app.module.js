@@ -7,12 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const mongoose_1 = require("@nestjs/mongoose");
 const auth_controller_1 = require("./auth/auth.controller");
-const auth_service_1 = require("./auth/auth.service");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
-const jwt_1 = require("@nestjs/jwt");
-const constants_1 = require("./auth/constants");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -20,13 +18,12 @@ AppModule = __decorate([
         imports: [
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
-            jwt_1.JwtModule.register({
-                secret: constants_1.jwtConstants.secret,
-                signOptions: { expiresIn: '60s' },
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/nestjs-typegoose', {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
             }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

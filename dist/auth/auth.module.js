@@ -27,7 +27,7 @@ AuthModule = __decorate([
             users_module_1.UsersModule,
         ],
         providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
-        exports: [auth_service_1.AuthService],
+        exports: [auth_service_1.AuthService, jwt_1.JwtModule],
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;

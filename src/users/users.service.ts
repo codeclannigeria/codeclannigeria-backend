@@ -1,32 +1,15 @@
 import { Injectable } from '@nestjs/common';
-
-export type User = any;
+import { BaseService } from '../shared/base.service';
+import { User } from './models/user.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 
 @Injectable()
-export class UsersService {
-  private readonly users: User[];
-
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
-  }
-
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+export class UsersService extends BaseService<User> {
+  constructor(
+    @InjectModel(User.modelName)
+    private readonly userEntity: ReturnModelType<typeof User>,
+  ) {
+    super(userEntity);
   }
 }

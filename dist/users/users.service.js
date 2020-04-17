@@ -8,35 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-let UsersService = class UsersService {
-    constructor() {
-        this.users = [
-            {
-                userId: 1,
-                username: 'john',
-                password: 'changeme',
-            },
-            {
-                userId: 2,
-                username: 'chris',
-                password: 'secret',
-            },
-            {
-                userId: 3,
-                username: 'maria',
-                password: 'guess',
-            },
-        ];
-    }
-    async findOne(username) {
-        return this.users.find(user => user.username === username);
+const base_service_1 = require("../shared/base.service");
+const user_entity_1 = require("./models/user.entity");
+const mongoose_1 = require("@nestjs/mongoose");
+let UsersService = class UsersService extends base_service_1.BaseService {
+    constructor(userEntity) {
+        super(userEntity);
+        this.userEntity = userEntity;
     }
 };
 UsersService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __param(0, mongoose_1.InjectModel(user_entity_1.User.modelName)),
+    __metadata("design:paramtypes", [Object])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

@@ -1,0 +1,30 @@
+import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
+import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
+import { MongoError } from 'mongodb';
+import { DocumentQuery, Types, Query } from 'mongoose';
+import { BaseEntity } from './models/base.entity';
+declare type QueryList<T extends BaseEntity> = DocumentQuery<Array<DocumentType<T>>, DocumentType<T>>;
+declare type QueryItem<T extends BaseEntity> = DocumentQuery<DocumentType<T>, DocumentType<T>>;
+export declare abstract class BaseService<T extends BaseEntity> {
+    protected entity: ReturnModelType<AnyParamConstructor<T>>;
+    protected constructor(entity: ReturnModelType<AnyParamConstructor<T>>);
+    protected static throwMongoError(err: MongoError): void;
+    protected static toObjectId(id: string): Types.ObjectId;
+    createEntity(doc?: Partial<T>): T;
+    findAll(filter?: {}): QueryList<T>;
+    findAllAsync(filter?: {}): Promise<Array<DocumentType<T>>>;
+    findOne(filter?: {}): QueryItem<T>;
+    findOneAsync(filter?: {}): Promise<DocumentType<T>>;
+    findById(id: string): QueryItem<T>;
+    findByIdAsync(id: string): Promise<DocumentType<T>>;
+    create(item: T): Promise<DocumentType<T>>;
+    delete(filter?: {}): QueryItem<T>;
+    deleteAsync(filter?: {}): Promise<DocumentType<T>>;
+    deleteById(id: string): QueryItem<T>;
+    deleteByIdAsync(id: string): Promise<DocumentType<T>>;
+    update(item: T): QueryItem<T>;
+    updateAsync(item: T): Promise<DocumentType<T>>;
+    count(filter?: {}): Query<number>;
+    countAsync(filter?: {}): Promise<number>;
+}
+export {};
