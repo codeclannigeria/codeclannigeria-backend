@@ -37,7 +37,18 @@ export abstract class BaseService<T extends BaseEntity> {
     return new this.entity(doc);
   }
 
+  insert(entity: T) {
+    return this.entity.create(entity);
+  }
+  async insertAsync(entity: T) {
+    try {
+      return await this.insert(entity);
+    } catch (e) {
+      BaseService.throwMongoError(e);
+    }
+  }
   findAll(filter = {}): QueryList<T> {
+    filter = { ...filter, isDeleted: { $ne: true } };
     return this.entity.find(filter);
   }
 
@@ -50,6 +61,8 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   findOne(filter = {}): QueryItem<T> {
+    filter = { ...filter, isDeleted: { $ne: true } };
+
     return this.entity.findOne(filter);
   }
 
@@ -62,7 +75,10 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   findById(id: string): QueryItem<T> {
-    return this.entity.findById(BaseService.toObjectId(id));
+    return this.entity
+      .findById(BaseService.toObjectId(id))
+      .where('isDeleted')
+      .ne(true);
   }
 
   async findByIdAsync(id: string): Promise<DocumentType<T>> {
@@ -82,37 +98,49 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   delete(filter = {}): QueryItem<T> {
+    filter = { ...filter, isDeleted: { $ne: true } };
     return this.entity.findOneAndDelete(filter);
   }
-
+  softDelete(filter = {}): QueryItem<T> {
+    filter = { ...filter, isDeleted: { $ne: true } };
+    return this.entity.findOneAndUpdate(filter, { isDeleted: true });
+  }
   async deleteAsync(filter = {}): Promise<DocumentType<T>> {
     try {
-      return await this.delete(filter).exec();
+      return await this.softDelete(filter).exec();
     } catch (e) {
       BaseService.throwMongoError(e);
     }
   }
 
   deleteById(id: string): QueryItem<T> {
-    return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
+    return this.entity
+      .findByIdAndDelete(BaseService.toObjectId(id))
+      .where('isDeleted')
+      .ne(true);
+  }
+  softDeleteById(id: string): QueryItem<T> {
+    return this.entity
+      .findByIdAndUpdate(BaseService.toObjectId(id), { isDeleted: true })
+      .where('isDeleted')
+      .ne(true);
   }
 
   async deleteByIdAsync(id: string): Promise<DocumentType<T>> {
     try {
-      return await this.deleteById(id).exec();
+      return await this.softDeleteById(id).exec();
     } catch (e) {
       BaseService.throwMongoError(e);
     }
   }
 
   update(item: T): QueryItem<T> {
-    return this.entity.findByIdAndUpdate(
-      BaseService.toObjectId(item.id),
-      item,
-      {
+    return this.entity
+      .findByIdAndUpdate(BaseService.toObjectId(item.id), item, {
         new: true,
-      },
-    );
+      })
+      .where('isDeleted')
+      .ne(true);
   }
 
   async updateAsync(item: T): Promise<DocumentType<T>> {
@@ -124,7 +152,8 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   count(filter = {}): Query<number> {
-    return this.entity.count(filter);
+    filter = { ...filter, isDeleted: { $ne: true } };
+    return this.entity.countDocuments(filter);
   }
 
   async countAsync(filter = {}): Promise<number> {

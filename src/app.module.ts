@@ -8,9 +8,10 @@ import { UsersModule } from './users/users.module';
   imports: [
     AuthModule,
     UsersModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/nestjs-typegoose', {
+    MongooseModule.forRoot('mongodb://localhost/nest', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     }),
   ],
   controllers: [AuthController],

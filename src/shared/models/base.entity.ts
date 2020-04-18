@@ -1,28 +1,38 @@
+import { User } from '../../users/models/user.entity';
 import { Schema } from 'mongoose';
-import { buildSchema, prop } from '@typegoose/typegoose';
+import { buildSchema, prop, Ref } from '@typegoose/typegoose';
+import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 
-export abstract class BaseEntity {
-  @prop()
-  createdDate?: Date; // provided by timestamps
-  @prop()
-  updatedDate?: Date; // provided by timestamps
-  id: string; // is actually model._id getter
-  // add more to a base model if you want.
-  @prop()
-  isDeleted: boolean;
-  @prop()
-  deletionDate: Date;
-  @prop()
-  createdBy: string;
-  @prop()
-  deletedBy: string;
+export abstract class BaseEntity extends TimeStamps {
+  id: string;
 
+  @prop({ required: true, default: false })
+  readonly isDeleted: boolean = false;
+  @prop({ default: null, ref: BaseEntity })
+  readonly createdBy?: Ref<User | null> = null;
+  @prop({ default: null, ref: BaseEntity })
+  readonly updatedBy?: Ref<User | null> = null;
+  @prop({ required: true, default: true })
+  readonly isActive: boolean = true;
+  @prop({ default: null, ref: BaseEntity })
+  readonly deletedBy?: Ref<User | null> = null;
+  @prop({ default: null })
+  readonly deletedAt?: Date;
+  @prop({ required: true, default: new Date() })
+  readonly createdAt: Date = new Date();
+  @prop({ required: true, default: new Date() })
+  readonly updatedAt: Date = null;
   static get schema(): Schema {
     return buildSchema(this as any, {
       timestamps: true,
       toJSON: {
         getters: true,
         virtuals: true,
+        versionKey: false,
+        transform: (_, ret) => {
+          ret.id = ret._id;
+          delete ret._id;
+        },
       },
     });
   }

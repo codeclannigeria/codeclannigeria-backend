@@ -15,29 +15,49 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
+const paged_dto_1 = require("../shared/models/dto/paged.dto");
 const create_user_dto_1 = require("./models/dto/create-user.dto");
+const user_dto_1 = require("./models/dto/user.dto");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async getUsers() {
-        return '';
+    async getUsers(query) {
+        const { skip, limit } = query;
+        const users = await this.usersService
+            .findAll()
+            .limit(limit)
+            .skip(skip);
+        const items = class_transformer_1.plainToClass(user_dto_1.UserDto, users, {
+            enableImplicitConversion: true,
+            excludeExtraneousValues: true,
+        });
+        const totalCount = await this.usersService.countAsync();
+        return { totalCount, items };
     }
     async createUser(createUserDto) {
-        return this.usersService.createEntity(createUserDto);
+        const user = this.usersService.createEntity(createUserDto);
+        await this.usersService.insertAsync(user);
+        return class_transformer_1.plainToClass(user_dto_1.UserDto, user, {
+            enableImplicitConversion: true,
+            excludeExtraneousValues: true,
+        });
     }
 };
 __decorate([
     common_1.Get(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: require("./models/dto/paged.dto").PagedUserResDto }),
+    __param(0, common_1.Query()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [paged_dto_1.PagedReqDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
     common_1.Post(),
-    openapi.ApiResponse({ status: 201, type: require("./models/user.entity").User }),
+    common_1.HttpCode(common_1.HttpStatus.CREATED),
+    openapi.ApiResponse({ status: common_1.HttpStatus.CREATED, type: require("./models/dto/user.dto").UserDto }),
     __param(0, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),

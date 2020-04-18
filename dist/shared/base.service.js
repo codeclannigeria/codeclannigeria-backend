@@ -20,7 +20,19 @@ class BaseService {
     createEntity(doc) {
         return new this.entity(doc);
     }
+    insert(entity) {
+        return this.entity.create(entity);
+    }
+    async insertAsync(entity) {
+        try {
+            return await this.insert(entity);
+        }
+        catch (e) {
+            BaseService.throwMongoError(e);
+        }
+    }
     findAll(filter = {}) {
+        filter = Object.assign(Object.assign({}, filter), { isDeleted: { $ne: true } });
         return this.entity.find(filter);
     }
     async findAllAsync(filter = {}) {
@@ -32,6 +44,7 @@ class BaseService {
         }
     }
     findOne(filter = {}) {
+        filter = Object.assign(Object.assign({}, filter), { isDeleted: { $ne: true } });
         return this.entity.findOne(filter);
     }
     async findOneAsync(filter = {}) {
@@ -43,7 +56,10 @@ class BaseService {
         }
     }
     findById(id) {
-        return this.entity.findById(BaseService.toObjectId(id));
+        return this.entity
+            .findById(BaseService.toObjectId(id))
+            .where('isDeleted')
+            .ne(true);
     }
     async findByIdAsync(id) {
         try {
@@ -62,31 +78,48 @@ class BaseService {
         }
     }
     delete(filter = {}) {
+        filter = Object.assign(Object.assign({}, filter), { isDeleted: { $ne: true } });
         return this.entity.findOneAndDelete(filter);
+    }
+    softDelete(filter = {}) {
+        filter = Object.assign(Object.assign({}, filter), { isDeleted: { $ne: true } });
+        return this.entity.findOneAndUpdate(filter, { isDeleted: true });
     }
     async deleteAsync(filter = {}) {
         try {
-            return await this.delete(filter).exec();
+            return await this.softDelete(filter).exec();
         }
         catch (e) {
             BaseService.throwMongoError(e);
         }
     }
     deleteById(id) {
-        return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
+        return this.entity
+            .findByIdAndDelete(BaseService.toObjectId(id))
+            .where('isDeleted')
+            .ne(true);
+    }
+    softDeleteById(id) {
+        return this.entity
+            .findByIdAndUpdate(BaseService.toObjectId(id), { isDeleted: true })
+            .where('isDeleted')
+            .ne(true);
     }
     async deleteByIdAsync(id) {
         try {
-            return await this.deleteById(id).exec();
+            return await this.softDeleteById(id).exec();
         }
         catch (e) {
             BaseService.throwMongoError(e);
         }
     }
     update(item) {
-        return this.entity.findByIdAndUpdate(BaseService.toObjectId(item.id), item, {
+        return this.entity
+            .findByIdAndUpdate(BaseService.toObjectId(item.id), item, {
             new: true,
-        });
+        })
+            .where('isDeleted')
+            .ne(true);
     }
     async updateAsync(item) {
         try {
@@ -97,7 +130,8 @@ class BaseService {
         }
     }
     count(filter = {}) {
-        return this.entity.count(filter);
+        filter = Object.assign(Object.assign({}, filter), { isDeleted: { $ne: true } });
+        return this.entity.countDocuments(filter);
     }
     async countAsync(filter = {}) {
         try {

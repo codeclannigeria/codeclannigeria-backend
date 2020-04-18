@@ -31,7 +31,7 @@ let AuthService = class AuthService {
     async validateUser(username, pass) {
         const user = await this.usersService.findOne(username);
         if (user && user.password === pass) {
-            const { password } = user, result = __rest(user, ["password"]);
+            const result = __rest(user, []);
             return result;
         }
         return null;

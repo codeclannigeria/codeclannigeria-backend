@@ -11,6 +11,8 @@ export declare abstract class BaseService<T extends BaseEntity> {
     protected static throwMongoError(err: MongoError): void;
     protected static toObjectId(id: string): Types.ObjectId;
     createEntity(doc?: Partial<T>): T;
+    insert(entity: T): Promise<DocumentType<T>>;
+    insertAsync(entity: T): Promise<DocumentType<T>>;
     findAll(filter?: {}): QueryList<T>;
     findAllAsync(filter?: {}): Promise<Array<DocumentType<T>>>;
     findOne(filter?: {}): QueryItem<T>;
@@ -19,8 +21,10 @@ export declare abstract class BaseService<T extends BaseEntity> {
     findByIdAsync(id: string): Promise<DocumentType<T>>;
     create(item: T): Promise<DocumentType<T>>;
     delete(filter?: {}): QueryItem<T>;
+    softDelete(filter?: {}): QueryItem<T>;
     deleteAsync(filter?: {}): Promise<DocumentType<T>>;
     deleteById(id: string): QueryItem<T>;
+    softDeleteById(id: string): QueryItem<T>;
     deleteByIdAsync(id: string): Promise<DocumentType<T>>;
     update(item: T): QueryItem<T>;
     updateAsync(item: T): Promise<DocumentType<T>>;

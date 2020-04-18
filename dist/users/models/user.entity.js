@@ -10,28 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-const typegoose_1 = require("@typegoose/typegoose");
+const constants_1 = require("../../shared/constants");
 const base_entity_1 = require("../../shared/models/base.entity");
-class User extends base_entity_1.BaseEntity {
+const typegoose_1 = require("@typegoose/typegoose");
+let User = class User extends base_entity_1.BaseEntity {
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String } };
+        return { firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
-}
+};
 __decorate([
-    typegoose_1.prop(),
+    typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
     __metadata("design:type", String)
 ], User.prototype, "firstName", void 0);
 __decorate([
-    typegoose_1.prop(),
+    typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
-    typegoose_1.prop(),
+    typegoose_1.prop({ unique: true, index: true, maxlength: constants_1.columnSize.length64 }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    typegoose_1.prop(),
+    typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+User = __decorate([
+    typegoose_1.pre('save', function () {
+        this.password = 'Yeller';
+    })
+], User);
 exports.User = User;
 //# sourceMappingURL=user.entity.js.map

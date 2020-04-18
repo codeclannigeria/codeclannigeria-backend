@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-class CreateUserDto {
-    static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, firstName: { required: true, type: () => String } };
-    }
+const user_dto_1 = require("./user.dto");
+const swagger_1 = require("@nestjs/swagger");
+class CreateUserDto extends swagger_1.OmitType(user_dto_1.UserDto, ['id']) {
 }
 exports.CreateUserDto = CreateUserDto;
 //# sourceMappingURL=create-user.dto.js.map

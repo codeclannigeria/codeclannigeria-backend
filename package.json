@@ -1,8 +1,8 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "ToRead",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "Read that article later",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

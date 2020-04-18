@@ -18,9 +18,10 @@ AppModule = __decorate([
         imports: [
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/nestjs-typegoose', {
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost/nest', {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
+                useCreateIndex: true,
             }),
         ],
         controllers: [auth_controller_1.AuthController],

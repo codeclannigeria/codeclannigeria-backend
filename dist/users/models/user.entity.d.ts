@@ -1,4 +1,4 @@
-import { BaseEntity } from 'src/shared/models/base.entity';
+import { BaseEntity } from '../../shared/models/base.entity';
 export declare class User extends BaseEntity {
     firstName: string;
     lastName: string;

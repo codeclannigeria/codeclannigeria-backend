@@ -11,13 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
 const typegoose_1 = require("@typegoose/typegoose");
-class BaseEntity {
+const defaultClasses_1 = require("@typegoose/typegoose/lib/defaultClasses");
+class BaseEntity extends defaultClasses_1.TimeStamps {
+    constructor() {
+        super(...arguments);
+        this.isDeleted = false;
+        this.createdBy = null;
+        this.updatedBy = null;
+        this.isActive = true;
+        this.deletedBy = null;
+        this.createdAt = new Date();
+        this.updatedAt = null;
+    }
     static get schema() {
         return typegoose_1.buildSchema(this, {
             timestamps: true,
             toJSON: {
                 getters: true,
                 virtuals: true,
+                versionKey: false,
+                transform: (_, ret) => {
+                    ret.id = ret._id;
+                    delete ret._id;
+                },
             },
         });
     }
@@ -25,32 +41,40 @@ class BaseEntity {
         return this.name;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { createdDate: { required: false, type: () => Date }, updatedDate: { required: false, type: () => Date }, id: { required: true, type: () => String }, isDeleted: { required: true, type: () => Boolean }, deletionDate: { required: true, type: () => Date }, createdBy: { required: true, type: () => String }, deletedBy: { required: true, type: () => String } };
+        return { id: { required: true, type: () => String }, isDeleted: { required: true, type: () => Boolean, default: false }, createdBy: { required: false, type: () => Object, default: null }, updatedBy: { required: false, type: () => Object, default: null }, isActive: { required: true, type: () => Boolean, default: true }, deletedBy: { required: false, type: () => Object, default: null }, deletedAt: { required: false, type: () => Date }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date, default: null } };
     }
 }
 __decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", Date)
-], BaseEntity.prototype, "createdDate", void 0);
-__decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", Date)
-], BaseEntity.prototype, "updatedDate", void 0);
-__decorate([
-    typegoose_1.prop(),
+    typegoose_1.prop({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], BaseEntity.prototype, "isDeleted", void 0);
 __decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", Date)
-], BaseEntity.prototype, "deletionDate", void 0);
-__decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", String)
+    typegoose_1.prop({ default: null, ref: BaseEntity }),
+    __metadata("design:type", Object)
 ], BaseEntity.prototype, "createdBy", void 0);
 __decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", String)
+    typegoose_1.prop({ default: null, ref: BaseEntity }),
+    __metadata("design:type", Object)
+], BaseEntity.prototype, "updatedBy", void 0);
+__decorate([
+    typegoose_1.prop({ required: true, default: true }),
+    __metadata("design:type", Boolean)
+], BaseEntity.prototype, "isActive", void 0);
+__decorate([
+    typegoose_1.prop({ default: null, ref: BaseEntity }),
+    __metadata("design:type", Object)
 ], BaseEntity.prototype, "deletedBy", void 0);
+__decorate([
+    typegoose_1.prop({ default: null }),
+    __metadata("design:type", Date)
+], BaseEntity.prototype, "deletedAt", void 0);
+__decorate([
+    typegoose_1.prop({ required: true, default: new Date() }),
+    __metadata("design:type", Date)
+], BaseEntity.prototype, "createdAt", void 0);
+__decorate([
+    typegoose_1.prop({ required: true, default: new Date() }),
+    __metadata("design:type", Date)
+], BaseEntity.prototype, "updatedAt", void 0);
 exports.BaseEntity = BaseEntity;
 //# sourceMappingURL=base.entity.js.map
