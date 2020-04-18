@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
 export type ClassType<T = any> = new (...args: any[]) => T;
 
@@ -12,14 +13,11 @@ export abstract class PagedResDto<T> {
 }
 
 export class PagedReqDto {
-  skip?: number;
-  limit?: number;
-  search?: string;
-}
-
-interface IPaginated {
-  skip?: number;
-  limit?: number;
+  @IsOptional()
+  skip?: number = 0;
+  @IsOptional()
+  limit?: number = 100;
+  @IsOptional()
   search?: string;
 }
 

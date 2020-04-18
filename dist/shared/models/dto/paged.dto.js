@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class PagedResDto {
     static _OPENAPI_METADATA_FACTORY() {
         return { totalCount: { required: true, type: () => Number }, items: { required: true } };
@@ -28,10 +29,26 @@ __decorate([
 ], PagedResDto.prototype, "items", void 0);
 exports.PagedResDto = PagedResDto;
 class PagedReqDto {
+    constructor() {
+        this.skip = 0;
+        this.limit = 100;
+    }
     static _OPENAPI_METADATA_FACTORY() {
-        return { skip: { required: false, type: () => Number }, limit: { required: false, type: () => Number }, search: { required: false, type: () => String } };
+        return { skip: { required: false, type: () => Number, default: 0 }, limit: { required: false, type: () => Number, default: 100 }, search: { required: false, type: () => String } };
     }
 }
+__decorate([
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Number)
+], PagedReqDto.prototype, "skip", void 0);
+__decorate([
+    class_validator_1.IsOptional(),
+    __metadata("design:type", Number)
+], PagedReqDto.prototype, "limit", void 0);
+__decorate([
+    class_validator_1.IsOptional(),
+    __metadata("design:type", String)
+], PagedReqDto.prototype, "search", void 0);
 exports.PagedReqDto = PagedReqDto;
 function PaginatedResponseDto(Dto) {
     class Paged extends Dto {
