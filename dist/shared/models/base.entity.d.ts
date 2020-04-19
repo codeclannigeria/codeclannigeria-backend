@@ -14,4 +14,8 @@ export declare abstract class BaseEntity extends TimeStamps {
     readonly updatedAt: Date;
     static get schema(): Schema;
     static get modelName(): string;
+    delete(): void;
+    restore(): void;
+    deactivate(): void;
+    activate(): void;
 }

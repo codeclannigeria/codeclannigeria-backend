@@ -40,6 +40,18 @@ class BaseEntity extends defaultClasses_1.TimeStamps {
     static get modelName() {
         return this.name;
     }
+    delete() {
+        this.isDeleted = true;
+    }
+    restore() {
+        this.isDeleted = false;
+    }
+    deactivate() {
+        this.isActive = false;
+    }
+    activate() {
+        this.isActive = true;
+    }
     static _OPENAPI_METADATA_FACTORY() {
         return { id: { required: true, type: () => String }, isDeleted: { required: true, type: () => Boolean, default: false }, createdBy: { required: false, type: () => Object, default: null }, updatedBy: { required: false, type: () => Object, default: null }, isActive: { required: true, type: () => Boolean, default: true }, deletedBy: { required: false, type: () => Object, default: null }, deletedAt: { required: false, type: () => Date }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date, default: null } };
     }

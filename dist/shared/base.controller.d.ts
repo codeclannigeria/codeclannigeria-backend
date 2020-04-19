@@ -3,7 +3,7 @@ import { BaseEntity } from './models/base.entity';
 import { PagedReqDto, PagedResDto } from './models/dto/paged.dto';
 export declare type ClassType<T = any> = new (...args: any[]) => T;
 export declare class BaseController<T extends BaseEntity, TDto, TCreateDto, TUpdateDto> {
-    private readonly baseService;
+    protected readonly baseService: BaseService<T>;
     constructor(baseService: BaseService<T>);
     findAll(query: PagedReqDto): Promise<PagedResDto<TDto>>;
     findById(id: string): Promise<TDto>;

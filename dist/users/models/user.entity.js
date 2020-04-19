@@ -15,7 +15,11 @@ const typegoose_1 = require("@typegoose/typegoose");
 const bcrypt_1 = require("bcrypt");
 const constants_1 = require("../../shared/constants");
 const base_entity_1 = require("../../shared/models/base.entity");
+const class_transformer_1 = require("class-transformer");
 let User = class User extends base_entity_1.BaseEntity {
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
     static _OPENAPI_METADATA_FACTORY() {
         return { firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
@@ -53,6 +57,7 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
+    class_transformer_1.Exclude(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 User = __decorate([

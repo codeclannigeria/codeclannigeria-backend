@@ -1,7 +1,8 @@
 import { BaseEntity } from '../../shared/models/base.entity';
 export declare class User extends BaseEntity {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
+    readonly firstName: string;
+    readonly lastName: string;
+    readonly email: string;
+    readonly password: string;
+    get fullName(): string;
 }

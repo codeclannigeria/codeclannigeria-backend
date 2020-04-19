@@ -1,3 +1,4 @@
+import { Writable } from './../utils/writable';
 import { User } from '../../users/models/user.entity';
 import { Schema } from 'mongoose';
 import { buildSchema, prop, Ref } from '@typegoose/typegoose';
@@ -39,5 +40,35 @@ export abstract class BaseEntity extends TimeStamps {
 
   static get modelName(): string {
     return this.name;
+  }
+  delete(): void {
+    (this as Writable<BaseEntity>).isDeleted = true;
+  }
+
+  /**
+   * Sets {isDeleted} to false
+   *
+   * @memberof BaseEntity
+   */
+  restore(): void {
+    (this as Writable<BaseEntity>).isDeleted = false;
+  }
+
+  /**
+   * Sets {isActive} to true
+   *
+   * @memberof BaseEntity
+   */
+  deactivate(): void {
+    (this as Writable<BaseEntity>).isActive = false;
+  }
+
+  /**
+   * Sets isActive to false
+   *
+   * @memberof BaseEntity
+   */
+  activate(): void {
+    (this as Writable<BaseEntity>).isActive = true;
   }
 }

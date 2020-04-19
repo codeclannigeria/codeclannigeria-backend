@@ -28,7 +28,7 @@ export class BaseController<
   TCreateDto,
   TUpdateDto
 > {
-  constructor(private readonly baseService: BaseService<T>) {}
+  constructor(protected readonly baseService: BaseService<T>) {}
 
   @Get()
   @ApiOkResponse({ description: 'Ok' })
