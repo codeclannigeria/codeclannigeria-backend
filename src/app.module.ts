@@ -12,6 +12,7 @@ import { UsersModule } from './users/users.module';
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     }),
   ],
   controllers: [AuthController],

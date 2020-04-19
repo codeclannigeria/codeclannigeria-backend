@@ -10,13 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
+const swagger_1 = require("@nestjs/swagger");
 class PagedResDto {
+    constructor(totalCount, items, type) {
+        this.items = items;
+        this.type = type;
+        this.totalCount = totalCount;
+    }
     static _OPENAPI_METADATA_FACTORY() {
-        return { totalCount: { required: true, type: () => Number }, items: { required: true } };
+        return { type: { required: true, type: () => Object }, items: { required: true }, totalCount: { required: true, type: () => Number } };
     }
 }
+__decorate([
+    class_transformer_1.Exclude(),
+    __metadata("design:type", Function)
+], PagedResDto.prototype, "type", void 0);
 __decorate([
     swagger_1.ApiProperty(),
     __metadata("design:type", Number)
@@ -24,6 +34,7 @@ __decorate([
 __decorate([
     swagger_1.ApiProperty({
         isArray: true,
+        type: this.type,
     }),
     __metadata("design:type", Array)
 ], PagedResDto.prototype, "items", void 0);
@@ -50,12 +61,23 @@ __decorate([
     __metadata("design:type", String)
 ], PagedReqDto.prototype, "search", void 0);
 exports.PagedReqDto = PagedReqDto;
-function PaginatedResponseDto(Dto) {
-    class Paged extends Dto {
+function PaginatedResponseDto(entityDto) {
+    class Paged extends entityDto {
         static _OPENAPI_METADATA_FACTORY() {
             return { totalCount: { required: true, type: () => Number }, items: { required: true } };
         }
     }
+    __decorate([
+        swagger_1.ApiProperty(),
+        __metadata("design:type", Number)
+    ], Paged.prototype, "totalCount", void 0);
+    __decorate([
+        swagger_1.ApiProperty({
+            type: entityDto,
+            isArray: true,
+        }),
+        __metadata("design:type", Array)
+    ], Paged.prototype, "items", void 0);
     return Paged;
 }
 exports.PaginatedResponseDto = PaginatedResponseDto;

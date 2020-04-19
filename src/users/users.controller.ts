@@ -1,52 +1,31 @@
-import { User } from './models/user.entity';
-import { BaseController } from './../shared/base.controller';
-import {
-  Controller,
-  Get,
-  Query,
-  Post,
-  HttpCode,
-  HttpStatus,
-  Body,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AbstractCrudController } from './../shared/base.controller';
+import { CreateUserDto } from './models/dto/create-user.dto';
 import { UserDto } from './models/dto/user.dto';
 import { UsersService } from './users.service';
-import { PagedUserResDto } from './models/dto/paged.dto';
-import { plainToClass } from 'class-transformer';
-import { CreateUserDto } from './models/dto/create-user.dto';
-import { PagedReqDto } from '../shared/models/dto/paged.dto';
+import { User } from './models/user.entity';
 
 @ApiTags('Users')
 @Controller('users')
-export class UsersController extends BaseController<
+export class UsersController extends AbstractCrudController<
   User,
   UserDto,
-  CreateUserDto,
-  UserDto
-> {
+  CreateUserDto
+>({
+  entity: User,
+  entityDto: UserDto,
+  createDto: CreateUserDto,
+}) {
   constructor(private readonly usersService: UsersService) {
     super(usersService);
   }
 
-  @Get()
-  async findAll(@Query() query: PagedReqDto): Promise<PagedUserResDto> {
-    const { skip, limit, search } = query;
-    const users = await this.usersService
-      .findAll(search && { $text: { $search: search } })
-      .limit(limit)
-      .skip(skip);
-    const items = plainToClass(UserDto, users, {
-      enableImplicitConversion: true,
-      excludeExtraneousValues: true,
-    });
-    return { totalCount: limit, items };
-  }
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createUserDto: CreateUserDto): Promise<string> {
-    const user = this.usersService.createEntity(createUserDto);
-    await this.usersService.insertAsync(user);
-    return user.id;
-  }
+  // @Post()
+  // @HttpCode(HttpStatus.CREATED)
+  // async create(@Body() createUserDto: CreateUserDto): Promise<string> {
+  //   const user = this.usersService.createEntity(createUserDto);
+  //   await this.usersService.insertAsync(user);
+  //   return user.id;
+  // }
 }

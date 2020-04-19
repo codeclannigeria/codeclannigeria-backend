@@ -22,6 +22,7 @@ AppModule = __decorate([
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true,
+                useFindAndModify: false,
             }),
         ],
         controllers: [auth_controller_1.AuthController],
