@@ -1,11 +1,13 @@
-import { PagedReqDto } from '../shared/models/dto/paged.dto';
-import { CreateUserDto } from './models/dto/create-user.dto';
-import { PagedUserResDto } from './models/dto/paged.dto';
+import { User } from './models/user.entity';
+import { BaseController } from './../shared/base.controller';
 import { UserDto } from './models/dto/user.dto';
 import { UsersService } from './users.service';
-export declare class UsersController {
+import { PagedUserResDto } from './models/dto/paged.dto';
+import { CreateUserDto } from './models/dto/create-user.dto';
+import { PagedReqDto } from '../shared/models/dto/paged.dto';
+export declare class UsersController extends BaseController<User, UserDto, CreateUserDto, UserDto> {
     private readonly usersService;
     constructor(usersService: UsersService);
-    getUsers(query: PagedReqDto): Promise<PagedUserResDto>;
-    createUser(createUserDto: CreateUserDto): Promise<UserDto>;
+    findAll(query: PagedReqDto): Promise<PagedUserResDto>;
+    create(createUserDto: CreateUserDto): Promise<string>;
 }

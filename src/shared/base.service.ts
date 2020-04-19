@@ -134,18 +134,18 @@ export abstract class BaseService<T extends BaseEntity> {
     }
   }
 
-  update(item: T): QueryItem<T> {
+  update(id: string, item: Partial<T>): QueryItem<T> {
     return this.entity
-      .findByIdAndUpdate(BaseService.toObjectId(item.id), item, {
+      .findByIdAndUpdate(BaseService.toObjectId(id), item, {
         new: true,
       })
       .where('isDeleted')
       .ne(true);
   }
 
-  async updateAsync(item: T): Promise<DocumentType<T>> {
+  async updateAsync(id: string, item: Partial<T>): Promise<DocumentType<T>> {
     try {
-      return await this.update(item).exec();
+      return await this.update(id, item).exec();
     } catch (e) {
       BaseService.throwMongoError(e);
     }

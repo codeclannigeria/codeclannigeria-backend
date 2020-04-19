@@ -113,17 +113,17 @@ class BaseService {
             BaseService.throwMongoError(e);
         }
     }
-    update(item) {
+    update(id, item) {
         return this.entity
-            .findByIdAndUpdate(BaseService.toObjectId(item.id), item, {
+            .findByIdAndUpdate(BaseService.toObjectId(id), item, {
             new: true,
         })
             .where('isDeleted')
             .ne(true);
     }
-    async updateAsync(item) {
+    async updateAsync(id, item) {
         try {
-            return await this.update(item).exec();
+            return await this.update(id, item).exec();
         }
         catch (e) {
             BaseService.throwMongoError(e);

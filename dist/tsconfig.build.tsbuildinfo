@@ -1189,12 +1189,16 @@
         "version": "73e90234d1aabee79926f9617b95b6839e971155d6b47372ab52ce98e99e626e",
         "signature": "73e90234d1aabee79926f9617b95b6839e971155d6b47372ab52ce98e99e626e"
       },
+      "../node_modules/@types/bcrypt/index.d.ts": {
+        "version": "18b9a9702d2fc7d3766b0c8124133c761ad25a9d767925005777eb2c2cd8aeba",
+        "signature": "18b9a9702d2fc7d3766b0c8124133c761ad25a9d767925005777eb2c2cd8aeba"
+      },
       "../src/shared/constants.ts": {
         "version": "f032503339cb372be650ea267e334be9ab0b3d8797ceef2a7290f56c1bb52500",
         "signature": "35b3cad650cfb45b35a82d767c6213301e491553a0b8f2ddb0a3d414a45b2a28"
       },
       "../src/users/models/user.entity.ts": {
-        "version": "5e170c8e02b4b578108b951046a2e90644593ad2e4fdbba2658786b2dd100476",
+        "version": "59238c7046c72a0949674b32e7d498555f871a22933ecb139054ab9b279668ba",
         "signature": "fd9c4ba543feed3b8a5cffb0155b5171c384e42588d8e29b7117980fa05ae21f"
       },
       "../src/shared/models/base.entity.ts": {
@@ -1202,8 +1206,8 @@
         "signature": "7363973ec915a2191cff6d260ba9b7018efd86c7dade4b32397eea7567700f2d"
       },
       "../src/shared/base.service.ts": {
-        "version": "31c80c9d9ee95eab73459e1d91d53a5a5278593ffd2386406784552690f97f9a",
-        "signature": "c10cf23e139d6d69cc2a7828b042d7a6fcdebf14df76a44d01d9699f4a148a55"
+        "version": "e17bfa9bdaddec92064c44586f17d4ae219cb64d135cb67966f13a4033984821",
+        "signature": "f1f264d9c631b5dc3793d153f1cbc2103104afe76151a16b20a57a6369a42189"
       },
       "../src/users/users.service.ts": {
         "version": "3dee949998d16a32c120c6ce95ced1d0dd08d09d4459a979001471f37143a6e7",
@@ -1537,6 +1541,18 @@
         "version": "ef6679cf130ca51bdf508c2c6fc035e9d1fcfa8cc58f7fc4a2ab9919daf22239",
         "signature": "e4164ebe7b22cc0238f818a267ee3e9cbe4d58a8bac604840ad4fa70358336f0"
       },
+      "../src/shared/models/api-exception.model.ts": {
+        "version": "45ca926fae307c840c19c75013d6c131ec1b5953ce5008aa2cda555866aabd94",
+        "signature": "7a44b6fd8f57851ae848b0dce35e4bfdeb37a7c8d268339c595a70bd9c1d0669"
+      },
+      "../src/shared/models/dto/paged.dto.ts": {
+        "version": "fd953ee90f2dd6c3bb354bd9919d34a2f067865248ad7060770941320430b3ee",
+        "signature": "f2ac519d7b56ba55c8cc3b6d0d52027ea3b9707e1b21affcdd1b9ffc553afc7c"
+      },
+      "../src/shared/base.controller.ts": {
+        "version": "f06b0d0cfd8743114b5abc00cde94abfd89d46b9175f6bee31b26bafea30cff5",
+        "signature": "b97dc01c7119ae3bc1a46816e0f0e9e13279e3a0ca0cad52403a035f5b253839"
+      },
       "../node_modules/class-transformer/classtransformoptions.d.ts": {
         "version": "d89af0c250e1424959162beae79f2c2745c729d6ab8028503d322395d96d3a2b",
         "signature": "d89af0c250e1424959162beae79f2c2745c729d6ab8028503d322395d96d3a2b"
@@ -1565,25 +1581,21 @@
         "version": "097d4bf3331df1e138ffdcf92e1117f6841bc8337170d927fd955d5ee8a1674b",
         "signature": "097d4bf3331df1e138ffdcf92e1117f6841bc8337170d927fd955d5ee8a1674b"
       },
-      "../src/shared/models/dto/paged.dto.ts": {
-        "version": "fd953ee90f2dd6c3bb354bd9919d34a2f067865248ad7060770941320430b3ee",
-        "signature": "f2ac519d7b56ba55c8cc3b6d0d52027ea3b9707e1b21affcdd1b9ffc553afc7c"
-      },
       "../src/users/models/dto/user.dto.ts": {
         "version": "87141b88f6a2eb289b9a327ab155d7c4e01078442d31df7a1f67d0425dc4fba7",
         "signature": "1f95b619030569c68dc52fc548fbb03b987db6440d07867f4e053208f87cfa04"
-      },
-      "../src/users/models/dto/create-user.dto.ts": {
-        "version": "dfd83a430dcbaee00cdc3cdb94964bc4d6dac59e166db4c186a78d5f9865218a",
-        "signature": "69bd9e332fca3844de5a98f63128cbb2a8a204a3f3c21991eb9a3d3cd79a3f59"
       },
       "../src/users/models/dto/paged.dto.ts": {
         "version": "f52af8fc6356d203cbd9cb8f8602dfe4532ead12f1782f3be17044d5970b6117",
         "signature": "d1424bb66f83de2d4a173791a74702a1b49048d25c5b267d727dc2ead80e134c"
       },
+      "../src/users/models/dto/create-user.dto.ts": {
+        "version": "dfd83a430dcbaee00cdc3cdb94964bc4d6dac59e166db4c186a78d5f9865218a",
+        "signature": "69bd9e332fca3844de5a98f63128cbb2a8a204a3f3c21991eb9a3d3cd79a3f59"
+      },
       "../src/users/users.controller.ts": {
-        "version": "da726cea34d0d43a55d43d704b0c0cfff3d5a43dc884a57c05dbbe9c4c7bbedb",
-        "signature": "9f453a0f572bcc1a65e18b342503d6c351f5764c4d3586ea58e087eb29cdbd04"
+        "version": "39609e69ef32ebda962ce410fee23c0707eb44f7e3bed13969ad4ef82e459739",
+        "signature": "aa7563a8b51259f14ee0762ef2e62003c65d35a4a6083d93cf9a697607a75d96"
       },
       "../src/users/users.module.ts": {
         "version": "dd5cd05ad634ac94fe3158f325ea95a79db74bef0e126cd2ecfe02ac5e3c2eb7",
@@ -1776,10 +1788,6 @@
       "../node_modules/@types/helmet/index.d.ts": {
         "version": "0689dfab1933604b01cfd5149a32d5fa383fbfef4a9e6c5a8d3a8cf2a4f52cde",
         "signature": "0689dfab1933604b01cfd5149a32d5fa383fbfef4a9e6c5a8d3a8cf2a4f52cde"
-      },
-      "../src/shared/models/api-exception.model.ts": {
-        "version": "45ca926fae307c840c19c75013d6c131ec1b5953ce5008aa2cda555866aabd94",
-        "signature": "7a44b6fd8f57851ae848b0dce35e4bfdeb37a7c8d268339c595a70bd9c1d0669"
       },
       "../src/shared/filters/http-exception.filter.ts": {
         "version": "95ca5e3557427c613711a3afd9cfff812d0ed3d79775f80b3361b1f4b93054ca",
@@ -4327,6 +4335,12 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@types/bcrypt/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/shared/constants.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -4334,9 +4348,11 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/users/models/user.entity.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@typegoose/typegoose/lib/typegoose.d.ts",
+        "../node_modules/@types/bcrypt/index.d.ts",
         "../src/shared/constants.ts",
         "../src/shared/models/base.entity.ts",
-        "../node_modules/@typegoose/typegoose/lib/typegoose.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -5015,6 +5031,34 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/shared/models/api-exception.model.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/models/dto/paged.dto.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/class-validator/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/base.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../src/shared/base.service.ts",
+        "../src/shared/models/api-exception.model.ts",
+        "../src/shared/models/base.entity.ts",
+        "../src/shared/models/dto/paged.dto.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../node_modules/class-transformer/classtransformoptions.d.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -5068,26 +5112,10 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/shared/models/dto/paged.dto.ts": [
-        "../node_modules/@nestjs/swagger/index.d.ts",
-        "../node_modules/class-validator/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../src/users/models/dto/user.dto.ts": [
         "../src/shared/constants.ts",
         "../node_modules/class-validator/index.d.ts",
         "../node_modules/class-transformer/index.d.ts",
-        "../node_modules/@nestjs/swagger/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/users/models/dto/create-user.dto.ts": [
-        "../src/users/models/dto/user.dto.ts",
         "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -5103,15 +5131,25 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/users/models/dto/create-user.dto.ts": [
+        "../src/users/models/dto/user.dto.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/users/users.controller.ts": [
+        "../src/users/models/user.entity.ts",
+        "../src/shared/base.controller.ts",
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/swagger/index.d.ts",
-        "../node_modules/class-transformer/index.d.ts",
-        "../src/shared/models/dto/paged.dto.ts",
-        "../src/users/models/dto/create-user.dto.ts",
-        "../src/users/models/dto/paged.dto.ts",
         "../src/users/models/dto/user.dto.ts",
         "../src/users/users.service.ts",
+        "../src/users/models/dto/paged.dto.ts",
+        "../node_modules/class-transformer/index.d.ts",
+        "../src/users/models/dto/create-user.dto.ts",
+        "../src/shared/models/dto/paged.dto.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -5538,14 +5576,6 @@
       ],
       "../node_modules/@types/helmet/index.d.ts": [
         "../node_modules/@types/express/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/shared/models/api-exception.model.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -8213,6 +8243,12 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@types/bcrypt/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/users/models/user.entity.ts": [
         "../src/shared/models/base.entity.ts"
       ],
@@ -8850,6 +8886,11 @@
         "../src/auth/models/dto/auth.dto.ts",
         "../node_modules/@types/express/index.d.ts"
       ],
+      "../src/shared/base.controller.ts": [
+        "../src/shared/models/base.entity.ts",
+        "../src/shared/base.service.ts",
+        "../src/shared/models/dto/paged.dto.ts"
+      ],
       "../node_modules/class-transformer/classtransformoptions.d.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -8903,19 +8944,21 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/users/models/dto/create-user.dto.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/users/models/dto/user.dto.ts"
-      ],
       "../src/users/models/dto/paged.dto.ts": [
         "../src/users/models/dto/user.dto.ts",
         "../src/shared/models/dto/paged.dto.ts"
+      ],
+      "../src/users/models/dto/create-user.dto.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/users/models/dto/user.dto.ts"
       ],
       "../src/users/users.controller.ts": [
         "../src/users/users.service.ts",
         "../src/shared/models/dto/paged.dto.ts",
         "../src/users/models/dto/paged.dto.ts",
         "../src/users/models/dto/create-user.dto.ts",
+        "../src/shared/base.controller.ts",
+        "../src/users/models/user.entity.ts",
         "../src/users/models/dto/user.dto.ts"
       ],
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": [
@@ -9851,6 +9894,7 @@
       "../node_modules/@typegoose/typegoose/lib/internal/constants.d.ts",
       "../node_modules/@typegoose/typegoose/lib/internal/utils.d.ts",
       "../node_modules/@typegoose/typegoose/lib/typegoose.d.ts",
+      "../node_modules/@types/bcrypt/index.d.ts",
       "../src/shared/constants.ts",
       "../src/users/models/user.entity.ts",
       "../src/shared/models/base.entity.ts",
@@ -9938,6 +9982,9 @@
       "../node_modules/@nestjs/swagger/dist/index.d.ts",
       "../node_modules/@nestjs/swagger/index.d.ts",
       "../src/auth/auth.controller.ts",
+      "../src/shared/models/api-exception.model.ts",
+      "../src/shared/models/dto/paged.dto.ts",
+      "../src/shared/base.controller.ts",
       "../node_modules/class-transformer/classtransformoptions.d.ts",
       "../node_modules/class-transformer/classtransformer.d.ts",
       "../node_modules/class-transformer/metadata/exposeexcludeoptions.d.ts",
@@ -9946,10 +9993,8 @@
       "../node_modules/class-transformer/decorators.d.ts",
       "../node_modules/class-transformer/index.d.ts",
       "../src/users/models/dto/user.dto.ts",
-      "../src/users/models/dto/create-user.dto.ts",
       "../src/users/models/dto/paged.dto.ts",
-      "../src/users/users.controller.ts",
-      "../src/users/users.module.ts",
+      "../src/users/models/dto/create-user.dto.ts",
       "../src/auth/constants.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
@@ -9997,7 +10042,6 @@
       "../node_modules/@types/compression/index.d.ts",
       "../node_modules/@types/express-rate-limit/index.d.ts",
       "../node_modules/@types/helmet/index.d.ts",
-      "../src/shared/models/api-exception.model.ts",
       "../src/shared/filters/http-exception.filter.ts",
       "../src/main.ts",
       "../src/auth/guards/local-auth.guard.ts",
@@ -10038,7 +10082,8 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/models/dto/paged.dto.ts"
+      "../src/users/users.controller.ts",
+      "../src/users/users.module.ts"
     ]
   },
   "version": "3.8.3"

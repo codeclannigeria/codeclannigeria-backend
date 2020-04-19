@@ -10,24 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
+const common_1 = require("@nestjs/common");
+const typegoose_1 = require("@typegoose/typegoose");
+const bcrypt_1 = require("bcrypt");
 const constants_1 = require("../../shared/constants");
 const base_entity_1 = require("../../shared/models/base.entity");
-const typegoose_1 = require("@typegoose/typegoose");
 let User = class User extends base_entity_1.BaseEntity {
     static _OPENAPI_METADATA_FACTORY() {
         return { firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
 };
 __decorate([
-    typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
+    typegoose_1.prop({
+        required: true,
+        maxlength: constants_1.columnSize.length64,
+        trim: true,
+        text: true,
+        unique: false,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "firstName", void 0);
 __decorate([
-    typegoose_1.prop({ required: true, maxlength: constants_1.columnSize.length64 }),
+    typegoose_1.prop({
+        required: true,
+        maxlength: constants_1.columnSize.length64,
+        trim: true,
+        text: true,
+        unique: false,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
-    typegoose_1.prop({ unique: true, index: true, maxlength: constants_1.columnSize.length64 }),
+    typegoose_1.prop({
+        required: true,
+        maxlength: constants_1.columnSize.length64,
+        trim: true,
+        lowercase: true,
+        text: true,
+        unique: true,
+    }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
@@ -35,8 +56,13 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 User = __decorate([
-    typegoose_1.pre('save', function () {
-        this.password = 'Yeller';
+    typegoose_1.pre('save', async function () {
+        try {
+            this.password = await bcrypt_1.hash(this.password, 10);
+        }
+        catch (e) {
+            throw new common_1.InternalServerErrorException(e);
+        }
     })
 ], User);
 exports.User = User;

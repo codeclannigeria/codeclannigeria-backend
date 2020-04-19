@@ -1,48 +1,52 @@
+import { User } from './models/user.entity';
+import { BaseController } from './../shared/base.controller';
 import {
-  Body,
   Controller,
   Get,
+  Query,
+  Post,
   HttpCode,
   HttpStatus,
-  Post,
-  Query,
+  Body,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { plainToClass } from 'class-transformer';
-import { PagedReqDto } from '../shared/models/dto/paged.dto';
-import { CreateUserDto } from './models/dto/create-user.dto';
-import { PagedUserResDto } from './models/dto/paged.dto';
 import { UserDto } from './models/dto/user.dto';
 import { UsersService } from './users.service';
+import { PagedUserResDto } from './models/dto/paged.dto';
+import { plainToClass } from 'class-transformer';
+import { CreateUserDto } from './models/dto/create-user.dto';
+import { PagedReqDto } from '../shared/models/dto/paged.dto';
 
 @ApiTags('Users')
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UsersController extends BaseController<
+  User,
+  UserDto,
+  CreateUserDto,
+  UserDto
+> {
+  constructor(private readonly usersService: UsersService) {
+    super(usersService);
+  }
 
   @Get()
-  async getUsers(@Query() query: PagedReqDto): Promise<PagedUserResDto> {
-    const { skip, limit } = query;
+  async findAll(@Query() query: PagedReqDto): Promise<PagedUserResDto> {
+    const { skip, limit, search } = query;
     const users = await this.usersService
-      .findAll()
+      .findAll(search && { $text: { $search: search } })
       .limit(limit)
       .skip(skip);
     const items = plainToClass(UserDto, users, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true,
     });
-    const totalCount = await this.usersService.countAsync();
-
-    return { totalCount, items };
+    return { totalCount: limit, items };
   }
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<string> {
     const user = this.usersService.createEntity(createUserDto);
     await this.usersService.insertAsync(user);
-    return plainToClass(UserDto, user, {
-      enableImplicitConversion: true,
-      excludeExtraneousValues: true,
-    });
+    return user.id;
   }
 }

@@ -26,8 +26,8 @@ export declare abstract class BaseService<T extends BaseEntity> {
     deleteById(id: string): QueryItem<T>;
     softDeleteById(id: string): QueryItem<T>;
     deleteByIdAsync(id: string): Promise<DocumentType<T>>;
-    update(item: T): QueryItem<T>;
-    updateAsync(item: T): Promise<DocumentType<T>>;
+    update(id: string, item: Partial<T>): QueryItem<T>;
+    updateAsync(id: string, item: Partial<T>): Promise<DocumentType<T>>;
     count(filter?: {}): Query<number>;
     countAsync(filter?: {}): Promise<number>;
 }
