@@ -11,11 +11,13 @@ const mongoose_1 = require("@nestjs/mongoose");
 const auth_controller_1 = require("./auth/auth.controller");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
+const shared_1 = require("./shared");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            shared_1.AbstractModule.forRoot(),
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
             mongoose_1.MongooseModule.forRoot('mongodb://localhost/nest', {

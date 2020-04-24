@@ -1582,11 +1582,11 @@
         "signature": "ccf3dff08dd6904fd9ef92c54daf55fd71734ddd5789a61a7a9fb76f70477883"
       },
       "../src/shared/models/dto/paged.dto.ts": {
-        "version": "f7c3af233eeb4f0b73c098d37a927bdc3ee6473499f9a4fb96d90a7f1537d5d3",
+        "version": "c6c043e1dfafd230c2bd7610948c491d263d46410d46c6f64e3e7a57568e4802",
         "signature": "a16132188bc55f87f6fe2b8de411042132ceaaca8674f1831bd51676ce18e68a"
       },
       "../src/shared/base.controller.ts": {
-        "version": "a7d7060b385ef88a4b7572ab4adce339fd8d9cf8ca074ad9e63e18622ca7be0c",
+        "version": "a6e4c242b6549bc453e30ebbe3d669dbf61c006028d6c32739f98cf60bcb8874",
         "signature": "a46a66e4572135932dc11cb08d6b013a73192c54e4e5090410fa7b9b73acb539"
       },
       "../src/users/models/dto/user.dto.ts": {
@@ -1777,8 +1777,100 @@
         "version": "2fa39e2599e0f64eb4c028fff3d9f9254959de5727a632e2ade9c928d70c9de2",
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
+      "../src/shared/models/abstract.model.ts": {
+        "version": "9849a5ad56c5143c46a3df46084ce049aac2232176061b0ebdefb4d90364b901",
+        "signature": "bd43dd48990ed37baf610b69a1ff9e59f950f05785b7c13618c1468a8d913db8"
+      },
+      "../src/shared/models/abstract-vm.model.ts": {
+        "version": "a4a1ace390603f778bfb027139e9b8c5f2e8d0d850a55510656bf4b65dc1f233",
+        "signature": "b1bccf2ae0b48e8d4cb10527e98ec7a0aaf6650b11512bc778216e236d0e4f57"
+      },
+      "../src/shared/models/index.ts": {
+        "version": "55d8fae8714598cfc1cfe60fd40391386a8cfd7e60adf70cfd62a00799e1dab0",
+        "signature": "41c4dcce78569fa247b41b64154661730d877d4ffe90e83768ac69b4f08af67f"
+      },
+      "../src/shared/interfaces/object-mapping.enum.ts": {
+        "version": "24ee3a74f7f2d507b9fac205aa5314d95abf54c5f829619c841721d03f5a998b",
+        "signature": "ff575d3f5f9c014705fcadaa10298225e1c7fadf30b9e212ddd52b6e84d3e4c1"
+      },
+      "../src/shared/interfaces/default-auth-object.interface.ts": {
+        "version": "dde07bcf106dd7d9e608172a1c0670badbd52287db17f1429f951bf60efc64cd",
+        "signature": "bbd69fd3aae46c511552c4860c6f6893b4fca2b09a2c9345cdea986b37a22bad"
+      },
+      "../src/shared/interfaces/abstract-controller-options.interface.ts": {
+        "version": "dd6957e08bc2600dba6e7be7a93daaed1db70cf018eb0abc145580a0dcf4def7",
+        "signature": "de8c4312dcc666016936a72591eda4a31c3f947b71767b6a17ba92056fd35672"
+      },
+      "../src/shared/interfaces/index.ts": {
+        "version": "0ca19f0d821dd69619a0db9e5355bd08d0431737c2c284f54d2420238f64c5c5",
+        "signature": "d8d99e0c3516e9b8572c05f69de0b6d9a7b62b4c0dc8432fccc669a2b3553967"
+      },
+      "../src/shared/types/abstract.type.ts": {
+        "version": "fc6438c150cdbbeebb603daadd4d5ceb21af7d95112246685318c6fde1f14b4f",
+        "signature": "64588cb5152ad84dc8fbc78e9a8f9251887eecda38ab085158f6359a53295adb"
+      },
+      "../src/shared/types/index.ts": {
+        "version": "d39f0e623d46aeced8fec4f9133e5118abab0230de0945fa7ee15e8d343d9d2a",
+        "signature": "c71d72dbc73d3f56e2877ed6d0749a15eb33d9e7d8aefb9cf006b3bd667e613c"
+      },
+      "../src/shared/abstract-core.service.ts": {
+        "version": "2c9c255784d71662d3628af7e4813a8b9bbc606fdc2049f3c12f5d722ab491c9",
+        "signature": "89de162963c279cb260498c59f74daa21d76ae7f548665b5f7232cc088ff4805"
+      },
+      "../src/shared/controllers/abstract.controller.ts": {
+        "version": "215cf2cee906c381eef67d70c01690d13319169d4bd01f4bc204bb80aa7405c0",
+        "signature": "4aacc2d065b1d366ab60d6101325d9b60c4161eb9607903b48d56bf958d03fdc"
+      },
+      "../src/shared/constants copy.ts": {
+        "version": "c9bc435ebdfe465793c6748ff04f6c20d16b781515a4de89f868b0bfb45743e0",
+        "signature": "37b207e24d72f10bc5485894667a0d26c0d3b9b49784f326e68198c2747060ea"
+      },
+      "../src/shared/decorators/authenticate.decorator.ts": {
+        "version": "ed73e097688c52c85b02620dfc0ae1dc78c0ac503d1429442b202128d4682a6d",
+        "signature": "68489ac74c9e0f3f65f4022c92d787f29525b1a54bc28dedb9f46231c2286e96"
+      },
+      "../src/shared/decorators/api-swagger-operation.decorator.ts": {
+        "version": "e83e9dcdb31f8680aafef26863ab7bda18425a77da63ada75dcdd5c6f8100a59",
+        "signature": "bf2cd1c03fa3c8bbdc3355ed67f9bdd8df8cb8c5c32660c95abd47a8bf0f9dee"
+      },
+      "../src/shared/decorators/index.ts": {
+        "version": "6bb9e43beabdc7031fa768ad976df8023940b58fea516063be2805afeef95371",
+        "signature": "5251e02b224f9f4d5d2fca61f7f3e269344f5131d50123f842cccbb32fc04d57"
+      },
+      "../src/shared/utils/get-auth-obj.util.ts": {
+        "version": "a45dd0cec224ad5bc57133723a144127f8f8390dac1a969d36dfbeaf36d56331",
+        "signature": "623b307c36e578b83f584b41e607816527e92ab93f74ef114763e828f61eb5d6"
+      },
+      "../src/shared/utils/index.ts": {
+        "version": "3e8159489558b7e99c2a94c79016fe3e60d6d3bb1210eb39e8a316c76ac0ef87",
+        "signature": "0736def21bdeadc1b62a2559c28836cd8e3a8fe89d75c95bba75cda940c633e3"
+      },
+      "../src/shared/controllers/abstract-with-auth.controller.ts": {
+        "version": "fd2deeac6ecabb3e19967d393468865546bb019015793ce117e2b2da6804a03a",
+        "signature": "3e05739d3b0398f4fa743f997e45da883ee98618b1af63062cadc4a8d47351eb"
+      },
+      "../src/shared/controllers/abstract-with-swagger.controller.ts": {
+        "version": "978f4f854fe19a34c05f871f6bb53bd130f3fbb67e633a4544308629e31f5f34",
+        "signature": "5297c1849f63881037249b7fae0fbd4da16970d9640085522293cd628ce85ef0"
+      },
+      "../src/shared/controllers/index.ts": {
+        "version": "b2f8fa4d861056a03c1559aa1df82a196fc3607f38a18d855709e8e266e3f4b3",
+        "signature": "94c922844af79f62c8621766a756d011743322913d77f723477ac3f71122442f"
+      },
+      "../src/shared/abstract-mongoose.service.ts": {
+        "version": "1384299d8889b08fed80681b3f3c355d59a1566bddc38438c5d58177f6b17e67",
+        "signature": "2a069644a2d2a066b81efad6c59d11bf5a5115c2272d1f98aeb2771a2b5b52e6"
+      },
+      "../src/shared/abstract.module.ts": {
+        "version": "f7b424195c9794e448d0b769efb6b331a5e794e610b9cbf6485838fbc254e5dc",
+        "signature": "60511aaa2ca8ad1fc35c12e8ddafe639397fff2fef85b8ef64c7703a6387b300"
+      },
+      "../src/shared/index.ts": {
+        "version": "dae1e44d7c88548b778b594b469a96552d0d03d8476a434465455f48412fa8b4",
+        "signature": "faf28c1912d0874505646fc974b88d18d17b6e987fe690a2c8546382561b030b"
+      },
       "../src/app.module.ts": {
-        "version": "4776be5a0e60d803365d63d037abe9f6cfb02d6958c8580146ec40a573d55593",
+        "version": "d88ad9a68c44ebe8fe545f1edcd3e06f23d9a39ad1c87e1cc19edfc823c9ea90",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@types/compression/index.d.ts": {
@@ -1804,6 +1896,22 @@
       "../src/auth/guards/local-auth.guard.ts": {
         "version": "80871795cd5dca4ea9daa59dc9e812b36f498550759b39eb571d50cbd1aa4d8b",
         "signature": "de00899ee8403ca6d4ac89938059031acd4e52dd417186b11c3803fd1e2247ba"
+      },
+      "../src/shared/interfaces copy/default-auth-object.interface.ts": {
+        "version": "dde07bcf106dd7d9e608172a1c0670badbd52287db17f1429f951bf60efc64cd",
+        "signature": "bbd69fd3aae46c511552c4860c6f6893b4fca2b09a2c9345cdea986b37a22bad"
+      },
+      "../src/shared/interfaces copy/abstract-controller-options.interface.ts": {
+        "version": "dd6957e08bc2600dba6e7be7a93daaed1db70cf018eb0abc145580a0dcf4def7",
+        "signature": "de8c4312dcc666016936a72591eda4a31c3f947b71767b6a17ba92056fd35672"
+      },
+      "../src/shared/interfaces copy/object-mapping.enum.ts": {
+        "version": "e3ea9f1447e470afc4761c070d92e251879addbb464bbabf431f765cb08d5717",
+        "signature": "1579ea3dec378084efeda5b7e80e0b5d695a8514d120abc399d6d69088ddc6af"
+      },
+      "../src/shared/interfaces copy/index.ts": {
+        "version": "0ca19f0d821dd69619a0db9e5355bd08d0431737c2c284f54d2420238f64c5c5",
+        "signature": "d8d99e0c3516e9b8572c05f69de0b6d9a7b62b4c0dc8432fccc669a2b3553967"
       },
       "../src/users/models/dto/paged.dto.ts": {
         "version": "d3effe81567d3263b49993666ea5a1868da99e853b20e7ec835c2796c1487475",
@@ -5116,9 +5224,9 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/shared/models/dto/paged.dto.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/class-transformer/index.d.ts",
         "../node_modules/class-validator/index.d.ts",
-        "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -5563,12 +5671,203 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/shared/models/abstract.model.ts": [
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/models/abstract-vm.model.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/models/index.ts": [
+        "../src/shared/models/abstract.model.ts",
+        "../src/shared/models/abstract-vm.model.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces/object-mapping.enum.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces/default-auth-object.interface.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces/abstract-controller-options.interface.ts": [
+        "../src/shared/interfaces/default-auth-object.interface.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces/index.ts": [
+        "../src/shared/interfaces/object-mapping.enum.ts",
+        "../src/shared/interfaces/abstract-controller-options.interface.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/types/abstract.type.ts": [
+        "../src/shared/models/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/types/index.ts": [
+        "../src/shared/types/abstract.type.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/abstract-core.service.ts": [
+        "../src/shared/types/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/controllers/abstract.controller.ts": [
+        "../src/shared/interfaces/index.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/shared/types/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/constants copy.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/decorators/authenticate.decorator.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/decorators/api-swagger-operation.decorator.ts": [
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/decorators/index.ts": [
+        "../src/shared/decorators/authenticate.decorator.ts",
+        "../src/shared/decorators/api-swagger-operation.decorator.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/utils/get-auth-obj.util.ts": [
+        "../src/shared/interfaces/default-auth-object.interface.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/utils/index.ts": [
+        "../src/shared/utils/get-auth-obj.util.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/controllers/abstract-with-auth.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/constants copy.ts",
+        "../src/shared/decorators/index.ts",
+        "../src/shared/interfaces/index.ts",
+        "../src/shared/types/index.ts",
+        "../src/shared/utils/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/controllers/abstract-with-swagger.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/constants copy.ts",
+        "../src/shared/decorators/index.ts",
+        "../src/shared/interfaces/index.ts",
+        "../src/shared/types/index.ts",
+        "../src/shared/utils/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/controllers/index.ts": [
+        "../src/shared/controllers/abstract.controller.ts",
+        "../src/shared/controllers/abstract-with-auth.controller.ts",
+        "../src/shared/controllers/abstract-with-swagger.controller.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/abstract-mongoose.service.ts": [
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/types/index.ts",
+        "../src/shared/models/index.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/abstract.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/abstract-mongoose.service.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/index.ts": [
+        "../src/shared/models/index.ts",
+        "../src/shared/interfaces/index.ts",
+        "../src/shared/controllers/index.ts",
+        "../src/shared/abstract.module.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/abstract-mongoose.service.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/app.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/mongoose/index.d.ts",
         "../src/auth/auth.controller.ts",
         "../src/auth/auth.module.ts",
         "../src/users/users.module.ts",
+        "../src/shared/index.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -5621,6 +5920,33 @@
       "../src/auth/guards/local-auth.guard.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/passport/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces copy/default-auth-object.interface.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces copy/abstract-controller-options.interface.ts": [
+        "../src/shared/interfaces copy/default-auth-object.interface.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces copy/object-mapping.enum.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/interfaces copy/index.ts": [
+        "../src/shared/interfaces copy/object-mapping.enum.ts",
+        "../src/shared/interfaces copy/abstract-controller-options.interface.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -9322,6 +9648,70 @@
       "../src/auth/strategies/jwt.strategy.ts": [
         "../node_modules/@types/passport-jwt/index.d.ts"
       ],
+      "../src/shared/models/abstract.model.ts": [
+        "../node_modules/@types/mongoose/index.d.ts"
+      ],
+      "../src/shared/models/index.ts": [
+        "../src/shared/models/abstract.model.ts",
+        "../src/shared/models/abstract-vm.model.ts"
+      ],
+      "../src/shared/interfaces/abstract-controller-options.interface.ts": [
+        "../src/shared/interfaces/default-auth-object.interface.ts"
+      ],
+      "../src/shared/interfaces/index.ts": [
+        "../src/shared/interfaces/object-mapping.enum.ts",
+        "../src/shared/interfaces/abstract-controller-options.interface.ts"
+      ],
+      "../src/shared/types/abstract.type.ts": [
+        "../src/shared/models/index.ts"
+      ],
+      "../src/shared/types/index.ts": [
+        "../src/shared/types/abstract.type.ts"
+      ],
+      "../src/shared/abstract-core.service.ts": [
+        "../src/shared/types/index.ts"
+      ],
+      "../src/shared/controllers/abstract.controller.ts": [
+        "../src/shared/interfaces/index.ts"
+      ],
+      "../src/shared/decorators/index.ts": [
+        "../src/shared/decorators/authenticate.decorator.ts",
+        "../src/shared/decorators/api-swagger-operation.decorator.ts"
+      ],
+      "../src/shared/utils/get-auth-obj.util.ts": [
+        "../src/shared/interfaces/default-auth-object.interface.ts"
+      ],
+      "../src/shared/utils/index.ts": [
+        "../src/shared/utils/get-auth-obj.util.ts"
+      ],
+      "../src/shared/controllers/abstract-with-auth.controller.ts": [
+        "../src/shared/interfaces/index.ts"
+      ],
+      "../src/shared/controllers/abstract-with-swagger.controller.ts": [
+        "../src/shared/interfaces/index.ts"
+      ],
+      "../src/shared/controllers/index.ts": [
+        "../src/shared/controllers/abstract.controller.ts",
+        "../src/shared/controllers/abstract-with-auth.controller.ts",
+        "../src/shared/controllers/abstract-with-swagger.controller.ts"
+      ],
+      "../src/shared/abstract-mongoose.service.ts": [
+        "../src/shared/models/index.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../src/shared/types/index.ts",
+        "../src/shared/abstract-core.service.ts"
+      ],
+      "../src/shared/abstract.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts"
+      ],
+      "../src/shared/index.ts": [
+        "../src/shared/models/index.ts",
+        "../src/shared/interfaces/index.ts",
+        "../src/shared/controllers/index.ts",
+        "../src/shared/abstract.module.ts",
+        "../src/shared/abstract-core.service.ts",
+        "../src/shared/abstract-mongoose.service.ts"
+      ],
       "../node_modules/@types/compression/index.d.ts": [
         "../node_modules/@types/express/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -9348,6 +9738,13 @@
       ],
       "../src/auth/guards/local-auth.guard.ts": [
         "../node_modules/@nestjs/passport/index.d.ts"
+      ],
+      "../src/shared/interfaces copy/abstract-controller-options.interface.ts": [
+        "../src/shared/interfaces copy/default-auth-object.interface.ts"
+      ],
+      "../src/shared/interfaces copy/index.ts": [
+        "../src/shared/interfaces copy/object-mapping.enum.ts",
+        "../src/shared/interfaces copy/abstract-controller-options.interface.ts"
       ],
       "../src/users/models/dto/paged.dto.ts": [
         "../src/users/models/dto/user.dto.ts",
@@ -9922,6 +10319,8 @@
       "../node_modules/class-transformer/index.d.ts",
       "../src/users/models/user.entity.ts",
       "../src/shared/models/base.entity.ts",
+      "../src/shared/base.service.ts",
+      "../src/users/users.service.ts",
       "../node_modules/@types/jsonwebtoken/index.d.ts",
       "../node_modules/@nestjs/jwt/dist/interfaces/jwt-module-options.interface.d.ts",
       "../node_modules/@nestjs/jwt/dist/interfaces/index.d.ts",
@@ -9929,6 +10328,7 @@
       "../node_modules/@nestjs/jwt/dist/jwt.service.d.ts",
       "../node_modules/@nestjs/jwt/dist/index.d.ts",
       "../node_modules/@nestjs/jwt/index.d.ts",
+      "../src/auth/auth.service.ts",
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts",
       "../node_modules/@nestjs/passport/dist/interfaces/auth-module.options.d.ts",
       "../node_modules/@nestjs/passport/dist/interfaces/type.interface.d.ts",
@@ -10002,11 +10402,14 @@
       "../node_modules/@nestjs/swagger/dist/utils/index.d.ts",
       "../node_modules/@nestjs/swagger/dist/index.d.ts",
       "../node_modules/@nestjs/swagger/index.d.ts",
+      "../src/auth/auth.controller.ts",
       "../src/shared/interfaces/base-controller-interface.ts",
       "../src/shared/models/api-exception.model.ts",
       "../src/shared/models/dto/paged.dto.ts",
       "../src/users/models/dto/user.dto.ts",
       "../src/users/models/dto/create-user.dto.ts",
+      "../src/users/users.controller.ts",
+      "../src/users/users.module.ts",
       "../src/auth/constants.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
@@ -10046,14 +10449,44 @@
       "../node_modules/@nestjs/core/index.d.ts",
       "../node_modules/@types/passport-strategy/index.d.ts",
       "../node_modules/@types/passport-local/index.d.ts",
+      "../src/auth/strategies/local.strategy.ts",
       "../node_modules/@types/passport-jwt/index.d.ts",
       "../src/auth/strategies/jwt.strategy.ts",
+      "../src/auth/auth.module.ts",
+      "../src/shared/models/abstract.model.ts",
+      "../src/shared/models/abstract-vm.model.ts",
+      "../src/shared/models/index.ts",
+      "../src/shared/interfaces/object-mapping.enum.ts",
+      "../src/shared/interfaces/default-auth-object.interface.ts",
+      "../src/shared/interfaces/abstract-controller-options.interface.ts",
+      "../src/shared/interfaces/index.ts",
+      "../src/shared/types/abstract.type.ts",
+      "../src/shared/types/index.ts",
+      "../src/shared/abstract-core.service.ts",
+      "../src/shared/controllers/abstract.controller.ts",
+      "../src/shared/constants copy.ts",
+      "../src/shared/decorators/authenticate.decorator.ts",
+      "../src/shared/decorators/api-swagger-operation.decorator.ts",
+      "../src/shared/decorators/index.ts",
+      "../src/shared/utils/get-auth-obj.util.ts",
+      "../src/shared/utils/index.ts",
+      "../src/shared/controllers/abstract-with-auth.controller.ts",
+      "../src/shared/controllers/abstract-with-swagger.controller.ts",
+      "../src/shared/controllers/index.ts",
+      "../src/shared/abstract-mongoose.service.ts",
+      "../src/shared/abstract.module.ts",
+      "../src/shared/index.ts",
+      "../src/app.module.ts",
       "../node_modules/@types/compression/index.d.ts",
       "../node_modules/@types/express-rate-limit/index.d.ts",
       "../node_modules/@types/helmet/index.d.ts",
       "../src/shared/filters/http-exception.filter.ts",
       "../src/main.ts",
       "../src/auth/guards/local-auth.guard.ts",
+      "../src/shared/interfaces copy/default-auth-object.interface.ts",
+      "../src/shared/interfaces copy/abstract-controller-options.interface.ts",
+      "../src/shared/interfaces copy/object-mapping.enum.ts",
+      "../src/shared/interfaces copy/index.ts",
       "../src/users/models/dto/paged.dto.ts",
       "../node_modules/@types/anymatch/index.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
@@ -10092,16 +10525,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/base.service.ts",
-      "../src/shared/base.controller.ts",
-      "../src/users/users.service.ts",
-      "../src/auth/auth.service.ts",
-      "../src/auth/auth.controller.ts",
-      "../src/users/users.controller.ts",
-      "../src/users/users.module.ts",
-      "../src/auth/strategies/local.strategy.ts",
-      "../src/auth/auth.module.ts",
-      "../src/app.module.ts"
+      "../src/shared/base.controller.ts"
     ]
   },
   "version": "3.8.3"

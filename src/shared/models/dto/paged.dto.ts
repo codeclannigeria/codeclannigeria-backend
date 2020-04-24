@@ -1,6 +1,6 @@
-import { Exclude, Type } from 'class-transformer';
-import { IsOptional, IsNumber, IsArray } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude, Type } from 'class-transformer';
+import { IsOptional } from 'class-validator';
 
 export type ClassType<T = any> = new (...args: any[]) => T;
 
@@ -18,9 +18,9 @@ export class PagedResDto<T> {
     isArray: true,
     type: this.type,
   })
-  // @Type(options => {
-  //   return (options.newObject as PagedResDto<T>).type;
-  // })
+  @Type(options => {
+    return (options.newObject as PagedResDto<T>).type;
+  })
   items: T[];
 }
 export interface IPaged<T> {

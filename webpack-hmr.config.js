@@ -16,6 +16,7 @@ module.exports = function(options) {
     plugins: [
       ...options.plugins,
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
       new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
       new StartServerPlugin({ name: options.output.filename }),
     ],

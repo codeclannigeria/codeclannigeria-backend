@@ -46,8 +46,8 @@ function AbstractCrudController(options) {
                 enableImplicitConversion: true,
             });
         }
-        async create(dto) {
-            const newEntity = this.baseService.createEntity(dto);
+        async create(input) {
+            const newEntity = this.baseService.createEntity(input);
             await this.baseService.insertAsync(newEntity);
             return class_transformer_1.plainToClass(createDto, newEntity, {
                 excludeExtraneousValues: true,
@@ -99,11 +99,9 @@ function AbstractCrudController(options) {
     ], BaseController.prototype, "findById", null);
     __decorate([
         common_1.Post(),
-        swagger_1.ApiCreatedResponse({
-            description: 'Entity successfully created.',
-        }),
-        swagger_1.ApiResponse({ status: common_1.HttpStatus.FORBIDDEN, description: 'Forbidden.' }),
-        swagger_1.ApiBadRequestResponse({ description: 'Bad Request.' }),
+        swagger_1.ApiResponse({ status: common_1.HttpStatus.CREATED }),
+        swagger_1.ApiResponse({ status: common_1.HttpStatus.FORBIDDEN }),
+        swagger_1.ApiResponse({ status: common_1.HttpStatus.BAD_REQUEST }),
         openapi.ApiResponse({ status: 201 }),
         __param(0, common_1.Body()),
         __metadata("design:type", Function),

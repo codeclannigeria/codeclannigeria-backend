@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
+const swagger_1 = require("@nestjs/swagger");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-const swagger_1 = require("@nestjs/swagger");
 class PagedResDto {
     constructor(totalCount, items, type) {
         this.items = items;
@@ -20,7 +20,7 @@ class PagedResDto {
         this.totalCount = totalCount;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { type: { required: true, type: () => Object }, items: { required: true }, totalCount: { required: true, type: () => Number } };
+        return { type: { required: true, type: () => Object }, totalCount: { required: true, type: () => Number }, items: { required: true } };
     }
 }
 __decorate([
@@ -35,6 +35,9 @@ __decorate([
     swagger_1.ApiProperty({
         isArray: true,
         type: this.type,
+    }),
+    class_transformer_1.Type(options => {
+        return options.newObject.type;
     }),
     __metadata("design:type", Array)
 ], PagedResDto.prototype, "items", void 0);

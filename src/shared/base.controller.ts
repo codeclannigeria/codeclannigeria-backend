@@ -15,6 +15,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiResponse,
+  ApiBody,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { BaseService } from './base.service';
@@ -69,30 +70,25 @@ export function AbstractCrudController<
     }
 
     @Post()
-    @ApiCreatedResponse({
-      description: 'Entity successfully created.',
-    })
-    @ApiResponse({ status: HttpStatus.FORBIDDEN, description: 'Forbidden.' })
-    @ApiBadRequestResponse({ description: 'Bad Request.' })
-    async create(@Body() dto: TCreateDto): Promise<TCreateDto> {
-      const newEntity = this.baseService.createEntity(dto);
+    @ApiResponse({ status: HttpStatus.CREATED })
+    @ApiResponse({ status: HttpStatus.FORBIDDEN })
+    @ApiResponse({ status: HttpStatus.BAD_REQUEST })
+    async create(@Body() input: TCreateDto): Promise<string> {
+      const newEntity = this.baseService.createEntity(input);
       await this.baseService.insertAsync(newEntity);
-      return plainToClass(createDto, newEntity, {
-        excludeExtraneousValues: true,
-        enableImplicitConversion: true,
-      });
+      return newEntity.id;
     }
 
     @Delete(':id')
-    @ApiOkResponse({ description: 'Entity deleted successfully.' })
-    @ApiBadRequestResponse({ type: ApiException, description: 'Bad Request.' })
+    @ApiOkResponse()
+    @ApiBadRequestResponse({ type: ApiException })
     async delete(@Param('id') id: string) {
       this.baseService.deleteByIdAsync(id);
     }
 
     @Put(':id')
-    @ApiBadRequestResponse({ type: ApiException, description: 'Bad Request.' })
-    @ApiOkResponse({ description: 'Entity updated successfully.' })
+    @ApiBadRequestResponse({ type: ApiException })
+    @ApiOkResponse()
     async update(
       @Param('id') id: string,
       @Body() input: TUpdateDto,
