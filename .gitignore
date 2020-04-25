@@ -427,7 +427,7 @@ dist/**/*
 
 # ignore yarn.lock and pack-lock.json
 yarn.lock
-package-lock.json
 
 # Ignore history folder
 .history/
+package-lock.json
