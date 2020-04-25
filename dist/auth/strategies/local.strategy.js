@@ -18,17 +18,14 @@ let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(pass
     constructor(moduleRef) {
         super({
             passReqToCallback: true,
+            usernameField: 'email',
         });
         this.moduleRef = moduleRef;
     }
     async validate(request, username, password) {
         const contextId = core_1.ContextIdFactory.getByRequest(request);
         const authService = await this.moduleRef.resolve(auth_service_1.AuthService, contextId);
-        const user = await authService.validateUser(username, password);
-        if (!user) {
-            throw new common_1.UnauthorizedException();
-        }
-        return user;
+        return await authService.validateUser(username, password);
     }
 };
 LocalStrategy = __decorate([

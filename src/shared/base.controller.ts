@@ -11,18 +11,16 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiResponse,
-  ApiBody,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { BaseService } from './base.service';
 import { AbstractControllerOptions } from './interfaces/base-controller-interface';
 import { ApiException } from './models/api-exception.model';
 import { BaseEntity } from './models/base.entity';
-import { PagedReqDto, PagedResDto } from './models/dto/paged.dto';
+import { PagedReqDto } from './models/dto/paged-req.dto';
 
 export function AbstractCrudController<
   T extends BaseEntity,
@@ -35,11 +33,9 @@ export function AbstractCrudController<
     constructor(protected readonly baseService: BaseService<T>) {}
 
     @Get()
-    @ApiOkResponse({})
+    @ApiOkResponse()
     @ApiBadRequestResponse({ type: ApiException })
-    async findAll(
-      @Query() query: PagedReqDto,
-    ): Promise<PagedResDto<TEntityDto>> {
+    async findAll(@Query() query: PagedReqDto) {
       const { skip, limit, search } = query;
       const entities = await this.baseService
         .findAll(search && { $text: { $search: search } })
@@ -50,7 +46,7 @@ export function AbstractCrudController<
         excludeExtraneousValues: true,
         enableImplicitConversion: true,
       });
-      return new PagedResDto<TEntityDto>(totalCount, items, entityDto);
+      return { items, totalCount };
     }
 
     @Get(':id')
@@ -70,7 +66,7 @@ export function AbstractCrudController<
     }
 
     @Post()
-    @ApiResponse({ status: HttpStatus.CREATED })
+    @ApiResponse({ type: createDto, status: HttpStatus.CREATED })
     @ApiResponse({ status: HttpStatus.FORBIDDEN })
     @ApiResponse({ status: HttpStatus.BAD_REQUEST })
     async create(@Body() input: TCreateDto): Promise<string> {

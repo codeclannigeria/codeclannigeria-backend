@@ -1,15 +1,22 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
+import * as session from 'express-session';
 import * as helmet from 'helmet';
+import * as passport from 'passport';
 import { AppModule } from './app.module';
+import { jwtConstants } from './auth/constants';
+import configuration from './shared/config/configuration';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // security
   app.enableCors();
@@ -39,14 +46,27 @@ async function bootstrap() {
     }),
   );
 
+  app.use(
+    session({
+      secret: jwtConstants.secret,
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.use(cookieParser());
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   const options = new DocumentBuilder()
     .setTitle('ToRead API')
     .setDescription('ToRead API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
-  await app.listen(3000);
+  await app.listen(configuration().port);
+
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());

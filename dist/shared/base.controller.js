@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const class_transformer_1 = require("class-transformer");
 const api_exception_model_1 = require("./models/api-exception.model");
-const paged_dto_1 = require("./models/dto/paged.dto");
+const paged_req_dto_1 = require("./models/dto/paged-req.dto");
 function AbstractCrudController(options) {
     const { entity, entityDto, createDto } = options;
     class BaseController {
@@ -35,7 +35,7 @@ function AbstractCrudController(options) {
                 excludeExtraneousValues: true,
                 enableImplicitConversion: true,
             });
-            return new paged_dto_1.PagedResDto(totalCount, items, entityDto);
+            return { items, totalCount };
         }
         async findById(id) {
             const entity = await this.baseService.findByIdAsync(id);
@@ -49,10 +49,7 @@ function AbstractCrudController(options) {
         async create(input) {
             const newEntity = this.baseService.createEntity(input);
             await this.baseService.insertAsync(newEntity);
-            return class_transformer_1.plainToClass(createDto, newEntity, {
-                excludeExtraneousValues: true,
-                enableImplicitConversion: true,
-            });
+            return newEntity.id;
         }
         async delete(id) {
             this.baseService.deleteByIdAsync(id);
@@ -76,12 +73,12 @@ function AbstractCrudController(options) {
     }
     __decorate([
         common_1.Get(),
-        swagger_1.ApiOkResponse({}),
+        swagger_1.ApiOkResponse(),
         swagger_1.ApiBadRequestResponse({ type: api_exception_model_1.ApiException }),
         openapi.ApiResponse({ status: 200 }),
         __param(0, common_1.Query()),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [paged_dto_1.PagedReqDto]),
+        __metadata("design:paramtypes", [paged_req_dto_1.PagedReqDto]),
         __metadata("design:returntype", Promise)
     ], BaseController.prototype, "findAll", null);
     __decorate([
@@ -99,10 +96,10 @@ function AbstractCrudController(options) {
     ], BaseController.prototype, "findById", null);
     __decorate([
         common_1.Post(),
-        swagger_1.ApiResponse({ status: common_1.HttpStatus.CREATED }),
+        swagger_1.ApiResponse({ type: createDto, status: common_1.HttpStatus.CREATED }),
         swagger_1.ApiResponse({ status: common_1.HttpStatus.FORBIDDEN }),
         swagger_1.ApiResponse({ status: common_1.HttpStatus.BAD_REQUEST }),
-        openapi.ApiResponse({ status: 201 }),
+        openapi.ApiResponse({ status: 201, type: String }),
         __param(0, common_1.Body()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
@@ -110,8 +107,8 @@ function AbstractCrudController(options) {
     ], BaseController.prototype, "create", null);
     __decorate([
         common_1.Delete(':id'),
-        swagger_1.ApiOkResponse({ description: 'Entity deleted successfully.' }),
-        swagger_1.ApiBadRequestResponse({ type: api_exception_model_1.ApiException, description: 'Bad Request.' }),
+        swagger_1.ApiOkResponse(),
+        swagger_1.ApiBadRequestResponse({ type: api_exception_model_1.ApiException }),
         openapi.ApiResponse({ status: 200 }),
         __param(0, common_1.Param('id')),
         __metadata("design:type", Function),
@@ -120,8 +117,8 @@ function AbstractCrudController(options) {
     ], BaseController.prototype, "delete", null);
     __decorate([
         common_1.Put(':id'),
-        swagger_1.ApiBadRequestResponse({ type: api_exception_model_1.ApiException, description: 'Bad Request.' }),
-        swagger_1.ApiOkResponse({ description: 'Entity updated successfully.' }),
+        swagger_1.ApiBadRequestResponse({ type: api_exception_model_1.ApiException }),
+        swagger_1.ApiOkResponse(),
         openapi.ApiResponse({ status: 200 }),
         __param(0, common_1.Param('id')),
         __param(1, common_1.Body()),

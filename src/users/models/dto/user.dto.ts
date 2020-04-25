@@ -1,7 +1,14 @@
-import { columnSize } from '../../../shared/constants';
-import { IsEmail, IsMongoId, MaxLength, IsAlpha } from 'class-validator';
-import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
+import {
+  IsAlpha,
+  IsEmail,
+  IsEnum,
+  IsMongoId,
+  MaxLength,
+} from 'class-validator';
+import { columnSize } from '../../../shared/constants';
+import { UserRole } from '../user.entity';
 
 export class UserDto {
   @Expose()
@@ -18,12 +25,13 @@ export class UserDto {
   @ApiProperty()
   @IsAlpha()
   lastName: string;
-  @ApiProperty()
-  @MaxLength(columnSize.length64)
-  password: string;
   @Expose()
   @ApiProperty()
   @IsEmail()
   @MaxLength(columnSize.length64)
   email: string;
+  @ApiProperty({ enum: UserRole })
+  @IsEnum(UserRole)
+  @Expose()
+  role: UserRole = UserRole.User;
 }

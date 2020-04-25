@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class AuthDto {
+class AuthReqDto {
     static _OPENAPI_METADATA_FACTORY() {
         return { email: { required: true, type: () => String }, password: { required: true, type: () => String } };
     }
@@ -19,10 +19,16 @@ class AuthDto {
 __decorate([
     class_validator_1.IsEmail(),
     __metadata("design:type", String)
-], AuthDto.prototype, "email", void 0);
+], AuthReqDto.prototype, "email", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
-], AuthDto.prototype, "password", void 0);
-exports.AuthDto = AuthDto;
+], AuthReqDto.prototype, "password", void 0);
+exports.AuthReqDto = AuthReqDto;
+class AuthResDto {
+    static _OPENAPI_METADATA_FACTORY() {
+        return { accessToken: { required: true, type: () => String }, expireInSeconds: { required: true, type: () => Number }, userId: { required: true, type: () => String } };
+    }
+}
+exports.AuthResDto = AuthResDto;
 //# sourceMappingURL=auth.dto.js.map

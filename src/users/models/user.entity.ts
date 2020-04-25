@@ -5,6 +5,12 @@ import { hash } from 'bcrypt';
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
 import { Exclude } from 'class-transformer';
+
+export enum UserRole {
+  User = 'User',
+  Admin = 'Admin',
+}
+
 @pre<User>('save', async function() {
   try {
     (this as Writable<User>).password = await hash(this.password, 10);
@@ -42,6 +48,13 @@ export class User extends BaseEntity {
   @Exclude()
   readonly password!: string;
 
+  @prop({
+    enum: UserRole,
+    type: String,
+    required: true,
+    default: UserRole.User,
+  })
+  readonly role: UserRole = UserRole.User;
   /**
    * Get User's full name
    *

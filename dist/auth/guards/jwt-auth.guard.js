@@ -8,7 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const configuration_1 = require("../../shared/config/configuration");
 let JwtAuthGuard = class JwtAuthGuard extends passport_1.AuthGuard('jwt') {
+    canActivate(context) {
+        return configuration_1.default().isAuthEnabled ? super.canActivate(context) : true;
+    }
 };
 JwtAuthGuard = __decorate([
     common_1.Injectable()

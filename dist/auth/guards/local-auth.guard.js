@@ -9,6 +9,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 let LocalAuthGuard = class LocalAuthGuard extends passport_1.AuthGuard('local') {
+    async canActivate(context) {
+        const isValid = (await super.canActivate(context));
+        const request = context.switchToHttp().getRequest();
+        await super.logIn(request);
+        return isValid;
+    }
 };
 LocalAuthGuard = __decorate([
     common_1.Injectable()

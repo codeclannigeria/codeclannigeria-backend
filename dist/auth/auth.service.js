@@ -8,39 +8,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const bcrypt = require("bcrypt");
 const users_service_1 = require("../users/users.service");
 const jwt_1 = require("@nestjs/jwt");
+const user_entity_1 = require("../users/models/user.entity");
 let AuthService = class AuthService {
     constructor(usersService, jwtService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
     }
-    async validateUser(username, pass) {
-        const user = await this.usersService.findOne(username);
-        if (user && user.password === pass) {
-            const result = __rest(user, []);
-            return result;
+    async validateUser(email, pw) {
+        const user = await this.usersService.findOneAsync({ email });
+        if (!user)
+            throw new common_1.UnauthorizedException('Invalid login attempt');
+        try {
+            const isValid = await bcrypt.compare(pw, user.password);
+            if (!isValid)
+                throw new common_1.UnauthorizedException('Invalid login attempt');
         }
-        return null;
+        catch (error) {
+            throw new common_1.UnauthorizedException('Invalid login attempt');
+        }
+        return user;
     }
-    async login(user) {
-        const payload = { username: user.username, sub: user.userId };
-        return {
-            accessToken: this.jwtService.sign(payload),
+    login(user) {
+        const expiresIn = 60 * 60 * 60 * 24;
+        const payload = {
+            email: user.email,
+            userId: user.id,
+            userRole: user.role,
         };
+        const result = this.jwtService.sign(payload, { expiresIn });
+        return {
+            accessToken: result,
+            expireInSeconds: expiresIn,
+            userId: user.id,
+        };
+    }
+    async getProfileAsync(email) {
+        return this.usersService.findOneAsync({ email });
     }
 };
 AuthService = __decorate([

@@ -10,13 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-const constants_1 = require("../../../shared/constants");
-const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
 const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
+const constants_1 = require("../../../shared/constants");
+const user_entity_1 = require("../user.entity");
 class UserDto {
+    constructor() {
+        this.role = user_entity_1.UserRole.User;
+    }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, firstName: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, lastName: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, password: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, email: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 } };
+        return { id: { required: true, type: () => String }, firstName: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, lastName: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, email: { required: true, type: () => String, maxLength: constants_1.columnSize.length64 }, role: { required: true, default: user_entity_1.UserRole.User, enum: require("../user.entity").UserRole } };
     }
 }
 __decorate([
@@ -40,16 +44,17 @@ __decorate([
     __metadata("design:type", String)
 ], UserDto.prototype, "lastName", void 0);
 __decorate([
-    swagger_1.ApiProperty(),
-    class_validator_1.MaxLength(constants_1.columnSize.length64),
-    __metadata("design:type", String)
-], UserDto.prototype, "password", void 0);
-__decorate([
     class_transformer_1.Expose(),
     swagger_1.ApiProperty(),
     class_validator_1.IsEmail(),
     class_validator_1.MaxLength(constants_1.columnSize.length64),
     __metadata("design:type", String)
 ], UserDto.prototype, "email", void 0);
+__decorate([
+    swagger_1.ApiProperty({ enum: user_entity_1.UserRole }),
+    class_validator_1.IsEnum(user_entity_1.UserRole),
+    class_transformer_1.Expose(),
+    __metadata("design:type", String)
+], UserDto.prototype, "role", void 0);
 exports.UserDto = UserDto;
 //# sourceMappingURL=user.dto.js.map

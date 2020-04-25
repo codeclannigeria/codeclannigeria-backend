@@ -1,12 +1,10 @@
-/// <reference types="passport" />
-import { AuthService } from './auth.service';
-import { AuthDto } from './models/dto/auth.dto';
 import { Request } from 'express';
+import { UserDto } from 'src/users/models/dto/user.dto';
+import { AuthService } from './auth.service';
+import { AuthReqDto } from './models/dto/auth.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    login(authDto: AuthDto, req: Request): Promise<{
-        accessToken: string;
-    }>;
-    getProfile(req: Request): Promise<Express.User>;
+    login(_: AuthReqDto, req: Request): Promise<import("./models/dto/auth.dto").AuthResDto>;
+    getProfile(req: Request): Promise<UserDto>;
 }

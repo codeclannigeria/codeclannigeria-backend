@@ -10,20 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const openapi = require("@nestjs/swagger");
-const paged_dto_1 = require("../../../shared/models/dto/paged.dto");
-const user_dto_1 = require("./user.dto");
 const swagger_1 = require("@nestjs/swagger");
-class PagedUserResDto extends paged_dto_1.PagedResDto {
-    static _OPENAPI_METADATA_FACTORY() {
-        return { items: { required: true, type: () => [require("./user.dto").UserDto] } };
+function PaginatedResDto(entityDto) {
+    class Paged {
+        static _OPENAPI_METADATA_FACTORY() {
+            return { totalCount: { required: true, type: () => Number }, items: { required: true } };
+        }
     }
+    __decorate([
+        swagger_1.ApiProperty(),
+        __metadata("design:type", Number)
+    ], Paged.prototype, "totalCount", void 0);
+    __decorate([
+        swagger_1.ApiProperty({
+            type: entityDto,
+            isArray: true,
+        }),
+        __metadata("design:type", Array)
+    ], Paged.prototype, "items", void 0);
+    return Paged;
 }
-__decorate([
-    swagger_1.ApiProperty({
-        isArray: true,
-        type: user_dto_1.UserDto,
-    }),
-    __metadata("design:type", Array)
-], PagedUserResDto.prototype, "items", void 0);
-exports.PagedUserResDto = PagedUserResDto;
-//# sourceMappingURL=paged.dto.js.map
+exports.PaginatedResDto = PaginatedResDto;
+//# sourceMappingURL=paged-res.dto.js.map

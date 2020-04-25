@@ -1,4 +1,4 @@
-import { Writable } from './../utils/writable';
+import { Writable } from '../utils/writable';
 import { User } from '../../users/models/user.entity';
 import { Schema } from 'mongoose';
 import { buildSchema, prop, Ref } from '@typegoose/typegoose';

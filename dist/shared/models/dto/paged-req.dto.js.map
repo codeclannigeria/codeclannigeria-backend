@@ -1,0 +1,1 @@
+{"version":3,"file":"paged-req.dto.js","sourceRoot":"","sources":["../../../../src/shared/models/dto/paged-req.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAA6C;AAE7C,MAAa,WAAW;IAAxB;QAEE,SAAI,GAAY,CAAC,CAAC;QAElB,UAAK,GAAY,GAAG,CAAC;KAGtB;;uEALiB,CAAC,2DAEA,GAAG;;CAGrB;AALC;IADC,4BAAU,EAAE;;yCACK;AAElB;IADC,4BAAU,EAAE;;0CACQ;AAErB;IADC,4BAAU,EAAE;;2CACG;AANlB,kCAOC"}

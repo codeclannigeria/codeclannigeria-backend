@@ -16,12 +16,21 @@ const bcrypt_1 = require("bcrypt");
 const constants_1 = require("../../shared/constants");
 const base_entity_1 = require("../../shared/models/base.entity");
 const class_transformer_1 = require("class-transformer");
+var UserRole;
+(function (UserRole) {
+    UserRole["User"] = "User";
+    UserRole["Admin"] = "Admin";
+})(UserRole = exports.UserRole || (exports.UserRole = {}));
 let User = class User extends base_entity_1.BaseEntity {
+    constructor() {
+        super(...arguments);
+        this.role = UserRole.User;
+    }
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String } };
+        return { firstName: { required: true, type: () => String }, lastName: { required: true, type: () => String }, email: { required: true, type: () => String }, password: { required: true, type: () => String }, role: { required: true, default: UserRole.User, enum: require("./user.entity").UserRole } };
     }
 };
 __decorate([
@@ -60,6 +69,15 @@ __decorate([
     class_transformer_1.Exclude(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    typegoose_1.prop({
+        enum: UserRole,
+        type: String,
+        required: true,
+        default: UserRole.User,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
 User = __decorate([
     typegoose_1.pre('save', async function () {
         try {

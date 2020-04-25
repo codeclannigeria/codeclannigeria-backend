@@ -1,0 +1,1 @@
+{"version":3,"file":"paged-res.dto.js","sourceRoot":"","sources":["../../../../src/shared/models/dto/paged-res.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AACA,6CAA8C;AAE9C,SAAgB,eAAe,CAAsB,SAAY;IAC/D,MAAM,KAAK;;;;KAQV;IANC;QADC,qBAAW,EAAE;;6CACK;IAKnB;QAJC,qBAAW,CAAC;YACX,IAAI,EAAE,SAAS;YACf,OAAO,EAAE,IAAI;SACd,CAAC;;wCACS;IAGb,OAAO,KAAK,CAAC;AACf,CAAC;AAZD,0CAYC"}

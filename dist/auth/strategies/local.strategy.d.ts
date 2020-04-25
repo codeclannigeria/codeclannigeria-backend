@@ -4,6 +4,6 @@ declare const LocalStrategy_base: new (...args: any[]) => Strategy;
 export declare class LocalStrategy extends LocalStrategy_base {
     private moduleRef;
     constructor(moduleRef: ModuleRef);
-    validate(request: Request, username: string, password: string): Promise<any>;
+    validate(request: Request, username: string, password: string): Promise<import("../../users/models/user.entity").User>;
 }
 export {};
