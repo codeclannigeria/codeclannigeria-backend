@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
-
+import * as crypto from 'crypto';
 import { InternalServerErrorException } from '@nestjs/common';
 import { pre, prop } from '@typegoose/typegoose';
 
@@ -65,5 +65,10 @@ export class User extends BaseEntity {
    */
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
+  }
+  setRandomPw() {
+    (this as Writable<User>).password = crypto
+      .randomBytes(columnSize.length32)
+      .toString();
   }
 }

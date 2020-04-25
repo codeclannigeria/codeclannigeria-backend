@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   UseGuards,
+  ConflictException,
 } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -24,6 +25,7 @@ import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController extends AbstractCrudController<
   User,
   UserDto,
@@ -38,11 +40,16 @@ export class UsersController extends AbstractCrudController<
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createUserDto: CreateUserDto): Promise<string> {
-    const user = this.usersService.createEntity(createUserDto);
+  async create(@Body() input: CreateUserDto): Promise<string> {
+    const exist = await this.usersService.findOneAsync({ email: input.email });
+    if (exist)
+      throw new ConflictException('User with the email already exists');
+    const user = this.usersService.createEntity(input);
+    user.setRandomPw();
     await this.usersService.insertAsync(user);
+
+    // TODO: Send password reset email
     return user.id;
   }
 
