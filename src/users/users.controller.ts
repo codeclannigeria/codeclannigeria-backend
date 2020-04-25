@@ -1,3 +1,5 @@
+import { plainToClass } from 'class-transformer';
+
 import {
   Body,
   Controller,
@@ -9,11 +11,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { plainToClass } from 'class-transformer';
+
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AbstractCrudController } from '../shared/base.controller';
 import { ApiException } from '../shared/models/api-exception.model';
 import { PagedReqDto } from '../shared/models/dto/paged-req.dto';
-import { AbstractCrudController } from '../shared/base.controller';
 import { CreateUserDto } from './models/dto/create-user.dto';
 import { PagedUserResDto } from './models/dto/paged-user.dto';
 import { UserDto } from './models/dto/user.dto';

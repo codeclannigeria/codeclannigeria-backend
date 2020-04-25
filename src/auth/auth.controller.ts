@@ -1,3 +1,8 @@
+import { plainToClass } from 'class-transformer';
+import { Request } from 'express';
+import { ApiException } from 'src/shared/models/api-exception.model';
+import { UserDto } from 'src/users/models/dto/user.dto';
+
 import {
   Body,
   Controller,
@@ -7,23 +12,18 @@ import {
   Post,
   Req,
   UseGuards,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { plainToClass } from 'class-transformer';
-import { Request } from 'express';
-import { ApiException } from 'src/shared/models/api-exception.model';
-import { UserDto } from 'src/users/models/dto/user.dto';
+
 import { User } from '../users/models/user.entity';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { AuthReqDto } from './models/dto/auth.dto';
+import { AuthReqDto } from 'src/auth/models/dto/auth.dto';
 
 @ApiTags('Auth')
 @Controller('auth')

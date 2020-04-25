@@ -103,7 +103,9 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndUpdate(filter, { isDeleted: true });
+    return this.entity.findOneAndUpdate(filter, { isDeleted: true } as any, {
+      new: true,
+    });
   }
   async deleteAsync(filter = {}): Promise<DocumentType<T>> {
     try {
@@ -121,7 +123,13 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   softDeleteById(id: string): QueryItem<T> {
     return this.entity
-      .findByIdAndUpdate(BaseService.toObjectId(id), { isDeleted: true })
+      .findByIdAndUpdate(
+        BaseService.toObjectId(id),
+        { isDeleted: true } as any,
+        {
+          new: true,
+        },
+      )
       .where('isDeleted')
       .ne(true);
   }
@@ -136,7 +144,7 @@ export abstract class BaseService<T extends BaseEntity> {
 
   update(id: string, item: Partial<T>): QueryItem<T> {
     return this.entity
-      .findByIdAndUpdate(BaseService.toObjectId(id), item, {
+      .findByIdAndUpdate(BaseService.toObjectId(id), item as any, {
         new: true,
       })
       .where('isDeleted')

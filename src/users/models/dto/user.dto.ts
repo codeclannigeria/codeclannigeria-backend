@@ -1,12 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import {
-  IsAlpha,
-  IsEmail,
-  IsEnum,
-  IsMongoId,
-  MaxLength,
-} from 'class-validator';
+import { IsAlpha, IsEmail, IsEnum, IsMongoId, MaxLength } from 'class-validator';
+
+import { ApiProperty } from '@nestjs/swagger';
+
 import { columnSize } from '../../../shared/constants';
 import { UserRole } from '../user.entity';
 
