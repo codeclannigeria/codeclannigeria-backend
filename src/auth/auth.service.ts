@@ -1,18 +1,36 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { UsersService } from '../users/users.service';
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from './models/jwt-payload';
+import { Client, ClientRedis, Transport } from '@nestjs/microservices';
+import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/models/user.entity';
+
+import { UsersService } from '../users/users.service';
+import { AuthEventEnum } from './models/auth.enums';
 import { AuthResDto } from './models/dto/auth.dto';
+import { JwtPayload } from './models/jwt-payload';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
+  @Client({ transport: Transport.REDIS })
+  private client: ClientRedis;
 
+  async onModuleInit() {
+    // Connect your client to the redis server on startup.
+    try {
+      await this.client.connect();
+    } catch (error) {
+      Logger.error(error);
+    }
+  }
   async validateUser(email: string, pw: string): Promise<User> {
     const user = await this.usersService.findOneAsync({ email });
     if (!user) throw new UnauthorizedException('Invalid login attempt');
@@ -41,5 +59,9 @@ export class AuthService {
   }
   async getProfileAsync(email: string): Promise<User> {
     return this.usersService.findOneAsync({ email });
+  }
+
+  async publishUserRegistered(email: string) {
+    this.client.emit(AuthEventEnum.UserRegistered, email);
   }
 }
