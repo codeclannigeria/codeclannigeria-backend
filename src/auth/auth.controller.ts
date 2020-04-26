@@ -8,6 +8,8 @@ import {
   Req,
   UseGuards,
   ConflictException,
+  Query,
+  Param,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -26,6 +28,11 @@ import { RegisterUserDto } from '../users/models/dto/register-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { ResetPwDto as ResetPassDto } from './models/dto/reset-pw.dto';
+import {
+  AcctVerifyDto,
+  EmailVerifyDto,
+} from './models/dto/acct-verification.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -51,6 +58,27 @@ export class AuthController {
     const user = this.usersService.createEntity(input);
     await this.usersService.insertAsync(user);
     return user.id;
+  }
+  @Post('send-email-confirmation-token')
+  async sendEmailVerifyToken(@Body() input: AcctVerifyDto) {
+    // TODO: verify token
+
+    return;
+  }
+  @Post('send-password-reset-token')
+  async sendForgotPwToken(@Body() input: AcctVerifyDto) {
+    // TODO: verify token
+
+    return;
+  }
+  @Post('confirm-email')
+  async verifyToken(@Body() input: EmailVerifyDto) {
+    // TODO: verify token
+    return;
+  }
+  @Post('reset-password')
+  async resetPassword(@Body() input: ResetPassDto) {
+    return;
   }
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
