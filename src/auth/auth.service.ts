@@ -5,7 +5,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Client, ClientRedis, Transport } from '@nestjs/microservices';
+import {
+  Client,
+  ClientRedis,
+  Transport,
+  EventPattern,
+} from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/models/user.entity';
 
@@ -26,9 +31,9 @@ export class AuthService implements OnModuleInit {
   async onModuleInit() {
     // Connect your client to the redis server on startup.
     try {
-      await this.client.connect();
+      // await this.client.connect();
     } catch (error) {
-      Logger.error(error);
+      //Logger.error(error);
     }
   }
   async validateUser(email: string, pw: string): Promise<User> {
@@ -61,7 +66,7 @@ export class AuthService implements OnModuleInit {
     return this.usersService.findOneAsync({ email });
   }
 
-  async publishUserRegistered(email: string) {
-    this.client.emit(AuthEventEnum.UserRegistered, email);
+  async pub() {
+    this.client.emit(AuthEventEnum.UserRegistered, 'email');
   }
 }

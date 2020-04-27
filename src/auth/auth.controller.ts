@@ -5,10 +5,10 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Req,
   UseGuards,
-  Logger,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -20,20 +20,16 @@ import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
 
 import { AuthReqDto } from '../auth/models/dto/auth.dto';
+import { MailService } from '../mail/mail.service';
 import { ApiException } from '../shared/models/api-exception.model';
 import { RegisterUserDto } from '../users/models/dto/register-user.dto';
 import { UserDto } from '../users/models/dto/user.dto';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
-import { MailService } from '../mail/mail.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import {
-  AcctVerifyDto,
-  EmailVerifyDto,
-} from './models/dto/acct-verification.dto';
-import { ResetPwDto as ResetPassDto } from './models/dto/reset-pw.dto';
+import { AcctVerifyDto } from './models/dto/acct-verification.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -54,12 +50,13 @@ export class AuthController {
   }
   @Post('register')
   async register(@Body() input: RegisterUserDto): Promise<string> {
-    const exist = await this.usersService.findOneAsync({ email: input.email });
-    if (exist)
-      throw new ConflictException('User with the email already exists');
+    // const exist = await this.usersService.findOneAsync({ email: input.email });
+    // if (exist)
+    //   throw new ConflictException('User with the email already exists');
     const user = this.usersService.createEntity(input);
+    user.setEmailConfirmationToken();
     await this.usersService.insertAsync(user);
-    this.authService.publishUserRegistered(user.email);
+
     return user.id;
   }
   @Post('send-email-confirmation-token')
@@ -76,16 +73,20 @@ export class AuthController {
 
     return;
   }
-  @Post('confirm-email')
+  @Get('confirm-email/:token')
   @ApiOkResponse()
-  async verifyToken(@Body() input: EmailVerifyDto) {
+  async verifyToken(@Param('token') token: string) {
     // TODO: verify token
     return;
   }
-  @Post('reset-password')
+  @Get('reset-password/:token')
   @ApiOkResponse()
-  async resetPassword(@Body() input: ResetPassDto) {
+  async resetPassword(@Param('token') token: string) {
     return;
+  }
+  @Get('test')
+  async test() {
+    this.authService.pub();
   }
   @Get('profile')
   @UseGuards(JwtAuthGuard)

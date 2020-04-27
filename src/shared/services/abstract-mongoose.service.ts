@@ -5,8 +5,8 @@ import {
   AbstractDocument,
   UpdateResultType,
   DeleteResultType,
-} from './types';
-import { AbstractModel } from './models';
+} from '../types';
+import { AbstractModel } from '../models';
 
 export class AbstractMongooseService<
   T extends AbstractModel

@@ -16,7 +16,7 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
-import { BaseService } from './base.service';
+import { BaseService } from './services/base.service';
 import { AbstractControllerOptions } from './interfaces/base-controller-interface';
 import { ApiException } from './models/api-exception.model';
 import { BaseEntity } from './models/base.entity';

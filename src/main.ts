@@ -19,12 +19,12 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.connectMicroservice({
-    transport: Transport.REDIS,
-    options: {
-      url: 'redis://localhost:6379',
-    },
-  });
+  // app.connectMicroservice({
+  //   transport: Transport.REDIS,
+  //   options: {
+  //     url: 'redis://localhost:6379',
+  //   },
+  // });
   // security
   app.enableCors();
   app.use(helmet());

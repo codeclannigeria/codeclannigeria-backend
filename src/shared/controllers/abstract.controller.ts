@@ -1,5 +1,5 @@
 import { AbstractControllerOptions } from '../interfaces';
-import { AbstractCoreService } from '../abstract-core.service';
+import { AbstractCoreService } from '../services/abstract-core.service';
 import {
   Body,
   Delete,

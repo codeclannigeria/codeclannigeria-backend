@@ -3,7 +3,7 @@ import {
   AbstractDocument,
   UpdateResultType,
   DeleteResultType,
-} from './types';
+} from '../types';
 
 export abstract class AbstractCoreService<T> {
   public abstract async find(filter: any): Promise<T[]>;

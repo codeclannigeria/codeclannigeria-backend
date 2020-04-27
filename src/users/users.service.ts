@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../shared/base.service';
-import { User } from './models/user.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
+
+import { BaseService } from '../shared/services/base.service';
+import { User } from './models/user.entity';
 
 @Injectable()
 export class UsersService extends BaseService<User> {

@@ -2,7 +2,7 @@ import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
 import { InternalServerErrorException } from '@nestjs/common';
-import { pre, prop } from '@typegoose/typegoose';
+import { pre, prop, index } from '@typegoose/typegoose';
 
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
@@ -20,6 +20,7 @@ export enum UserRole {
     throw new InternalServerErrorException(e);
   }
 })
+@index({ email: 1 }, { unique: true })
 export class User extends BaseEntity {
   @prop({
     required: true,
@@ -43,7 +44,7 @@ export class User extends BaseEntity {
     trim: true,
     lowercase: true,
     text: true,
-    unique: true,
+    unique: false,
   })
   readonly email!: string;
   @prop({ required: true, maxlength: columnSize.length64 })
@@ -57,6 +58,18 @@ export class User extends BaseEntity {
     default: UserRole.User,
   })
   readonly role: UserRole = UserRole.User;
+
+  @prop({ expires: 60, default: undefined })
+  readonly passwordResetToken: string;
+  @prop({ unique: true, expires: 60 })
+  readonly emailConfirmationToken: string;
+
+  @prop({ required: true, default: false })
+  readonly isEmailVerified: boolean = false;
+  @prop({ default: undefined })
+  readonly lockOutEndDate?: Date;
+  @prop({ required: true, default: 0 })
+  readonly failedSignInAttempts: number;
   /**
    * Get User's full name
    *
@@ -70,5 +83,11 @@ export class User extends BaseEntity {
     (this as Writable<User>).password = crypto
       .randomBytes(columnSize.length32)
       .toString();
+  }
+  setEmailConfirmationToken() {
+    (this as Writable<User>).emailConfirmationToken = `${this.id}3hdafdfadsfa`;
+  }
+  setPasswordResetToken() {
+    (this as Writable<User>).passwordResetToken = `${this.id}3hdafdfadsfa`;
   }
 }
