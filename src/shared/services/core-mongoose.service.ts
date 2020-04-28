@@ -8,7 +8,7 @@ import {
 } from '../types';
 import { AbstractModel } from '../models';
 
-export class AbstractMongooseService<
+export class CoreMongooseService<
   T extends AbstractModel
 > extends AbstractCoreService<T> {
   protected _model: Model<T>;
@@ -17,7 +17,7 @@ export class AbstractMongooseService<
   constructor(model: Model<T>) {
     super();
     this._model = model;
-    AbstractMongooseService.model = model;
+    CoreMongooseService.model = model;
   }
 
   public async find(filter: any = {}): Promise<T[]> {

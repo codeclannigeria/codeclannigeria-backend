@@ -1,5 +1,11 @@
 import { Expose } from 'class-transformer';
-import { IsAlpha, IsEmail, IsEnum, IsMongoId, MaxLength } from 'class-validator';
+import {
+  IsAlpha,
+  IsEmail,
+  IsEnum,
+  IsMongoId,
+  MaxLength,
+} from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -29,5 +35,5 @@ export class UserDto {
   @ApiProperty({ enum: UserRole })
   @IsEnum(UserRole)
   @Expose()
-  role: UserRole = UserRole.User;
+  role: UserRole = UserRole.USER;
 }

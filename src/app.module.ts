@@ -4,11 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { MailModule } from './mail/mail.module';
 import { AbstractModule } from './shared';
 import configuration from './shared/config/configuration';
 import { envValidation } from './shared/validations/env.validation';
 import { UsersModule } from './users/users.module';
-import { MailModule } from './mail/mail.module';
 
 const config = ConfigModule.forRoot({
   isGlobal: true,
@@ -33,6 +33,7 @@ const config = ConfigModule.forRoot({
     }),
     MailModule,
   ],
+
   controllers: [AuthController],
 })
 export class AppModule {}

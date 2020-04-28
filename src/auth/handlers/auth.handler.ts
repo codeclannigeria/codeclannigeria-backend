@@ -8,7 +8,7 @@ export class AuthHandler {
   @EventPattern(AuthEventEnum.UserRegistered)
   async handleUserRegistered(data: Record<string, unknown>) {
     // business logic
-    Logger.debug(data);
+    Logger.debug(data, 'handler');
     return data;
   }
 }

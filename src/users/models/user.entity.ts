@@ -9,8 +9,8 @@ import { BaseEntity } from '../../shared/models/base.entity';
 import { Writable } from '../../shared/utils/writable';
 
 export enum UserRole {
-  User = 'User',
-  Admin = 'Admin',
+  USER = 'User',
+  ADMIN = 'Admin',
 }
 
 @pre<User>('save', async function() {
@@ -37,7 +37,7 @@ export class User extends BaseEntity {
     text: true,
     unique: false,
   })
-  readonly lastName: string;
+  readonly lastName!: string;
   @prop({
     required: true,
     maxlength: columnSize.length64,
@@ -55,21 +55,16 @@ export class User extends BaseEntity {
     enum: UserRole,
     type: String,
     required: true,
-    default: UserRole.User,
+    default: UserRole.USER,
   })
-  readonly role: UserRole = UserRole.User;
-
-  @prop({ expires: 60, default: undefined })
-  readonly passwordResetToken: string;
-  @prop({ unique: true, expires: 60 })
-  readonly emailConfirmationToken: string;
+  readonly role: UserRole = UserRole.USER;
 
   @prop({ required: true, default: false })
-  readonly isEmailVerified: boolean = false;
+  readonly isEmailVerified: boolean;
   @prop({ default: undefined })
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
-  readonly failedSignInAttempts: number;
+  readonly failedSignInAttempts!: number;
   /**
    * Get User's full name
    *
@@ -83,11 +78,5 @@ export class User extends BaseEntity {
     (this as Writable<User>).password = crypto
       .randomBytes(columnSize.length32)
       .toString();
-  }
-  setEmailConfirmationToken() {
-    (this as Writable<User>).emailConfirmationToken = `${this.id}3hdafdfadsfa`;
-  }
-  setPasswordResetToken() {
-    (this as Writable<User>).passwordResetToken = `${this.id}3hdafdfadsfa`;
   }
 }

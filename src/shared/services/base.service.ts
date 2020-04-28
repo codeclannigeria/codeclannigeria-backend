@@ -1,9 +1,20 @@
-import { InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  Optional,
+  Scope,
+  Logger,
+} from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
+import { Request } from 'express';
 import { MongoError } from 'mongodb';
-import { DocumentQuery, Types, Query } from 'mongoose';
+import { DocumentQuery, Query, Types } from 'mongoose';
+
 import { BaseEntity } from '../models/base.entity';
+import { Writable } from '../utils/writable';
 
 type QueryList<T extends BaseEntity> = DocumentQuery<
   Array<DocumentType<T>>,
@@ -13,14 +24,19 @@ type QueryItem<T extends BaseEntity> = DocumentQuery<
   DocumentType<T>,
   DocumentType<T>
 >;
-
+@Injectable({ scope: Scope.REQUEST })
 export abstract class BaseService<T extends BaseEntity> {
   protected entity: ReturnModelType<AnyParamConstructor<T>>;
-
+  @Optional()
+  @Inject(REQUEST)
+  private readonly req: Request;
   protected constructor(entity: ReturnModelType<AnyParamConstructor<T>>) {
     this.entity = entity;
   }
-
+  protected getUserId() {
+    const user = this.req && this.req.user;
+    return (user && user['id']) || null;
+  }
   protected static throwMongoError(err: MongoError): void {
     throw new InternalServerErrorException(err, err.errmsg);
   }
@@ -38,12 +54,14 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   insert(entity: T) {
+    (entity as Writable<T>).createdBy = this.getUserId();
     return this.entity.create(entity);
   }
   async insertAsync(entity: T) {
     try {
       return await this.insert(entity);
     } catch (e) {
+      Logger.error(e);
       BaseService.throwMongoError(e);
     }
   }
@@ -62,7 +80,6 @@ export abstract class BaseService<T extends BaseEntity> {
 
   findOne(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-
     return this.entity.findOne(filter);
   }
 
@@ -70,6 +87,7 @@ export abstract class BaseService<T extends BaseEntity> {
     try {
       return await this.findOne(filter).exec();
     } catch (e) {
+      Logger.error(e);
       BaseService.throwMongoError(e);
     }
   }
@@ -103,33 +121,25 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndUpdate(filter, { isDeleted: true } as any, {
-      new: true,
-    });
+    const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
+    return this.entity.findOneAndUpdate(filter, update);
   }
-  async deleteAsync(filter = {}): Promise<DocumentType<T>> {
+  async deleteAsync(filter = {}) {
     try {
-      return await this.softDelete(filter).exec();
+      await this.softDelete(filter).exec();
     } catch (e) {
       BaseService.throwMongoError(e);
     }
   }
 
   deleteById(id: string): QueryItem<T> {
-    return this.entity
-      .findByIdAndDelete(BaseService.toObjectId(id))
-      .where('isDeleted')
-      .ne(true);
+    return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
   }
   softDeleteById(id: string): QueryItem<T> {
+    const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
+
     return this.entity
-      .findByIdAndUpdate(
-        BaseService.toObjectId(id),
-        { isDeleted: true } as any,
-        {
-          new: true,
-        },
-      )
+      .findByIdAndUpdate(BaseService.toObjectId(id), update)
       .where('isDeleted')
       .ne(true);
   }
@@ -143,8 +153,9 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   update(id: string, item: Partial<T>): QueryItem<T> {
+    const update = { ...item, updatedBy: this.getUserId() } as any;
     return this.entity
-      .findByIdAndUpdate(BaseService.toObjectId(id), item as any, {
+      .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true,
       })
       .where('isDeleted')

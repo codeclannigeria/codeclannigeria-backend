@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   HttpStatus,
+  Logger,
   NotFoundException,
   Param,
   Post,
@@ -16,11 +17,12 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
-import { BaseService } from './services/base.service';
+
 import { AbstractControllerOptions } from './interfaces/base-controller-interface';
 import { ApiException } from './models/api-exception.model';
 import { BaseEntity } from './models/base.entity';
 import { PagedReqDto } from './models/dto/paged-req.dto';
+import { BaseService } from './services/base.service';
 
 export function AbstractCrudController<
   T extends BaseEntity,
@@ -97,7 +99,7 @@ export function AbstractCrudController<
         enableImplicitConversion: true,
       });
       const updatedDoc = { ...value, ...input };
-      console.log(updatedDoc);
+      Logger.debug(updatedDoc);
       const result = await this.baseService.updateAsync(id, updatedDoc);
       return plainToClass<TEntityDto, T>(entityDto, result, {
         excludeExtraneousValues: true,

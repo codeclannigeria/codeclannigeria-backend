@@ -19,7 +19,7 @@ import {
 import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
 
-import { AuthReqDto } from '../auth/models/dto/auth.dto';
+import { LoginReqDto } from '../auth/models/dto/auth.dto';
 import { MailService } from '../mail/mail.service';
 import { ApiException } from '../shared/models/api-exception.model';
 import { RegisterUserDto } from '../users/models/dto/register-user.dto';
@@ -27,8 +27,8 @@ import { UserDto } from '../users/models/dto/user.dto';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
+import { AuthenticationGuard } from './guards/auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
 
 @ApiTags('Auth')
@@ -43,20 +43,18 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiUnauthorizedResponse({ type: ApiException })
-  @UseGuards(LocalAuthGuard)
-  async login(@Body() _: AuthReqDto, @Req() req: Request) {
+  @UseGuards(AuthenticationGuard)
+  async login(@Body() _: LoginReqDto, @Req() req: Request) {
     req.user;
     return this.authService.login(req.user as User);
   }
   @Post('register')
   async register(@Body() input: RegisterUserDto): Promise<string> {
-    // const exist = await this.usersService.findOneAsync({ email: input.email });
-    // if (exist)
-    //   throw new ConflictException('User with the email already exists');
+    const exist = await this.usersService.findOneAsync({ email: input.email });
+    if (exist)
+      throw new ConflictException('User with the email already exists');
     const user = this.usersService.createEntity(input);
-    user.setEmailConfirmationToken();
     await this.usersService.insertAsync(user);
-
     return user.id;
   }
   @Post('send-email-confirmation-token')

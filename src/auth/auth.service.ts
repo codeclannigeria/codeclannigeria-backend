@@ -1,22 +1,17 @@
 import {
   Injectable,
-  Logger,
   OnModuleInit,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import {
-  Client,
-  ClientRedis,
-  Transport,
-  EventPattern,
-} from '@nestjs/microservices';
+import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/models/user.entity';
 
 import { UsersService } from '../users/users.service';
 import { AuthEventEnum } from './models/auth.enums';
-import { AuthResDto } from './models/dto/auth.dto';
+import { LoginResDto } from './models/dto/auth.dto';
 import { JwtPayload } from './models/jwt-payload';
 
 @Injectable()
@@ -43,17 +38,18 @@ export class AuthService implements OnModuleInit {
       const isValid = await bcrypt.compare(pw, user.password);
       if (!isValid) throw new UnauthorizedException('Invalid login attempt');
     } catch (error) {
+      Logger.error(error);
       throw new UnauthorizedException('Invalid login attempt');
     }
     return user;
   }
 
-  login(user: User): AuthResDto {
+  login(user: User): LoginResDto {
     const expiresIn = 60 * 60 * 60 * 24;
     const payload: JwtPayload = {
       email: user.email,
-      userId: user.id,
-      userRole: user.role,
+      id: user.id,
+      role: user.role,
     };
     const result = this.jwtService.sign(payload, { expiresIn });
     return {

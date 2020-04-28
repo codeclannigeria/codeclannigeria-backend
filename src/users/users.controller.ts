@@ -1,7 +1,6 @@
-import { plainToClass } from 'class-transformer';
-
 import {
   Body,
+  ConflictException,
   Controller,
   Get,
   HttpCode,
@@ -9,9 +8,14 @@ import {
   Post,
   Query,
   UseGuards,
-  ConflictException,
 } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { plainToClass } from 'class-transformer';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AbstractCrudController } from '../shared/base.controller';
@@ -26,6 +30,7 @@ import { UsersService } from './users.service';
 @ApiTags('Users')
 @Controller('users')
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class UsersController extends AbstractCrudController<
   User,
   UserDto,

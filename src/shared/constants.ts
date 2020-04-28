@@ -8,3 +8,4 @@ export const columnSize = {
   length512: 2 ** 9,
   length1024: 2 ** 10,
 };
+export const AUTH_GUARD_TYPE = 'jwt';

@@ -10,10 +10,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AbstractCoreService } from '../services/abstract-core.service';
-import { AUTH_GUARD_TYPE } from '../constants copy';
+
+import { AUTH_GUARD_TYPE } from '../constants';
 import { Authenticate } from '../decorators';
 import { AbstractControllerWithAuthOptions } from '../interfaces';
+import { AbstractCoreService } from '../services/abstract-core.service';
 import { AbstractDocument, DeleteResultType, UpdateResultType } from '../types';
 import { getAuthObj } from '../utils';
 

@@ -8,7 +8,7 @@ export abstract class BaseEntity extends TimeStamps {
   id: string;
 
   @prop({ required: true, default: false })
-  readonly isDeleted: boolean = false;
+  readonly isDeleted!: boolean;
   @prop({ default: null, ref: BaseEntity })
   readonly createdBy?: Ref<User | null> = null;
   @prop({ default: null, ref: BaseEntity })

@@ -4,4 +4,4 @@ export * from './controllers';
 
 export * from './abstract.module';
 export * from './services/abstract-core.service';
-export * from './services/abstract-mongoose.service';
+export * from './services/core-mongoose.service';

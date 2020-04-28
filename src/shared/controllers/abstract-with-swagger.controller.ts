@@ -18,10 +18,11 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { AbstractCoreService } from '../services/abstract-core.service';
-import { AUTH_GUARD_TYPE } from '../constants copy';
+
+import { AUTH_GUARD_TYPE } from '../constants';
 import { ApiSwaggerOperation, Authenticate } from '../decorators';
 import { AbstractControllerWithSwaggerOptions } from '../interfaces';
+import { AbstractCoreService } from '../services/abstract-core.service';
 import { AbstractDocument, DeleteResultType, UpdateResultType } from '../types';
 import { getAuthObj } from '../utils';
 
