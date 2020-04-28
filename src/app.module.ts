@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
-import { AbstractModule } from './shared';
+import { SharedModule } from './shared';
 import configuration from './shared/config/configuration';
 import { envValidation } from './shared/validations/env.validation';
 import { UsersModule } from './users/users.module';
@@ -21,7 +21,7 @@ const config = ConfigModule.forRoot({
 });
 @Module({
   imports: [
-    AbstractModule.forRoot(),
+    SharedModule.forRoot(),
     AuthModule,
     UsersModule,
     config,

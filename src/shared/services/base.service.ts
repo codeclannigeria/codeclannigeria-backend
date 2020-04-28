@@ -35,7 +35,7 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   protected getUserId() {
     const user = this.req && this.req.user;
-    return (user && user['id']) || null;
+    return user ? user['id'] : null;
   }
   protected static throwMongoError(err: MongoError): void {
     throw new InternalServerErrorException(err, err.errmsg);

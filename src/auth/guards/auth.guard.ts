@@ -5,8 +5,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import configuration from 'src/shared/config/configuration';
 
+import configuration from '../../shared/config/configuration';
 import { AuthService } from '../auth.service';
 import { LoginReqDto } from '../models/dto/auth.dto';
 
