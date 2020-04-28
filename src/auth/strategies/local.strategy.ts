@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ContextIdFactory, ModuleRef } from '@nestjs/core';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
@@ -17,6 +17,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const contextId = ContextIdFactory.getByRequest(request);
     // "AuthService" is a request-scoped provider
     const authService = await this.moduleRef.resolve(AuthService, contextId);
-    return await authService.validateUser(username, password);
+    const user = await authService.validateUser(username, password);
+    if (!user.isActive) throw new UnauthorizedException();
+    return user;
   }
 }
