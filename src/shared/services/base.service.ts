@@ -1,42 +1,32 @@
+import { MongoError } from 'mongodb';
 import {
   Inject,
-  Injectable,
-  InternalServerErrorException,
-  Optional,
-  Scope,
   Logger,
+  Optional,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
-import { MongoError } from 'mongodb';
-import { DocumentQuery, Query, Types } from 'mongoose';
+import { Query, Types } from 'mongoose';
 
 import { BaseEntity } from '../models/base.entity';
+import { QueryItem, QueryList } from '../types';
 import { Writable } from '../utils/writable';
+import { AbstractService } from './abstract.service';
 
-type QueryList<T extends BaseEntity> = DocumentQuery<
-  Array<DocumentType<T>>,
-  DocumentType<T>
->;
-type QueryItem<T extends BaseEntity> = DocumentQuery<
-  DocumentType<T>,
-  DocumentType<T>
->;
-@Injectable({ scope: Scope.REQUEST })
-export abstract class BaseService<T extends BaseEntity> {
-  protected entity: ReturnModelType<AnyParamConstructor<T>>;
+export class BaseService<T extends BaseEntity> extends AbstractService<T> {
   @Optional()
   @Inject(REQUEST)
   private readonly req: Request;
-  protected constructor(entity: ReturnModelType<AnyParamConstructor<T>>) {
+  protected entity: ReturnModelType<AnyParamConstructor<T>>;
+
+  constructor(entity: ReturnModelType<AnyParamConstructor<T>>) {
+    super();
     this.entity = entity;
   }
-  protected getUserId() {
-    const user = this.req && this.req.user;
-    return user ? user['id'] : null;
-  }
+
   protected static throwMongoError(err: MongoError): void {
     throw new InternalServerErrorException(err, err.errmsg);
   }
@@ -51,6 +41,10 @@ export abstract class BaseService<T extends BaseEntity> {
 
   createEntity(doc?: Partial<T>): T {
     return new this.entity(doc);
+  }
+  protected getUserId() {
+    const user = this.req && this.req.user;
+    return user ? user['id'] : null;
   }
 
   insert(entity: T) {

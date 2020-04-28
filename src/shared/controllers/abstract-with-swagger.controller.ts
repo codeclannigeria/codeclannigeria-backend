@@ -22,12 +22,13 @@ import {
 import { AUTH_GUARD_TYPE } from '../constants';
 import { ApiSwaggerOperation, Authenticate } from '../decorators';
 import { AbstractControllerWithSwaggerOptions } from '../interfaces';
-import { AbstractCoreService } from '../services/abstract-core.service';
-import { AbstractDocument, DeleteResultType, UpdateResultType } from '../types';
+import { BaseEntity } from '../models/base.entity';
+import { AbstractService } from '../services';
+import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
 
 export function abstractControllerWithSwagger<
-  T,
+  T extends BaseEntity,
   VM = Partial<T>,
   C = Partial<T>
 >(options: AbstractControllerWithSwaggerOptions<T, VM, C>): any {
@@ -36,9 +37,9 @@ export function abstractControllerWithSwagger<
 
   @ApiTags(model.name)
   abstract class AbstractController {
-    protected readonly _service: AbstractCoreService<T>;
+    protected readonly _service: AbstractService<T>;
 
-    protected constructor(service: AbstractCoreService<T>) {
+    protected constructor(service: AbstractService<T>) {
       this._service = service;
     }
 
@@ -55,11 +56,7 @@ export function abstractControllerWithSwagger<
     @ApiSwaggerOperation({ title: 'FindAll' })
     public async find(@Query('filter') filter: string): Promise<T[]> {
       const findFilter = filter ? JSON.parse(filter) : {};
-      try {
-        return this._service.find(findFilter);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+      return this._service.findAllAsync(findFilter);
     }
 
     @Get(':id')
@@ -126,14 +123,10 @@ export function abstractControllerWithSwagger<
     public async update(
       @Param('id') id: string,
       @Body() doc: Partial<T>,
-    ): Promise<UpdateResultType<T>> {
-      try {
-        const existed = await this._service.findById(id);
-        const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
-        return this._service.update(id, updatedDoc);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+    ): Promise<void> {
+      const existed = await this._service.findById(id);
+      const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
+      await this._service.update(id, updatedDoc);
     }
 
     @Delete(':id')
@@ -147,12 +140,8 @@ export function abstractControllerWithSwagger<
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Delete' })
-    public async delete(@Param('id') id: string): Promise<DeleteResultType<T>> {
-      try {
-        return this._service.delete(id);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+    public async delete(@Param('id') id: string): Promise<void> {
+      await this._service.deleteByIdAsync(id);
     }
   }
 

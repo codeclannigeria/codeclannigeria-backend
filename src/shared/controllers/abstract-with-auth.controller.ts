@@ -14,20 +14,21 @@ import { AuthGuard } from '@nestjs/passport';
 import { AUTH_GUARD_TYPE } from '../constants';
 import { Authenticate } from '../decorators';
 import { AbstractControllerWithAuthOptions } from '../interfaces';
-import { AbstractCoreService } from '../services/abstract-core.service';
-import { AbstractDocument, DeleteResultType, UpdateResultType } from '../types';
+import { AbstractService } from '../services';
+import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
+import { BaseEntity } from '../models/base.entity';
 
-export function abstractControllerWithAuth<T>(
+export function abstractControllerWithAuth<T extends BaseEntity>(
   options: AbstractControllerWithAuthOptions<T>,
 ): any {
   const model = options.model;
   const auth = getAuthObj(options.auth);
 
   abstract class AbstractController {
-    protected readonly _service: AbstractCoreService<T>;
+    protected readonly _service: AbstractService<T>;
 
-    protected constructor(service: AbstractCoreService<T>) {
+    protected constructor(service: AbstractService<T>) {
       this._service = service;
     }
 
@@ -37,7 +38,7 @@ export function abstractControllerWithAuth<T>(
       const findFilter = filter ? JSON.parse(filter) : {};
 
       try {
-        return this._service.find(findFilter);
+        return this._service.findAll(findFilter);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }
@@ -72,11 +73,11 @@ export function abstractControllerWithAuth<T>(
     public async update(
       @Param('id') id: string,
       @Body() doc: Partial<T>,
-    ): Promise<UpdateResultType<T>> {
+    ): Promise<void> {
       try {
         const existed = await this._service.findById(id);
         const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
-        return this._service.update(id, updatedDoc);
+        await this._service.updateAsync(id, updatedDoc);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }
@@ -84,9 +85,9 @@ export function abstractControllerWithAuth<T>(
 
     @Delete(':id')
     @Authenticate(!!auth && auth.delete, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    public async delete(@Param('id') id: string): Promise<DeleteResultType<T>> {
+    public async delete(@Param('id') id: string): Promise<void> {
       try {
-        return this._service.delete(id);
+        await this._service.deleteByIdAsync(id);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }

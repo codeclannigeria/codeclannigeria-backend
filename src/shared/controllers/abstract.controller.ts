@@ -1,5 +1,4 @@
 import { AbstractControllerOptions } from '../interfaces';
-import { AbstractCoreService } from '../services/abstract-core.service';
 import {
   Body,
   Delete,
@@ -11,16 +10,18 @@ import {
   Query,
 } from '@nestjs/common';
 import { AbstractDocument, DeleteResultType, UpdateResultType } from '../types';
+import { AbstractService } from '../services';
+import { BaseEntity } from '../models/base.entity';
 
-export function abstractControllerFactory<T>(
+export function abstractControllerFactory<T extends BaseEntity>(
   options: AbstractControllerOptions<T>,
 ): any {
   const model = options.model;
 
   abstract class AbstractController {
-    protected readonly _service: AbstractCoreService<T>;
+    protected readonly _service: AbstractService<T>;
 
-    protected constructor(service: AbstractCoreService<T>) {
+    protected constructor(service: AbstractService<T>) {
       this._service = service;
     }
 
@@ -28,11 +29,7 @@ export function abstractControllerFactory<T>(
     public async find(@Query('filter') filter: string): Promise<T[]> {
       const findFilter = filter ? JSON.parse(filter) : {};
 
-      try {
-        return this._service.find(findFilter);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+      return this._service.findAllAsync(findFilter);
     }
 
     @Get(':id')
@@ -58,23 +55,15 @@ export function abstractControllerFactory<T>(
     public async update(
       @Param('id') id: string,
       @Body() doc: Partial<T>,
-    ): Promise<UpdateResultType<T>> {
-      try {
-        const existed = await this._service.findById(id);
-        const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
-        return this._service.update(id, updatedDoc);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+    ): Promise<void> {
+      const existed = await this._service.findById(id);
+      const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
+      await this._service.updateAsync(id, updatedDoc);
     }
 
     @Delete(':id')
-    public async delete(@Param('id') id: string): Promise<DeleteResultType<T>> {
-      try {
-        return this._service.delete(id);
-      } catch (e) {
-        throw new InternalServerErrorException(e);
-      }
+    public async delete(@Param('id') id: string): Promise<void> {
+      await this._service.deleteByIdAsync(id);
     }
   }
 
