@@ -3,20 +3,20 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 
+import { TemporaryToken } from '../shared/models/temporary-token.entity';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { AuthHandler } from './handlers/auth.handler';
-import { EmailToken } from './models/email-token.entity';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { TempEmailTokenService } from './temp-email-token.service';
+import { TempTokensService } from './temp-token.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: EmailToken.modelName, schema: EmailToken.schema },
+      { name: TemporaryToken.modelName, schema: TemporaryToken.schema },
     ]),
 
     PassportModule.register({ defaultStrategy: 'jwt', session: true }),
@@ -31,7 +31,7 @@ import { TempEmailTokenService } from './temp-email-token.service';
     JwtStrategy,
     SessionSerializer,
     AuthHandler,
-    TempEmailTokenService,
+    TempTokensService,
   ],
   exports: [AuthService, JwtModule],
 })

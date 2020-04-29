@@ -69,18 +69,18 @@ export class AuthController {
     if (!exist) throw new NotFoundException('User with email  does not exist');
     if (exist.isEmailVerified)
       throw new BadRequestException('Email has already been confirmed');
-    const token = await this.authService.generateEmailToken(exist.id, email);
+    const token = await this.authService.generateEmailToken(exist.id);
     if (!token) return;
     const url = new URL(clientBaseUrl);
     url.searchParams.set(tokenParamName, token);
     url.searchParams.set(emailParamName, email);
-    const html = `<p>Hello ${exist.fullName}, please confirm your email <a href=${url.href}>here</a></p>`;
-    this.mailService.sendMailAsync({
-      from: 'travela@gmail.com',
-      to: exist.email,
-      html,
-      date: new Date(Date.now()),
-    });
+    // const html = `<p>Hello ${exist.fullName}, please confirm your email <a href=${url.href}>here</a></p>`;
+    // this.mailService.sendMailAsync({
+    //   from: 'travela@gmail.com',
+    //   to: exist.email,
+    //   html,
+    //   date: new Date(Date.now()),
+    // });
   }
   @Post('send-password-reset-token')
   @ApiOkResponse()
