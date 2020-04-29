@@ -1,23 +1,27 @@
 import {
+  BadRequestException,
   Injectable,
+  Logger,
   OnModuleInit,
   UnauthorizedException,
-  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
+import { randomBytes } from 'crypto';
 import { User } from 'src/users/models/user.entity';
 
 import { UsersService } from '../users/users.service';
 import { AuthEventEnum } from './models/auth.enums';
 import { LoginResDto } from './models/dto/auth.dto';
 import { JwtPayload } from './models/jwt-payload';
+import { TempEmailTokenService } from './temp-email-token.service';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
   constructor(
     private readonly usersService: UsersService,
+    private readonly emailTokenService: TempEmailTokenService,
     private readonly jwtService: JwtService,
   ) {}
   @Client({ transport: Transport.REDIS })
@@ -64,5 +68,27 @@ export class AuthService implements OnModuleInit {
 
   async pub() {
     this.client.emit(AuthEventEnum.UserRegistered, 'email');
+  }
+  async generateEmailToken(userId: string, email: string): Promise<string> {
+    const plainToken = randomBytes(64).toString('hex');
+    const encryptedToken = await bcrypt.hash(plainToken, 10);
+    const emailToken = this.emailTokenService.createEntity({
+      token: encryptedToken,
+      user: userId,
+      email,
+    } as any);
+    await this.emailTokenService.insertAsync(emailToken);
+    return plainToken;
+  }
+  async validateEmailToken(userId: string, plainToken: string) {
+    const exist = await this.emailTokenService.findOneAsync({ user: userId });
+    if (!exist) throw new BadRequestException('Token expired');
+    try {
+      const isValid = await bcrypt.compare(plainToken, exist.token);
+      if (!isValid) throw new BadRequestException('Invalid token');
+    } catch (error) {
+      Logger.error(error);
+      throw new BadRequestException('Invalid token');
+    }
   }
 }

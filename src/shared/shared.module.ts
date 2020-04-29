@@ -9,6 +9,7 @@ export class SharedModule {
     return {
       module: SharedModule,
       providers: [{ provide: AbstractService, useClass: BaseService }],
+      global: true,
     };
   }
 }

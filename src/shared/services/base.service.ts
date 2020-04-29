@@ -12,8 +12,7 @@ import { Request } from 'express';
 import { Query, Types } from 'mongoose';
 
 import { BaseEntity } from '../models/base.entity';
-import { QueryItem, QueryList } from '../types';
-import { Writable } from '../utils/writable';
+import { QueryItem, QueryList, Writable } from '../types';
 import { AbstractService } from './abstract.service';
 
 export class BaseService<T extends BaseEntity> extends AbstractService<T> {

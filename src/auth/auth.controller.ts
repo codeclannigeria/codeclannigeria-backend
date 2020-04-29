@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Req,
@@ -30,6 +31,7 @@ import { AuthService } from './auth.service';
 import { AuthenticationGuard } from './guards/auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
+import { ValidateTokenInput } from './models/dto/validate-token.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -60,9 +62,23 @@ export class AuthController {
   @Post('send-email-confirmation-token')
   @ApiOkResponse()
   async sendEmailVerifyToken(@Body() input: AcctVerifyDto) {
-    // TODO: verify token
+    const { clientBaseUrl, tokenParamName, emailParamName, email } = input;
 
-    return;
+    const exist = await this.usersService.findOneAsync({ email });
+    if (!exist) throw new NotFoundException('User with email  does not exist');
+
+    const token = await this.authService.generateEmailToken(exist.id, email);
+
+    const url = new URL(clientBaseUrl);
+    url.searchParams.set(tokenParamName, token);
+    url.searchParams.set(emailParamName, email);
+    const html = `<p>Hello ${exist.fullName}, please confirm your email <a href=${url.href}>here</a></p>`;
+    // this.mailService.sendMailAsync({
+    //   from: 'travela@gmail.com',
+    //   to: exist.email,
+    //   html,
+    //   date: new Date(Date.now()),
+    // });
   }
   @Post('send-password-reset-token')
   @ApiOkResponse()
@@ -71,10 +87,13 @@ export class AuthController {
 
     return;
   }
-  @Get('confirm-email/:token')
+  @Post('confirm-email')
   @ApiOkResponse()
-  async verifyToken(@Param('token') token: string) {
-    // TODO: verify token
+  async verifyToken(@Body() input: ValidateTokenInput) {
+    const { email, token } = input;
+    const exist = await this.usersService.findOneAsync({ email });
+    if (!exist) throw new ConflictException();
+    await this.authService.validateEmailToken(exist.id, token);
     return;
   }
   @Get('reset-password/:token')

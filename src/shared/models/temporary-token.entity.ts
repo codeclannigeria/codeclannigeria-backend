@@ -1,4 +1,5 @@
 import { prop, Ref } from '@typegoose/typegoose';
+
 import { User } from '../../users/models/user.entity';
 import { BaseEntity } from './base.entity';
 

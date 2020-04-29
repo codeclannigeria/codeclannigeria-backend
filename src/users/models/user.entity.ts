@@ -1,12 +1,12 @@
+import { InternalServerErrorException } from '@nestjs/common';
+import { index, pre, prop } from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
-import { InternalServerErrorException } from '@nestjs/common';
-import { pre, prop, index } from '@typegoose/typegoose';
 
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
-import { Writable } from '../../shared/utils/writable';
+import { Writable } from '../../shared/types';
 
 export enum UserRole {
   USER = 'User',
