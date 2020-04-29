@@ -4,8 +4,13 @@ import { TemporaryToken } from '../../shared/models/temporary-token.entity';
 
 @modelOptions({ options: { customName: 'temp_email_tokens' } })
 export class EmailToken extends TemporaryToken {
-  @prop({ type: Date, required: true, default: Date.now, expires: '5m' })
-  expiresAt!: Date;
+  @prop({
+    type: Date,
+    required: true,
+    default: Date.now,
+    expires: 90000,
+  })
+  readonly expiresAt!: Date;
   @prop({ required: true })
-  email!: string;
+  readonly email!: string;
 }

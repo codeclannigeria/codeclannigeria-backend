@@ -51,7 +51,7 @@ export class UsersController extends AbstractCrudController<
     if (exist)
       throw new ConflictException('User with the email already exists');
     const user = this.usersService.createEntity(input);
-    user.setRandomPw();
+    user.setRandomPass();
     await this.usersService.insertAsync(user);
 
     // TODO: Send password reset email

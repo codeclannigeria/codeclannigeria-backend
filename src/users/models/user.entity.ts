@@ -74,9 +74,12 @@ export class User extends BaseEntity {
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
-  setRandomPw() {
+  setRandomPass() {
     (this as Writable<User>).password = crypto
       .randomBytes(columnSize.length32)
       .toString();
+  }
+  confirmEmail() {
+    (this as Writable<User>).isEmailVerified = true;
   }
 }

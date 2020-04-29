@@ -4,6 +4,7 @@ import {
   Logger,
   OnModuleInit,
   UnauthorizedException,
+  ConflictException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Client, ClientRedis, Transport } from '@nestjs/microservices';
@@ -16,6 +17,7 @@ import { AuthEventEnum } from './models/auth.enums';
 import { LoginResDto } from './models/dto/auth.dto';
 import { JwtPayload } from './models/jwt-payload';
 import { TempEmailTokenService } from './temp-email-token.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
@@ -70,6 +72,9 @@ export class AuthService implements OnModuleInit {
     this.client.emit(AuthEventEnum.UserRegistered, 'email');
   }
   async generateEmailToken(userId: string, email: string): Promise<string> {
+    const exist = await this.emailTokenService.findOneAsync({ email });
+    if (exist) return;
+
     const plainToken = randomBytes(64).toString('hex');
     const encryptedToken = await bcrypt.hash(plainToken, 10);
     const emailToken = this.emailTokenService.createEntity({
@@ -81,7 +86,9 @@ export class AuthService implements OnModuleInit {
     return plainToken;
   }
   async validateEmailToken(userId: string, plainToken: string) {
-    const exist = await this.emailTokenService.findOneAsync({ user: userId });
+    const exist = await this.emailTokenService
+      .findOne({ user: userId })
+      .populate('user');
     if (!exist) throw new BadRequestException('Token expired');
     try {
       const isValid = await bcrypt.compare(plainToken, exist.token);
@@ -90,5 +97,8 @@ export class AuthService implements OnModuleInit {
       Logger.error(error);
       throw new BadRequestException('Invalid token');
     }
+
+    const doc = exist.user as User;
+    await this.usersService.updateAsync(doc.id, { isEmailVerified: true });
   }
 }
