@@ -1,8 +1,8 @@
 {
-  "name": "ToRead",
+  "name": "CodeClanNg",
   "private": true,
   "version": "1.0.0",
-  "description": "Read that article later",
+  "description": "Code Clan Nigeria",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
