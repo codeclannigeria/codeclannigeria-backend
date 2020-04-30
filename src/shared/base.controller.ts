@@ -81,7 +81,7 @@ export function AbstractCrudController<
     @ApiOkResponse()
     @ApiBadRequestResponse({ type: ApiException })
     async delete(@Param('id') id: string) {
-      this.baseService.deleteByIdAsync(id);
+      this.baseService.softDeleteByIdAsync(id);
     }
 
     @Put(':id')

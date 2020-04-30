@@ -62,7 +62,7 @@ export function abstractControllerWithAuth<T extends BaseEntity>(
     public async create(@Body() doc: Partial<T>): Promise<T> {
       try {
         const newObject = new model(doc);
-        return this._service.create(newObject as AbstractDocument<T>);
+        return this._service.insertAsync(newObject as AbstractDocument<T>);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }
@@ -87,7 +87,7 @@ export function abstractControllerWithAuth<T extends BaseEntity>(
     @Authenticate(!!auth && auth.delete, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
     public async delete(@Param('id') id: string): Promise<void> {
       try {
-        await this._service.deleteByIdAsync(id);
+        await this._service.softDeleteByIdAsync(id);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }

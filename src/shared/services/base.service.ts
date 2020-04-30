@@ -100,15 +100,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     }
   }
 
-  async create(item: T): Promise<DocumentType<T>> {
-    try {
-      return await this.entity.create(item);
-    } catch (e) {
-      BaseService.throwMongoError(e);
-    }
-  }
-
-  delete(filter = {}): QueryItem<T> {
+  hardDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
     return this.entity.findOneAndDelete(filter);
   }
@@ -117,7 +109,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
     return this.entity.findOneAndUpdate(filter, update);
   }
-  async deleteAsync(filter = {}) {
+  async softDeleteAsync(filter = {}) {
     try {
       await this.softDelete(filter).exec();
     } catch (e) {
@@ -125,7 +117,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     }
   }
 
-  deleteById(id: string): QueryItem<T> {
+  hardDeleteById(id: string): QueryItem<T> {
     return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
   }
   softDeleteById(id: string): QueryItem<T> {
@@ -137,7 +129,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
       .ne(true);
   }
 
-  async deleteByIdAsync(id: string): Promise<DocumentType<T>> {
+  async softDeleteByIdAsync(id: string): Promise<DocumentType<T>> {
     try {
       return await this.softDeleteById(id).exec();
     } catch (e) {

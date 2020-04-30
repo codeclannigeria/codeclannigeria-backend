@@ -45,7 +45,7 @@ export function abstractControllerFactory<T extends BaseEntity>(
     public async create(@Body() input: Partial<T>): Promise<T> {
       try {
         const newObject = new model(input);
-        return this._service.create(newObject as AbstractDocument<T>);
+        return this._service.insertAsync(newObject as AbstractDocument<T>);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }
@@ -63,7 +63,7 @@ export function abstractControllerFactory<T extends BaseEntity>(
 
     @Delete(':id')
     public async delete(@Param('id') id: string): Promise<void> {
-      await this._service.deleteByIdAsync(id);
+      await this._service.softDeleteByIdAsync(id);
     }
   }
 

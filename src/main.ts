@@ -1,6 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
@@ -53,9 +52,10 @@ async function bootstrap() {
     }),
   );
 
+  const { jwtSecret, port } = configuration();
   app.use(
     session({
-      secret: jwtConstants.secret,
+      secret: jwtSecret,
       resave: false,
       saveUninitialized: false,
     }),
@@ -74,7 +74,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservicesAsync();
-  await app.listen(configuration().port);
+  await app.listen(port);
 
   if (module.hot) {
     module.hot.accept();

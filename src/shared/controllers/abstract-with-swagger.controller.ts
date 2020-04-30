@@ -96,7 +96,7 @@ export function abstractControllerWithSwagger<
     public async create(@Body() doc: C): Promise<T> {
       try {
         const newObject = new model(doc);
-        return this._service.create(newObject as AbstractDocument<T>);
+        return this._service.insertAsync(newObject as AbstractDocument<T>);
       } catch (e) {
         throw new InternalServerErrorException(e);
       }
@@ -141,7 +141,7 @@ export function abstractControllerWithSwagger<
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Delete' })
     public async delete(@Param('id') id: string): Promise<void> {
-      await this._service.deleteByIdAsync(id);
+      await this._service.softDeleteByIdAsync(id);
     }
   }
 

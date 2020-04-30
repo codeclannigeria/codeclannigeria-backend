@@ -17,13 +17,11 @@ export abstract class AbstractService<T extends BaseEntity> {
   abstract findById(id: string): QueryItem<T>;
   abstract async findByIdAsync(id: string): Promise<DocumentType<T>>;
 
-  abstract async create(item: T): Promise<DocumentType<T>>;
+  abstract hardDelete(filter: any): QueryItem<T>;
+  abstract async softDeleteAsync(filter: any): Promise<void>;
 
-  abstract delete(filter: any): QueryItem<T>;
-  abstract async deleteAsync(filter: any): Promise<void>;
-
-  abstract deleteById(id: string): QueryItem<T>;
-  abstract async deleteByIdAsync(id: string): Promise<DocumentType<T>>;
+  abstract hardDeleteById(id: string): QueryItem<T>;
+  abstract async softDeleteByIdAsync(id: string): Promise<DocumentType<T>>;
 
   abstract softDelete(filter: any): QueryItem<T>;
   abstract softDeleteById(id: string): QueryItem<T>;

@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
+import configuration from 'src/shared/config/configuration';
 
 import { TemporaryToken } from '../shared/models/temporary-token.entity';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
-import { jwtConstants } from './constants';
 import { AuthHandler } from './handlers/auth.handler';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -20,9 +20,7 @@ import { TempTokensService } from './temp-token.service';
     ]),
 
     PassportModule.register({ defaultStrategy: 'jwt', session: true }),
-    JwtModule.register({
-      secret: jwtConstants.secret,
-    }),
+    JwtModule.register({ secret: configuration().jwtSecret }),
     UsersModule,
   ],
   providers: [

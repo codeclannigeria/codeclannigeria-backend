@@ -17,7 +17,7 @@ import { AuthEventEnum } from './models/auth.enums';
 import { LoginResDto } from './models/dto/auth.dto';
 import { JwtPayload } from './models/jwt-payload';
 import { TempTokensService } from './temp-token.service';
-
+import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class AuthService implements OnModuleInit {
   constructor(
@@ -50,7 +50,7 @@ export class AuthService implements OnModuleInit {
   }
 
   login(user: User): LoginResDto {
-    const expiresIn = 60 * 60 * 60 * 24;
+    const expiresIn = 60 * 60 * 24;
     const payload: JwtPayload = {
       email: user.email,
       id: user.id,
@@ -74,7 +74,7 @@ export class AuthService implements OnModuleInit {
     const exist = await this.emailTokenService.findOneAsync({ user: userId });
     if (exist) return;
 
-    const plainToken = randomBytes(64).toString('hex');
+    const plainToken = randomBytes(32).toString('hex');
     const encryptedToken = await bcrypt.hash(plainToken, 10);
     const emailToken = this.emailTokenService.createEntity({
       token: encryptedToken,
@@ -85,7 +85,19 @@ export class AuthService implements OnModuleInit {
     await this.emailTokenService.insertAsync(emailToken);
     return plainToken;
   }
+  async generatePassResetToken(user: User) {
+    const { password, createdAt, email, id, role } = user;
+    const payload: JwtPayload = { email, id, role };
+    const token = jwt.sign(payload, `${password}-${createdAt}`, {
+      expiresIn: 60 * 60,
+    });
+    // const token = jwt.sign(payload, secret, {
+    //   expiresIn: 3600 // 1 hour
+    // })
+    // highlight-end
 
+    return token;
+  }
   async validateEmailToken(userId: string, plainToken: string) {
     const exist = await this.emailTokenService
       .findOne({ user: userId })
@@ -101,5 +113,6 @@ export class AuthService implements OnModuleInit {
 
     const doc = exist.user as User;
     await this.usersService.updateAsync(doc.id, { isEmailVerified: true });
+    this.emailTokenService.softDeleteByIdAsync(exist.id);
   }
 }
