@@ -10,19 +10,19 @@ import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 
-import { TempTokenType } from '../shared/models/temporary-token.entity';
+import { TokenType } from '../shared/models/temporary-token.entity';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthEventEnum } from './models/auth.enums';
 import { LoginResDto } from './models/dto/auth.dto';
 import { JwtPayload } from './models/jwt-payload';
 import { TempTokensService } from './temp-token.service';
-import * as jwt from 'jsonwebtoken';
+
 @Injectable()
 export class AuthService implements OnModuleInit {
   constructor(
     private readonly usersService: UsersService,
-    private readonly emailTokenService: TempTokensService,
+    private readonly tokenService: TempTokensService,
     private readonly jwtService: JwtService,
   ) {}
   @Client({ transport: Transport.REDIS })
@@ -63,56 +63,73 @@ export class AuthService implements OnModuleInit {
       userId: user.id,
     };
   }
-  async getProfileAsync(email: string): Promise<User> {
-    return this.usersService.findOneAsync({ email });
-  }
 
   async pub() {
     this.client.emit(AuthEventEnum.UserRegistered, 'email');
   }
-  async generateEmailToken(userId: string): Promise<string> {
-    const exist = await this.emailTokenService.findOneAsync({ user: userId });
+
+  async generateTempToken(
+    userId: string,
+    type: TokenType,
+    expiresInMins: number,
+  ) {
+    const exist = await this.tokenService.findOneAsync({ user: userId, type });
     if (exist) return;
 
-    const plainToken = randomBytes(32).toString('hex');
+    const plainToken = randomBytes(64).toString('hex');
     const encryptedToken = await bcrypt.hash(plainToken, 10);
-    const emailToken = this.emailTokenService.createEntity({
+    const token = this.tokenService.createEntity({
       token: encryptedToken,
-      expireAt: new Date(new Date().getTime() + 10 * 60000),
-      type: TempTokenType.EMAIL,
+      expireAt: new Date(new Date().getTime() + expiresInMins * 60000),
+      type,
       user: userId as any,
     });
-    await this.emailTokenService.insertAsync(emailToken);
+    await this.tokenService.insertAsync(token);
     return plainToken;
   }
-  async generatePassResetToken(user: User) {
-    const { password, createdAt, email, id, role } = user;
-    const payload: JwtPayload = { email, id, role };
-    const token = jwt.sign(payload, `${password}-${createdAt}`, {
-      expiresIn: 60 * 60,
-    });
-    // const token = jwt.sign(payload, secret, {
-    //   expiresIn: 3600 // 1 hour
-    // })
-    // highlight-end
+  async validateEmailToken(validateEmailInput: {
+    userId: string;
+    plainToken: string;
+  }) {
+    const { userId, plainToken } = validateEmailInput;
+    const exist = await this.validateToken(userId, TokenType.EMAIL, plainToken);
 
-    return token;
+    const doc = exist.user as User;
+    await this.usersService.updateAsync(doc.id, { isEmailVerified: true });
+    await this.tokenService.hardDeleteById(exist.id);
   }
-  async validateEmailToken(userId: string, plainToken: string) {
-    const exist = await this.emailTokenService
-      .findOne({ user: userId })
+  async validatePasswordToken(resetPassInput: {
+    userId: string;
+    plainToken: string;
+    newPassword: string;
+  }) {
+    const { userId, plainToken, newPassword } = resetPassInput;
+    const exist = await this.validateToken(
+      userId,
+      TokenType.PASSWORD,
+      plainToken,
+    );
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+
+    const doc = exist.user as User;
+    await this.usersService.updateAsync(doc.id, { password: passwordHash });
+    await this.tokenService.hardDeleteById(exist.id);
+  }
+  private async validateToken(
+    userId: string,
+    type: TokenType,
+    plainToken: string,
+  ) {
+    const exist = await this.tokenService
+      .findOne({ user: userId, type })
       .populate('user');
     if (!exist) throw new BadRequestException('Token expired');
     try {
       const isValid = await bcrypt.compare(plainToken, exist.token);
       if (!isValid) throw new BadRequestException('Invalid token');
     } catch (error) {
-      Logger.error(error);
       throw new BadRequestException('Invalid token');
     }
-
-    const doc = exist.user as User;
-    await this.usersService.updateAsync(doc.id, { isEmailVerified: true });
-    this.emailTokenService.softDeleteByIdAsync(exist.id);
+    return exist;
   }
 }

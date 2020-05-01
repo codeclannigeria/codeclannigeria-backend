@@ -9,6 +9,7 @@ import { SharedModule } from './shared';
 import configuration from './shared/config/configuration';
 import { envValidation } from './shared/validations/env.validation';
 import { UsersModule } from './users/users.module';
+import { ProfileModule } from './profile/profile.module';
 
 const config = ConfigModule.forRoot({
   isGlobal: true,
@@ -32,6 +33,7 @@ const config = ConfigModule.forRoot({
       useFindAndModify: false,
     }),
     MailModule,
+    ProfileModule,
   ],
 
   controllers: [AuthController],

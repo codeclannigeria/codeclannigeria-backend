@@ -1,37 +1,36 @@
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
+  NotAcceptableException,
   NotFoundException,
-  Param,
   Post,
   Req,
+  UnauthorizedException,
   UseGuards,
-  BadRequestException,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
   ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
 
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
 import { MailService } from '../mail/mail.service';
 import { ApiException } from '../shared/models/api-exception.model';
+import { TokenType } from '../shared/models/temporary-token.entity';
 import { RegisterUserDto } from '../users/models/dto/register-user.dto';
-import { UserDto } from '../users/models/dto/user.dto';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthenticationGuard } from './guards/auth.guard';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
+import { ResetPassInput } from './models/dto/reset-pw.dto';
 import { ValidateTokenInput } from './models/dto/validate-token.dto';
 
 @ApiTags('Auth')
@@ -60,16 +59,21 @@ export class AuthController {
     await this.usersService.insertAsync(user);
     return user.id;
   }
+
   @Post('send-email-confirmation-token')
   @ApiOkResponse()
   async sendEmailVerifyToken(@Body() input: AcctVerifyDto) {
     const { clientBaseUrl, tokenParamName, emailParamName, email } = input;
 
     const exist = await this.usersService.findOneAsync({ email });
-    if (!exist) throw new NotFoundException('User with email  does not exist');
+    if (!exist) throw new NotFoundException('User with email does not exist');
     if (exist.isEmailVerified)
       throw new BadRequestException('Email has already been confirmed');
-    const token = await this.authService.generateEmailToken(exist.id);
+    const token = await this.authService.generateTempToken(
+      exist.id,
+      TokenType.EMAIL,
+      60 * 24,
+    );
     if (!token) return;
     const url = new URL(clientBaseUrl);
     url.searchParams.set(tokenParamName, token);
@@ -85,9 +89,27 @@ export class AuthController {
   @Post('send-password-reset-token')
   @ApiOkResponse()
   async sendForgotPwToken(@Body() input: AcctVerifyDto) {
-    // TODO: verify token
+    const { clientBaseUrl, tokenParamName, emailParamName, email } = input;
 
-    return;
+    const exist = await this.usersService.findOneAsync({ email });
+    if (!exist)
+      throw new NotAcceptableException('User with email does not exist');
+    const token = await this.authService.generateTempToken(
+      exist.id,
+      TokenType.PASSWORD,
+      10,
+    );
+    if (!token) return;
+    const url = new URL(clientBaseUrl);
+    url.searchParams.set(tokenParamName, token);
+    url.searchParams.set(emailParamName, email);
+    // const html = `<p>Hello ${exist.fullName}, please reset your password <a href=${url.href}>here</a></p>`;
+    // this.mailService.sendMailAsync({
+    //   from: 'travela@gmail.com',
+    //   to: exist.email,
+    //   html,
+    //   date: new Date(Date.now()),
+    // });
   }
   @Post('confirm-email')
   @ApiOkResponse()
@@ -95,25 +117,23 @@ export class AuthController {
     const { email, token } = input;
     const exist = await this.usersService.findOneAsync({ email });
     if (!exist) throw new NotFoundException('User does not exist');
-    await this.authService.validateEmailToken(exist.id, token);
+    if (exist.isEmailVerified)
+      throw new BadRequestException('Email already verified');
+    await this.authService.validateEmailToken({
+      userId: exist.id,
+      plainToken: token,
+    });
   }
-  @Get('reset-password/:token')
+  @Post('reset-password')
   @ApiOkResponse()
-  async resetPassword(@Param('token') token: string) {
-    return;
-  }
-  @Get('test')
-  async test() {
-    this.authService.pub();
-  }
-  @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  async getProfile(@Req() req: Request): Promise<UserDto> {
-    const user = await this.authService.getProfileAsync(req.user['email']);
-    return plainToClass(UserDto, user, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true,
+  async resetPassword(@Body() input: ResetPassInput) {
+    const { email, token, newPassword } = input;
+    const exist = await this.usersService.findOneAsync({ email });
+    if (!exist) throw new UnauthorizedException('Password reset failed');
+    await this.authService.validatePasswordToken({
+      userId: exist.id,
+      plainToken: token,
+      newPassword,
     });
   }
 }

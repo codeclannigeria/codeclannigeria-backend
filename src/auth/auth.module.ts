@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import configuration from 'src/shared/config/configuration';
 
+import configuration from '../shared/config/configuration';
 import { TemporaryToken } from '../shared/models/temporary-token.entity';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';

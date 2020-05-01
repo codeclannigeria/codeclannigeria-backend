@@ -1,14 +1,15 @@
-import { prop, Ref, index, modelOptions } from '@typegoose/typegoose';
+import { index, modelOptions, prop, Ref } from '@typegoose/typegoose';
 
 import { User } from '../../users/models/user.entity';
 import { BaseEntity } from './base.entity';
 
-export enum TempTokenType {
+export enum TokenType {
   PASSWORD = 'Password',
   EMAIL = 'Email',
 }
 
-@modelOptions({ options: { customName: 'temp_tokens' } })
+@index({ user: 1, type: 1 }, { unique: true })
+@modelOptions({ options: { customName: 'temptokens' } })
 @index({ expireAt: 1 }, { expireAfterSeconds: 0 })
 export class TemporaryToken extends BaseEntity {
   @prop({ required: true })
@@ -16,12 +17,15 @@ export class TemporaryToken extends BaseEntity {
 
   @prop({ required: true, type: Date })
   readonly expireAt!: Date;
+
   @prop({
-    enum: TempTokenType,
+    enum: TokenType,
     type: String,
+    unique: false,
     required: true,
   })
-  readonly type: TempTokenType;
-  @prop({ ref: User, unique: true, required: true })
-  readonly user!: Ref<User>;
+  readonly type?: TokenType;
+
+  @prop({ ref: User, unique: false, required: true })
+  readonly user?: Ref<User>;
 }
