@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -77,7 +77,9 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservicesAsync();
-  await app.listen(process.env.PORT || port);
+  const listener = await app.listen(process.env.PORT || port, function () {
+    Logger.log('Listening on port ' + listener.address().port);
+  });
 
   if (module.hot) {
     module.hot.accept();
