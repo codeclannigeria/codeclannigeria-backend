@@ -75,7 +75,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservicesAsync();
-  await app.listen(port);
+  await app.listen(process.env.PORT || port);
 
   if (module.hot) {
     module.hot.accept();
