@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiException } from '../models/api-exception.model';
+import configuration from '../config/configuration';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -15,7 +16,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const res = ctx.getResponse() as Response;
     const req = ctx.getRequest();
     const statusCode = error.getStatus();
-    const stacktrace = error.stack;
+    const stacktrace =
+      configuration().environment === 'production' ? error.stack : null;
     const errorName = error.response.name || error.response.error || error.name;
     const errors = error.response.errors || null;
     const path = req ? req.url : null;
