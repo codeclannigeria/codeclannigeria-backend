@@ -430,4 +430,3 @@ yarn.lock
 
 # Ignore history folder
 .history/
-package-lock.json
