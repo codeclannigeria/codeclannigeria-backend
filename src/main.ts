@@ -68,8 +68,8 @@ async function bootstrap() {
   app.use(passport.session());
 
   const options = new DocumentBuilder()
-    .setTitle('ToRead API')
-    .setDescription('ToRead API description')
+    .setTitle('CodeClanNigeria API')
+    .setDescription('CCNigeria API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
