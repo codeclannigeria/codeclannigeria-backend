@@ -10,9 +10,9 @@ import * as helmet from 'helmet';
 import * as passport from 'passport';
 
 import { AppModule } from './app.module';
-import { jwtConstants } from './auth/constants';
 import configuration from './shared/config/configuration';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+import * as connectMongo from 'connect-mongo';
 
 declare const module: any;
 
@@ -52,11 +52,13 @@ async function bootstrap() {
     }),
   );
 
-  const { jwtSecret, port } = configuration();
+  const MongoStore = connectMongo(session);
+  const { jwtSecret, port, database } = configuration();
   app.set('trust proxy', 1);
   app.use(
     session({
       secret: jwtSecret,
+      store: new MongoStore({ url: database.uri }),
       resave: false,
       saveUninitialized: false,
     }),
