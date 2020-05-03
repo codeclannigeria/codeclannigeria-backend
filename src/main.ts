@@ -53,6 +53,7 @@ async function bootstrap() {
   );
 
   const { jwtSecret, port } = configuration();
+  app.set('trust proxy', 1);
   app.use(
     session({
       secret: jwtSecret,
