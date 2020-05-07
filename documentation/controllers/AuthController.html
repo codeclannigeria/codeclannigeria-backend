@@ -1,0 +1,821 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CodeClanNigeria documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">CodeClanNigeria documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Controllers</li>
+  <li>AuthController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/auth/auth.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>auth</code>
+            </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#login">login</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#register">register</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#resetPassword">resetPassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendEmailVerifyToken">sendEmailVerifyToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendForgotPwToken">sendForgotPwToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#verifyEmailToken">verifyEmailToken</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="login"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            login
+                        </b>
+                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>login(_: <a href="../classes/LoginReqDto.html">LoginReqDto</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;login&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiUnauthorizedResponse({type: ApiException})<br />@UseGuards(AuthenticationGuard)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/auth/auth.controller.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_</td>
+                                    <td>
+                                                <code><a href="../classes/LoginReqDto.html" target="_self" >LoginReqDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="register"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            register
+                        </b>
+                        <a href="#register"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>register(input: <a href="../classes/RegisterUserDto.html">RegisterUserDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;register&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/auth/auth.controller.ts:55</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/RegisterUserDto.html" target="_self" >RegisterUserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetPassword"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            resetPassword
+                        </b>
+                        <a href="#resetPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetPassword(input: <a href="../classes/ResetPassInput.html">ResetPassInput</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;reset-password&#x27;)<br />@ApiOkResponse()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">src/auth/auth.controller.ts:130</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/ResetPassInput.html" target="_self" >ResetPassInput</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendEmailVerifyToken"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            sendEmailVerifyToken
+                        </b>
+                        <a href="#sendEmailVerifyToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendEmailVerifyToken(input: <a href="../classes/AcctVerifyDto.html">AcctVerifyDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;send-email-confirmation-token&#x27;)<br />@ApiOkResponse()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">src/auth/auth.controller.ts:66</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/AcctVerifyDto.html" target="_self" >AcctVerifyDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendForgotPwToken"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            sendForgotPwToken
+                        </b>
+                        <a href="#sendForgotPwToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendForgotPwToken(input: <a href="../classes/AcctVerifyDto.html">AcctVerifyDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;send-password-reset-token&#x27;)<br />@ApiOkResponse()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/auth/auth.controller.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/AcctVerifyDto.html" target="_self" >AcctVerifyDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyEmailToken"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            verifyEmailToken
+                        </b>
+                        <a href="#verifyEmailToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>verifyEmailToken(input: <a href="../classes/ValidateTokenInput.html">ValidateTokenInput</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;confirm-email&#x27;)<br />@ApiOkResponse()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/auth/auth.controller.ts:117</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/ValidateTokenInput.html" target="_self" >ValidateTokenInput</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotAcceptableException,
+  NotFoundException,
+  Post,
+  Req,
+  UnauthorizedException,
+  UseGuards,
+} from &#x27;@nestjs/common&#x27;;
+import {
+  ApiOkResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from &#x27;@nestjs/swagger&#x27;;
+import { Request } from &#x27;express&#x27;;
+
+import { LoginReqDto } from &#x27;../auth/models/dto/auth.dto&#x27;;
+import { MailService } from &#x27;../mail/mail.service&#x27;;
+import { ApiException } from &#x27;../shared/models/api-exception.model&#x27;;
+import { TokenType } from &#x27;../shared/models/temporary-token.entity&#x27;;
+import { RegisterUserDto } from &#x27;../users/models/dto/register-user.dto&#x27;;
+import { User } from &#x27;../users/models/user.entity&#x27;;
+import { UsersService } from &#x27;../users/users.service&#x27;;
+import { AuthService } from &#x27;./auth.service&#x27;;
+import { AuthenticationGuard } from &#x27;./guards/auth.guard&#x27;;
+import { AcctVerifyDto } from &#x27;./models/dto/acct-verification.dto&#x27;;
+import { ResetPassInput } from &#x27;./models/dto/reset-pw.dto&#x27;;
+import { ValidateTokenInput } from &#x27;./models/dto/validate-token.dto&#x27;;
+import configuration from &#x27;src/shared/config/configuration&#x27;;
+
+@ApiTags(&#x27;Auth&#x27;)
+@Controller(&#x27;auth&#x27;)
+export class AuthController {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+    private readonly mailService: MailService,
+  ) {}
+
+  @Post(&#x27;login&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiUnauthorizedResponse({ type: ApiException })
+  @UseGuards(AuthenticationGuard)
+  async login(@Body() _: LoginReqDto, @Req() req: Request) {
+    req.user;
+    return this.authService.login(req.user as User);
+  }
+  @Post(&#x27;register&#x27;)
+  async register(@Body() input: RegisterUserDto): Promise&lt;string&gt; {
+    const exist &#x3D; await this.usersService.findOneAsync({ email: input.email });
+    if (exist)
+      throw new ConflictException(&#x27;User with the email already exists&#x27;);
+    const user &#x3D; this.usersService.createEntity(input);
+    await this.usersService.insertAsync(user);
+    return user.id;
+  }
+
+  @Post(&#x27;send-email-confirmation-token&#x27;)
+  @ApiOkResponse()
+  async sendEmailVerifyToken(@Body() input: AcctVerifyDto) {
+    const { clientBaseUrl, tokenParamName, emailParamName, email } &#x3D; input;
+
+    const exist &#x3D; await this.usersService.findOneAsync({ email });
+    if (!exist) throw new NotFoundException(&#x27;User with email does not exist&#x27;);
+    if (exist.isEmailVerified)
+      throw new BadRequestException(&#x27;Email has already been confirmed&#x27;);
+    const token &#x3D; await this.authService.generateTempToken(
+      exist.id,
+      TokenType.EMAIL,
+      60 * 24,
+    );
+    if (!token) return;
+    const url &#x3D; new URL(clientBaseUrl);
+    url.searchParams.set(tokenParamName, token);
+    url.searchParams.set(emailParamName, email);
+    const html &#x3D; &#x60;&lt;p&gt;Hello ${exist.fullName}, please confirm your email &lt;a href&#x3D;${url.href}&gt;here&lt;/a&gt;&lt;/p&gt;&#x60;;
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: exist.email,
+      html,
+      date: new Date(Date.now()),
+    });
+  }
+  @Post(&#x27;send-password-reset-token&#x27;)
+  @ApiOkResponse()
+  async sendForgotPwToken(@Body() input: AcctVerifyDto) {
+    const { clientBaseUrl, tokenParamName, emailParamName, email } &#x3D; input;
+
+    const exist &#x3D; await this.usersService.findOneAsync({ email });
+    if (!exist)
+      throw new NotAcceptableException(&#x27;User with email does not exist&#x27;);
+    const token &#x3D; await this.authService.generateTempToken(
+      exist.id,
+      TokenType.PASSWORD,
+      10,
+    );
+    if (!token) return;
+    const url &#x3D; new URL(clientBaseUrl);
+    url.searchParams.set(tokenParamName, token);
+    url.searchParams.set(emailParamName, email);
+    const html &#x3D; &#x60;&lt;p&gt;Hello ${exist.fullName}, please reset your password &lt;a href&#x3D;${url.href}&gt;here&lt;/a&gt;&lt;/p&gt;&#x60;;
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: exist.email,
+      html,
+      date: new Date(Date.now()),
+    });
+  }
+  @Post(&#x27;confirm-email&#x27;)
+  @ApiOkResponse()
+  async verifyEmailToken(@Body() input: ValidateTokenInput) {
+    const { email, token } &#x3D; input;
+    const exist &#x3D; await this.usersService.findOneAsync({ email });
+    if (!exist) throw new NotFoundException(&#x27;User does not exist&#x27;);
+    if (exist.isEmailVerified)
+      throw new BadRequestException(&#x27;Email already verified&#x27;);
+    await this.authService.validateEmailToken({
+      userId: exist.id,
+      plainToken: token,
+    });
+  }
+  @Post(&#x27;reset-password&#x27;)
+  @ApiOkResponse()
+  async resetPassword(@Body() input: ResetPassInput) {
+    const { email, token, newPassword } &#x3D; input;
+    const exist &#x3D; await this.usersService.findOneAsync({ email });
+    if (!exist) throw new UnauthorizedException(&#x27;Password reset failed&#x27;);
+    await this.authService.validatePasswordToken({
+      userId: exist.id,
+      plainToken: token,
+      newPassword,
+    });
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
