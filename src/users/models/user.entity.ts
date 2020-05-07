@@ -9,11 +9,12 @@ import { BaseEntity } from '../../shared/models/base.entity';
 import { Writable } from '../../shared/types';
 
 export enum UserRole {
-  USER = 'User',
+  MENTEE = 'Mentee',
+  MENTOR = 'Mentor',
   ADMIN = 'Admin',
 }
 
-@pre<User>('save', async function() {
+@pre<User>('save', async function () {
   try {
     (this as Writable<User>).password = await hash(this.password, 10);
   } catch (e) {
@@ -55,9 +56,9 @@ export class User extends BaseEntity {
     enum: UserRole,
     type: String,
     required: true,
-    default: UserRole.USER,
+    default: UserRole.MENTEE,
   })
-  readonly role: UserRole = UserRole.USER;
+  readonly role: UserRole = UserRole.MENTEE;
 
   @prop({ required: true, default: false })
   readonly isEmailVerified: boolean;
