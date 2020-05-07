@@ -1,5 +1,7 @@
 # Code Clan Nigeria
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/34b7b5288f2f451eb7224cdac4197041)](https://app.codacy.com/gh/codeclannigeria/codeclannigeria-backend?utm_source=github.com&utm_medium=referral&utm_content=codeclannigeria/codeclannigeria-backend&utm_campaign=Badge_Grade_Dashboard)
+
 The official website for code clan nigeria community
 We are a community comprised of future innovators.
 Front-end developers, DevOps engineers, full stack developers, technical
