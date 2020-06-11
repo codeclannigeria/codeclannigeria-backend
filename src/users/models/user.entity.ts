@@ -9,9 +9,9 @@ import { BaseEntity } from '../../shared/models/base.entity';
 import { Writable } from '../../shared/types';
 
 export enum UserRole {
-  MENTEE = 'Mentee',
-  MENTOR = 'Mentor',
-  ADMIN = 'Admin',
+  MENTEE = 'MENTEE',
+  MENTOR = 'MENTOR',
+  ADMIN = 'ADMIN',
 }
 
 @pre<User>('save', async function () {

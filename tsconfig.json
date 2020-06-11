@@ -9,6 +9,11 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@shared/*": [
+        "./src/shared/*"
+      ]
+    },
     "incremental": true
   },
   "exclude": ["node_modules", "dist"]
