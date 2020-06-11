@@ -6,8 +6,15 @@ import {
   HttpStatus,
   Post,
   UseGuards,
+  Get,
+  Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOkResponse,
+  ApiBadRequestResponse,
+} from '@nestjs/swagger';
 import { AbstractCrudController } from '@shared/base.controller';
 import { plainToClass } from 'class-transformer';
 
@@ -16,6 +23,8 @@ import { CreateTrackDto } from './models/dto/create-track.dto';
 import { TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
+import { PagedTrackResDto } from './models/dto/paged-track.dto';
+import { ApiException } from '@shared/models/api-exception.model';
 
 @Controller('tracks')
 @ApiTags('tracks')
@@ -48,5 +57,21 @@ export class TracksController extends AbstractCrudController<
       excludeExtraneousValues: true,
       enableImplicitConversion: true,
     });
+  }
+  @Get()
+  @ApiOkResponse({ type: PagedTrackResDto })
+  @ApiBadRequestResponse({ type: ApiException })
+  async findAll(@Query() query: string) {
+    const { skip, limit, search } = JSON.parse(query);
+    const entities = await this.usersService
+      .findAll(search && { $text: { $search: search } })
+      .limit(limit)
+      .skip(skip);
+    const totalCount = await this.usersService.countAsync();
+    const items = plainToClass(TrackDto, entities, {
+      excludeExtraneousValues: true,
+      enableImplicitConversion: true,
+    });
+    return { totalCount, items };
   }
 }
