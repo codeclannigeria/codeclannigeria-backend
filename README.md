@@ -1,5 +1,6 @@
 # Code Clan Nigeria
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/34b7b5288f2f451eb7224cdac4197041)](https://app.codacy.com/gh/codeclannigeria/codeclannigeria-backend?utm_source=github.com&utm_medium=referral&utm_content=codeclannigeria/codeclannigeria-backend&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/34b7b5288f2f451eb7224cdac4197041)](https://app.codacy.com/gh/codeclannigeria/codeclannigeria-backend?utm_source=github.com&utm_medium=referral&utm_content=codeclannigeria/codeclannigeria-backend&utm_campaign=Badge_Grade_Dashboard) [![build status](https://github.com/coryrylan/angular-github-actions/workflows/Build/badge.svg)](https://github.com/codeclannigeria/codeclannigeria-backend/actions)
 
 The official website for code clan nigeria community
