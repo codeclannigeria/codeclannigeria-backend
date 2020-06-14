@@ -11,6 +11,7 @@ import configuration from './shared/config/configuration';
 import { envValidation } from './shared/validations/env.validation';
 import { UsersModule } from './users/users.module';
 import { TracksModule } from './tracks/tracks.module';
+import { CategoriesModule } from './categories/categories.module';
 
 const config = ConfigModule.forRoot({
   isGlobal: true,
@@ -36,6 +37,7 @@ const config = ConfigModule.forRoot({
     MailModule,
     ProfileModule,
     TracksModule,
+    CategoriesModule
   ],
 
   controllers: [AuthController],
