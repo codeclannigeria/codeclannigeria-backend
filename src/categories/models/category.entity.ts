@@ -1,6 +1,6 @@
 import { columnSize } from '@shared/constants';
 import { BaseEntity } from '@shared/models/base.entity';
-import { index, prop } from '@typegoose/typegoose';
+import { prop } from '@typegoose/typegoose';
 
 
 export class Category extends BaseEntity {

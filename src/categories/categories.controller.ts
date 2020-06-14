@@ -7,7 +7,6 @@ import {
     Post,
     UseGuards,
     Get,
-    Query,
     Param,
     Delete,
     Put,
@@ -21,21 +20,17 @@ import {
     ApiBadRequestResponse,
     ApiNotFoundResponse
   } from '@nestjs/swagger';
-  import { AbstractCrudController } from '@shared/base.controller';
   import { plainToClass } from 'class-transformer';
   
-  //import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+  import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
   import { CategoryDto } from './models/dto/category.dto';
-  //import { TrackDto } from './models/dto/tack.dto';
-  import { Category } from './models/category.entity';
   import { CategoryService } from './categories.service';
-  import { PagedCategoryResDto } from './models/dto/paged-category.dto';
   import { ApiException } from '@shared/models/api-exception.model';
 import { CreateCategoryDto } from './models/dto/create-category.dto';
   
   @Controller('categories')
   @ApiTags('categories')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   export class CategoriesController  {
     constructor(private readonly categoryService: CategoryService) {}
@@ -67,7 +62,6 @@ import { CreateCategoryDto } from './models/dto/create-category.dto';
     }
 
  
-
     @Get(':id')
     @ApiOkResponse({ description: 'Category retrieved successfully.' })
     @ApiNotFoundResponse({
@@ -101,7 +95,7 @@ import { CreateCategoryDto } from './models/dto/create-category.dto';
     ): Promise<CategoryDto> {
       const existed = await this.categoryService.findByIdAsync(id);
       if (!existed)
-        throw new NotFoundException(`Category with Id ${id} does not exist`);
+        throw new NotFoundException(`A category with Id ${id} does not exist`);
       const value = plainToClass(CategoryDto, existed, {
         excludeExtraneousValues: true,
         enableImplicitConversion: true,

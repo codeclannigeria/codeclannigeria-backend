@@ -4,7 +4,6 @@ import { BaseService } from '@shared/services';
 import { ReturnModelType } from '@typegoose/typegoose';
 
 import { Category } from './models/category.entity';
-import { CategoryDto } from './models/dto/category.dto';
 
 @Injectable({ scope: Scope.REQUEST })
 export class CategoryService extends BaseService<Category> {
@@ -21,7 +20,7 @@ export class CategoryService extends BaseService<Category> {
   }
 
   async GetAllCategories(){
-   var categories = await this.categoryEntity.find({isDeleted:false}).exec();
+   const categories = await this.categoryEntity.find({isDeleted:false}).exec();
    return categories.map(cat => ({id:cat.id, name : cat.name}));
   }
 }
