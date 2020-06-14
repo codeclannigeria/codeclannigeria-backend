@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -10,9 +10,9 @@ import * as helmet from 'helmet';
 import * as passport from 'passport';
 
 import { AppModule } from './app.module';
-import { jwtConstants } from './auth/constants';
 import configuration from './shared/config/configuration';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+import * as connectMongo from 'connect-mongo';
 
 declare const module: any;
 
@@ -52,10 +52,13 @@ async function bootstrap() {
     }),
   );
 
-  const { jwtSecret, port } = configuration();
+  const MongoStore = connectMongo(session);
+  const { jwtSecret, port, database } = configuration();
+  app.set('trust proxy', 1);
   app.use(
     session({
       secret: jwtSecret,
+      store: new MongoStore({ url: database.uri }),
       resave: false,
       saveUninitialized: false,
     }),
@@ -65,8 +68,8 @@ async function bootstrap() {
   app.use(passport.session());
 
   const options = new DocumentBuilder()
-    .setTitle('ToRead API')
-    .setDescription('ToRead API description')
+    .setTitle('CodeClanNigeria API')
+    .setDescription('CCNigeria API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -74,7 +77,9 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservicesAsync();
-  await app.listen(port);
+  const listener = await app.listen(process.env.PORT || port, function () {
+    Logger.log('Listening on port ' + listener.address().port);
+  });
 
   if (module.hot) {
     module.hot.accept();

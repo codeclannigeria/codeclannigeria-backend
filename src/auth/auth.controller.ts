@@ -32,6 +32,7 @@ import { AuthenticationGuard } from './guards/auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
 import { ResetPassInput } from './models/dto/reset-pw.dto';
 import { ValidateTokenInput } from './models/dto/validate-token.dto';
+import configuration from 'src/shared/config/configuration';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -78,13 +79,13 @@ export class AuthController {
     const url = new URL(clientBaseUrl);
     url.searchParams.set(tokenParamName, token);
     url.searchParams.set(emailParamName, email);
-    // const html = `<p>Hello ${exist.fullName}, please confirm your email <a href=${url.href}>here</a></p>`;
-    // this.mailService.sendMailAsync({
-    //   from: 'travela@gmail.com',
-    //   to: exist.email,
-    //   html,
-    //   date: new Date(Date.now()),
-    // });
+    const html = `<p>Hello ${exist.fullName}, please confirm your email <a href=${url.href}>here</a></p>`;
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: exist.email,
+      html,
+      date: new Date(Date.now()),
+    });
   }
   @Post('send-password-reset-token')
   @ApiOkResponse()
@@ -103,13 +104,13 @@ export class AuthController {
     const url = new URL(clientBaseUrl);
     url.searchParams.set(tokenParamName, token);
     url.searchParams.set(emailParamName, email);
-    // const html = `<p>Hello ${exist.fullName}, please reset your password <a href=${url.href}>here</a></p>`;
-    // this.mailService.sendMailAsync({
-    //   from: 'travela@gmail.com',
-    //   to: exist.email,
-    //   html,
-    //   date: new Date(Date.now()),
-    // });
+    const html = `<p>Hello ${exist.fullName}, please reset your password <a href=${url.href}>here</a></p>`;
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: exist.email,
+      html,
+      date: new Date(Date.now()),
+    });
   }
   @Post('confirm-email')
   @ApiOkResponse()

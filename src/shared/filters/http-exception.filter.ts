@@ -6,6 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
+
 import { ApiException } from '../models/api-exception.model';
 
 @Catch(HttpException)

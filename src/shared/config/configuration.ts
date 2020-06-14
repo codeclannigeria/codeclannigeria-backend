@@ -11,6 +11,7 @@ interface Mailer {
 interface Configuration {
   port: number;
   jwtSecret: string;
+  environment: string;
   database: Database;
   rootUrl: string;
   redisUrl: string;
@@ -21,6 +22,7 @@ interface Configuration {
 
 export default (): Configuration => ({
   port: parseInt(process.env.PORT, 10),
+  environment: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
   rootUrl: process.env.ROOT_URL,
   redisUrl: process.env.REDIS_SERVER_URL,

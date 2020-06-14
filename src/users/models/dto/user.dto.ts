@@ -35,5 +35,5 @@ export class UserDto {
   @ApiProperty({ enum: UserRole })
   @IsEnum(UserRole)
   @Expose()
-  role: UserRole = UserRole.USER;
+  role: UserRole = UserRole.MENTEE;
 }

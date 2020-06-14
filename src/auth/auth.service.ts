@@ -39,6 +39,8 @@ export class AuthService implements OnModuleInit {
   async validateUser(email: string, pw: string): Promise<User> {
     const user = await this.usersService.findOneAsync({ email });
     if (!user) throw new UnauthorizedException('Invalid login attempt');
+    if (!user.isEmailVerified)
+      throw new UnauthorizedException('Please confirm your email');
     try {
       const isValid = await bcrypt.compare(pw, user.password);
       if (!isValid) throw new UnauthorizedException('Invalid login attempt');

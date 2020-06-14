@@ -1,6 +1,8 @@
 import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
+import configuration from '../config/configuration';
+
 export class ApiException {
   @ApiProperty()
   statusCode?: number;
@@ -29,7 +31,7 @@ export class ApiException {
   ) {
     this.message = message;
     this.error = error;
-    this.stack = stack;
+    this.stack = configuration().environment === 'production' ? null : stack;
     this.errors = errors;
     this.path = path;
     this.timestamp = new Date().toISOString();

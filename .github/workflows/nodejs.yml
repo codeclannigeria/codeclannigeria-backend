@@ -5,26 +5,25 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master, dev_branch ]
+    branches: [master]
   pull_request:
-    branches: [ master, dev_branch ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm run prebuild
-    - run: npm run build
-   ## - run: npm test
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run prebuild
+      - run: npm run build
+    ## - run: npm test
