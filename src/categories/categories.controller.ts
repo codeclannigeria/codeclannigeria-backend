@@ -53,9 +53,8 @@ export class CategoriesController {
   @Get()
   @ApiOkResponse()
   @ApiBadRequestResponse({ type: ApiException })
-  async getCategories() {
+  async getCategories(): Promise<{ id: any; name: string }[]> {
     const categories = this.categoryService.GetAllCategories();
-    console.log(categories);
     return categories;
   }
 
@@ -78,7 +77,7 @@ export class CategoriesController {
   @Delete(':id')
   @ApiOkResponse()
   @ApiBadRequestResponse({ type: ApiException })
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id') id: string): Promise<void> {
     this.categoryService.softDeleteByIdAsync(id);
   }
 

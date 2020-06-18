@@ -19,7 +19,6 @@ export const config = ConfigModule.forRoot({
   validationSchema: envValidation(),
   expandVariables: true,
   validationOptions: {
-    // allowUnknown: false,
     abortEarly: true
   }
 });
