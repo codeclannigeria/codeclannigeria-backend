@@ -9,7 +9,7 @@ process.env.JWT_SECRET = 'JWT_SECRET';
 
 jest.mock('~shared/services/base.service');
 
-describe('AppController (e2e)', () => {
+describe.skip('AppController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {

@@ -1,6 +1,6 @@
 {
+  "roots": ["<rootDir>/../src/", "<rootDir>"],
   "moduleFileExtensions": ["js", "json", "ts"],
-  "roots": ["<rootDir>/../src", "<rootDir>"],
   "coverageDirectory": "<rootDir>../coverage",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
