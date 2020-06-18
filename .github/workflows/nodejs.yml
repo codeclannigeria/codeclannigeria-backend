@@ -4,8 +4,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -45,6 +43,3 @@ jobs:
 
       - name: Running e2e tests
         run: npm run test:e2e-ci
-
-      - name: Update Documentation
-        run: npm run doc
