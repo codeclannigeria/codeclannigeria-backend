@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsUrl, IsEmail } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { IsNotEmpty, IsUrl } from 'class-validator';
 
-export class AcctVerifyDto {
-  @IsEmail()
-  email: string;
+import { LoginReqDto } from './auth.dto';
+
+export class AcctVerifyDto extends PickType(LoginReqDto, ['email']) {
   @IsUrl()
   clientBaseUrl: string;
   @IsNotEmpty()

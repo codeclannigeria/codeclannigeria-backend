@@ -10,9 +10,10 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@shared/*": [
+      "~shared/*": [
         "./src/shared/*"
-      ]
+      ],
+      "~test/*": ["./test/*"]
     },
     "incremental": true
   },

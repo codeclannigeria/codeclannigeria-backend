@@ -5,7 +5,7 @@ import { Schema } from 'mongoose';
 import { User } from '../../users/models/user.entity';
 import { Writable } from '../types';
 
-export abstract class BaseEntity extends TimeStamps {
+export class BaseEntity extends TimeStamps {
   id: string;
 
   @prop({ required: true, default: false })
@@ -34,11 +34,10 @@ export abstract class BaseEntity extends TimeStamps {
         transform: (_, ret) => {
           ret.id = ret._id;
           delete ret._id;
-        },
-      },
+        }
+      }
     });
   }
-
   static get modelName(): string {
     return this.name;
   }

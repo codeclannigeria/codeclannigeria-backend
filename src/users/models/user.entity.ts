@@ -1,5 +1,11 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { index, pre, prop } from '@typegoose/typegoose';
+import {
+  index,
+  pre,
+  prop,
+  getModelForClass,
+  ReturnModelType
+} from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
@@ -11,7 +17,7 @@ import { Writable } from '../../shared/types';
 export enum UserRole {
   MENTEE = 'MENTEE',
   MENTOR = 'MENTOR',
-  ADMIN = 'ADMIN',
+  ADMIN = 'ADMIN'
 }
 
 @pre<User>('save', async function () {
@@ -28,7 +34,7 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false,
+    unique: false
   })
   readonly firstName!: string;
   @prop({
@@ -36,7 +42,7 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false,
+    unique: false
   })
   readonly lastName!: string;
   @prop({
@@ -45,7 +51,7 @@ export class User extends BaseEntity {
     trim: true,
     lowercase: true,
     text: true,
-    unique: false,
+    unique: false
   })
   readonly email!: string;
   @prop({ required: true, maxlength: columnSize.length64 })
@@ -56,7 +62,7 @@ export class User extends BaseEntity {
     enum: UserRole,
     type: String,
     required: true,
-    default: UserRole.MENTEE,
+    default: UserRole.MENTEE
   })
   readonly role: UserRole = UserRole.MENTEE;
 
@@ -72,15 +78,18 @@ export class User extends BaseEntity {
    * @readonly
    * @memberof User
    */
-  get fullName() {
+  get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
-  setRandomPass() {
+  setRandomPass(): void {
     (this as Writable<User>).password = crypto
       .randomBytes(columnSize.length32)
       .toString();
   }
-  confirmEmail() {
+  confirmEmail(): void {
     (this as Writable<User>).isEmailVerified = true;
+  }
+  static get model(): ReturnModelType<typeof User> {
+    return getModelForClass(this);
   }
 }

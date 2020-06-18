@@ -11,6 +11,7 @@ interface Mailer {
 interface Configuration {
   port: number;
   jwtSecret: string;
+  jwtValidityHrs: number;
   environment: string;
   database: Database;
   rootUrl: string;
@@ -21,21 +22,22 @@ interface Configuration {
 }
 
 export default (): Configuration => ({
-  port: parseInt(process.env.PORT, 10),
+  port: +process.env.PORT,
   environment: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
+  jwtValidityHrs: +process.env.JWT_VALIDITY_HOURS,
   rootUrl: process.env.ROOT_URL,
   redisUrl: process.env.REDIS_SERVER_URL,
   isAuthEnabled: process.env.API_AUTH_ENABLED === 'true',
   appEmail: process.env.APP_EMAIL,
   mailer: {
     key: process.env.MAILER_API_KEY,
-    domain: process.env.MAILER_DOMAIN,
+    domain: process.env.MAILER_DOMAIN
   },
   database: {
     host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10),
+    port: +process.env.DATABASE_PORT,
     name: process.env.DATABASE_NAME,
-    uri: process.env.MONGODB_URI,
-  },
+    uri: process.env.MONGODB_URI
+  }
 });

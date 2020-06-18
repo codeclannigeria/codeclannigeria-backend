@@ -1,8 +1,9 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
-export class ValidateTokenInput {
-  @IsEmail()
-  email: string;
+import { LoginReqDto } from './auth.dto';
+
+export class ValidateTokenInput extends PickType(LoginReqDto, ['email']) {
   @IsNotEmpty()
   token: string;
 }
