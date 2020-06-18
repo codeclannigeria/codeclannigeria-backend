@@ -13,6 +13,7 @@ import { DbTest } from './db-test.module';
 
 process.env.JWT_VALIDITY_HOURS = '24';
 process.env.JWT_SECRET = 'JWT_SECRET';
+
 jest.mock('~shared/utils/random-token', () => ({
   generateRandomToken: () => 'token'
 }));

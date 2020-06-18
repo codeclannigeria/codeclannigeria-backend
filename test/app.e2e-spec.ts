@@ -4,14 +4,15 @@ import * as request from 'supertest';
 
 import { AppModule } from '../src/app.module';
 
+process.env.JWT_VALIDITY_HOURS = '24';
+process.env.JWT_SECRET = 'JWT_SECRET';
+
 jest.mock('~shared/services/base.service');
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    process.env.JWT_VALIDITY_HOURS = '24';
-    process.env.JWT_SECRET = 'JWT_SECRET';
     const moduleFixture = await Test.createTestingModule({
       imports: [AppModule]
     }).compile();

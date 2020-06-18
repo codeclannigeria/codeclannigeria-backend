@@ -1,6 +1,6 @@
 import * as Joi from '@hapi/joi';
 
-export const envValidation = () => {
+export const envValidation = (): any => {
   return Joi.object({
     NODE_ENV: Joi.string()
       .valid('development', 'production', 'test')
