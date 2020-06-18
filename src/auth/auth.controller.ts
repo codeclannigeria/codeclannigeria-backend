@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
-  ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
