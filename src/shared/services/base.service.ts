@@ -1,20 +1,22 @@
-import { MongoError } from 'mongodb';
 import {
   Inject,
+  Injectable,
+  InternalServerErrorException,
   Logger,
   Optional,
-  InternalServerErrorException,
+  Scope
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
-import { Query, Types } from 'mongoose';
-
+import { MongoError } from 'mongodb';
+import { CreateQuery, Query, Types } from 'mongoose';
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
 import { AbstractService } from './abstract.service';
 
+@Injectable({ scope: Scope.REQUEST })
 export class BaseService<T extends BaseEntity> extends AbstractService<T> {
   @Optional()
   @Inject(REQUEST)
@@ -41,16 +43,16 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
   createEntity(doc?: Partial<T>): T {
     return new this.entity(doc);
   }
-  protected getUserId() {
+  protected getUserId(): any {
     const user = this.req && this.req.user;
     return user ? user['id'] : null;
   }
 
-  insert(entity: T) {
+  insert(entity: T): Promise<DocumentType<T>> {
     (entity as Writable<T>).createdBy = this.getUserId();
-    return this.entity.create(entity);
+    return this.entity.create(entity as CreateQuery<DocumentType<T>>);
   }
-  async insertAsync(entity: T) {
+  async insertAsync(entity: T): Promise<DocumentType<T>> {
     try {
       return await this.insert(entity);
     } catch (e) {
@@ -109,7 +111,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
     return this.entity.findOneAndUpdate(filter, update);
   }
-  async softDeleteAsync(filter = {}) {
+  async softDeleteAsync(filter = {}): Promise<void> {
     try {
       await this.softDelete(filter).exec();
     } catch (e) {
@@ -141,7 +143,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     const update = { ...item, updatedBy: this.getUserId() } as any;
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
-        new: true,
+        new: true
       })
       .where('isDeleted')
       .ne(true);

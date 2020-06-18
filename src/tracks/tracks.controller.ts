@@ -7,15 +7,15 @@ import {
   Post,
   UseGuards,
   Get,
-  Query,
+  Query
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiTags,
   ApiOkResponse,
-  ApiBadRequestResponse,
+  ApiBadRequestResponse
 } from '@nestjs/swagger';
-import { AbstractCrudController } from '@shared/base.controller';
+import { AbstractCrudController } from '~shared/base.controller';
 import { plainToClass } from 'class-transformer';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -24,7 +24,7 @@ import { TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
 import { PagedTrackResDto } from './models/dto/paged-track.dto';
-import { ApiException } from '@shared/models/api-exception.model';
+import { ApiException } from '~shared/models/api-exception.model';
 
 @Controller('tracks')
 @ApiTags('tracks')
@@ -37,7 +37,7 @@ export class TracksController extends AbstractCrudController<
 >({
   entity: Track,
   entityDto: TrackDto,
-  createDto: CreateTrackDto,
+  createDto: CreateTrackDto
 }) {
   constructor(private readonly trackService: TracksService) {
     super(trackService);
@@ -55,7 +55,7 @@ export class TracksController extends AbstractCrudController<
 
     return plainToClass(TrackDto, track, {
       excludeExtraneousValues: true,
-      enableImplicitConversion: true,
+      enableImplicitConversion: true
     });
   }
   @Get()
@@ -70,7 +70,7 @@ export class TracksController extends AbstractCrudController<
     const totalCount = await this.usersService.countAsync();
     const items = plainToClass(TrackDto, entities, {
       excludeExtraneousValues: true,
-      enableImplicitConversion: true,
+      enableImplicitConversion: true
     });
     return { totalCount, items };
   }

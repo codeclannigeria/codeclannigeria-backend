@@ -17,7 +17,9 @@ import * as connectMongo from 'connect-mongo';
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true
+  });
   // app.connectMicroservice({
   //   transport: Transport.REDIS,
   //   options: {
@@ -25,13 +27,13 @@ async function bootstrap() {
   //   },
   // });
   // security
-  app.enableCors();
+  // app.enableCors();
   app.use(helmet());
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-    }),
+      max: 100 // limit each IP to 100 requests per windowMs
+    })
   );
 
   // compression
@@ -44,12 +46,13 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
+      forbidUnknownValues: true,
       forbidNonWhitelisted: true,
       transform: true,
       transformOptions: {
-        enableImplicitConversion: true,
-      },
-    }),
+        enableImplicitConversion: true
+      }
+    })
   );
 
   const MongoStore = connectMongo(session);
@@ -60,8 +63,8 @@ async function bootstrap() {
       secret: jwtSecret,
       store: new MongoStore({ url: database.uri }),
       resave: false,
-      saveUninitialized: false,
-    }),
+      saveUninitialized: false
+    })
   );
   app.use(cookieParser());
   app.use(passport.initialize());
@@ -76,7 +79,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  await app.startAllMicroservicesAsync();
+  // await app.startAllMicroservicesAsync();
   const listener = await app.listen(process.env.PORT || port, function () {
     Logger.log('Listening on port ' + listener.address().port);
   });

@@ -1,5 +1,5 @@
-import { columnSize } from '@shared/constants';
-import { BaseEntity } from '@shared/models/base.entity';
+import { columnSize } from '~shared/constants';
+import { BaseEntity } from '~shared/models/base.entity';
 import { index, prop } from '@typegoose/typegoose';
 
 @index({ title: 1 }, { unique: true })
@@ -9,7 +9,7 @@ export class Track extends BaseEntity {
     maxlength: columnSize.length32,
     trim: true,
     text: true,
-    unique: false,
+    unique: false
   })
   readonly title!: string;
   @prop({
@@ -17,7 +17,7 @@ export class Track extends BaseEntity {
     maxlength: columnSize.length128,
     trim: true,
     text: true,
-    unique: false,
+    unique: false
   })
   readonly description!: string;
 }

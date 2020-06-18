@@ -1,4 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { DbTest } from '../../test/db-test.module';
+import { TracksModule } from './tracks.module';
 import { TracksService } from './tracks.service';
 
 describe('TracksService', () => {
@@ -6,10 +9,11 @@ describe('TracksService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TracksService],
+      imports: [TracksModule, DbTest],
+      providers: [TracksService]
     }).compile();
 
-    service = module.get<TracksService>(TracksService);
+    service = await module.resolve<TracksService>(TracksService);
   });
 
   it('should be defined', () => {

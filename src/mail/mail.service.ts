@@ -3,8 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import * as mg from 'nodemailer-mailgun-transport';
 import Mail = require('nodemailer/lib/mailer');
-
-import configuration from '../shared/config/configuration';
+import configuration from '~shared/config/configuration';
 
 @Injectable()
 export class MailService {
@@ -20,9 +19,9 @@ export class MailService {
       mg({
         auth: {
           api_key: mailer.key,
-          domain: mailer.domain,
-        },
-      }),
+          domain: mailer.domain
+        }
+      })
     );
   }
 

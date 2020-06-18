@@ -1,9 +1,16 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "roots": ["<rootDir>/../src/", "<rootDir>"],
+  "coverageDirectory": "<rootDir>../coverage",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "verbose": true,
+  "bail": 1,
+  "moduleNameMapper": {
+    "~shared(.*)$": "<rootDir>../src/shared$1",
+    "~test(.*)$": "<rootDir>/test$1"
   }
 }

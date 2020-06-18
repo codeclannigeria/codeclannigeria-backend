@@ -1,3 +1,3 @@
 export const jwtConstants = {
-  bearerAuthName: 'x-auth',
+  bearerAuthName: 'x-auth'
 };

@@ -9,7 +9,7 @@ import { TemporaryToken } from '../shared/models/temporary-token.entity';
 export class TempTokensService extends BaseService<TemporaryToken> {
   constructor(
     @InjectModel(TemporaryToken.modelName)
-    private readonly tokenEntity: ReturnModelType<typeof TemporaryToken>,
+    protected readonly tokenEntity: ReturnModelType<typeof TemporaryToken>
   ) {
     super(tokenEntity);
   }

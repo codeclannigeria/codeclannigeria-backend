@@ -1,4 +1,4 @@
-import { PaginatedResDto } from '@shared/models/dto/paged-res.dto';
+import { PaginatedResDto } from '~shared/models/dto/paged-res.dto';
 
 import { TrackDto } from './tack.dto';
 
