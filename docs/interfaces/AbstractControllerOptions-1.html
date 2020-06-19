@@ -87,6 +87,12 @@
                                 <li>
                                         <a href="#entityDto">entityDto</a>
                                 </li>
+                                <li>
+                                        <a href="#pagedResDto">pagedResDto</a>
+                                </li>
+                                <li>
+                                        <a href="#updateDto">updateDto</a>
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -185,15 +191,81 @@
 
                         </tbody>
                     </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pagedResDto"></a>
+                                        <span class="name"><b>pagedResDto</b><a href="#pagedResDto"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pagedResDto:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="updateDto"></a>
+                                        <span class="name"><b>updateDto</b><a href="#updateDto"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>updateDto:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
             </section>
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface AbstractControllerOptions&lt;TEntity, TEntityDto, TCreateDto&gt; {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface AbstractControllerOptions&lt;
+  TEntity,
+  TEntityDto,
+  TCreateDto,
+  TUpdateDto,
+  TPagedResDto
+&gt; {
   entity: { new (): TEntity };
   entityDto: { new (): TEntityDto };
   createDto: { new (): TCreateDto };
+  updateDto: { new (): TUpdateDto };
+  pagedResDto: { new (): TPagedResDto };
 }
 </code></pre>
     </div>

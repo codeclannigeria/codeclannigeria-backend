@@ -68,231 +68,18 @@
 
 
 
-            <section>
-    <h3 id="index">Index</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#create">create</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#findAll">findAll</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
-        </tbody>
-    </table>
-</section>
-
-            <section>
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="create"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            create
-                        </b>
-                        <a href="#create"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(input: <a href="../classes/CreateUserDto.html">CreateUserDto</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Post()<br />@HttpCode(HttpStatus.CREATED)<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/users/users.controller.ts:49</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>input</td>
-                                    <td>
-                                                <code><a href="../classes/CreateUserDto.html" target="_self" >CreateUserDto</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findAll"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            findAll
-                        </b>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(query: <a href="../classes/PagedReqDto.html">PagedReqDto</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get()<br />@ApiOkResponse({type: PagedUserResDto})<br />@ApiBadRequestResponse({type: ApiException})<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/users/users.controller.ts:64</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>query</td>
-                                    <td>
-                                                <code><a href="../classes/PagedReqDto.html" target="_self" >PagedReqDto</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>{}</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    </div>
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Body,
-  ConflictException,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Query,
-  UseGuards,
-} from &#x27;@nestjs/common&#x27;;
-import {
-  ApiBadRequestResponse,
-  ApiOkResponse,
-  ApiTags,
-  ApiBearerAuth,
-} from &#x27;@nestjs/swagger&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, UseGuards } from &#x27;@nestjs/common&#x27;;
+import { ApiBearerAuth, ApiTags } from &#x27;@nestjs/swagger&#x27;;
+import { PagedResDto } from &#x27;~shared/models/dto/paged-res.dto&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { AbstractCrudController } from &#x27;../shared/base.controller&#x27;;
-import { ApiException } from &#x27;../shared/models/api-exception.model&#x27;;
-import { PagedReqDto } from &#x27;../shared/models/dto/paged-req.dto&#x27;;
 import { CreateUserDto } from &#x27;./models/dto/create-user.dto&#x27;;
-import { PagedUserResDto } from &#x27;./models/dto/paged-user.dto&#x27;;
 import { UserDto } from &#x27;./models/dto/user.dto&#x27;;
 import { User } from &#x27;./models/user.entity&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
@@ -309,41 +96,11 @@ export class UsersController extends AbstractCrudController&lt;
   entity: User,
   entityDto: UserDto,
   createDto: CreateUserDto,
+  updateDto: UserDto,
+  pagedResDto: PagedResDto(UserDto)
 }) {
-  constructor(private readonly usersService: UsersService) {
+  constructor(protected readonly usersService: UsersService) {
     super(usersService);
-  }
-
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() input: CreateUserDto): Promise&lt;string&gt; {
-    const exist &#x3D; await this.usersService.findOneAsync({ email: input.email });
-    if (exist)
-      throw new ConflictException(&#x27;User with the email already exists&#x27;);
-    const user &#x3D; this.usersService.createEntity(input);
-    user.setRandomPass();
-    await this.usersService.insertAsync(user);
-
-    // TODO: Send password reset email
-    return user.id;
-  }
-
-  @Get()
-  @ApiOkResponse({ type: PagedUserResDto })
-  @ApiBadRequestResponse({ type: ApiException })
-  async findAll(@Query() query: PagedReqDto) {
-    const { skip, limit, search } &#x3D; query;
-    const entities &#x3D; await this.usersService
-      .findAll(search &amp;&amp; { $text: { $search: search } })
-      .limit(limit)
-      .skip(skip);
-    const totalCount &#x3D; await this.usersService.countAsync();
-    const items &#x3D; plainToClass(UserDto, entities, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true,
-    });
-
-    return { totalCount, items };
   }
 }
 </code></pre>

@@ -205,7 +205,7 @@
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus,
+  HttpStatus
 } from &#x27;@nestjs/common&#x27;;
 import { Response } from &#x27;express&#x27;;
 
@@ -237,7 +237,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       stacktrace,
       errors,
       path,
-      statusCode,
+      statusCode
     );
     res.status(statusCode).json(exception);
   }

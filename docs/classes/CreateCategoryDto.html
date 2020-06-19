@@ -80,11 +80,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { OmitType } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
 
 import { CategoryDto } from &#x27;./category.dto&#x27;;
 
-export class CreateCategoryDto extends OmitType(CategoryDto, [&#x27;id&#x27;]) {}
+export class CreateCategoryDto extends PickType(CategoryDto, [&#x27;name&#x27;]) {}
 </code></pre>
     </div>
 </div>

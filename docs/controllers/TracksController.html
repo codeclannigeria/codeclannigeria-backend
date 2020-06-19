@@ -85,10 +85,6 @@
                                     <span class="modifier">Async</span>
                                 <a href="#create">create</a>
                             </li>
-                            <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#findAll">findAll</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -131,14 +127,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@HttpCode(HttpStatus.CREATED)<br />@ApiResponse({type: TrackDto})<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: CreateTrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:44</a></div>
                 </td>
             </tr>
 
@@ -185,97 +181,6 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findAll"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            findAll
-                        </b>
-                        <a href="#findAll"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(input: <a href="../classes/PagedReqDto.html">PagedReqDto</a>, req?: Request)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get()<br />@ApiOkResponse({type: PagedTrackResDto})<br />@ApiBadRequestResponse({type: ApiException})<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:69</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>input</td>
-                                    <td>
-                                                <code><a href="../classes/PagedReqDto.html" target="_self" >PagedReqDto</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>req</td>
-                                    <td>
-                                            <code>Request</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;PagedTrackResDto&gt;</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </section>    </div>
 
 
@@ -284,87 +189,51 @@
   Body,
   ConflictException,
   Controller,
-  Get,
-  HttpCode,
   HttpStatus,
   Post,
-  Query,
-  Req,
   UseGuards
 } from &#x27;@nestjs/common&#x27;;
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiTags,
-  ApiResponse
-} from &#x27;@nestjs/swagger&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
-import { Request } from &#x27;express&#x27;;
+import { ApiBearerAuth, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { AbstractCrudController } from &#x27;~shared/base.controller&#x27;;
 import { ApiException } from &#x27;~shared/models/api-exception.model&#x27;;
-import { PagedReqDto } from &#x27;~shared/models/dto/paged-req.dto&#x27;;
+import { PagedResDto } from &#x27;~shared/models/dto/paged-res.dto&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { CreateTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
-import { PagedTrackResDto } from &#x27;./models/dto/paged-track.dto&#x27;;
 import { TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
 import { Track } from &#x27;./models/track.entity&#x27;;
 import { TracksService } from &#x27;./tracks.service&#x27;;
 
 @Controller(&#x27;tracks&#x27;)
 @ApiTags(&#x27;tracks&#x27;)
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class TracksController extends AbstractCrudController&lt;
   Track,
   TrackDto,
+  CreateTrackDto,
   CreateTrackDto
 &gt;({
   entity: Track,
   entityDto: TrackDto,
-  createDto: CreateTrackDto
+  createDto: CreateTrackDto,
+  updateDto: CreateTrackDto,
+  pagedResDto: PagedResDto(TrackDto)
 }) {
   constructor(private readonly trackService: TracksService) {
     super(trackService);
   }
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
-  @ApiResponse({ type: TrackDto })
+  @ApiResponse({ type: CreateTrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise&lt;TrackDto&gt; {
-    const exist &#x3D; await this.trackService.findOneAsync({ email: input.title });
+    const exist &#x3D; await this.trackService.findOneAsync({ title: input.title });
     if (exist)
       throw new ConflictException(&#x27;Track with the title already exists&#x27;);
-    const track &#x3D; this.trackService.createEntity(input);
 
-    await this.trackService.insertAsync(track);
-
-    return plainToClass(TrackDto, track, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true
-    });
-  }
-  @Get()
-  @ApiOkResponse({ type: PagedTrackResDto })
-  @ApiBadRequestResponse({ type: ApiException })
-  async findAll(
-    @Query() input: PagedReqDto,
-    @Req() req?: Request
-  ): Promise&lt;PagedTrackResDto&gt; {
-    const { skip, limit, search } &#x3D; input;
-    const conditions &#x3D; JSON.parse(search || &#x27;{}&#x27;);
-    const entities &#x3D; await this.trackService
-      .findAll(conditions)
-      .where({ createdBy: req?.user?.[&#x27;userId&#x27;] })
-      .limit(limit)
-      .skip(skip);
-    const totalCount &#x3D; await this.trackService.countAsync();
-    const items &#x3D; plainToClass(TrackDto, entities, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true
-    });
-    return { totalCount, items };
+    return super.create(input);
   }
 }
 </code></pre>

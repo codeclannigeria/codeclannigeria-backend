@@ -358,6 +358,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/RegisterUserDto.html" data-type="entity-link">RegisterUserDto</a>
                             </li>
                             <li class="link">
+                                <a href="classes/RegisterUserResDto.html" data-type="entity-link">RegisterUserResDto</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/ResetPassInput.html" data-type="entity-link">ResetPassInput</a>
                             </li>
                             <li class="link">
