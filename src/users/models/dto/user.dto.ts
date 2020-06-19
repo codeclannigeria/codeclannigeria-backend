@@ -1,15 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsEmail, IsEnum, IsMongoId, MaxLength } from 'class-validator';
+import { IsEmail, IsEnum, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
+import { BaseResDto } from '~shared/models/dto/base-res.dto';
 
 import { UserRole } from '../user.entity';
 
-export class UserDto {
-  @Expose()
-  @IsMongoId()
-  @ApiProperty()
-  id: string;
+export class UserDto extends BaseResDto {
   @Expose()
   @MaxLength(columnSize.length64)
   @ApiProperty()

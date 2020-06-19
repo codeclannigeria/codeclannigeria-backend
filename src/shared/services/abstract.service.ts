@@ -29,7 +29,7 @@ export abstract class AbstractService<T extends BaseEntity> {
   abstract update(id: string, item: Partial<T>): QueryItem<T>;
   abstract async updateAsync(
     id: string,
-    item: Partial<T>,
+    item: Partial<T>
   ): Promise<DocumentType<T>>;
 
   abstract count(filter: any): Query<number>;

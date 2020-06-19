@@ -27,7 +27,7 @@ export class ApiException {
     stack: string,
     errors: any,
     path: string,
-    statusCode: number,
+    statusCode: number
   ) {
     this.message = message;
     this.error = error;

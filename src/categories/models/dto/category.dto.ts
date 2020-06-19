@@ -1,15 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { columnSize } from '~shared/constants';
 import { Expose } from 'class-transformer';
-import { IsMongoId, MaxLength } from 'class-validator';
+import { MaxLength, IsAlphanumeric } from 'class-validator';
+import { columnSize } from '~shared/constants';
+import { BaseResDto } from '~shared/models/dto/base-res.dto';
 
-export class CategoryDto {
-  @Expose()
-  @IsMongoId()
-  @ApiProperty()
-  id: string;
+export class CategoryDto extends BaseResDto {
   @Expose()
   @MaxLength(columnSize.length32)
   @ApiProperty()
+  @IsAlphanumeric()
   name: string;
 }

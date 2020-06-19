@@ -24,7 +24,7 @@ export const config = ConfigModule.forRoot({
 });
 @Module({
   imports: [
-    SharedModule.forRoot(),
+    // SharedModule.forRoot(),
     AuthModule,
     UsersModule,
     config,

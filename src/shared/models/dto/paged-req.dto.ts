@@ -1,4 +1,4 @@
-import { IsOptional } from 'class-validator';
+import { IsJSON, IsOptional } from 'class-validator';
 
 export class PagedReqDto {
   @IsOptional()
@@ -6,5 +6,9 @@ export class PagedReqDto {
   @IsOptional()
   limit?: number = 100;
   @IsOptional()
+  @IsJSON()
   search?: string;
+  @IsJSON()
+  @IsOptional()
+  opts?: string;
 }

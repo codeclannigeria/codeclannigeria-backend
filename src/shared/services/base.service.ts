@@ -1,3 +1,4 @@
+import { UserRole } from './../../users/models/user.entity';
 import {
   Inject,
   Injectable,
@@ -44,8 +45,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
     return new this.entity(doc);
   }
   protected getUserId(): any {
-    const user = this.req && this.req.user;
-    return user ? user['id'] : null;
+    return this.req?.user?.['userId'] || null;
   }
 
   insert(entity: T): Promise<DocumentType<T>> {
@@ -60,9 +60,21 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
       BaseService.throwMongoError(e);
     }
   }
-  findAll(filter = {}): QueryList<T> {
+  findAll(filter = {}, opts = {}): QueryList<T> {
+    if (filter.hasOwnProperty('id')) {
+      Object.defineProperty(
+        filter,
+        '_id',
+        Object.getOwnPropertyDescriptor(filter, 'id')
+      );
+      delete filter['id'];
+    }
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.find(filter);
+    const whereClause =
+      this.req.user?.['role'] === UserRole.ADMIN
+        ? {}
+        : { createdBy: this.getUserId() };
+    return this.entity.find(filter, null, opts).where(whereClause);
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -141,6 +153,8 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
 
   update(id: string, item: Partial<T>): QueryItem<T> {
     const update = { ...item, updatedBy: this.getUserId() } as any;
+    delete update?.createdAt;
+    delete update?.updatedAt;
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true

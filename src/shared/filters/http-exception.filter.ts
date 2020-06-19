@@ -3,7 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus,
+  HttpStatus
 } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -35,7 +35,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       stacktrace,
       errors,
       path,
-      statusCode,
+      statusCode
     );
     res.status(statusCode).json(exception);
   }

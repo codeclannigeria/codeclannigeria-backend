@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>CodeClanNigeria documentation</title>
+        <title>code_clan_nigeria documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,7 +13,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">CodeClanNigeria documentation</a>
+            <a href="../" class="navbar-brand">code_clan_nigeria documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -171,6 +171,7 @@ interface Mailer {
 interface Configuration {
   port: number;
   jwtSecret: string;
+  jwtValidityHrs: number;
   environment: string;
   database: Database;
   rootUrl: string;
@@ -181,23 +182,24 @@ interface Configuration {
 }
 
 export default (): Configuration &#x3D;&gt; ({
-  port: parseInt(process.env.PORT, 10),
+  port: +process.env.PORT,
   environment: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
+  jwtValidityHrs: +process.env.JWT_VALIDITY_HOURS,
   rootUrl: process.env.ROOT_URL,
   redisUrl: process.env.REDIS_SERVER_URL,
   isAuthEnabled: process.env.API_AUTH_ENABLED &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
   appEmail: process.env.APP_EMAIL,
   mailer: {
     key: process.env.MAILER_API_KEY,
-    domain: process.env.MAILER_DOMAIN,
+    domain: process.env.MAILER_DOMAIN
   },
   database: {
     host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10),
+    port: +process.env.DATABASE_PORT,
     name: process.env.DATABASE_NAME,
-    uri: process.env.MONGODB_URI,
-  },
+    uri: process.env.MONGODB_URI
+  }
 });
 </code></pre>
     </div>
