@@ -62,7 +62,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.5",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.11",
@@ -99,7 +100,6 @@
     "ts-jest": "^26.1.0",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
-    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.5",
     "webpack-node-externals": "^1.7.2"
   },
