@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>CodeClanNigeria documentation</title>
+        <title>code_clan_nigeria documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,7 +13,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">CodeClanNigeria documentation</a>
+            <a href="../" class="navbar-brand">code_clan_nigeria documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -82,12 +82,6 @@
                             <li>
                                 <a href="#accessToken">accessToken</a>
                             </li>
-                            <li>
-                                <a href="#expireInSeconds">expireInSeconds</a>
-                            </li>
-                            <li>
-                                <a href="#userId">userId</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -134,60 +128,6 @@
 
             </tbody>
         </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="expireInSeconds"></a>
-                        <span class="name">
-                            <b>
-                            expireInSeconds</b>
-                            <a href="#expireInSeconds"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/auth/models/dto/auth.dto.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="userId"></a>
-                        <span class="name">
-                            <b>
-                            userId</b>
-                            <a href="#userId"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/auth/models/dto/auth.dto.ts:13</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
 </section>
 
 
@@ -200,19 +140,17 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsEmail, IsNotEmpty } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
 
-export class LoginReqDto {
-  @IsEmail()
-  email: string;
-  @IsNotEmpty()
-  password: string;
-}
+import { RegisterUserDto } from &#x27;../../../users/models/dto/register-user.dto&#x27;;
+
+export class LoginReqDto extends PickType(RegisterUserDto, [
+  &#x27;email&#x27;,
+  &#x27;password&#x27;
+]) {}
 
 export class LoginResDto {
   accessToken: string;
-  expireInSeconds: number;
-  userId: string;
 }
 </code></pre>
     </div>

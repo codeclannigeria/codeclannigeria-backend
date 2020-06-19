@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>CodeClanNigeria documentation</title>
+        <title>code_clan_nigeria documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,7 +13,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">CodeClanNigeria documentation</a>
+            <a href="../" class="navbar-brand">code_clan_nigeria documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -569,8 +569,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">src/shared/models/base.entity.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/shared/models/base.entity.ts:71</a></div>
                 </td>
             </tr>
 
@@ -610,8 +610,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">src/shared/models/base.entity.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/shared/models/base.entity.ts:62</a></div>
                 </td>
             </tr>
 
@@ -651,8 +651,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">src/shared/models/base.entity.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/shared/models/base.entity.ts:44</a></div>
                 </td>
             </tr>
 
@@ -690,8 +690,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/shared/models/base.entity.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/shared/models/base.entity.ts:53</a></div>
                 </td>
             </tr>
 
@@ -757,7 +757,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/shared/models/base.entity.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/shared/models/base.entity.ts:41</a></div>
                                 </td>
                             </tr>
 
@@ -775,7 +775,7 @@ import { Schema } from &#x27;mongoose&#x27;;
 import { User } from &#x27;../../users/models/user.entity&#x27;;
 import { Writable } from &#x27;../types&#x27;;
 
-export abstract class BaseEntity extends TimeStamps {
+export class BaseEntity extends TimeStamps {
   id: string;
 
   @prop({ required: true, default: false })
@@ -804,11 +804,10 @@ export abstract class BaseEntity extends TimeStamps {
         transform: (_, ret) &#x3D;&gt; {
           ret.id &#x3D; ret._id;
           delete ret._id;
-        },
-      },
+        }
+      }
     });
   }
-
   static get modelName(): string {
     return this.name;
   }

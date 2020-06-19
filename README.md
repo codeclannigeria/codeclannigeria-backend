@@ -1,6 +1,5 @@
 # Code Clan Nigeria
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/34b7b5288f2f451eb7224cdac4197041)](https://app.codacy.com/gh/codeclannigeria/codeclannigeria-backend?utm_source=github.com&utm_medium=referral&utm_content=codeclannigeria/codeclannigeria-backend&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/34b7b5288f2f451eb7224cdac4197041)](https://app.codacy.com/gh/codeclannigeria/codeclannigeria-backend?utm_source=github.com&utm_medium=referral&utm_content=codeclannigeria/codeclannigeria-backend&utm_campaign=Badge_Grade_Dashboard) [![build status](https://github.com/coryrylan/angular-github-actions/workflows/Build/badge.svg)](https://github.com/codeclannigeria/codeclannigeria-backend/actions)
 
 The official website for code clan nigeria community
@@ -10,7 +9,7 @@ writers, software engineers.
 This community was created out of a desire to provide ongoing support
 to you wherever stage you are in your coding career.
 
-# This is codeclannigeria.dev
+## This is codeclannigeria.dev
 
 As part of the measures towards achieving out goal stated above, we propose to bring together the amazing talents of our community members to built a website and a mobile application that represents all that we
 stand for.

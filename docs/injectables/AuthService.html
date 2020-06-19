@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>CodeClanNigeria documentation</title>
+        <title>code_clan_nigeria documentation</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,7 +13,7 @@
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">CodeClanNigeria documentation</a>
+            <a href="../" class="navbar-brand">code_clan_nigeria documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
 
@@ -95,6 +95,7 @@
                                 <a href="#generateTempToken">generateTempToken</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#login">login</a>
                             </li>
                             <li>
@@ -140,7 +141,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(usersService: <a href="../injectables/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>, jwtService: JwtService)</code>
+<code>constructor(usersService: <a href="../classes/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -166,7 +167,7 @@
                                                         <td>usersService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                                        <code><a href="../classes/UsersService.html" target="_self" >UsersService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -179,18 +180,6 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/TempTokensService.html" target="_self" >TempTokensService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>jwtService</td>
-                                                  
-                                                        <td>
-                                                                    <code>JwtService</code>
                                                         </td>
                                                   
                                                     <td>
@@ -229,15 +218,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>generateTempToken(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: <a href="../undefineds/TokenType.html">TokenType</a>, expiresInMins: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>generateTempToken(undefined: literal type)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">src/auth/auth.service.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/auth/auth.service.ts:75</a></div>
                 </td>
             </tr>
 
@@ -257,33 +246,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>userId</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>type</td>
-                                    <td>
-                                                <code><a href="../miscellaneous/enumerations.html#TokenType" target="_self" >TokenType</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>expiresInMins</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <code>literal type</code>
                                     </td>
 
                                     <td>
@@ -298,7 +262,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>{}</code>
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -315,6 +279,7 @@
                     <a name="login"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Async</span>
                             login
                         </b>
                         <a href="#login"><span class="icon ion-ios-link"></span></a>
@@ -323,15 +288,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>login(user: <a href="../classes/User.html">User</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pass: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/auth/auth.service.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/auth/auth.service.ts:53</a></div>
                 </td>
             </tr>
 
@@ -351,9 +317,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>user</td>
+                                    <td>email</td>
                                     <td>
-                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>pass</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -368,7 +346,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/LoginResDto.html" target="_self" >LoginResDto</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -402,8 +380,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">src/auth/auth.service.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/auth/auth.service.ts:30</a></div>
                 </td>
             </tr>
 
@@ -443,8 +421,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/auth/auth.service.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/auth/auth.service.ts:71</a></div>
                 </td>
             </tr>
 
@@ -453,7 +431,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                 </td>
@@ -477,15 +455,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validateEmailToken(validateEmailInput: literal type)</code>
+                    <code>validateEmailToken(input: literal type)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="92"
-                            class="link-to-prism">src/auth/auth.service.ts:92</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/auth/auth.service.ts:95</a></div>
                 </td>
             </tr>
 
@@ -505,7 +483,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>validateEmailInput</td>
+                                    <td>input</td>
                                     <td>
                                             <code>literal type</code>
                                     </td>
@@ -522,7 +500,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -556,8 +534,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">src/auth/auth.service.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/auth/auth.service.ts:111</a></div>
                 </td>
             </tr>
 
@@ -594,7 +572,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -629,8 +607,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">src/auth/auth.service.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">src/auth/auth.service.ts:128</a></div>
                 </td>
             </tr>
 
@@ -725,8 +703,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/auth/auth.service.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/auth/auth.service.ts:38</a></div>
                 </td>
             </tr>
 
@@ -821,7 +799,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/auth/auth.service.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/auth/auth.service.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -835,22 +813,22 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
   Injectable,
   Logger,
   OnModuleInit,
-  UnauthorizedException,
+  UnauthorizedException
 } from &#x27;@nestjs/common&#x27;;
-import { JwtService } from &#x27;@nestjs/jwt&#x27;;
 import { Client, ClientRedis, Transport } from &#x27;@nestjs/microservices&#x27;;
 import * as bcrypt from &#x27;bcrypt&#x27;;
-import { randomBytes } from &#x27;crypto&#x27;;
+import * as jwt from &#x27;jsonwebtoken&#x27;;
+import configuration from &#x27;~shared/config/configuration&#x27;;
+import { authErrors } from &#x27;~shared/errors&#x27;;
+import { TokenType } from &#x27;~shared/models/temporary-token.entity&#x27;;
+import { generateRandomToken } from &#x27;~shared/utils/random-token&#x27;;
 
-import { TokenType } from &#x27;../shared/models/temporary-token.entity&#x27;;
 import { User } from &#x27;../users/models/user.entity&#x27;;
 import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AuthEventEnum } from &#x27;./models/auth.enums&#x27;;
-import { LoginResDto } from &#x27;./models/dto/auth.dto&#x27;;
 import { JwtPayload } from &#x27;./models/jwt-payload&#x27;;
 import { TempTokensService } from &#x27;./temp-token.service&#x27;;
 
@@ -858,8 +836,7 @@ import { TempTokensService } from &#x27;./temp-token.service&#x27;;
 export class AuthService implements OnModuleInit {
   constructor(
     private readonly usersService: UsersService,
-    private readonly tokenService: TempTokensService,
-    private readonly jwtService: JwtService,
+    private readonly tokenService: TempTokensService
   ) {}
   @Client({ transport: Transport.REDIS })
   private client: ClientRedis;
@@ -874,99 +851,109 @@ export class AuthService implements OnModuleInit {
   }
   async validateUser(email: string, pw: string): Promise&lt;User&gt; {
     const user &#x3D; await this.usersService.findOneAsync({ email });
-    if (!user) throw new UnauthorizedException(&#x27;Invalid login attempt&#x27;);
+    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified)
       throw new UnauthorizedException(&#x27;Please confirm your email&#x27;);
     try {
       const isValid &#x3D; await bcrypt.compare(pw, user.password);
-      if (!isValid) throw new UnauthorizedException(&#x27;Invalid login attempt&#x27;);
+      if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
     } catch (error) {
       Logger.error(error);
-      throw new UnauthorizedException(&#x27;Invalid login attempt&#x27;);
+      throw authErrors.INVALID_LOGIN_ATTEMPT;
     }
     return user;
   }
 
-  login(user: User): LoginResDto {
-    const expiresIn &#x3D; 60 * 60 * 24;
+  async login(email: string, pass: string): Promise&lt;string&gt; {
+    const user &#x3D; await this.usersService.findOneAsync({ email });
+
+    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
+    const isValidPassword &#x3D; await bcrypt.compare(pass, user.password);
+    if (!isValidPassword) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
+    const { jwtValidityHrs, jwtSecret } &#x3D; configuration();
+    const expiresIn &#x3D; 60 * 60 * jwtValidityHrs;
     const payload: JwtPayload &#x3D; {
       email: user.email,
-      id: user.id,
-      role: user.role,
-    };
-    const result &#x3D; this.jwtService.sign(payload, { expiresIn });
-    return {
-      accessToken: result,
-      expireInSeconds: expiresIn,
       userId: user.id,
+      role: user.role
     };
+    return jwt.sign(payload, jwtSecret, { expiresIn });
   }
 
-  async pub() {
+  async pub(): Promise&lt;void&gt; {
     this.client.emit(AuthEventEnum.UserRegistered, &#x27;email&#x27;);
   }
 
-  async generateTempToken(
-    userId: string,
-    type: TokenType,
-    expiresInMins: number,
-  ) {
-    const exist &#x3D; await this.tokenService.findOneAsync({ user: userId, type });
-    if (exist) return;
-
-    const plainToken &#x3D; randomBytes(64).toString(&#x27;hex&#x27;);
+  async generateTempToken({
+    user,
+    type,
+    expiresInMins
+  }: {
+    user: User;
+    type: TokenType;
+    expiresInMins: number;
+  }): Promise&lt;string&gt; {
+    const plainToken &#x3D; generateRandomToken(64);
     const encryptedToken &#x3D; await bcrypt.hash(plainToken, 10);
     const token &#x3D; this.tokenService.createEntity({
       token: encryptedToken,
       expireAt: new Date(new Date().getTime() + expiresInMins * 60000),
       type,
-      user: userId as any,
+      user: user.id as any
     });
     await this.tokenService.insertAsync(token);
     return plainToken;
   }
-  async validateEmailToken(validateEmailInput: {
+  async validateEmailToken(input: {
     userId: string;
     plainToken: string;
-  }) {
-    const { userId, plainToken } &#x3D; validateEmailInput;
-    const exist &#x3D; await this.validateToken(userId, TokenType.EMAIL, plainToken);
+  }): Promise&lt;void&gt; {
+    const { userId, plainToken } &#x3D; input;
 
-    const doc &#x3D; exist.user as User;
+    const { user, id } &#x3D; await this.validateToken(
+      userId,
+      TokenType.EMAIL,
+      plainToken
+    );
+
+    const doc &#x3D; user as User;
     await this.usersService.updateAsync(doc.id, { isEmailVerified: true });
-    await this.tokenService.hardDeleteById(exist.id);
+    await this.tokenService.hardDeleteById(id);
   }
   async validatePasswordToken(resetPassInput: {
     userId: string;
     plainToken: string;
     newPassword: string;
-  }) {
+  }): Promise&lt;void&gt; {
     const { userId, plainToken, newPassword } &#x3D; resetPassInput;
-    const exist &#x3D; await this.validateToken(
+    const { user, id } &#x3D; await this.validateToken(
       userId,
       TokenType.PASSWORD,
-      plainToken,
+      plainToken
     );
     const passwordHash &#x3D; await bcrypt.hash(newPassword, 10);
 
-    const doc &#x3D; exist.user as User;
+    const doc &#x3D; user as User;
     await this.usersService.updateAsync(doc.id, { password: passwordHash });
-    await this.tokenService.hardDeleteById(exist.id);
+    await this.tokenService.hardDeleteById(id);
   }
   private async validateToken(
     userId: string,
     type: TokenType,
-    plainToken: string,
+    plainToken: string
   ) {
     const exist &#x3D; await this.tokenService
       .findOne({ user: userId, type })
       .populate(&#x27;user&#x27;);
-    if (!exist) throw new BadRequestException(&#x27;Token expired&#x27;);
+
+    if (!exist) throw authErrors.EXPIRED_TOKEN;
     try {
       const isValid &#x3D; await bcrypt.compare(plainToken, exist.token);
-      if (!isValid) throw new BadRequestException(&#x27;Invalid token&#x27;);
+      if (!isValid) throw authErrors.INVALID_TOKEN;
     } catch (error) {
-      throw new BadRequestException(&#x27;Invalid token&#x27;);
+      throw authErrors.INVALID_TOKEN;
     }
     return exist;
   }

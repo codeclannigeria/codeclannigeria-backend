@@ -12,7 +12,9 @@ import {
 import {
   ApiConflictResponse,
   ApiTags,
-  ApiUnauthorizedResponse
+  ApiUnauthorizedResponse,
+  ApiOkResponse,
+  ApiResponse
 } from '@nestjs/swagger';
 
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
@@ -20,11 +22,15 @@ import { MailService } from '../mail/mail.service';
 import configuration from '../shared/config/configuration';
 import { ApiException } from '../shared/models/api-exception.model';
 import { TokenType } from '../shared/models/temporary-token.entity';
-import { RegisterUserDto } from '../users/models/dto/register-user.dto';
+import {
+  RegisterUserDto,
+  RegisterUserResDto
+} from '../users/models/dto/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
+import { LoginResDto } from './models/dto/auth.dto';
 import { ResetPassInput } from './models/dto/reset-pw.dto';
 import { ValidateTokenInput } from './models/dto/validate-token.dto';
 
@@ -39,9 +45,10 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: LoginResDto })
   @ApiUnauthorizedResponse({ type: ApiException })
   @UseGuards(AuthenticationGuard)
-  async login(@Body() input: LoginReqDto): Promise<{ accessToken: string }> {
+  async login(@Body() input: LoginReqDto): Promise<LoginResDto> {
     const accessToken = await this.authService.login(
       input.email,
       input.password
@@ -50,9 +57,8 @@ export class AuthController {
   }
   @Post('register')
   @ApiConflictResponse({ type: ApiException })
-  async register(
-    @Body() input: RegisterUserDto
-  ): Promise<{ canLogin: boolean }> {
+  @ApiResponse({ type: RegisterUserResDto, status: HttpStatus.CREATED })
+  async register(@Body() input: RegisterUserDto): Promise<RegisterUserResDto> {
     const exist = await this.usersService.findOneAsync({ email: input.email });
     if (exist)
       throw new ConflictException('User with the email already exists');

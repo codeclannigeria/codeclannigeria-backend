@@ -3,19 +3,13 @@ import {
   Delete,
   Get,
   HttpStatus,
-  Logger,
   NotFoundException,
   Param,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiResponse,
-} from '@nestjs/swagger';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 
 import { AbstractControllerOptions } from './interfaces/base-controller-interface';
@@ -25,86 +19,106 @@ import { PagedReqDto } from './models/dto/paged-req.dto';
 import { BaseService } from './services/base.service';
 
 export function AbstractCrudController<
-  T extends BaseEntity,
+  TEntity extends BaseEntity,
   TEntityDto,
   TCreateDto,
-  TUpdateDto = TEntityDto
->(options: AbstractControllerOptions<T, TEntityDto, TCreateDto>): any {
-  const { entity, entityDto, createDto } = options;
+  TUpdateDto = TEntityDto,
+  TPagedResDto = { totalCount: number; items: TEntityDto[] }
+>(
+  options: AbstractControllerOptions<
+    TEntity,
+    TEntityDto,
+    TCreateDto,
+    TUpdateDto,
+    TPagedResDto
+  >
+): any {
+  const {
+    entity: Entity,
+    entityDto: EntityDto,
+    createDto: CreateDto,
+    updateDto: UpdateDto,
+    pagedResDto: PagedResDto
+  } = options;
   abstract class BaseController {
-    constructor(protected readonly baseService: BaseService<T>) {}
+    constructor(protected readonly baseService: BaseService<TEntity>) {}
+
+    @Post()
+    @ApiResponse({ type: CreateDto, status: HttpStatus.CREATED })
+    @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+    @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+    async create(@Body() input: TCreateDto): Promise<TEntityDto> {
+      const newEntity = this.baseService.createEntity(input);
+      await this.baseService.insertAsync(newEntity);
+      return plainToClass(EntityDto, newEntity, {
+        excludeExtraneousValues: true,
+        enableImplicitConversion: true
+      });
+    }
 
     @Get()
-    @ApiOkResponse()
-    @ApiBadRequestResponse({ type: ApiException })
-    async findAll(@Query() query: PagedReqDto) {
-      const { skip, limit, search } = query;
+    @ApiResponse({ type: PagedResDto, status: HttpStatus.OK })
+    @ApiResponse({ type: ApiException, status: HttpStatus.OK })
+    async findAll(
+      @Query() query: PagedReqDto
+    ): Promise<{ totalCount: number; items: TEntityDto[] }> {
+      const { skip, limit, search, opts } = query;
+      const conditions = JSON.parse(search || '{}');
+      const options = JSON.parse(opts || '{}');
+
       const entities = await this.baseService
-        .findAll(search && { $text: { $search: search } })
+        .findAll(conditions, options)
         .limit(limit)
         .skip(skip);
-      const totalCount = entities.length <= limit ? entities.length : limit;
-      const items = plainToClass(entityDto, entities, {
+      const totalCount = await this.baseService.countAsync();
+      const items = plainToClass(EntityDto, entities, {
         excludeExtraneousValues: true,
-        enableImplicitConversion: true,
+        enableImplicitConversion: true
       });
-      return { items, totalCount };
+      return { totalCount, items };
     }
 
     @Get(':id')
-    @ApiOkResponse({ description: 'Entity retrieved successfully.' })
-    @ApiNotFoundResponse({
-      type: ApiException,
-      description: 'Entity does not exist',
-    })
+    @ApiResponse({ type: EntityDto, status: HttpStatus.OK })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, type: ApiException })
     async findById(@Param('id') id: string): Promise<TEntityDto> {
       const entity = await this.baseService.findByIdAsync(id);
       if (!entity)
         throw new NotFoundException(`Entity with id ${id} does not exist`);
-      return plainToClass(entityDto, entity, {
+      return plainToClass(EntityDto, entity, {
         excludeExtraneousValues: true,
-        enableImplicitConversion: true,
+        enableImplicitConversion: true
       });
-    }
-
-    @Post()
-    @ApiResponse({ type: createDto, status: HttpStatus.CREATED })
-    @ApiResponse({ status: HttpStatus.FORBIDDEN })
-    @ApiResponse({ status: HttpStatus.BAD_REQUEST })
-    async create(@Body() input: TCreateDto): Promise<string> {
-      const newEntity = this.baseService.createEntity(input);
-      await this.baseService.insertAsync(newEntity);
-      return newEntity.id;
-    }
-
-    @Delete(':id')
-    @ApiOkResponse()
-    @ApiBadRequestResponse({ type: ApiException })
-    async delete(@Param('id') id: string) {
-      this.baseService.softDeleteByIdAsync(id);
     }
 
     @Put(':id')
-    @ApiBadRequestResponse({ type: ApiException })
-    @ApiOkResponse()
+    @ApiBody({ type: UpdateDto })
+    @ApiResponse({ status: HttpStatus.OK, type: EntityDto })
+    @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+    @ApiResponse({ status: HttpStatus.NOT_FOUND, type: ApiException })
     async update(
       @Param('id') id: string,
-      @Body() input: TUpdateDto,
+      @Body() input: TUpdateDto
     ): Promise<TEntityDto> {
-      const existed = await this.baseService.findByIdAsync(id);
-      if (!existed)
+      const entity = await this.baseService.findByIdAsync(id);
+      if (!entity)
         throw new NotFoundException(`Entity with Id ${id} does not exist`);
-      const value = plainToClass(entity, existed, {
+      const value = plainToClass(Entity, entity, {
         excludeExtraneousValues: true,
-        enableImplicitConversion: true,
+        enableImplicitConversion: true
       });
       const updatedDoc = { ...value, ...input };
-      Logger.debug(updatedDoc);
       const result = await this.baseService.updateAsync(id, updatedDoc);
-      return plainToClass<TEntityDto, T>(entityDto, result, {
+      return plainToClass<TEntityDto, TEntity>(EntityDto, result, {
         excludeExtraneousValues: true,
-        enableImplicitConversion: true,
+        enableImplicitConversion: true
       });
+    }
+
+    @Delete(':id')
+    @ApiResponse({ status: HttpStatus.OK })
+    async delete(@Param('id') id: string): Promise<void> {
+      await this.baseService.softDeleteByIdAsync(id);
     }
   }
   return BaseController;

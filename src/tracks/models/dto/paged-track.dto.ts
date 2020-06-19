@@ -1,5 +1,5 @@
-import { PaginatedResDto } from '~shared/models/dto/paged-res.dto';
+import { PagedResDto } from '~shared/models/dto/paged-res.dto';
 
 import { TrackDto } from './tack.dto';
 
-export class PagedTrackResDto extends PaginatedResDto(TrackDto) {}
+export class PagedTrackResDto extends PagedResDto(TrackDto) {}
