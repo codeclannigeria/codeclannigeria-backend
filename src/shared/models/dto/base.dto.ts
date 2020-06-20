@@ -1,16 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
 import { IsMongoId } from 'class-validator';
 
-export class BaseResDto {
-  @Expose()
+export class BaseDto {
   @IsMongoId()
-  @ApiProperty()
-  id: string;
-  @Expose()
+  readonly id: string;
   @ApiProperty()
   readonly updatedAt: Date;
-  @Expose()
   @ApiProperty()
   readonly createdAt: Date;
 }

@@ -1,11 +1,11 @@
 import { index, modelOptions, prop, Ref } from '@typegoose/typegoose';
 
 import { User } from '../../users/models/user.entity';
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '../../shared/models/base.entity';
 
 export enum TokenType {
-  PASSWORD = 'Password',
-  EMAIL = 'Email',
+  PASSWORD = 'PASSWORD_TOKEN',
+  EMAIL = 'EMAIL_TOKEN'
 }
 
 @index({ user: 1, type: 1 }, { unique: true })
@@ -22,7 +22,7 @@ export class TemporaryToken extends BaseEntity {
     enum: TokenType,
     type: String,
     unique: false,
-    required: true,
+    required: true
   })
   readonly type?: TokenType;
 

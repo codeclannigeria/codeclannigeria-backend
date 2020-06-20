@@ -1,19 +1,18 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PagedResDto } from '~shared/models/dto/paged-res.dto';
+import { UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { AbstractCrudController } from '../shared/base.controller';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { BaseCrudController } from '../shared/controllers/base.controller';
+import { Roles } from '../shared/decorators/roles.decorator';
 import { CreateUserDto } from './models/dto/create-user.dto';
-import { UserDto } from './models/dto/user.dto';
-import { User } from './models/user.entity';
-import { UsersService } from './users.service';
+import { PagedUserOutputDto, UserDto } from './models/dto/user.dto';
+import { User, UserRole } from './models/user.entity';
 
-@ApiTags('Users')
-@Controller('users')
-@UseGuards(JwtAuthGuard)
+@Roles(UserRole.ADMIN)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiBearerAuth()
-export class UsersController extends AbstractCrudController<
+export class UsersController extends BaseCrudController<
   User,
   UserDto,
   CreateUserDto
@@ -22,9 +21,6 @@ export class UsersController extends AbstractCrudController<
   entityDto: UserDto,
   createDto: CreateUserDto,
   updateDto: UserDto,
-  pagedResDto: PagedResDto(UserDto)
-}) {
-  constructor(protected readonly usersService: UsersService) {
-    super(usersService);
-  }
-}
+  pagedOutputDto: PagedUserOutputDto,
+  auth: true
+}) {}

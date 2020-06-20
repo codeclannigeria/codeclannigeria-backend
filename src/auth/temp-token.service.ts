@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 
 import { BaseService } from '../shared';
-import { TemporaryToken } from '../shared/models/temporary-token.entity';
+import { TemporaryToken } from './models/temporary-token.entity';
 
 @Injectable()
 export class TempTokensService extends BaseService<TemporaryToken> {

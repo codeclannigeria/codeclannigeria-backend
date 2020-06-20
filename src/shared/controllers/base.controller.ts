@@ -7,30 +7,33 @@ import {
   Param,
   Post,
   Put,
-  Query
+  Query,
+  Controller
 } from '@nestjs/common';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
+import * as pluralize from 'pluralize';
+import { getAuthObj } from '~shared/utils';
 
-import { AbstractControllerOptions } from './interfaces/base-controller-interface';
-import { ApiException } from './models/api-exception.model';
-import { BaseEntity } from './models/base.entity';
-import { PagedReqDto } from './models/dto/paged-req.dto';
-import { BaseService } from './services/base.service';
+import { ApiException } from '../errors/api-exception';
+import { BaseControllerWithSwaggerOpts } from '../interfaces/base-controller-opts-interface';
+import { BaseEntity } from '../models/base.entity';
+import { PagedInputDto } from '../models/dto/paged-in.dto';
+import { BaseService } from '../services/base.service';
 
-export function AbstractCrudController<
+export function BaseCrudController<
   TEntity extends BaseEntity,
   TEntityDto,
   TCreateDto,
-  TUpdateDto = TEntityDto,
-  TPagedResDto = { totalCount: number; items: TEntityDto[] }
+  TUpdateDto = Partial<TCreateDto>,
+  TPagedOutputDto = any
 >(
-  options: AbstractControllerOptions<
+  options: BaseControllerWithSwaggerOpts<
     TEntity,
     TEntityDto,
     TCreateDto,
     TUpdateDto,
-    TPagedResDto
+    TPagedOutputDto
   >
 ): any {
   const {
@@ -38,13 +41,18 @@ export function AbstractCrudController<
     entityDto: EntityDto,
     createDto: CreateDto,
     updateDto: UpdateDto,
-    pagedResDto: PagedResDto
+    pagedOutputDto: PagedOutputDto
   } = options;
+  const auth = getAuthObj(options.auth);
+
+  @ApiTags(pluralize(Entity.name))
+  @Controller(pluralize(Entity.name.toLowerCase()))
   abstract class BaseController {
     constructor(protected readonly baseService: BaseService<TEntity>) {}
 
     @Post()
-    @ApiResponse({ type: CreateDto, status: HttpStatus.CREATED })
+    @ApiResponse({ type: EntityDto, status: HttpStatus.CREATED })
+    @ApiBody({ type: CreateDto })
     @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
     async create(@Body() input: TCreateDto): Promise<TEntityDto> {
@@ -57,10 +65,10 @@ export function AbstractCrudController<
     }
 
     @Get()
-    @ApiResponse({ type: PagedResDto, status: HttpStatus.OK })
+    @ApiResponse({ type: PagedOutputDto, status: HttpStatus.OK })
     @ApiResponse({ type: ApiException, status: HttpStatus.OK })
     async findAll(
-      @Query() query: PagedReqDto
+      @Query() query: PagedInputDto
     ): Promise<{ totalCount: number; items: TEntityDto[] }> {
       const { skip, limit, search, opts } = query;
       const conditions = JSON.parse(search || '{}');

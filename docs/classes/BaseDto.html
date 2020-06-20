@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>AbstractVm</li>
+  <li>BaseDto</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/shared/models/abstract-vm.model.ts</code>
+            <code>src/shared/models/dto/base-vm.dto.ts</code>
         </p>
 
 
@@ -80,15 +80,14 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Optional</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#createdAt">createdAt</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
                                 <a href="#id">id</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#updatedAt">updatedAt</a>
                             </li>
                         </ul>
@@ -117,7 +116,7 @@
                         <a name="createdAt"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Optional</span>
+                                <span class="modifier">Readonly</span>
                             createdAt</b>
                             <a href="#createdAt"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -134,13 +133,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiPropertyOptional({type: String, format: &#x27;date-time&#x27;})<br />
+                                @Expose()<br />@ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/shared/models/abstract-vm.model.ts:5</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/shared/models/dto/base-vm.dto.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -154,7 +153,6 @@
                         <a name="id"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Optional</span>
                             id</b>
                             <a href="#id"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -171,13 +169,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiPropertyOptional()<br />
+                                @Expose()<br />@IsMongoId()<br />@ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/shared/models/abstract-vm.model.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/shared/models/dto/base-vm.dto.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -191,7 +189,7 @@
                         <a name="updatedAt"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Optional</span>
+                                <span class="modifier">Readonly</span>
                             updatedAt</b>
                             <a href="#updatedAt"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -208,13 +206,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiPropertyOptional({type: String, format: &#x27;date-time&#x27;})<br />
+                                @Expose()<br />@ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/shared/models/abstract-vm.model.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/shared/models/dto/base-vm.dto.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -233,16 +231,21 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { Expose } from &#x27;class-transformer&#x27;;
+import { IsMongoId } from &#x27;class-validator&#x27;;
 
-export class AbstractVm {
-  @ApiPropertyOptional({ type: String, format: &#x27;date-time&#x27; })
-  createdAt?: Date;
-
-  @ApiPropertyOptional({ type: String, format: &#x27;date-time&#x27; })
-  updatedAt?: Date;
-
-  @ApiPropertyOptional() id?: string;
+export class BaseDto {
+  @Expose()
+  @IsMongoId()
+  @ApiProperty()
+  id: string;
+  @Expose()
+  @ApiProperty()
+  readonly updatedAt: Date;
+  @Expose()
+  @ApiProperty()
+  readonly createdAt: Date;
 }
 </code></pre>
     </div>
@@ -272,7 +275,7 @@ export class AbstractVm {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'AbstractVm.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'BaseDto.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

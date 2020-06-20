@@ -1,4 +1,3 @@
-import { UserRole } from './../../users/models/user.entity';
 import {
   Inject,
   Injectable,
@@ -13,19 +12,23 @@ import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
 import { MongoError } from 'mongodb';
 import { CreateQuery, Query, Types } from 'mongoose';
+
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
-import { AbstractService } from './abstract.service';
+import { UserRole } from './../../users/models/user.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable({ scope: Scope.REQUEST })
-export class BaseService<T extends BaseEntity> extends AbstractService<T> {
+export class BaseService<T extends BaseEntity> {
   @Optional()
   @Inject(REQUEST)
   private readonly req: Request;
   protected entity: ReturnModelType<AnyParamConstructor<T>>;
 
-  constructor(entity: ReturnModelType<AnyParamConstructor<T>>) {
-    super();
+  constructor(
+    @InjectModel(BaseEntity.modelName)
+    entity: ReturnModelType<AnyParamConstructor<T>>
+  ) {
     this.entity = entity;
   }
 

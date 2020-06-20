@@ -1,6 +1,6 @@
 import { IsJSON, IsOptional } from 'class-validator';
 
-export class PagedReqDto {
+export class PagedInputDto {
   @IsOptional()
   skip?: number = 0;
   @IsOptional()

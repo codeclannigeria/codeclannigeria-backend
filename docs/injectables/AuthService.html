@@ -822,8 +822,7 @@ import { Client, ClientRedis, Transport } from &#x27;@nestjs/microservices&#x27;
 import * as bcrypt from &#x27;bcrypt&#x27;;
 import * as jwt from &#x27;jsonwebtoken&#x27;;
 import configuration from &#x27;~shared/config/configuration&#x27;;
-import { authErrors } from &#x27;~shared/errors&#x27;;
-import { TokenType } from &#x27;~shared/models/temporary-token.entity&#x27;;
+import { TokenType } from &#x27;src/auth/models/temporary-token.entity&#x27;;
 import { generateRandomToken } from &#x27;~shared/utils/random-token&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
@@ -831,6 +830,7 @@ import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AuthEventEnum } from &#x27;./models/auth.enums&#x27;;
 import { JwtPayload } from &#x27;./models/jwt-payload&#x27;;
 import { TempTokensService } from &#x27;./temp-token.service&#x27;;
+import { authErrors } from &#x27;~shared/errors&#x27;;
 
 @Injectable()
 export class AuthService implements OnModuleInit {

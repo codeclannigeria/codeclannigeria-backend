@@ -1,6 +1,6 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TemporaryToken } from '~shared/models/temporary-token.entity';
+import { TemporaryToken } from 'src/auth/models/temporary-token.entity';
 
 import { DbTest } from '../../test/db-test.module';
 import { UsersModule } from '../users/users.module';

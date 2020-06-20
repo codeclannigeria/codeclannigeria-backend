@@ -158,16 +158,14 @@ import { User } from &#x27;./models/user.entity&#x27;;
 import { UsersController } from &#x27;./users.controller&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
 
+const UserModel &#x3D; MongooseModule.forFeature([
+  { name: User.modelName, schema: User.schema }
+]);
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: User.modelName, schema: User.schema }])
-  ],
+  imports: [UserModel],
   providers: [UsersService],
   controllers: [UsersController],
-  exports: [
-    UsersService,
-    MongooseModule.forFeature([{ name: User.modelName, schema: User.schema }])
-  ]
+  exports: [UsersService, UserModel]
 })
 export class UsersModule {}
 </code></pre>

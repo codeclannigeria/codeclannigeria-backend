@@ -5,16 +5,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { CategoriesModule } from './categories/categories.module';
-import { MailModule } from './mail/mail.module';
+import { CoursesModule } from './courses/courses.module';
+import { MailModule } from './shared/mail/mail.module';
 import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared';
 import configuration from './shared/config/configuration';
 import { envValidation } from './shared/validations/env.validation';
 import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
+import { CategoriesModule } from './categories/categories.module';
 
-export const config = ConfigModule.forRoot({
+export const Config = ConfigModule.forRoot({
   isGlobal: true,
   validationSchema: envValidation(),
   expandVariables: true,
@@ -22,21 +23,23 @@ export const config = ConfigModule.forRoot({
     abortEarly: true
   }
 });
+const Database = MongooseModule.forRoot(configuration().database.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+});
 @Module({
   imports: [
-    // SharedModule.forRoot(),
+    SharedModule,
     AuthModule,
     UsersModule,
-    config,
-    MongooseModule.forRoot(configuration().database.uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false
-    }),
+    Config,
+    Database,
     MailModule,
     ProfileModule,
     TracksModule,
+    CoursesModule,
     CategoriesModule
   ],
 

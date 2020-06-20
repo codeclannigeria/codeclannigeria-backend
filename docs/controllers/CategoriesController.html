@@ -194,9 +194,9 @@
   UseGuards
 } from &#x27;@nestjs/common&#x27;;
 import { ApiBearerAuth, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { AbstractCrudController } from &#x27;~shared/base.controller&#x27;;
-import { ApiException } from &#x27;~shared/models/api-exception.model&#x27;;
-import { PagedResDto } from &#x27;~shared/models/dto/paged-res.dto&#x27;;
+import { AbstractCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
+import { ApiException } from &#x27;~shared/errors/api-exception&#x27;;
+import { PagedOutDto } from &#x27;~shared/models/dto/paged-out.dto&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { CategoryService } from &#x27;./categories.service&#x27;;
@@ -218,7 +218,7 @@ export class CategoriesController extends AbstractCrudController&lt;
   entityDto: CategoryDto,
   createDto: CreateCategoryDto,
   updateDto: CreateCategoryDto,
-  pagedResDto: PagedResDto(CategoryDto)
+  pagedResDto: PagedOutDto(CategoryDto)
 }) {
   constructor(private readonly categoryService: CategoryService) {
     super(categoryService);

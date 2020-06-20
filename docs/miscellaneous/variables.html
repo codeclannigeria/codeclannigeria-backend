@@ -70,10 +70,16 @@
                             <a href="#authErrors" title="src/shared/errors/auth.errors.ts"><b>authErrors</b>&nbsp;&nbsp;&nbsp;(src/.../auth.errors.ts)</a>
                         </li>
                         <li>
+                            <a href="#BaseModel" title="src/shared/shared.module.ts"><b>BaseModel</b>&nbsp;&nbsp;&nbsp;(src/.../shared.module.ts)</a>
+                        </li>
+                        <li>
                             <a href="#columnSize" title="src/shared/constants.ts"><b>columnSize</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
                         </li>
                         <li>
-                            <a href="#config" title="src/app.module.ts"><b>config</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                            <a href="#Config" title="src/app.module.ts"><b>Config</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Database" title="src/app.module.ts"><b>Database</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
                         </li>
                         <li>
                             <a href="#dbFactory" title="test/db-test.module.ts"><b>dbFactory</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
@@ -101,6 +107,9 @@
                         </li>
                         <li>
                             <a href="#trackModelConfig" title="src/tracks/tracks.module.ts"><b>trackModelConfig</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UserModel" title="src/users/users.module.ts"><b>UserModel</b>&nbsp;&nbsp;&nbsp;(src/.../users.module.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -233,9 +242,9 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>(
   isAuthEnable: boolean,
-  decorator: MethodDecorator,
+  decorator: MethodDecorator
 ): MethodDecorator &#x3D;&gt; {
-  return (target: object, key: string | symbol, value: any): any &#x3D;&gt; {
+  return (target, key: string | symbol, value: any): any &#x3D;&gt; {
     if (isAuthEnable) {
       decorator(target, key, value);
     }
@@ -284,17 +293,43 @@
             </tbody>
         </table>
 </section>
+    <h3>src/shared/shared.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseModel"></a>
+                        <span class="name">
+                            <b>
+                            BaseModel</b>
+                            <a href="#BaseModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: BaseEntity.modelName, schema: BaseEntity.schema }
+])</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/app.module.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="config"></a>
+                        <a name="Config"></a>
                         <span class="name">
                             <b>
-                            config</b>
-                            <a href="#config"><span class="icon ion-ios-link"></span></a>
+                            Config</b>
+                            <a href="#Config"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -307,6 +342,32 @@
   validationOptions: {
     abortEarly: true
   }
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Database"></a>
+                        <span class="name">
+                            <b>
+                            Database</b>
+                            <a href="#Database"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forRoot(configuration().database.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 })</code>
                         </td>
                     </tr>
@@ -601,6 +662,32 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
+])</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/users/users.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="UserModel"></a>
+                        <span class="name">
+                            <b>
+                            UserModel</b>
+                            <a href="#UserModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: User.modelName, schema: User.schema }
 ])</code>
                         </td>
                     </tr>

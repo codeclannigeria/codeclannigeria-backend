@@ -68,7 +68,7 @@
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                        <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                        <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
             </p>
 
 
@@ -306,13 +306,13 @@
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:15</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:15</a></code>
 </div>
                             </td>
                         </tr>
@@ -349,13 +349,13 @@
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:9</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:9</a></code>
 </div>
                             </td>
                         </tr>
@@ -393,13 +393,13 @@
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:12</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:12</a></code>
 </div>
                             </td>
                         </tr>
@@ -423,11 +423,11 @@
 import { Expose } from &#x27;class-transformer&#x27;;
 import { IsEmail, IsEnum, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseResDto } from &#x27;~shared/models/dto/base-res.dto&#x27;;
+import { BaseDto } from &#x27;~shared/models/dto/base-vm.dto&#x27;;
 
 import { UserRole } from &#x27;../user.entity&#x27;;
 
-export class UserDto extends BaseResDto {
+export class UserDto extends BaseDto {
   @Expose()
   @MaxLength(columnSize.length64)
   @ApiProperty()

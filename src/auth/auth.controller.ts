@@ -18,10 +18,10 @@ import {
 } from '@nestjs/swagger';
 
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
-import { MailService } from '../mail/mail.service';
+import { MailService } from '../shared/mail/mail.service';
 import configuration from '../shared/config/configuration';
-import { ApiException } from '../shared/models/api-exception.model';
-import { TokenType } from '../shared/models/temporary-token.entity';
+import { ApiException } from '../shared/errors/api-exception';
+import { TokenType } from './models/temporary-token.entity';
 import {
   RegisterUserDto,
   RegisterUserResDto

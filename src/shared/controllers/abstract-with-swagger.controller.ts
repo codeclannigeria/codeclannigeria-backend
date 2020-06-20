@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   UseGuards,
+  Controller
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
@@ -16,30 +17,31 @@ import {
   ApiOkResponse,
   ApiParam,
   ApiQuery,
-  ApiTags,
+  ApiTags
 } from '@nestjs/swagger';
+import { BaseService } from '~shared/services';
 
 import { AUTH_GUARD_TYPE } from '../constants';
 import { ApiSwaggerOperation, Authenticate } from '../decorators';
 import { AbstractControllerWithSwaggerOptions } from '../interfaces';
 import { BaseEntity } from '../models/base.entity';
-import { AbstractService } from '../services';
 import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
+import pluralize = require('pluralize');
 
-export function abstractControllerWithSwagger<
+export function AbstractController<
   T extends BaseEntity,
   VM = Partial<T>,
   C = Partial<T>
 >(options: AbstractControllerWithSwaggerOptions<T, VM, C>): any {
   const { model, modelVm, modelCreate } = options;
   const auth = getAuthObj(options.auth);
-
-  @ApiTags(model.name)
+  @ApiTags(pluralize(model.name))
+  @Controller(pluralize(model.name.toLowerCase()))
   abstract class AbstractController {
-    protected readonly _service: AbstractService<T>;
+    protected readonly _service: BaseService<T>;
 
-    protected constructor(service: AbstractService<T>) {
+    protected constructor(service: BaseService<T>) {
       this._service = service;
     }
 
@@ -50,7 +52,7 @@ export function abstractControllerWithSwagger<
       name: 'filter',
       description: 'Find Query',
       required: false,
-      isArray: false,
+      isArray: false
     })
     @ApiOkResponse({ type: modelVm, isArray: true })
     @ApiSwaggerOperation({ title: 'FindAll' })
@@ -62,14 +64,14 @@ export function abstractControllerWithSwagger<
     @Get(':id')
     @Authenticate(
       !!auth && auth.findById,
-      UseGuards(AuthGuard(AUTH_GUARD_TYPE)),
+      UseGuards(AuthGuard(AUTH_GUARD_TYPE))
     )
     @Authenticate(!!auth && auth.findById, ApiBearerAuth())
     @ApiParam({
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'FindById' })
@@ -89,7 +91,7 @@ export function abstractControllerWithSwagger<
       type: modelCreate,
       description: 'Data for model creation',
       required: true,
-      isArray: false,
+      isArray: false
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Create' })
@@ -110,19 +112,19 @@ export function abstractControllerWithSwagger<
       type: modelVm,
       description: 'Data for object update',
       required: true,
-      isArray: false,
+      isArray: false
     })
     @ApiParam({
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Update' })
     public async update(
       @Param('id') id: string,
-      @Body() doc: Partial<T>,
+      @Body() doc: Partial<T>
     ): Promise<void> {
       const existed = await this._service.findById(id);
       const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
@@ -136,7 +138,7 @@ export function abstractControllerWithSwagger<
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Delete' })

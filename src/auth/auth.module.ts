@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 
-import { MailService } from '../mail/mail.service';
-import { TemporaryToken } from '../shared/models/temporary-token.entity';
+import { MailService } from '../shared/mail/mail.service';
+import { TemporaryToken } from './models/temporary-token.entity';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';

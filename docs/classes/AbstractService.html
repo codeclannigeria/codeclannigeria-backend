@@ -1520,8 +1520,8 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DocumentType } from &#x27;@typegoose/typegoose&#x27;;
 import { Query } from &#x27;mongoose&#x27;;
 
-import { QueryItem, QueryList } from &#x27;../types&#x27;;
 import { BaseEntity } from &#x27;../models/base.entity&#x27;;
+import { QueryItem, QueryList } from &#x27;../types&#x27;;
 
 export abstract class AbstractService&lt;T extends BaseEntity&gt; {
   abstract insert(entity: T): Promise&lt;DocumentType&lt;T&gt;&gt;;

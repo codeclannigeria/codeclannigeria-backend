@@ -1,8 +1,8 @@
 import { DocumentType } from '@typegoose/typegoose';
 import { Query } from 'mongoose';
 
-import { QueryItem, QueryList } from '../types';
 import { BaseEntity } from '../models/base.entity';
+import { QueryItem, QueryList } from '../types';
 
 export abstract class AbstractService<T extends BaseEntity> {
   abstract insert(entity: T): Promise<DocumentType<T>>;

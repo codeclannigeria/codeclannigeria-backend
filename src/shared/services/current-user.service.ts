@@ -6,6 +6,6 @@ import { Request } from 'express';
 export class CurrentUserService {
   constructor(@Optional() @Inject(REQUEST) private readonly req: Request) {}
   get currentUser(): string | null {
-    return !this.req || !this.req.user ? null : this.req.user['id'];
+    return this.req?.user?.['userId'] || null;
   }
 }

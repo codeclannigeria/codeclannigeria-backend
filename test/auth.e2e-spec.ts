@@ -6,7 +6,7 @@ import * as request from 'supertest';
 
 import { AuthModule } from '../src/auth/auth.module';
 import { ValidateTokenInput } from '../src/auth/models/dto/validate-token.dto';
-import { MailService } from '../src/mail/mail.service';
+import { MailService } from '../src/shared/mail/mail.service';
 import { RegisterUserDto } from '../src/users/models/dto/register-user.dto';
 import { ResetPassInput } from './../src/auth/models/dto/reset-pw.dto';
 import { DbTest } from './db-test.module';

@@ -180,7 +180,7 @@ import { Request } from &#x27;express&#x27;;
 export class CurrentUserService {
   constructor(@Optional() @Inject(REQUEST) private readonly req: Request) {}
   get currentUser(): string | null {
-    return !this.req || !this.req.user ? null : this.req.user[&#x27;id&#x27;];
+    return this.req?.user?.[&#x27;userId&#x27;] || null;
   }
 }
 </code></pre>

@@ -1,13 +1,11 @@
 import { ClassType } from '../../types/abstract.type';
 import { ApiProperty } from '@nestjs/swagger';
 
-export function PagedResDto<T extends ClassType>(entityDto: T): any {
+export function PagedOutputDto<T extends ClassType>(entityDto: T): any {
   class Paged {
-    @ApiProperty()
     totalCount: number;
     @ApiProperty({
-      type: entityDto,
-      isArray: true
+      type: entityDto
     })
     items: T[];
   }

@@ -1,7 +1,7 @@
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
-import { MailService } from '../mail/mail.service';
+import { MailService } from '../shared/mail/mail.service';
 import { RegisterUserDto } from '../users/models/dto/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthController } from './auth.controller';

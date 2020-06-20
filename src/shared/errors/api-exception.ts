@@ -31,7 +31,7 @@ export class ApiException {
   ) {
     this.message = message;
     this.error = error;
-    this.stack = configuration().environment === 'production' ? null : stack;
+    this.stack = stack;
     this.errors = errors;
     this.path = path;
     this.timestamp = new Date().toISOString();

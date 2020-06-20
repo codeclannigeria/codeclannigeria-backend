@@ -5,13 +5,13 @@ export const defaultAuthObj: DefaultAuthObject = {
   findById: true,
   create: true,
   update: true,
-  delete: true,
+  delete: true
 };
 
 export const getAuthObj = (
-  authObj: DefaultAuthObject | boolean,
+  authObj: DefaultAuthObject | boolean
 ): DefaultAuthObject => {
-  let auth = null;
+  let auth: DefaultAuthObject;
 
   if (!!authObj) {
     return auth;
@@ -25,12 +25,12 @@ export const getAuthObj = (
       findById: false,
       create: false,
       update: false,
-      delete: false,
+      delete: false
     };
   } else {
     auth = {
       ...defaultAuthObj,
-      ...authObj,
+      ...authObj
     };
   }
 
