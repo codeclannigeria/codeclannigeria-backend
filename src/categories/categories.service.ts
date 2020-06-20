@@ -15,7 +15,7 @@ export class CategoryService extends BaseService<Category> {
   }
   async InsertCategory(categoryname: string) {
     const newCat = new this.categoryEntity({ category: categoryname });
-    var result = await newCat.save();
+    const result = await newCat.save();
     return result.id;
   }
 
