@@ -7,8 +7,8 @@ import { Track } from './models/track.entity';
 export class TracksService extends BaseService<Track> {
   constructor(
     @InjectModel(Track.modelName)
-    protected readonly userEntity: ReturnModelType<typeof Track>
+    protected readonly entity: ReturnModelType<typeof Track>
   ) {
-    super(userEntity);
+    super(entity);
   }
 }

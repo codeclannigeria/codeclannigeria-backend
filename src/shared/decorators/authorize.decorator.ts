@@ -1,9 +1,9 @@
-export const Authenticate = (
-  isAuthenticationEnabled: boolean,
+export const Authorize = (
+  isAuthorizationEnabled: boolean,
   decorator: MethodDecorator
 ): MethodDecorator => {
   return (target, key: string | symbol, value: any): any => {
-    if (isAuthenticationEnabled) {
+    if (isAuthorizationEnabled) {
       decorator(target, key, value);
     }
   };

@@ -11,28 +11,28 @@ import {
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
-  ApiTags,
-  ApiUnauthorizedResponse,
   ApiOkResponse,
-  ApiResponse
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
-import { MailService } from '../shared/mail/mail.service';
 import configuration from '../shared/config/configuration';
 import { ApiException } from '../shared/errors/api-exception';
-import { TokenType } from './models/temporary-token.entity';
+import { MailService } from '../shared/mail/mail.service';
 import {
   RegisterUserDto,
   RegisterUserResDto
 } from '../users/models/dto/register-user.dto';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';
 import { LoginResDto } from './models/dto/auth.dto';
 import { ResetPassInput } from './models/dto/reset-pw.dto';
 import { ValidateTokenInput } from './models/dto/validate-token.dto';
+import { TokenType } from './models/temporary-token.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -64,6 +64,7 @@ export class AuthController {
       throw new ConflictException('User with the email already exists');
     const user = this.usersService.createEntity(input);
     const saved = await this.usersService.insertAsync(user);
+
     return { canLogin: saved.isEmailVerified };
   }
 

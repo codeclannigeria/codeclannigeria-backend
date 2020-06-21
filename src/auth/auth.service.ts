@@ -8,15 +8,15 @@ import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import configuration from '~shared/config/configuration';
-import { TokenType } from 'src/auth/models/temporary-token.entity';
+import { authErrors } from '~shared/errors';
 import { generateRandomToken } from '~shared/utils/random-token';
 
 import { User } from '../users/models/user.entity';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './../users/users.service';
 import { AuthEventEnum } from './models/auth.enums';
 import { JwtPayload } from './models/jwt-payload';
+import { TokenType } from './models/temporary-token.entity';
 import { TempTokensService } from './temp-token.service';
-import { authErrors } from '~shared/errors';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
@@ -27,7 +27,7 @@ export class AuthService implements OnModuleInit {
   @Client({ transport: Transport.REDIS })
   private client: ClientRedis;
 
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     // Connect your client to the redis server on startup.
     try {
       // await this.client.connect();

@@ -73,11 +73,14 @@ export class BaseService<T extends BaseEntity> {
       delete filter['id'];
     }
     filter = { ...filter, isDeleted: { $ne: true } };
-    const whereClause =
-      this.req.user?.['role'] === UserRole.ADMIN
-        ? {}
-        : { createdBy: this.getUserId() };
-    return this.entity.find(filter, null, opts).where(whereClause);
+
+    return this.entity.find(filter, null, opts);
+  }
+
+  private whereOwn() {
+    return this.req.user?.['role'] === UserRole.ADMIN
+      ? {}
+      : { createdBy: this.getUserId() };
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -119,12 +122,12 @@ export class BaseService<T extends BaseEntity> {
 
   hardDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndDelete(filter);
+    return this.entity.findOneAndDelete(filter).where(this.whereOwn());
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
-    return this.entity.findOneAndUpdate(filter, update);
+    return this.entity.findOneAndUpdate(filter, update).where(this.whereOwn());
   }
   async softDeleteAsync(filter = {}): Promise<void> {
     try {
@@ -135,13 +138,16 @@ export class BaseService<T extends BaseEntity> {
   }
 
   hardDeleteById(id: string): QueryItem<T> {
-    return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
+    return this.entity
+      .findByIdAndDelete(BaseService.toObjectId(id))
+      .where(this.whereOwn());
   }
   softDeleteById(id: string): QueryItem<T> {
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
 
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
+      .where(this.whereOwn())
       .where('isDeleted')
       .ne(true);
   }
@@ -162,6 +168,7 @@ export class BaseService<T extends BaseEntity> {
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
       })
+      .where(this.whereOwn())
       .where('isDeleted')
       .ne(true);
   }

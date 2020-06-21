@@ -3,6 +3,7 @@ import { Expose } from 'class-transformer';
 import { IsAlphanumeric, MaxLength, IsUrl } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto } from '~shared/models/dto/base.dto';
+import { PagedOutputDto } from '~shared/models/dto';
 
 export class CourseDto extends BaseDto {
   @Expose()
@@ -20,3 +21,4 @@ export class CourseDto extends BaseDto {
 
   readonly enrollmentCount: number;
 }
+export class PagedCourseOutputDto extends PagedOutputDto(CourseDto) {}

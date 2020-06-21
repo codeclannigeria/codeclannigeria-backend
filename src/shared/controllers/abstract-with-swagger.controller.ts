@@ -1,5 +1,6 @@
 import {
   Body,
+  Controller,
   Delete,
   Get,
   InternalServerErrorException,
@@ -7,10 +8,8 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
-  Controller
+  UseGuards
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -19,15 +18,17 @@ import {
   ApiQuery,
   ApiTags
 } from '@nestjs/swagger';
+import pluralize = require('pluralize');
+import { Roles } from '~shared/decorators/roles.decorator';
 import { BaseService } from '~shared/services';
 
-import { AUTH_GUARD_TYPE } from '../constants';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ApiSwaggerOperation, Authenticate } from '../decorators';
 import { AbstractControllerWithSwaggerOptions } from '../interfaces';
 import { BaseEntity } from '../models/base.entity';
 import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
-import pluralize = require('pluralize');
+import { RolesGuard } from './../../auth/guards/roles.guard';
 
 export function AbstractController<
   T extends BaseEntity,
@@ -36,6 +37,7 @@ export function AbstractController<
 >(options: AbstractControllerWithSwaggerOptions<T, VM, C>): any {
   const { model, modelVm, modelCreate } = options;
   const auth = getAuthObj(options.auth);
+
   @ApiTags(pluralize(model.name))
   @Controller(pluralize(model.name.toLowerCase()))
   abstract class AbstractController {
@@ -46,8 +48,9 @@ export function AbstractController<
     }
 
     @Get()
-    @Authenticate(!!auth && auth.find, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.find, ApiBearerAuth())
+    @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))
+    @Authenticate(auth.find.enableAuth, ApiBearerAuth())
     @ApiQuery({
       name: 'filter',
       description: 'Find Query',
@@ -62,11 +65,9 @@ export function AbstractController<
     }
 
     @Get(':id')
-    @Authenticate(
-      !!auth && auth.findById,
-      UseGuards(AuthGuard(AUTH_GUARD_TYPE))
-    )
-    @Authenticate(!!auth && auth.findById, ApiBearerAuth())
+    @Authenticate(auth.findById.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.findById.enableAuth, Roles(...auth.findById.authRoles))
+    @Authenticate(auth.findById.enableAuth, ApiBearerAuth())
     @ApiParam({
       name: 'id',
       required: true,
@@ -84,8 +85,9 @@ export function AbstractController<
     }
 
     @Post()
-    @Authenticate(!!auth && auth.create, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.create, ApiBearerAuth())
+    @Authenticate(auth.create.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.create.enableAuth, Roles(...auth.create.authRoles))
+    @Authenticate(auth.create.enableAuth, ApiBearerAuth())
     @ApiBody({
       //name: modelCreate.name,
       type: modelCreate,
@@ -105,8 +107,9 @@ export function AbstractController<
     }
 
     @Put(':id')
-    @Authenticate(!!auth && auth.update, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.update, ApiBearerAuth())
+    @Authenticate(auth.update.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.update.enableAuth, Roles(...auth.update.authRoles))
+    @Authenticate(auth.update.enableAuth, ApiBearerAuth())
     @ApiBody({
       //name: model.name,
       type: modelVm,
@@ -132,8 +135,9 @@ export function AbstractController<
     }
 
     @Delete(':id')
-    @Authenticate(!!auth && auth.delete, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.delete, ApiBearerAuth())
+    @Authenticate(auth.delete.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
+    @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
     @ApiParam({
       name: 'id',
       required: true,

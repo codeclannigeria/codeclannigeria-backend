@@ -1,17 +1,17 @@
 import { MongooseModule } from '@nestjs/mongoose';
-import { Test, TestingModule } from '@nestjs/testing';
-import { TemporaryToken } from 'src/auth/models/temporary-token.entity';
+import { Test } from '@nestjs/testing';
 
 import { DbTest } from '../../test/db-test.module';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
+import { TemporaryToken } from './models/temporary-token.entity';
 import { TempTokensService } from './temp-token.service';
 
 describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       imports: [
         DbTest,
         MongooseModule.forFeature([

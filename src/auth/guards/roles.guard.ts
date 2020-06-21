@@ -8,20 +8,17 @@ import { JwtPayload } from '../models/jwt-payload';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
     const roles = this.reflector.get<UserRole[]>(
       UserRole,
       context.getHandler()
     );
-
-    if (!configuration().isAuthEnabled || !roles) return true;
-    console.log(roles);
+    if (!roles || !configuration().isAuthEnabled) return true;
 
     const request = context.switchToHttp().getRequest<Request>();
     const { role } = request.user as JwtPayload;
-
     return roles.includes(role);
   }
 }

@@ -10,8 +10,8 @@ const UserModel = MongooseModule.forFeature([
 ]);
 @Module({
   imports: [UserModel],
-  providers: [UsersService],
   controllers: [UsersController],
-  exports: [UsersService, UserModel]
+  providers: [UsersService],
+  exports: [UserModel, UsersService]
 })
 export class UsersModule {}

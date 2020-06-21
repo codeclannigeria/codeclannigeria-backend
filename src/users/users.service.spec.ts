@@ -1,15 +1,36 @@
 import { Test, TestingModule } from '@nestjs/testing';
-
-import { DbTest } from '../../test/db-test.module';
-import { UsersModule } from './users.module';
 import { UsersService } from './users.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User } from './models/user.entity';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+const mongod = new MongoMemoryServer();
+
+const dbFactory = MongooseModule.forRootAsync({
+  useFactory: async () => {
+    const uri = await mongod.getUri();
+
+    return {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      uri
+    };
+  }
+});
 
 describe('UsersService', () => {
   let service: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, DbTest],
+      imports: [
+        MongooseModule.forFeature([
+          { name: User.modelName, schema: User.schema }
+        ]),
+        dbFactory
+      ],
       providers: [UsersService]
     }).compile();
 

@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
 import { IsEmail, IsEnum, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedOutputDto } from '~shared/models/dto';

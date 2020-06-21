@@ -1,3 +1,4 @@
+import { AUTH_GUARD_TYPE } from '~shared/constants';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
@@ -13,14 +14,14 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { TempTokensService } from './temp-token.service';
 
+const Config = [
+  MongooseModule.forFeature([
+    { name: TemporaryToken.modelName, schema: TemporaryToken.schema }
+  ]),
+  PassportModule.register({ defaultStrategy: AUTH_GUARD_TYPE, session: true })
+];
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: TemporaryToken.modelName, schema: TemporaryToken.schema }
-    ]),
-    PassportModule.register({ defaultStrategy: 'jwt', session: true }),
-    UsersModule
-  ],
+  imports: [UsersModule, ...Config],
   providers: [
     AuthService,
     LocalStrategy,
@@ -31,12 +32,6 @@ import { TempTokensService } from './temp-token.service';
     TempTokensService
   ],
   controllers: [AuthController],
-  exports: [
-    AuthService,
-    MongooseModule.forFeature([
-      { name: TemporaryToken.modelName, schema: TemporaryToken.schema }
-    ]),
-    PassportModule.register({ defaultStrategy: 'jwt', session: true })
-  ]
+  exports: [AuthService, ...Config]
 })
 export class AuthModule {}

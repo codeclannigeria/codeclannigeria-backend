@@ -1,39 +1,28 @@
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
-import { ContextIdFactory } from '@nestjs/core';
-import { Test } from '@nestjs/testing';
-import { LoginReqDto } from 'src/auth/models/dto/auth.dto';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 
 import { AuthModule } from '../src/auth/auth.module';
+import { LoginReqDto } from '../src/auth/models/dto/auth.dto';
+import { ResetPassInput } from '../src/auth/models/dto/reset-pw.dto';
 import { ValidateTokenInput } from '../src/auth/models/dto/validate-token.dto';
 import { MailService } from '../src/shared/mail/mail.service';
 import { RegisterUserDto } from '../src/users/models/dto/register-user.dto';
-import { ResetPassInput } from './../src/auth/models/dto/reset-pw.dto';
 import { DbTest } from './db-test.module';
 
-process.env.JWT_VALIDITY_HOURS = '24';
-process.env.JWT_SECRET = 'JWT_SECRET';
-
-jest.mock('~shared/utils/random-token', () => ({
-  generateRandomToken: () => 'token'
-}));
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
   let route: request.SuperTest<request.Test>;
-  const contextId = ContextIdFactory.create();
-  jest
-    .spyOn(ContextIdFactory, 'getByRequest')
-    .mockImplementation(() => contextId);
 
   beforeAll(async () => {
-    const moduleFixture = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       imports: [AuthModule, DbTest]
     })
       .overrideProvider(MailService)
       .useValue({ sendMailAsync: () => Promise.resolve() })
       .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = module.createNestApplication();
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
