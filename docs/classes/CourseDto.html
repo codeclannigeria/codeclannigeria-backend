@@ -103,6 +103,7 @@
                                 <a href="#createdAt">createdAt</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#id">id</a>
                             </li>
                             <li>
@@ -157,7 +158,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/courses/models/dtos/course.dto.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/courses/models/dtos/course.dto.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -185,7 +186,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/courses/models/dtos/course.dto.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/courses/models/dtos/course.dto.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -221,7 +222,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/courses/models/dtos/course.dto.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/courses/models/dtos/course.dto.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -257,7 +258,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/courses/models/dtos/course.dto.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/courses/models/dtos/course.dto.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -288,7 +289,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
@@ -300,7 +301,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:15</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:10</a></code>
 </div>
                             </td>
                         </tr>
@@ -315,6 +316,7 @@
                         <a name="id"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Readonly</span>
                             id</b>
                             <a href="#id"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -331,7 +333,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@IsMongoId()<br />@ApiProperty()<br />
+                                @IsMongoId()<br />
                             </code>
                         </td>
                     </tr>
@@ -343,7 +345,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:9</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:6</a></code>
 </div>
                             </td>
                         </tr>
@@ -375,7 +377,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
@@ -387,7 +389,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:12</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
 </div>
                             </td>
                         </tr>
@@ -411,7 +413,8 @@
 import { Expose } from &#x27;class-transformer&#x27;;
 import { IsAlphanumeric, MaxLength, IsUrl } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseDto } from &#x27;~shared/models/dto/base-vm.dto&#x27;;
+import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
+import { PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
 
 export class CourseDto extends BaseDto {
   @Expose()
@@ -429,6 +432,7 @@ export class CourseDto extends BaseDto {
 
   readonly enrollmentCount: number;
 }
+export class PagedCourseOutputDto extends PagedOutputDto(CourseDto) {}
 </code></pre>
     </div>
 </div>

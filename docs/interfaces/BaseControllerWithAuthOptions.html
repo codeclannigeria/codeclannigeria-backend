@@ -43,7 +43,7 @@
 
 <ol class="breadcrumb">
   <li>Interfaces</li>
-  <li>AbstractControllerWithAuthOptions</li>
+  <li>BaseControllerWithAuthOptions</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/shared/interfaces/abstract-controller-options.interface.ts</code>
+            <code>src/shared/interfaces/base-controller-opts-interface.ts</code>
         </p>
 
 
@@ -69,7 +69,7 @@
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                        <code><a href="../interfaces/AbstractControllerOptions.html" target="_self" >AbstractControllerOptions</a></code>
+                        <code><a href="../interfaces/BaseControllerOptions.html" target="_self" >BaseControllerOptions</a></code>
             </p>
 
         <section>
@@ -134,19 +134,25 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DefaultAuthObject } from &#x27;./default-auth-object.interface&#x27;;
 
-export interface AbstractControllerOptions&lt;T&gt; {
-  model: { new (doc?: any): T };
+export interface BaseControllerOptions&lt;T&gt; {
+  entity: { new (doc?: any): T };
 }
 
-export interface AbstractControllerWithAuthOptions&lt;T&gt;
-  extends AbstractControllerOptions&lt;T&gt; {
+export interface BaseControllerWithAuthOptions&lt;T&gt;
+  extends BaseControllerOptions&lt;T&gt; {
   auth: DefaultAuthObject | boolean;
 }
-
-export interface AbstractControllerWithSwaggerOptions&lt;T, VM, C&gt;
-  extends AbstractControllerWithAuthOptions&lt;T&gt; {
-  modelVm: { new (): VM };
-  modelCreate: { new (): C };
+export interface BaseControllerWithSwaggerOpts&lt;
+  TEntity,
+  TEntityDto,
+  TCreateDto,
+  TUpdateDto,
+  TPagedOutputDto
+&gt; extends BaseControllerWithAuthOptions&lt;TEntity&gt; {
+  entityDto: { new (): TEntityDto };
+  createDto: { new (): TCreateDto };
+  updateDto: { new (): TUpdateDto };
+  pagedOutputDto: { new (): TPagedOutputDto };
 }
 </code></pre>
     </div>
@@ -175,7 +181,7 @@ export interface AbstractControllerWithSwaggerOptions&lt;T, VM, C&gt;
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'AbstractControllerWithAuthOptions.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'BaseControllerWithAuthOptions.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -27,16 +27,22 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content class">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li>Controllers</li>
-  <li>ProfileController</li>
+  <li>Classes</li>
+  <li>TracksController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -54,15 +60,8 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/profile/profile.controller.ts</code>
+            <code>src/tracks/tracks.controller.ts</code>
         </p>
-
-            <p class="comment">
-                <h3>Prefix</h3>
-            </p>
-            <p class="comment">
-                <code>profile</code>
-            </p>
 
 
 
@@ -83,7 +82,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#getProfile">getProfile</a>
+                                <a href="#create">create</a>
                             </li>
                         </ul>
                     </td>
@@ -97,6 +96,8 @@
     </table>
 </section>
 
+
+
             <section>
     
     <h3 id="methods">
@@ -106,20 +107,20 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getProfile"></a>
+                    <a name="create"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            getProfile
+                            create
                         </b>
-                        <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProfile(req: Request)</code>
+                    <code>create(input: <a href="../classes/CreateTrackDto.html">CreateTrackDto</a>)</code>
                 </td>
             </tr>
 
@@ -127,14 +128,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/profile/profile.controller.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:49</a></div>
                 </td>
             </tr>
 
@@ -154,9 +155,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>req</td>
+                                    <td>input</td>
                                     <td>
-                                            <code>Request</code>
+                                                <code><a href="../classes/CreateTrackDto.html" target="_self" >CreateTrackDto</a></code>
                                     </td>
 
                                     <td>
@@ -171,7 +172,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;TrackDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -181,44 +182,75 @@
             </tr>
         </tbody>
     </table>
-</section>    </div>
+</section>
+
+
+
+
+
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Req, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
-import { Request } from &#x27;express&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Body,
+  ConflictException,
+  HttpStatus,
+  Post,
+  UseGuards
+} from &#x27;@nestjs/common&#x27;;
+import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
+import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
+import { ApiException } from &#x27;~shared/errors/api-exception&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
-import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
-import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { RolesGuard } from &#x27;../auth/guards/roles.guard&#x27;;
+import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { CreateTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
+import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
+import { Track } from &#x27;./models/track.entity&#x27;;
+import { TracksService } from &#x27;./tracks.service&#x27;;
 
-@Controller(&#x27;profile&#x27;)
-export class ProfileController {
-  constructor(private readonly profileService: UsersService) {}
-  @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.profileService.findOneAsync({
-      email: req.user[&#x27;email&#x27;]
-    });
-    return plainToClass(UserDto, user, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true
-    });
+export class TracksController extends BaseCrudController&lt;
+  Track,
+  TrackDto,
+  CreateTrackDto,
+  CreateTrackDto
+&gt;({
+  entity: Track,
+  entityDto: TrackDto,
+  createDto: CreateTrackDto,
+  updateDto: CreateTrackDto,
+  pagedOutputDto: PagedTrackOutputDto,
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  }
+}) {
+  /**
+   *
+   */
+  // constructor(protected service: TracksService) {
+  //   super(service);
+  // }
+  @Post()
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateTrackDto): Promise&lt;TrackDto&gt; {
+    const exist &#x3D; await this.service.findOneAsync({ title: input.title });
+    if (exist)
+      throw new ConflictException(&#x27;Track with the title already exists&#x27;);
+
+    return super.create(input);
   }
 }
 </code></pre>
     </div>
 </div>
-
-
-
-
-
-
 
 
 
@@ -243,8 +275,8 @@ export class ProfileController {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'ProfileController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'TracksController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

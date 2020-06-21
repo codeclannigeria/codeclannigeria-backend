@@ -214,7 +214,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>{}</code>
+                        <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -305,7 +305,7 @@
   CanActivate,
   ExecutionContext,
   Injectable,
-  UnauthorizedException,
+  UnauthorizedException
 } from &#x27;@nestjs/common&#x27;;
 import { Request } from &#x27;express&#x27;;
 
@@ -317,7 +317,7 @@ import { LoginReqDto } from &#x27;../models/dto/auth.dto&#x27;;
 export class AuthenticationGuard implements CanActivate {
   constructor(private readonly authService: AuthService) {}
 
-  async canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
     const request &#x3D; context.switchToHttp().getRequest();
     return await this.validateRequest(request);
   }

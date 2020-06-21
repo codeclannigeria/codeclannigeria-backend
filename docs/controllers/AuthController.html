@@ -311,8 +311,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="135"
-                            class="link-to-prism">src/auth/auth.controller.ts:135</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">src/auth/auth.controller.ts:136</a></div>
                 </td>
             </tr>
 
@@ -390,8 +390,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">src/auth/auth.controller.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/auth/auth.controller.ts:73</a></div>
                 </td>
             </tr>
 
@@ -469,8 +469,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">src/auth/auth.controller.ts:110</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/auth/auth.controller.ts:111</a></div>
                 </td>
             </tr>
 
@@ -548,8 +548,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="97"
-                            class="link-to-prism">src/auth/auth.controller.ts:97</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/auth/auth.controller.ts:98</a></div>
                 </td>
             </tr>
 
@@ -613,28 +613,28 @@
 } from &#x27;@nestjs/common&#x27;;
 import {
   ApiConflictResponse,
-  ApiTags,
-  ApiUnauthorizedResponse,
   ApiOkResponse,
-  ApiResponse
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse
 } from &#x27;@nestjs/swagger&#x27;;
 
 import { LoginReqDto } from &#x27;../auth/models/dto/auth.dto&#x27;;
-import { MailService } from &#x27;../mail/mail.service&#x27;;
 import configuration from &#x27;../shared/config/configuration&#x27;;
 import { ApiException } from &#x27;../shared/errors/api-exception&#x27;;
-import { TokenType } from &#x27;./models/temporary-token.entity&#x27;;
+import { MailService } from &#x27;../shared/mail/mail.service&#x27;;
 import {
   RegisterUserDto,
   RegisterUserResDto
 } from &#x27;../users/models/dto/register-user.dto&#x27;;
-import { UsersService } from &#x27;../users/users.service&#x27;;
+import { UsersService } from &#x27;./../users/users.service&#x27;;
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { AuthenticationGuard } from &#x27;./guards/auth.guard&#x27;;
 import { AcctVerifyDto } from &#x27;./models/dto/acct-verification.dto&#x27;;
 import { LoginResDto } from &#x27;./models/dto/auth.dto&#x27;;
 import { ResetPassInput } from &#x27;./models/dto/reset-pw.dto&#x27;;
 import { ValidateTokenInput } from &#x27;./models/dto/validate-token.dto&#x27;;
+import { TokenType } from &#x27;./models/temporary-token.entity&#x27;;
 
 @ApiTags(&#x27;Auth&#x27;)
 @Controller(&#x27;auth&#x27;)
@@ -666,6 +666,7 @@ export class AuthController {
       throw new ConflictException(&#x27;User with the email already exists&#x27;);
     const user &#x3D; this.usersService.createEntity(input);
     const saved &#x3D; await this.usersService.insertAsync(user);
+
     return { canLogin: saved.isEmailVerified };
   }
 

@@ -95,6 +95,7 @@
                                 <a href="#lastName">lastName</a>
                             </li>
                             <li>
+                                    <span class="modifier">Optional</span>
                                 <a href="#role">role</a>
                             </li>
                             <li>
@@ -102,6 +103,7 @@
                                 <a href="#createdAt">createdAt</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#id">id</a>
                             </li>
                             <li>
@@ -150,13 +152,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />@IsEmail()<br />@MaxLength(columnSize.length64)<br />
+                                @MaxLength(columnSize.length64)<br />@IsEmail()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/users/models/dto/user.dto.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/users/models/dto/user.dto.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -186,13 +188,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length64)<br />@ApiProperty()<br />
+                                @MaxLength(columnSize.length64)<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/users/models/dto/user.dto.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/users/models/dto/user.dto.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -222,13 +224,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length64)<br />@ApiProperty()<br />
+                                @MaxLength(columnSize.length64)<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/users/models/dto/user.dto.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/users/models/dto/user.dto.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -242,6 +244,7 @@
                         <a name="role"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Optional</span>
                             role</b>
                             <a href="#role"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -263,13 +266,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiProperty({enum: UserRole})<br />@IsEnum(UserRole)<br />@Expose()<br />
+                                @IsEnum(UserRole)<br />@ApiProperty({enum: UserRole})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/users/models/dto/user.dto.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/users/models/dto/user.dto.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -300,7 +303,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
@@ -312,7 +315,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:15</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:10</a></code>
 </div>
                             </td>
                         </tr>
@@ -327,6 +330,7 @@
                         <a name="id"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Readonly</span>
                             id</b>
                             <a href="#id"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -343,7 +347,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@IsMongoId()<br />@ApiProperty()<br />
+                                @IsMongoId()<br />
                             </code>
                         </td>
                     </tr>
@@ -355,7 +359,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:9</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:6</a></code>
 </div>
                             </td>
                         </tr>
@@ -387,7 +391,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
@@ -399,7 +403,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:12</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
 </div>
                             </td>
                         </tr>
@@ -420,32 +424,26 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { Expose } from &#x27;class-transformer&#x27;;
 import { IsEmail, IsEnum, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseDto } from &#x27;~shared/models/dto/base-vm.dto&#x27;;
+import { BaseDto, PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
 
 import { UserRole } from &#x27;../user.entity&#x27;;
 
 export class UserDto extends BaseDto {
-  @Expose()
   @MaxLength(columnSize.length64)
-  @ApiProperty()
   firstName: string;
-  @Expose()
   @MaxLength(columnSize.length64)
-  @ApiProperty()
   lastName: string;
-  @Expose()
-  @ApiProperty()
-  @IsEmail()
   @MaxLength(columnSize.length64)
+  @IsEmail()
   email: string;
-  @ApiProperty({ enum: UserRole })
   @IsEnum(UserRole)
-  @Expose()
-  role: UserRole &#x3D; UserRole.MENTEE;
+  @ApiProperty({ enum: UserRole })
+  role?: UserRole &#x3D; UserRole.MENTEE;
 }
+
+export class PagedUserOutputDto extends PagedOutputDto(UserDto) {}
 </code></pre>
     </div>
 </div>

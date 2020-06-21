@@ -27,16 +27,20 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content guard">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Controllers</li>
-  <li>ProfileController</li>
+    <li>Guards</li>
+    <li>RolesGuard</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -49,26 +53,19 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
-        <p class="comment">
+        <div class="tab-pane fade active in" id="c-info">
+            <p class="comment">
             <h3>File</h3>
-        </p>
-        <p class="comment">
-            <code>src/profile/profile.controller.ts</code>
-        </p>
-
-            <p class="comment">
-                <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <code>profile</code>
+                <code>src/auth/guards/roles.guard.ts</code>
             </p>
 
 
 
 
 
-            <section>
+                <section>
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -82,8 +79,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#getProfile">getProfile</a>
+                                <a href="#canActivate">canActivate</a>
                             </li>
                         </ul>
                     </td>
@@ -97,7 +93,56 @@
     </table>
 </section>
 
-            <section>
+                <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(reflector: Reflector)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/auth/guards/roles.guard.ts:10</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>reflector</td>
+                                                  
+                                                        <td>
+                                                                    <code>Reflector</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+                <section>
     
     <h3 id="methods">
         Methods
@@ -106,35 +151,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getProfile"></a>
+                    <a name="canActivate"></a>
                     <span class="name">
                         <b>
-                            <span class="modifier">Async</span>
-                            getProfile
+                            canActivate
                         </b>
-                        <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProfile(req: Request)</code>
+<code>canActivate(context: ExecutionContext)</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br /></code>
-                </td>
-            </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/profile/profile.controller.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/auth/guards/roles.guard.ts:13</a></div>
                 </td>
             </tr>
 
@@ -154,9 +190,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>req</td>
+                                    <td>context</td>
                                     <td>
-                                            <code>Request</code>
+                                            <code>ExecutionContext</code>
                                     </td>
 
                                     <td>
@@ -171,7 +207,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">
@@ -181,42 +217,38 @@
             </tr>
         </tbody>
     </table>
-</section>    </div>
+</section>
+        </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Req, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
+        <div class="tab-pane fade  tab-source-code" id="c-source">
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CanActivate, ExecutionContext, Injectable } from &#x27;@nestjs/common&#x27;;
+import { Reflector } from &#x27;@nestjs/core&#x27;;
 import { Request } from &#x27;express&#x27;;
+import configuration from &#x27;~shared/config/configuration&#x27;;
 
-import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
-import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
-import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { UserRole } from &#x27;../../users/models/user.entity&#x27;;
+import { JwtPayload } from &#x27;../models/jwt-payload&#x27;;
 
-@Controller(&#x27;profile&#x27;)
-export class ProfileController {
-  constructor(private readonly profileService: UsersService) {}
-  @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.profileService.findOneAsync({
-      email: req.user[&#x27;email&#x27;]
-    });
-    return plainToClass(UserDto, user, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true
-    });
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const roles &#x3D; this.reflector.get&lt;UserRole[]&gt;(
+      UserRole,
+      context.getHandler()
+    );
+    if (!roles || !configuration().isAuthEnabled) return true;
+
+    const request &#x3D; context.switchToHttp().getRequest&lt;Request&gt;();
+    const { role } &#x3D; request.user as JwtPayload;
+    return roles.includes(role);
   }
 }
 </code></pre>
-    </div>
+        </div>
 </div>
-
-
-
-
 
 
 
@@ -243,8 +275,8 @@ export class ProfileController {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'ProfileController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
+            var COMPODOC_CURRENT_PAGE_URL = 'RolesGuard.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

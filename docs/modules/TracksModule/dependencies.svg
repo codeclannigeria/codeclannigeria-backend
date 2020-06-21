@@ -21,44 +21,44 @@
 <polygon fill="#fb8072" stroke="transparent" points="406,-10 406,-30 426,-30 426,-10 406,-10"/>
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
-<title>cluster_ProfileModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="185,-70 185,-268 311,-268 311,-70 185,-70"/>
+<title>cluster_TracksModule</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="182,-70 182,-268 314,-268 314,-70 182,-70"/>
 </g>
 <g id="clust3" class="cluster">
-<title>cluster_ProfileModule_imports</title>
-<polygon fill="none" stroke="#000000" points="194,-78 194,-130 302,-130 302,-78 194,-78"/>
+<title>cluster_TracksModule_imports</title>
+<polygon fill="none" stroke="#000000" points="191,-78 191,-130 305,-130 305,-78 191,-78"/>
 </g>
 <g id="clust4" class="cluster">
-<title>cluster_ProfileModule_exports</title>
-<polygon fill="none" stroke="#000000" points="193,-208 193,-260 303,-260 303,-208 193,-208"/>
+<title>cluster_TracksModule_exports</title>
+<polygon fill="none" stroke="#000000" points="190,-208 190,-260 306,-260 306,-208 190,-208"/>
 </g>
-<!-- UsersModule -->
+<!-- SharedModule -->
 <g id="node1" class="node">
-<title>UsersModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="293.9218,-122 290.9218,-126 269.9218,-126 266.9218,-122 202.0782,-122 202.0782,-86 293.9218,-86 293.9218,-122"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersModule</text>
+<title>SharedModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="297.4231,-122 294.4231,-126 273.4231,-126 270.4231,-122 198.5769,-122 198.5769,-86 297.4231,-86 297.4231,-122"/>
+<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SharedModule</text>
 </g>
-<!-- ProfileModule -->
+<!-- TracksModule -->
 <g id="node2" class="node">
-<title>ProfileModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="296.65,-187 293.65,-191 272.65,-191 269.65,-187 199.35,-187 199.35,-151 296.65,-151 296.65,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfileModule</text>
+<title>TracksModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="296.6375,-187 293.6375,-191 272.6375,-191 269.6375,-187 199.3625,-187 199.3625,-151 296.6375,-151 296.6375,-187"/>
+<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksModule</text>
 </g>
-<!-- UsersModule&#45;&gt;ProfileModule -->
+<!-- SharedModule&#45;&gt;TracksModule -->
 <g id="edge1" class="edge">
-<title>UsersModule&#45;&gt;ProfileModule</title>
+<title>SharedModule&#45;&gt;TracksModule</title>
 <path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
 </g>
-<!-- UsersService  -->
+<!-- TracksService  -->
 <g id="node3" class="node">
-<title>UsersService </title>
-<polygon fill="#fb8072" stroke="#000000" points="294.8493,-252 201.1507,-252 201.1507,-216 294.8493,-216 294.8493,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersService </text>
+<title>TracksService </title>
+<polygon fill="#fb8072" stroke="#000000" points="297.5655,-252 198.4345,-252 198.4345,-216 297.5655,-216 297.5655,-252"/>
+<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksService </text>
 </g>
-<!-- ProfileModule&#45;&gt;UsersService  -->
+<!-- TracksModule&#45;&gt;TracksService  -->
 <g id="edge2" class="edge">
-<title>ProfileModule&#45;&gt;UsersService </title>
+<title>TracksModule&#45;&gt;TracksService </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
 </g>

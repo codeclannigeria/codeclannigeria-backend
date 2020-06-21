@@ -288,15 +288,15 @@ import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
 import { AppController } from &#x27;./app.controller&#x27;;
 import { AppService } from &#x27;./app.service&#x27;;
 import { AuthModule } from &#x27;./auth/auth.module&#x27;;
-import { CategoriesModule } from &#x27;./categories/categories.module&#x27;;
-import { MailModule } from &#x27;./mail/mail.module&#x27;;
+import { CoursesModule } from &#x27;./courses/courses.module&#x27;;
+import { MailModule } from &#x27;./shared/mail/mail.module&#x27;;
 import { ProfileModule } from &#x27;./profile/profile.module&#x27;;
 import { SharedModule } from &#x27;./shared&#x27;;
 import configuration from &#x27;./shared/config/configuration&#x27;;
 import { envValidation } from &#x27;./shared/validations/env.validation&#x27;;
 import { TracksModule } from &#x27;./tracks/tracks.module&#x27;;
 import { UsersModule } from &#x27;./users/users.module&#x27;;
-import { CoursesModule } from &#x27;./courses/courses.module&#x27;;
+import { CategoriesModule } from &#x27;./categories/categories.module&#x27;;
 
 export const Config &#x3D; ConfigModule.forRoot({
   isGlobal: true,
@@ -322,8 +322,8 @@ const Database &#x3D; MongooseModule.forRoot(configuration().database.uri, {
     MailModule,
     ProfileModule,
     TracksModule,
-    CategoriesModule,
-    CoursesModule
+    CoursesModule,
+    CategoriesModule
   ],
 
   controllers: [AppController],

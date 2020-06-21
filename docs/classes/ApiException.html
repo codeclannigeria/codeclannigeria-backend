@@ -579,7 +579,7 @@ export class ApiException {
   ) {
     this.message &#x3D; message;
     this.error &#x3D; error;
-    this.stack &#x3D; configuration().environment &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? null : stack;
+    this.stack &#x3D; stack;
     this.errors &#x3D; errors;
     this.path &#x3D; path;
     this.timestamp &#x3D; new Date().toISOString();

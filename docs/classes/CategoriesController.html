@@ -27,16 +27,22 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content class">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li>Controllers</li>
-  <li>ProfileController</li>
+  <li>Classes</li>
+  <li>CategoriesController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -54,15 +60,8 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/profile/profile.controller.ts</code>
+            <code>src/categories/categories.controller.ts</code>
         </p>
-
-            <p class="comment">
-                <h3>Prefix</h3>
-            </p>
-            <p class="comment">
-                <code>profile</code>
-            </p>
 
 
 
@@ -83,7 +82,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#getProfile">getProfile</a>
+                                <a href="#create">create</a>
                             </li>
                         </ul>
                     </td>
@@ -98,6 +97,56 @@
 </section>
 
             <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(service: <a href="../classes/CategoriesService.html">CategoriesService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/categories/categories.controller.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/CategoriesService.html" target="_self" >CategoriesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section>
     
     <h3 id="methods">
         Methods
@@ -106,20 +155,20 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getProfile"></a>
+                    <a name="create"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            getProfile
+                            create
                         </b>
-                        <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProfile(req: Request)</code>
+                    <code>create(input: <a href="../classes/CreateCategoryDto.html">CreateCategoryDto</a>)</code>
                 </td>
             </tr>
 
@@ -127,14 +176,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: CategoryDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/profile/profile.controller.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/categories/categories.controller.ts:45</a></div>
                 </td>
             </tr>
 
@@ -154,9 +203,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>req</td>
+                                    <td>input</td>
                                     <td>
-                                            <code>Request</code>
+                                                <code><a href="../classes/CreateCategoryDto.html" target="_self" >CreateCategoryDto</a></code>
                                     </td>
 
                                     <td>
@@ -171,7 +220,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;CategoryDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -181,44 +230,71 @@
             </tr>
         </tbody>
     </table>
-</section>    </div>
+</section>
+
+
+
+
+
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Req, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
-import { Request } from &#x27;express&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Body,
+  ConflictException,
+  HttpStatus,
+  Post,
+  UseGuards
+} from &#x27;@nestjs/common&#x27;;
+import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
+import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
+import { ApiException } from &#x27;~shared/errors&#x27;;
 
-import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
-import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
-import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { CategoriesService } from &#x27;./categories.service&#x27;;
+import { Category } from &#x27;./models/category.entity&#x27;;
+import { CategoryDto, PagedCategoryOutDto } from &#x27;./models/dtos/category.dto&#x27;;
+import { CreateCategoryDto } from &#x27;./models/dtos/create-category.dto&#x27;;
 
-@Controller(&#x27;profile&#x27;)
-export class ProfileController {
-  constructor(private readonly profileService: UsersService) {}
-  @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.profileService.findOneAsync({
-      email: req.user[&#x27;email&#x27;]
-    });
-    return plainToClass(UserDto, user, {
-      excludeExtraneousValues: true,
-      enableImplicitConversion: true
-    });
+export class CategoriesController extends BaseCrudController&lt;
+  Category,
+  CategoryDto,
+  CreateCategoryDto
+&gt;({
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  },
+  createDto: CreateCategoryDto,
+  updateDto: CreateCategoryDto,
+  entity: Category,
+  pagedOutputDto: PagedCategoryOutDto,
+  entityDto: CategoryDto
+}) {
+  constructor(protected readonly service: CategoriesService) {
+    super(service);
+  }
+
+  @Post()
+  @ApiResponse({ type: CategoryDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateCategoryDto): Promise&lt;CategoryDto&gt; {
+    const exist &#x3D; await this.service.findOneAsync({ title: input.name });
+    if (exist)
+      throw new ConflictException(&#x27;Category with the name already exists&#x27;);
+
+    return super.create(input);
   }
 }
 </code></pre>
     </div>
 </div>
-
-
-
-
-
-
 
 
 
@@ -243,8 +319,8 @@ export class ProfileController {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'ProfileController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'CategoriesController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

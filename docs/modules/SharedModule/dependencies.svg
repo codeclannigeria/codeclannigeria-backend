@@ -22,69 +22,45 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_SharedModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="76.5,-70 76.5,-268 419.5,-268 419.5,-70 76.5,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="173,-70 173,-268 323,-268 323,-70 173,-70"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_SharedModule_exports</title>
-<polygon fill="none" stroke="#000000" points="108.5,-208 108.5,-260 361.5,-260 361.5,-208 108.5,-208"/>
+<polygon fill="none" stroke="#000000" points="196,-208 196,-260 300,-260 300,-208 196,-208"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_SharedModule_providers</title>
-<polygon fill="none" stroke="#000000" points="84.5,-78 84.5,-130 411.5,-130 411.5,-78 84.5,-78"/>
+<polygon fill="none" stroke="#000000" points="181,-78 181,-130 315,-130 315,-78 181,-78"/>
 </g>
 <!-- BaseService  -->
 <g id="node1" class="node">
 <title>BaseService </title>
-<polygon fill="#fb8072" stroke="#000000" points="353.6885,-252 265.3115,-252 265.3115,-216 353.6885,-216 353.6885,-252"/>
-<text text-anchor="middle" x="309.5" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService </text>
-</g>
-<!-- CurrentUserService  -->
-<g id="node2" class="node">
-<title>CurrentUserService </title>
-<polygon fill="#fb8072" stroke="#000000" points="246.6674,-252 116.3326,-252 116.3326,-216 246.6674,-216 246.6674,-252"/>
-<text text-anchor="middle" x="181.5" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">CurrentUserService </text>
+<polygon fill="#fb8072" stroke="#000000" points="292.1885,-252 203.8115,-252 203.8115,-216 292.1885,-216 292.1885,-252"/>
+<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService </text>
 </g>
 <!-- SharedModule -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>SharedModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="254.9231,-187 251.9231,-191 230.9231,-191 227.9231,-187 156.0769,-187 156.0769,-151 254.9231,-151 254.9231,-187"/>
-<text text-anchor="middle" x="205.5" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">SharedModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="297.4231,-187 294.4231,-191 273.4231,-191 270.4231,-187 198.5769,-187 198.5769,-151 297.4231,-151 297.4231,-187"/>
+<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">SharedModule</text>
 </g>
 <!-- SharedModule&#45;&gt;BaseService  -->
 <g id="edge1" class="edge">
 <title>SharedModule&#45;&gt;BaseService </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M250.7723,-187.1061C250.7723,-206.3391 250.7723,-234 250.7723,-234 250.7723,-234 255.2893,-234 255.2893,-234"/>
-<polygon fill="#000000" stroke="#000000" points="255.2893,-237.5001 265.2893,-234 255.2892,-230.5001 255.2893,-237.5001"/>
-</g>
-<!-- SharedModule&#45;&gt;CurrentUserService  -->
-<g id="edge2" class="edge">
-<title>SharedModule&#45;&gt;CurrentUserService </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M201.5612,-187.1061C201.5612,-187.1061 201.5612,-205.991 201.5612,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="198.0613,-205.9909 201.5612,-215.991 205.0613,-205.991 198.0613,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
 </g>
 <!-- BaseService -->
-<g id="node4" class="node">
+<g id="node3" class="node">
 <title>BaseService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="344.5" cy="-104" rx="58.5232" ry="18"/>
-<text text-anchor="middle" x="344.5" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService</text>
+<ellipse fill="#fdb462" stroke="#000000" cx="248" cy="-104" rx="58.5232" ry="18"/>
+<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService</text>
 </g>
 <!-- BaseService&#45;&gt;SharedModule -->
-<g id="edge3" class="edge">
+<g id="edge2" class="edge">
 <title>BaseService&#45;&gt;SharedModule</title>
-<path fill="none" stroke="#000000" d="M319.7914,-120.4022C319.7914,-139.658 319.7914,-169 319.7914,-169 319.7914,-169 264.9652,-169 264.9652,-169"/>
-<polygon fill="#000000" stroke="#000000" points="264.9652,-165.5001 254.9652,-169 264.9651,-172.5001 264.9652,-165.5001"/>
-</g>
-<!-- CurrentUserService -->
-<g id="node5" class="node">
-<title>CurrentUserService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="180.5" cy="-104" rx="87.9355" ry="18"/>
-<text text-anchor="middle" x="180.5" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CurrentUserService</text>
-</g>
-<!-- CurrentUserService&#45;&gt;SharedModule -->
-<g id="edge4" class="edge">
-<title>CurrentUserService&#45;&gt;SharedModule</title>
-<path fill="none" stroke="#000000" d="M205.5,-121.4188C205.5,-121.4188 205.5,-140.6234 205.5,-140.6234"/>
-<polygon fill="#000000" stroke="#000000" points="202.0001,-140.6234 205.5,-150.6234 209.0001,-140.6234 202.0001,-140.6234"/>
+<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
 </g>
 </g>
 </svg>

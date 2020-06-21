@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/categories/models/dto/create-category.dto.ts</code>
+            <code>src/categories/models/dtos/create-category.dto.ts</code>
         </p>
 
 
@@ -84,7 +84,10 @@
 
 import { CategoryDto } from &#x27;./category.dto&#x27;;
 
-export class CreateCategoryDto extends PickType(CategoryDto, [&#x27;name&#x27;]) {}
+export class CreateCategoryDto extends PickType(CategoryDto, [
+  &#x27;name&#x27;,
+  &#x27;description&#x27;
+]) {}
 </code></pre>
     </div>
 </div>
