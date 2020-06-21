@@ -1,4 +1,4 @@
-export * from './models';
+export * from './models/dto';
 export * from './interfaces';
 export * from './controllers';
 export * from './services';

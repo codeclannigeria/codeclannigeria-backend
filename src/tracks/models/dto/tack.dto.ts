@@ -1,17 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
 import { IsAlphanumeric, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
-import { BaseResDto } from '~shared/models/dto/base-res.dto';
+import { BaseDto } from '~shared/models/dto/base.dto';
+import { PagedOutputDto } from '~shared/models/dto';
 
-export class TrackDto extends BaseResDto {
-  @Expose()
+export class TrackDto extends BaseDto {
   @MaxLength(columnSize.length32)
-  @ApiProperty()
   @IsAlphanumeric()
   title: string;
-  @Expose()
   @MaxLength(columnSize.length128)
-  @ApiProperty()
   description: string;
 }
+export class PagedTrackOutputDto extends PagedOutputDto(TrackDto) {}

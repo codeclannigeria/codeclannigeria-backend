@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { UsersService } from './../users/users.service';
 import { ProfileController } from './profile.controller';
-import { ProfileService } from './profile.service';
 
 describe('Profile Controller', () => {
   let controller: ProfileController;
@@ -9,9 +9,9 @@ describe('Profile Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProfileController],
-      providers: [ProfileService]
+      providers: [UsersService]
     })
-      .overrideProvider(ProfileService)
+      .overrideProvider(UsersService)
       .useValue({})
       .compile();
 

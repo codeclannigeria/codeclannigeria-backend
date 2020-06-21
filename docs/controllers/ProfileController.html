@@ -192,19 +192,21 @@ import { Request } from &#x27;express&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
-import { ProfileService } from &#x27;./profile.service&#x27;;
+import { UsersService } from &#x27;./../users/users.service&#x27;;
 
 @Controller(&#x27;profile&#x27;)
 export class ProfileController {
-  constructor(private readonly profileService: ProfileService) {}
+  constructor(private readonly profileService: UsersService) {}
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.profileService.getProfileAsync(req.user[&#x27;email&#x27;]);
+    const user &#x3D; await this.profileService.findOneAsync({
+      email: req.user[&#x27;email&#x27;]
+    });
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
-      enableImplicitConversion: true,
+      enableImplicitConversion: true
     });
   }
 }

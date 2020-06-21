@@ -390,7 +390,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                 </td>
@@ -823,13 +823,13 @@ import * as bcrypt from &#x27;bcrypt&#x27;;
 import * as jwt from &#x27;jsonwebtoken&#x27;;
 import configuration from &#x27;~shared/config/configuration&#x27;;
 import { authErrors } from &#x27;~shared/errors&#x27;;
-import { TokenType } from &#x27;~shared/models/temporary-token.entity&#x27;;
 import { generateRandomToken } from &#x27;~shared/utils/random-token&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
-import { UsersService } from &#x27;../users/users.service&#x27;;
+import { UsersService } from &#x27;./../users/users.service&#x27;;
 import { AuthEventEnum } from &#x27;./models/auth.enums&#x27;;
 import { JwtPayload } from &#x27;./models/jwt-payload&#x27;;
+import { TokenType } from &#x27;./models/temporary-token.entity&#x27;;
 import { TempTokensService } from &#x27;./temp-token.service&#x27;;
 
 @Injectable()
@@ -841,7 +841,7 @@ export class AuthService implements OnModuleInit {
   @Client({ transport: Transport.REDIS })
   private client: ClientRedis;
 
-  async onModuleInit() {
+  async onModuleInit(): Promise&lt;void&gt; {
     // Connect your client to the redis server on startup.
     try {
       // await this.client.connect();

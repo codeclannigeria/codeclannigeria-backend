@@ -1,7 +1,7 @@
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 
-import { MailService } from '../mail/mail.service';
+import { MailService } from '../shared/mail/mail.service';
 import { RegisterUserDto } from '../users/models/dto/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthController } from './auth.controller';
@@ -9,10 +9,9 @@ import { AuthService } from './auth.service';
 import { LoginReqDto } from './models/dto/auth.dto';
 
 process.env.JWT_VALIDITY_HOURS = '24';
-process.env.JWT_SECRET = '74HDDGHHUEGBBNgf_87874ju8145=-';
+process.env.JWT_SECRET = 'secrete';
 
 jest.mock('../users/users.service');
-jest.mock('../mail/mail.service');
 jest.mock('./temp-token.service');
 jest.mock('./auth.service');
 
@@ -27,6 +26,8 @@ describe('Auth Controller', () => {
     })
       .overrideProvider(AuthService)
       .useValue(authService)
+      .overrideProvider(MailService)
+      .useValue({ sendMailAsync: () => Promise.resolve() })
       .compile();
 
     controller = module.get<AuthController>(AuthController);

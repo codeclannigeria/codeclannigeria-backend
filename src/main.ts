@@ -43,10 +43,12 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   // validation
+  const { jwtSecret, port, database, environment } = configuration();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidUnknownValues: true,
+      disableErrorMessages: environment === 'production',
       forbidNonWhitelisted: true,
       transform: true,
       transformOptions: {
@@ -56,7 +58,6 @@ async function bootstrap() {
   );
 
   const MongoStore = connectMongo(session);
-  const { jwtSecret, port, database } = configuration();
   app.set('trust proxy', 1);
   app.use(
     session({

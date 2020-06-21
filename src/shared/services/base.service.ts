@@ -1,4 +1,3 @@
-import { UserRole } from './../../users/models/user.entity';
 import {
   Inject,
   Injectable,
@@ -13,19 +12,23 @@ import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
 import { MongoError } from 'mongodb';
 import { CreateQuery, Query, Types } from 'mongoose';
+
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
-import { AbstractService } from './abstract.service';
+import { UserRole } from './../../users/models/user.entity';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable({ scope: Scope.REQUEST })
-export class BaseService<T extends BaseEntity> extends AbstractService<T> {
+export class BaseService<T extends BaseEntity> {
   @Optional()
   @Inject(REQUEST)
   private readonly req: Request;
   protected entity: ReturnModelType<AnyParamConstructor<T>>;
 
-  constructor(entity: ReturnModelType<AnyParamConstructor<T>>) {
-    super();
+  constructor(
+    @InjectModel(BaseEntity.modelName)
+    entity: ReturnModelType<AnyParamConstructor<T>>
+  ) {
     this.entity = entity;
   }
 
@@ -70,11 +73,14 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
       delete filter['id'];
     }
     filter = { ...filter, isDeleted: { $ne: true } };
-    const whereClause =
-      this.req.user?.['role'] === UserRole.ADMIN
-        ? {}
-        : { createdBy: this.getUserId() };
-    return this.entity.find(filter, null, opts).where(whereClause);
+
+    return this.entity.find(filter, null, opts);
+  }
+
+  private whereOwn() {
+    return this.req.user?.['role'] === UserRole.ADMIN
+      ? {}
+      : { createdBy: this.getUserId() };
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -116,12 +122,12 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
 
   hardDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndDelete(filter);
+    return this.entity.findOneAndDelete(filter).where(this.whereOwn());
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
-    return this.entity.findOneAndUpdate(filter, update);
+    return this.entity.findOneAndUpdate(filter, update).where(this.whereOwn());
   }
   async softDeleteAsync(filter = {}): Promise<void> {
     try {
@@ -132,13 +138,16 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
   }
 
   hardDeleteById(id: string): QueryItem<T> {
-    return this.entity.findByIdAndDelete(BaseService.toObjectId(id));
+    return this.entity
+      .findByIdAndDelete(BaseService.toObjectId(id))
+      .where(this.whereOwn());
   }
   softDeleteById(id: string): QueryItem<T> {
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
 
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
+      .where(this.whereOwn())
       .where('isDeleted')
       .ne(true);
   }
@@ -159,6 +168,7 @@ export class BaseService<T extends BaseEntity> extends AbstractService<T> {
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
       })
+      .where(this.whereOwn())
       .where('isDeleted')
       .ne(true);
   }

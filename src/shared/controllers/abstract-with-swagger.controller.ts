@@ -1,5 +1,6 @@
 import {
   Body,
+  Controller,
   Delete,
   Get,
   InternalServerErrorException,
@@ -7,27 +8,29 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiOkResponse,
   ApiParam,
   ApiQuery,
-  ApiTags,
+  ApiTags
 } from '@nestjs/swagger';
+import pluralize = require('pluralize');
+import { Roles } from '~shared/decorators/roles.decorator';
+import { BaseService } from '~shared/services';
 
-import { AUTH_GUARD_TYPE } from '../constants';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { ApiSwaggerOperation, Authenticate } from '../decorators';
 import { AbstractControllerWithSwaggerOptions } from '../interfaces';
 import { BaseEntity } from '../models/base.entity';
-import { AbstractService } from '../services';
 import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
+import { RolesGuard } from './../../auth/guards/roles.guard';
 
-export function abstractControllerWithSwagger<
+export function AbstractController<
   T extends BaseEntity,
   VM = Partial<T>,
   C = Partial<T>
@@ -35,22 +38,24 @@ export function abstractControllerWithSwagger<
   const { model, modelVm, modelCreate } = options;
   const auth = getAuthObj(options.auth);
 
-  @ApiTags(model.name)
+  @ApiTags(pluralize(model.name))
+  @Controller(pluralize(model.name.toLowerCase()))
   abstract class AbstractController {
-    protected readonly _service: AbstractService<T>;
+    protected readonly _service: BaseService<T>;
 
-    protected constructor(service: AbstractService<T>) {
+    protected constructor(service: BaseService<T>) {
       this._service = service;
     }
 
     @Get()
-    @Authenticate(!!auth && auth.find, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.find, ApiBearerAuth())
+    @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))
+    @Authenticate(auth.find.enableAuth, ApiBearerAuth())
     @ApiQuery({
       name: 'filter',
       description: 'Find Query',
       required: false,
-      isArray: false,
+      isArray: false
     })
     @ApiOkResponse({ type: modelVm, isArray: true })
     @ApiSwaggerOperation({ title: 'FindAll' })
@@ -60,16 +65,14 @@ export function abstractControllerWithSwagger<
     }
 
     @Get(':id')
-    @Authenticate(
-      !!auth && auth.findById,
-      UseGuards(AuthGuard(AUTH_GUARD_TYPE)),
-    )
-    @Authenticate(!!auth && auth.findById, ApiBearerAuth())
+    @Authenticate(auth.findById.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.findById.enableAuth, Roles(...auth.findById.authRoles))
+    @Authenticate(auth.findById.enableAuth, ApiBearerAuth())
     @ApiParam({
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'FindById' })
@@ -82,14 +85,15 @@ export function abstractControllerWithSwagger<
     }
 
     @Post()
-    @Authenticate(!!auth && auth.create, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.create, ApiBearerAuth())
+    @Authenticate(auth.create.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.create.enableAuth, Roles(...auth.create.authRoles))
+    @Authenticate(auth.create.enableAuth, ApiBearerAuth())
     @ApiBody({
       //name: modelCreate.name,
       type: modelCreate,
       description: 'Data for model creation',
       required: true,
-      isArray: false,
+      isArray: false
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Create' })
@@ -103,26 +107,27 @@ export function abstractControllerWithSwagger<
     }
 
     @Put(':id')
-    @Authenticate(!!auth && auth.update, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.update, ApiBearerAuth())
+    @Authenticate(auth.update.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.update.enableAuth, Roles(...auth.update.authRoles))
+    @Authenticate(auth.update.enableAuth, ApiBearerAuth())
     @ApiBody({
       //name: model.name,
       type: modelVm,
       description: 'Data for object update',
       required: true,
-      isArray: false,
+      isArray: false
     })
     @ApiParam({
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Update' })
     public async update(
       @Param('id') id: string,
-      @Body() doc: Partial<T>,
+      @Body() doc: Partial<T>
     ): Promise<void> {
       const existed = await this._service.findById(id);
       const updatedDoc = { ...(existed as any), ...(doc as any) } as any;
@@ -130,13 +135,14 @@ export function abstractControllerWithSwagger<
     }
 
     @Delete(':id')
-    @Authenticate(!!auth && auth.delete, UseGuards(AuthGuard(AUTH_GUARD_TYPE)))
-    @Authenticate(!!auth && auth.delete, ApiBearerAuth())
+    @Authenticate(auth.delete.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
+    @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
     @ApiParam({
       name: 'id',
       required: true,
       description: 'Id of Object',
-      type: String,
+      type: String
     })
     @ApiOkResponse({ type: modelVm })
     @ApiSwaggerOperation({ title: 'Delete' })

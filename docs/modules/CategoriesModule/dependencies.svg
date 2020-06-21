@@ -22,29 +22,29 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_CategoriesModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="157,-70 157,-195 339,-195 339,-70 157,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="171,-70 171,-195 325,-195 325,-70 171,-70"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_CategoriesModule_providers</title>
-<polygon fill="none" stroke="#000000" points="165,-78 165,-130 331,-130 331,-78 165,-78"/>
+<g id="clust4" class="cluster">
+<title>cluster_CategoriesModule_exports</title>
+<polygon fill="none" stroke="#000000" points="179,-135 179,-187 317,-187 317,-135 179,-135"/>
 </g>
-<!-- CategoryService -->
+<!-- CategoriesService  -->
 <g id="node1" class="node">
-<title>CategoryService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="248" cy="-104" rx="75.279" ry="18"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CategoryService</text>
+<title>CategoriesService </title>
+<polygon fill="#fb8072" stroke="#000000" points="308.8449,-179 187.1551,-179 187.1551,-143 308.8449,-143 308.8449,-179"/>
+<text text-anchor="middle" x="248" y="-156.8" font-family="Times,serif" font-size="14.00" fill="#000000">CategoriesService </text>
 </g>
 <!-- CategoriesModule -->
 <g id="node2" class="node">
 <title>CategoriesModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="307.9173,-187 304.9173,-191 283.9173,-191 280.9173,-187 188.0827,-187 188.0827,-151 307.9173,-151 307.9173,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">CategoriesModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="307.9173,-114 304.9173,-118 283.9173,-118 280.9173,-114 188.0827,-114 188.0827,-78 307.9173,-78 307.9173,-114"/>
+<text text-anchor="middle" x="248" y="-91.8" font-family="Times,serif" font-size="14.00" fill="#000000">CategoriesModule</text>
 </g>
-<!-- CategoryService&#45;&gt;CategoriesModule -->
+<!-- CategoriesModule&#45;&gt;CategoriesService  -->
 <g id="edge1" class="edge">
-<title>CategoryService&#45;&gt;CategoriesModule</title>
-<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
+<title>CategoriesModule&#45;&gt;CategoriesService </title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-114.1061C248,-114.1061 248,-132.991 248,-132.991"/>
+<polygon fill="#000000" stroke="#000000" points="244.5001,-132.9909 248,-142.991 251.5001,-132.991 244.5001,-132.9909"/>
 </g>
 </g>
 </svg>

@@ -70,16 +70,34 @@
                             <a href="#authErrors" title="src/shared/errors/auth.errors.ts"><b>authErrors</b>&nbsp;&nbsp;&nbsp;(src/.../auth.errors.ts)</a>
                         </li>
                         <li>
+                            <a href="#Authorize" title="src/shared/decorators/authorize.decorator.ts"><b>Authorize</b>&nbsp;&nbsp;&nbsp;(src/.../authorize.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BaseModel" title="src/shared/shared.module.ts"><b>BaseModel</b>&nbsp;&nbsp;&nbsp;(src/.../shared.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CategoryModel" title="src/categories/categories.module.ts"><b>CategoryModel</b>&nbsp;&nbsp;&nbsp;(src/.../categories.module.ts)</a>
+                        </li>
+                        <li>
                             <a href="#columnSize" title="src/shared/constants.ts"><b>columnSize</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
                         </li>
                         <li>
-                            <a href="#config" title="src/app.module.ts"><b>config</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                            <a href="#Config" title="src/app.module.ts"><b>Config</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Config" title="src/auth/auth.module.ts"><b>Config</b>&nbsp;&nbsp;&nbsp;(src/.../auth.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CourseModel" title="src/courses/courses.module.ts"><b>CourseModel</b>&nbsp;&nbsp;&nbsp;(src/.../courses.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Database" title="src/app.module.ts"><b>Database</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
                         </li>
                         <li>
                             <a href="#dbFactory" title="test/db-test.module.ts"><b>dbFactory</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#defaultAuthObj" title="src/shared/utils/get-auth-obj.util.ts"><b>defaultAuthObj</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
+                            <a href="#defaultAuth" title="src/shared/utils/get-auth-obj.util.ts"><b>defaultAuth</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
                         </li>
                         <li>
                             <a href="#envValidation" title="src/shared/validations/env.validation.ts"><b>envValidation</b>&nbsp;&nbsp;&nbsp;(src/.../env.validation.ts)</a>
@@ -100,7 +118,16 @@
                             <a href="#mongod" title="test/db-test.module.ts"><b>mongod</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#trackModelConfig" title="src/tracks/tracks.module.ts"><b>trackModelConfig</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.module.ts)</a>
+                            <a href="#roles" title="src/shared/utils/get-auth-obj.util.ts"><b>roles</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Roles" title="src/shared/decorators/roles.decorator.ts"><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TrackModel" title="src/tracks/tracks.module.ts"><b>TrackModel</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UserModel" title="src/users/users.module.ts"><b>UserModel</b>&nbsp;&nbsp;&nbsp;(src/.../users.module.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -232,11 +259,11 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>(
-  isAuthEnable: boolean,
-  decorator: MethodDecorator,
+  isAuthenticationEnabled: boolean,
+  decorator: MethodDecorator
 ): MethodDecorator &#x3D;&gt; {
-  return (target: object, key: string | symbol, value: any): any &#x3D;&gt; {
-    if (isAuthEnable) {
+  return (target, key: string | symbol, value: any): any &#x3D;&gt; {
+    if (isAuthenticationEnabled) {
       decorator(target, key, value);
     }
   };
@@ -284,17 +311,102 @@
             </tbody>
         </table>
 </section>
+    <h3>src/shared/decorators/authorize.decorator.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Authorize"></a>
+                        <span class="name">
+                            <b>
+                            Authorize</b>
+                            <a href="#Authorize"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(
+  isAuthorizationEnabled: boolean,
+  decorator: MethodDecorator
+): MethodDecorator &#x3D;&gt; {
+  return (target, key: string | symbol, value: any): any &#x3D;&gt; {
+    if (isAuthorizationEnabled) {
+      decorator(target, key, value);
+    }
+  };
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/shared/shared.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseModel"></a>
+                        <span class="name">
+                            <b>
+                            BaseModel</b>
+                            <a href="#BaseModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: BaseEntity.modelName, schema: BaseEntity.schema }
+])</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/categories/categories.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="CategoryModel"></a>
+                        <span class="name">
+                            <b>
+                            CategoryModel</b>
+                            <a href="#CategoryModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: Category.modelName, schema: Category.schema }
+])</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/app.module.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="config"></a>
+                        <a name="Config"></a>
                         <span class="name">
                             <b>
-                            config</b>
-                            <a href="#config"><span class="icon ion-ios-link"></span></a>
+                            Config</b>
+                            <a href="#Config"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -308,6 +420,93 @@
     abortEarly: true
   }
 })</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Database"></a>
+                        <span class="name">
+                            <b>
+                            Database</b>
+                            <a href="#Database"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forRoot(configuration().database.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/auth/auth.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Config"></a>
+                        <span class="name">
+                            <b>
+                            Config</b>
+                            <a href="#Config"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[
+  MongooseModule.forFeature([
+    { name: TemporaryToken.modelName, schema: TemporaryToken.schema }
+  ]),
+  PassportModule.register({ defaultStrategy: AUTH_GUARD_TYPE, session: true })
+]</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/courses/courses.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="CourseModel"></a>
+                        <span class="name">
+                            <b>
+                            CourseModel</b>
+                            <a href="#CourseModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: Course.modelName, schema: Course.schema }
+])</code>
                         </td>
                     </tr>
 
@@ -380,28 +579,43 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="defaultAuthObj"></a>
+                        <a name="defaultAuth"></a>
                         <span class="name">
                             <b>
-                            defaultAuthObj</b>
-                            <a href="#defaultAuthObj"><span class="icon ion-ios-link"></span></a>
+                            defaultAuth</b>
+                            <a href="#defaultAuth"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/DefaultAuthObject.html" target="_self" >DefaultAuthObject</a></code>
+                            <i>Type : </i>        <code><a href="../interfaces/ControllerAuth.html" target="_self" >ControllerAuth</a></code>
 
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-  find: true,
-  findById: true,
-  create: true,
-  update: true,
-  delete: true,
+  find: {
+    enableAuth: true,
+    authRoles: roles
+  },
+  findById: {
+    enableAuth: true,
+    authRoles: roles
+  },
+  create: {
+    enableAuth: true,
+    authRoles: roles
+  },
+  update: {
+    enableAuth: true,
+    authRoles: roles
+  },
+  delete: {
+    enableAuth: true,
+    authRoles: roles
+  }
 }</code>
                         </td>
                     </tr>
@@ -424,33 +638,73 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>(
-  authObj: DefaultAuthObject | boolean,
-): DefaultAuthObject &#x3D;&gt; {
-  let auth &#x3D; null;
-
-  if (!!authObj) {
-    return auth;
+  authObj: DefaultAuthObject | boolean
+): ControllerAuth &#x3D;&gt; {
+  if (typeof authObj &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    if (authObj &#x3D;&#x3D;&#x3D; false) {
+      defaultAuth.create.enableAuth &#x3D; false;
+      defaultAuth.delete.enableAuth &#x3D; false;
+      defaultAuth.find.enableAuth &#x3D; false;
+      defaultAuth.findById.enableAuth &#x3D; false;
+      defaultAuth.update.enableAuth &#x3D; false;
+      return defaultAuth;
+    }
+    if (authObj &#x3D;&#x3D;&#x3D; true) return defaultAuth;
   }
 
-  if (authObj &#x3D;&#x3D;&#x3D; true) {
-    auth &#x3D; defaultAuthObj;
-  } else if (authObj &#x3D;&#x3D;&#x3D; false) {
-    auth &#x3D; {
-      find: false,
-      findById: false,
-      create: false,
-      update: false,
-      delete: false,
-    };
-  } else {
-    auth &#x3D; {
-      ...defaultAuthObj,
-      ...authObj,
-    };
+  if (typeof authObj?.find &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    defaultAuth.find.enableAuth &#x3D; authObj.find;
+  } else if (authObj?.find?.length) {
+    defaultAuth.find.authRoles &#x3D; authObj.find;
   }
 
-  return auth;
+  if (typeof authObj?.findById &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    defaultAuth.findById.enableAuth &#x3D; authObj.findById;
+  } else if (authObj?.findById?.length) {
+    defaultAuth.findById.authRoles &#x3D; authObj.findById;
+  }
+
+  if (typeof authObj?.update &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    defaultAuth.update.enableAuth &#x3D; authObj.update;
+  } else if (authObj?.update?.length) {
+    defaultAuth.update.authRoles &#x3D; authObj.update;
+  }
+
+  if (typeof authObj?.create &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    defaultAuth.create.enableAuth &#x3D; authObj.create;
+  } else if (authObj?.create?.length) {
+    defaultAuth.create.authRoles &#x3D; authObj.create;
+  }
+
+  if (typeof authObj?.delete &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+    defaultAuth.delete.enableAuth &#x3D; authObj.delete;
+  } else if (authObj?.delete?.length) {
+    defaultAuth.delete.authRoles &#x3D; authObj.delete;
+  }
+
+  return defaultAuth;
 }</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name">
+                            <b>
+                            roles</b>
+                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Object.values(UserRole)</code>
                         </td>
                     </tr>
 
@@ -583,17 +837,42 @@
             </tbody>
         </table>
 </section>
+    <h3>src/shared/decorators/roles.decorator.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Roles"></a>
+                        <span class="name">
+                            <b>
+                            Roles</b>
+                            <a href="#Roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(...roles: UserRole[]): CustomDecorator&lt;typeof UserRole&gt; &#x3D;&gt;
+  SetMetadata(UserRole, roles)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/tracks/tracks.module.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="trackModelConfig"></a>
+                        <a name="TrackModel"></a>
                         <span class="name">
                             <b>
-                            trackModelConfig</b>
-                            <a href="#trackModelConfig"><span class="icon ion-ios-link"></span></a>
+                            TrackModel</b>
+                            <a href="#TrackModel"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -601,6 +880,32 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
+])</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/users/users.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="UserModel"></a>
+                        <span class="name">
+                            <b>
+                            UserModel</b>
+                            <a href="#UserModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: User.modelName, schema: User.schema }
 ])</code>
                         </td>
                     </tr>

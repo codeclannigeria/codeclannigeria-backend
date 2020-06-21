@@ -1,27 +1,24 @@
 import {
   Body,
   ConflictException,
-  Controller,
   HttpStatus,
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AbstractCrudController } from '~shared/base.controller';
-import { ApiException } from '~shared/models/api-exception.model';
-import { PagedResDto } from '~shared/models/dto/paged-res.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { BaseCrudController } from '~shared/controllers/base.controller';
+import { Roles } from '~shared/decorators/roles.decorator';
+import { ApiException } from '~shared/errors/api-exception';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto } from './models/dto/create-track.dto';
-import { TrackDto } from './models/dto/tack.dto';
+import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
 
-@Controller('tracks')
-@ApiTags('tracks')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
-export class TracksController extends AbstractCrudController<
+export class TracksController extends BaseCrudController<
   Track,
   TrackDto,
   CreateTrackDto,
@@ -31,18 +28,26 @@ export class TracksController extends AbstractCrudController<
   entityDto: TrackDto,
   createDto: CreateTrackDto,
   updateDto: CreateTrackDto,
-  pagedResDto: PagedResDto(TrackDto)
-}) {
-  constructor(private readonly trackService: TracksService) {
-    super(trackService);
+  pagedOutputDto: PagedTrackOutputDto,
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
   }
-
+}) {
+  /**
+   *
+   */
+  // constructor(protected service: TracksService) {
+  //   super(service);
+  // }
   @Post()
-  @ApiResponse({ type: CreateTrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise<TrackDto> {
-    const exist = await this.trackService.findOneAsync({ title: input.title });
+    const exist = await this.service.findOneAsync({ title: input.title });
     if (exist)
       throw new ConflictException('Track with the title already exists');
 

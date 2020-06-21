@@ -205,11 +205,11 @@
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus,
+  HttpStatus
 } from &#x27;@nestjs/common&#x27;;
 import { Response } from &#x27;express&#x27;;
 
-import { ApiException } from &#x27;../models/api-exception.model&#x27;;
+import { ApiException } from &#x27;../errors/api-exception&#x27;;
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -237,7 +237,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       stacktrace,
       errors,
       path,
-      statusCode,
+      statusCode
     );
     res.status(statusCode).json(exception);
   }

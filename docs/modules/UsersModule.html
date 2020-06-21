@@ -126,15 +126,6 @@
         <div class="container-fluid module">
             <div class="row">
                 <div class="col-sm-3">
-                    <h3>Controllers<a href="https://docs.nestjs.com/controllers" target="_blank" title="Official documentation about module controllers"><span
-                                class="icon ion-ios-information-circle-outline"></a></h3>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="../controllers/UsersController.html">UsersController</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
                     <h3>Exports<a href="https://angular.io/api/core/NgModule#exports" target="_blank" title="Official documentation about module exports"><span
                                 class="icon ion-ios-information-circle-outline"></a></h3>
                     <ul class="list-group">
@@ -158,16 +149,14 @@ import { User } from &#x27;./models/user.entity&#x27;;
 import { UsersController } from &#x27;./users.controller&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
 
+const UserModel &#x3D; MongooseModule.forFeature([
+  { name: User.modelName, schema: User.schema }
+]);
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: User.modelName, schema: User.schema }])
-  ],
-  providers: [UsersService],
+  imports: [UserModel],
   controllers: [UsersController],
-  exports: [
-    UsersService,
-    MongooseModule.forFeature([{ name: User.modelName, schema: User.schema }])
-  ]
+  providers: [UsersService],
+  exports: [UserModel, UsersService]
 })
 export class UsersModule {}
 </code></pre>

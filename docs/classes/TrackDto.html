@@ -68,7 +68,7 @@
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                        <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                        <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
             </p>
 
 
@@ -96,6 +96,7 @@
                                 <a href="#createdAt">createdAt</a>
                             </li>
                             <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#id">id</a>
                             </li>
                             <li>
@@ -144,13 +145,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length128)<br />@ApiProperty()<br />
+                                @MaxLength(columnSize.length128)<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/tracks/models/dto/tack.dto.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/tracks/models/dto/tack.dto.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -180,13 +181,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length32)<br />@ApiProperty()<br />@IsAlphanumeric()<br />
+                                @MaxLength(columnSize.length32)<br />@IsAlphanumeric()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/tracks/models/dto/tack.dto.ts:12</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/tracks/models/dto/tack.dto.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -217,19 +218,19 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:16</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:10</a></code>
 </div>
                             </td>
                         </tr>
@@ -244,6 +245,7 @@
                         <a name="id"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Readonly</span>
                             id</b>
                             <a href="#id"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -260,19 +262,19 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@IsMongoId()<br />@ApiProperty()<br />
+                                @IsMongoId()<br />
                             </code>
                         </td>
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:10</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:6</a></code>
 </div>
                             </td>
                         </tr>
@@ -304,19 +306,19 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@ApiProperty()<br />
+                                @ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseResDto.html" target="_self" >BaseResDto</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseDto.html" target="_self" >BaseDto</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseResDto.html#source" target="_self" >BaseResDto:13</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
 </div>
                             </td>
                         </tr>
@@ -336,23 +338,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { Expose } from &#x27;class-transformer&#x27;;
-import { IsAlphanumeric, MaxLength } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsAlphanumeric, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseResDto } from &#x27;~shared/models/dto/base-res.dto&#x27;;
+import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
+import { PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
 
-export class TrackDto extends BaseResDto {
-  @Expose()
+export class TrackDto extends BaseDto {
   @MaxLength(columnSize.length32)
-  @ApiProperty()
   @IsAlphanumeric()
   title: string;
-  @Expose()
   @MaxLength(columnSize.length128)
-  @ApiProperty()
   description: string;
 }
+export class PagedTrackOutputDto extends PagedOutputDto(TrackDto) {}
 </code></pre>
     </div>
 </div>

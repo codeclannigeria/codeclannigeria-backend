@@ -1,17 +1,17 @@
-import { DynamicModule, Global, Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { AbstractService, BaseService, CurrentUserService } from './services';
+import { BaseEntity } from './models/base.entity';
+import { BaseService } from './services';
+
+const BaseModel = MongooseModule.forFeature([
+  { name: BaseEntity.modelName, schema: BaseEntity.schema }
+]);
 
 @Global()
-@Module({ providers: [CurrentUserService] })
-export class SharedModule {
-  static forRoot(): DynamicModule {
-    const provider = { provide: AbstractService, useClass: BaseService };
-    return {
-      module: SharedModule,
-      providers: [provider],
-      exports: [provider],
-      global: true
-    };
-  }
-}
+@Module({
+  imports: [BaseModel],
+  providers: [BaseService],
+  exports: [BaseService, BaseModel]
+})
+export class SharedModule {}

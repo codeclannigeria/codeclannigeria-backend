@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/shared/models/temporary-token.entity.ts</code>
+            <code>src/auth/models/temporary-token.entity.ts</code>
         </p>
 
 
@@ -214,7 +214,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/shared/models/temporary-token.entity.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/auth/models/temporary-token.entity.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -251,7 +251,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/shared/models/temporary-token.entity.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/auth/models/temporary-token.entity.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -289,7 +289,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/shared/models/temporary-token.entity.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/auth/models/temporary-token.entity.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -327,7 +327,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/shared/models/temporary-token.entity.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/auth/models/temporary-token.entity.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -960,11 +960,11 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { index, modelOptions, prop, Ref } from &#x27;@typegoose/typegoose&#x27;;
 
 import { User } from &#x27;../../users/models/user.entity&#x27;;
-import { BaseEntity } from &#x27;./base.entity&#x27;;
+import { BaseEntity } from &#x27;../../shared/models/base.entity&#x27;;
 
 export enum TokenType {
-  PASSWORD &#x3D; &#x27;Password&#x27;,
-  EMAIL &#x3D; &#x27;Email&#x27;,
+  PASSWORD &#x3D; &#x27;PASSWORD_TOKEN&#x27;,
+  EMAIL &#x3D; &#x27;EMAIL_TOKEN&#x27;
 }
 
 @index({ user: 1, type: 1 }, { unique: true })
@@ -981,7 +981,7 @@ export class TemporaryToken extends BaseEntity {
     enum: TokenType,
     type: String,
     unique: false,
-    required: true,
+    required: true
   })
   readonly type?: TokenType;
 

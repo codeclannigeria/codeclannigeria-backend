@@ -118,8 +118,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="7"
-                            class="link-to-prism">src/auth/guards/jwt-auth.guard.ts:7</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="9"
+                            class="link-to-prism">src/auth/guards/jwt-auth.guard.ts:9</a></div>
                 </td>
             </tr>
 
@@ -156,7 +156,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>boolean | Promise | Observable</code>
 
                     </div>
                     <div class="io-description">
@@ -172,13 +172,17 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, ExecutionContext } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ExecutionContext, Injectable } from &#x27;@nestjs/common&#x27;;
 import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
-import configuration from &#x27;../../shared/config/configuration&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import configuration from &#x27;~shared/config/configuration&#x27;;
+import { AUTH_GUARD_TYPE } from &#x27;~shared/constants&#x27;;
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard(&#x27;jwt&#x27;) {
-  canActivate(context: ExecutionContext) {
+export class JwtAuthGuard extends AuthGuard(AUTH_GUARD_TYPE) {
+  canActivate(
+    context: ExecutionContext
+  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; {
     // console.log(context.switchToHttp().getRequest().sessionID);
     return configuration().isAuthEnabled ? super.canActivate(context) : true;
   }

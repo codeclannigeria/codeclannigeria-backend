@@ -1,48 +1,52 @@
 import {
   Body,
   ConflictException,
-  Controller,
   HttpStatus,
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AbstractCrudController } from '~shared/base.controller';
-import { ApiException } from '~shared/models/api-exception.model';
-import { PagedResDto } from '~shared/models/dto/paged-res.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { BaseCrudController } from '~shared/controllers';
+import { Roles } from '~shared/decorators/roles.decorator';
+import { ApiException } from '~shared/errors';
 
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { CategoryService } from './categories.service';
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
+import { UserRole } from '../users/models/user.entity';
+import { CategoriesService } from './categories.service';
 import { Category } from './models/category.entity';
-import { CategoryDto } from './models/dto/category.dto';
-import { CreateCategoryDto } from './models/dto/create-category.dto';
+import { CategoryDto, PagedCategoryOutDto } from './models/dtos/category.dto';
+import { CreateCategoryDto } from './models/dtos/create-category.dto';
 
-@Controller('categories')
-@ApiTags('categories')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
-export class CategoriesController extends AbstractCrudController<
+export class CategoriesController extends BaseCrudController<
   Category,
   CategoryDto,
-  CreateCategoryDto,
   CreateCategoryDto
 >({
-  entity: Category,
-  entityDto: CategoryDto,
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  },
   createDto: CreateCategoryDto,
   updateDto: CreateCategoryDto,
-  pagedResDto: PagedResDto(CategoryDto)
+  entity: Category,
+  pagedOutputDto: PagedCategoryOutDto,
+  entityDto: CategoryDto
 }) {
-  constructor(private readonly categoryService: CategoryService) {
-    super(categoryService);
+  constructor(protected readonly service: CategoriesService) {
+    super(service);
   }
+
   @Post()
-  @ApiResponse({ type: CreateCategoryDto, status: HttpStatus.CREATED })
+  @ApiResponse({ type: CategoryDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateCategoryDto): Promise<CategoryDto> {
-    const exist = await this.categoryService.findOneAsync({ name: input.name });
-    if (exist) throw new ConflictException(`${input.name} already exists`);
+    const exist = await this.service.findOneAsync({ title: input.name });
+    if (exist)
+      throw new ConflictException('Category with the name already exists');
+
     return super.create(input);
   }
 }
