@@ -1,12 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  Optional,
-  Scope
-} from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
@@ -16,21 +8,13 @@ import { CreateQuery, Query, Types } from 'mongoose';
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
 import { UserRole } from './../../users/models/user.entity';
-import { InjectModel } from '@nestjs/mongoose';
 
-@Injectable({ scope: Scope.REQUEST })
-export class BaseService<T extends BaseEntity> {
-  @Optional()
-  @Inject(REQUEST)
-  private readonly req: Request;
-  protected entity: ReturnModelType<AnyParamConstructor<T>>;
+export abstract class BaseService<T extends BaseEntity> {
+  // @Optional()
+  // @Inject(REQUEST)
+  protected readonly req: Request;
 
-  constructor(
-    @InjectModel(BaseEntity.modelName)
-    entity: ReturnModelType<AnyParamConstructor<T>>
-  ) {
-    this.entity = entity;
-  }
+  constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) {}
 
   protected static throwMongoError(err: MongoError): void {
     throw new InternalServerErrorException(err, err.errmsg);
@@ -78,7 +62,7 @@ export class BaseService<T extends BaseEntity> {
   }
 
   private whereOwn() {
-    return this.req.user?.['role'] === UserRole.ADMIN
+    return this.req?.user?.['role'] === UserRole.ADMIN
       ? {}
       : { createdBy: this.getUserId() };
   }
@@ -119,10 +103,19 @@ export class BaseService<T extends BaseEntity> {
       BaseService.throwMongoError(e);
     }
   }
-
+  hardDeleteMany(filter = {}): QueryItem<T> {
+    try {
+      return this.entity.deleteMany(filter).where(this.whereOwn()).lean();
+    } catch (error) {
+      BaseService.throwMongoError(error);
+    }
+  }
   hardDelete(filter = {}): QueryItem<T> {
-    filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndDelete(filter).where(this.whereOwn());
+    try {
+      return this.entity.findOneAndDelete(filter).where(this.whereOwn()).lean();
+    } catch (error) {
+      BaseService.throwMongoError(error);
+    }
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };

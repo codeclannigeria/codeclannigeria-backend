@@ -9,6 +9,7 @@ export class Course extends BaseEntity {
     maxlength: columnSize.length32,
     trim: true,
     text: true,
+    uppercase: true,
     unique: false
   })
   readonly title!: string;

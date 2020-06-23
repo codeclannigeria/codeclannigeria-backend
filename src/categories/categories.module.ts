@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { BaseService } from '~shared/services';
+
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from './categories.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { Category } from './models/category.entity';
 
 const CategoryModel = MongooseModule.forFeature([
@@ -9,8 +11,11 @@ const CategoryModel = MongooseModule.forFeature([
 ]);
 @Module({
   imports: [CategoryModel],
+  providers: [
+    CategoriesService,
+    { provide: BaseService, useClass: CategoriesService }
+  ],
   controllers: [CategoriesController],
-  providers: [CategoriesService],
   exports: [CategoriesService, CategoryModel]
 })
 export class CategoriesModule {}

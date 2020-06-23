@@ -1,8 +1,9 @@
-import { ValidationPipe, Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
+import * as connectMongo from 'connect-mongo';
 import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as session from 'express-session';
@@ -12,7 +13,6 @@ import * as passport from 'passport';
 import { AppModule } from './app.module';
 import configuration from './shared/config/configuration';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
-import * as connectMongo from 'connect-mongo';
 
 declare const module: any;
 
@@ -20,14 +20,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true
   });
-  // app.connectMicroservice({
-  //   transport: Transport.REDIS,
-  //   options: {
-  //     url: 'redis://localhost:6379',
-  //   },
-  // });
-  // security
-  // app.enableCors();
+
   app.use(helmet());
   app.use(
     rateLimit({
@@ -36,7 +29,7 @@ async function bootstrap() {
     })
   );
 
-  // compression
+  // compressions
   app.use(compression());
 
   // filters
@@ -80,7 +73,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  // await app.startAllMicroservicesAsync();
   const listener = await app.listen(process.env.PORT || port, function () {
     Logger.log('Listening on port ' + listener.address().port);
   });
