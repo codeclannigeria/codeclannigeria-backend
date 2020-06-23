@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>TracksController</li>
+  <li>StagesController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/tracks/tracks.controller.ts</code>
+            <code>src/stages/stages.controller.ts</code>
         </p>
 
 
@@ -108,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
+<code>constructor(stageService: <a href="../injectables/StagesService.html">StagesService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/tracks/tracks.controller.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/stages/stages.controller.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -131,10 +131,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>trackService</td>
+                                                        <td>stageService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/TracksService.html" target="_self" >TracksService</a></code>
+                                                                        <code><a href="../injectables/StagesService.html" target="_self" >StagesService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -174,7 +174,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(input: <a href="../classes/CreateTrackDto.html">CreateTrackDto</a>)</code>
+                    <code>create(input: <a href="../classes/CreateStageDto.html">CreateStageDto</a>)</code>
                 </td>
             </tr>
 
@@ -182,14 +182,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: StageDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:42</a></div>
+                            class="link-to-prism">src/stages/stages.controller.ts:42</a></div>
                 </td>
             </tr>
 
@@ -211,7 +211,7 @@
                                 <tr>
                                     <td>input</td>
                                     <td>
-                                                <code><a href="../classes/CreateTrackDto.html" target="_self" >CreateTrackDto</a></code>
+                                                <code><a href="../classes/CreateStageDto.html" target="_self" >CreateStageDto</a></code>
                                     </td>
 
                                     <td>
@@ -226,7 +226,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;TrackDto&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;StageDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -253,49 +253,49 @@
   Post,
   UseGuards
 } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
-import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
+import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
-import { CreateTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
-import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
-import { Track } from &#x27;./models/track.entity&#x27;;
-import { TracksService } from &#x27;./tracks.service&#x27;;
+import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto.ts&#x27;;
+import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto.ts&#x27;;
+import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { StagesService } from &#x27;./stages.service&#x27;;
 
-const BaseCtrl &#x3D; BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;({
-  entity: Track,
-  entityDto: TrackDto,
-  createDto: CreateTrackDto,
-  updateDto: CreateTrackDto,
-  pagedListDto: PagedTrackOutputDto,
+const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
+  entity: Stage,
+  entityDto: StageDto,
+  createDto: CreateStageDto,
+  updateDto: CreateStageDto,
+  pagedListDto: PagedListStageDto,
   auth: {
-    update: [UserRole.ADMIN, UserRole.MENTOR],
-    delete: [UserRole.ADMIN, UserRole.MENTOR]
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
   }
 });
-export class TracksController extends BaseCtrl {
-  constructor(protected trackService: TracksService) {
-    super(trackService);
+
+export class StagesController extends BaseCtrl {
+  constructor(protected readonly stageService: StagesService) {
+    super(stageService);
   }
   @Post()
-  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.MENTOR)
-  @ApiBearerAuth()
+  @Roles(UserRole.ADMIN)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async create(@Body() input: CreateTrackDto): Promise&lt;TrackDto&gt; {
-    const exist &#x3D; await this.trackService.findOneAsync({
+  async create(@Body() input: CreateStageDto): Promise&lt;StageDto&gt; {
+    const exist &#x3D; await this.stageService.findOneAsync({
       title: input.title.toUpperCase()
     });
     if (exist)
       throw new ConflictException(
-        &#x60;Track with the title &quot;${exist.title}&quot; already exists&#x60;
+        &#x60;Stage with the title &quot;${exist.title}&quot; already exists&#x60;
       );
-    return await super.create(input);
+    return super.create(input);
   }
 }
 </code></pre>
@@ -326,7 +326,7 @@ export class TracksController extends BaseCtrl {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'TracksController.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'StagesController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

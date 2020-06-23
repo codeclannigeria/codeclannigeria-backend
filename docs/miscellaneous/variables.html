@@ -76,6 +76,9 @@
                             <a href="#BaseCtrl" title="src/categories/categories.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../categories.controller.ts)</a>
                         </li>
                         <li>
+                            <a href="#BaseCtrl" title="src/stages/stages.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../stages.controller.ts)</a>
+                        </li>
+                        <li>
                             <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
                         </li>
                         <li>
@@ -128,6 +131,9 @@
                         </li>
                         <li>
                             <a href="#Roles" title="src/shared/decorators/roles.decorator.ts"><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#StageModel" title="src/stages/stages.module.ts"><b>StageModel</b>&nbsp;&nbsp;&nbsp;(src/.../stages.module.ts)</a>
                         </li>
                         <li>
                             <a href="#TrackModel" title="src/tracks/tracks.module.ts"><b>TrackModel</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.module.ts)</a>
@@ -375,7 +381,41 @@
   entityDto: CategoryDto,
   createDto: CategoryDto,
   updateDto: CategoryDto,
-  pagedEntityOutputDto: PagedCategoryOutDto
+  pagedListDto: PagedCategoryOutDto
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/stages/stages.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
+  entity: Stage,
+  entityDto: StageDto,
+  createDto: CreateStageDto,
+  updateDto: CreateStageDto,
+  pagedListDto: PagedListStageDto,
+  auth: {
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
+  }
 })</code>
                         </td>
                     </tr>
@@ -405,7 +445,7 @@
   entityDto: UserDto,
   createDto: CreateUserDto,
   updateDto: CreateUserDto,
-  pagedEntityOutputDto: PagedUserOutputDto,
+  pagedListDto: PagedUserOutputDto,
   auth: {
     find: [UserRole.ADMIN],
     findById: [UserRole.ADMIN],
@@ -441,7 +481,7 @@
   entityDto: TrackDto,
   createDto: CreateTrackDto,
   updateDto: CreateTrackDto,
-  pagedEntityOutputDto: PagedTrackOutputDto,
+  pagedListDto: PagedTrackOutputDto,
   auth: {
     update: [UserRole.ADMIN, UserRole.MENTOR],
     delete: [UserRole.ADMIN, UserRole.MENTOR]
@@ -943,6 +983,32 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>(...roles: UserRole[]): CustomDecorator&lt;typeof UserRole&gt; &#x3D;&gt;
   SetMetadata(UserRole, roles)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/stages/stages.module.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="StageModel"></a>
+                        <span class="name">
+                            <b>
+                            StageModel</b>
+                            <a href="#StageModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: Stage.modelName, schema: Stage.schema }
+])</code>
                         </td>
                     </tr>
 
