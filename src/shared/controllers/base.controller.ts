@@ -19,7 +19,7 @@ import * as pluralize from 'pluralize';
 import { Authenticate } from '~shared/decorators';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { IBaseController } from '~shared/interfaces';
-import { IBasePagedOutputDto } from '~shared/models/dto';
+import { IPagedListDto } from '~shared/models/dto';
 import { getAuthObj } from '~shared/utils';
 
 import { JwtAuthGuard } from '../../auth/guards';
@@ -27,7 +27,7 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 import { ApiException } from '../errors/api-exception';
 import { BaseControllerWithSwaggerOpts } from '../interfaces/base-controller-opts-interface';
 import { BaseEntity } from '../models/base.entity';
-import { PagedEntityInputDto } from '../models/dto/paged-in.dto';
+import { FindDto } from '../models/dto/find.dto';
 import { BaseService } from '../services/base.service';
 
 export function BaseCrudController<
@@ -49,8 +49,8 @@ export function BaseCrudController<
     TEntityDto,
     TCreateDto,
     TUpdateDto,
-    PagedEntityInputDto,
-    IBasePagedOutputDto<TEntityDto>
+    FindDto,
+    IPagedListDto<TEntityDto>
   >
 > {
   const {
@@ -63,15 +63,7 @@ export function BaseCrudController<
   const auth = getAuthObj(options.auth);
   @ApiTags(pluralize(Entity.name))
   @Controller(pluralize(Entity.name.toLowerCase()))
-  class BaseController
-    implements
-      IBaseController<
-        TEntityDto,
-        TCreateDto,
-        TUpdateDto,
-        PagedEntityInputDto,
-        IBasePagedOutputDto<TEntityDto>
-      > {
+  class BaseController {
     constructor(
       @Inject(BaseService)
       protected readonly service: BaseService<TEntity>
@@ -97,7 +89,7 @@ export function BaseCrudController<
     @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))
     @Authenticate(auth.find.enableAuth, ApiBearerAuth())
-    async findAll(@Query() query: PagedEntityInputDto) {
+    async findAll(@Query() query: FindDto) {
       const { skip, limit, search, opts } = query;
       const conditions = JSON.parse(search || '{}');
       const options = JSON.parse(opts || '{}');
@@ -134,13 +126,16 @@ export function BaseCrudController<
     @Authenticate(auth.update.enableAuth, Roles(...auth.update.authRoles))
     @Authenticate(auth.update.enableAuth, ApiBearerAuth())
     async update(@Param('id') id: string, @Body() input: TUpdateDto) {
-      const entity = await this.service.findByIdAsync(id);
-      if (!entity)
+      const existingEntity = await this.service.findByIdAsync(id);
+      if (!existingEntity)
         throw new NotFoundException(`Entity with Id ${id} does not exist`);
-      const value = plainToClass(Entity, entity);
-      const updatedDoc = { ...value, ...input };
-      const result = await this.service.updateAsync(id, updatedDoc);
-      return plainToClass<TEntityDto, TEntity>(EntityDto, result);
+      const value = plainToClass(Entity, existingEntity, {
+        enableImplicitConversion: true,
+        excludeExtraneousValues: true
+      });
+      const toBeUpdatedEntity = { ...value, ...input };
+      const result = await this.service.updateAsync(id, toBeUpdatedEntity);
+      return plainToClass(EntityDto, result);
     }
 
     @Delete(':id')

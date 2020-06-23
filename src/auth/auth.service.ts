@@ -1,8 +1,11 @@
+import { ApiException } from './../shared/errors/api-exception';
 import {
   Injectable,
   Logger,
   OnModuleInit,
-  UnauthorizedException
+  UnauthorizedException,
+  HttpStatus,
+  HttpException
 } from '@nestjs/common';
 import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
@@ -36,28 +39,22 @@ export class AuthService implements OnModuleInit {
     }
   }
   async validateUser(email: string, pw: string): Promise<User> {
-    const user = await this.usersService.findOneAsync({ email });
+    const user = await this.usersService.findOneAsync({
+      email: email?.toLowerCase()
+    });
     if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified)
-      throw new UnauthorizedException('Please confirm your email');
-    try {
-      const isValid = await bcrypt.compare(pw, user.password);
-      if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
-    } catch (error) {
-      Logger.error(error);
-      throw authErrors.INVALID_LOGIN_ATTEMPT;
-    }
+      throw new HttpException(
+        { message: 'Unconfirmed Email', errorType: 'UNCONFIRMED_EMAIL' },
+        HttpStatus.UNAUTHORIZED
+      );
+    const isValid = await bcrypt.compare(pw, user.password);
+    if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
     return user;
   }
 
-  async login(email: string, pass: string): Promise<string> {
-    const user = await this.usersService.findOneAsync({ email });
-
-    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
-    const isValidPassword = await bcrypt.compare(pass, user.password);
-    if (!isValidPassword) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
+  async getAuthToken(user: User): Promise<string> {
     const { jwtValidityHrs, jwtSecret } = configuration();
     const expiresIn = 60 * 60 * jwtValidityHrs;
     const payload: JwtPayload = {

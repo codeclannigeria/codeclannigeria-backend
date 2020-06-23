@@ -36,6 +36,7 @@ describe('AuthController (e2e)', () => {
     );
 
     await app.init();
+
     route = request(app.getHttpServer());
   });
 
@@ -72,17 +73,11 @@ describe('AuthController (e2e)', () => {
 
   // Authentication
   describe('/auth/login (POST)', () => {
-    const loginInput = (({ email, password }) => ({ email, password }))(
-      registerInput
-    );
-    it('should return 200 for valid login input', async () => {
-      const { body } = await route
-        .post('/auth/login')
-        .send(loginInput)
-        .expect(200);
-
-      expect(body.accessToken).toBeTruthy();
+    const loginInput = { email: validEmail, password: validPass };
+    it('should return 401 for valid login input but unconfirmed email', async () => {
+      return route.post('/auth/login').send(loginInput).expect(401);
     });
+
     it('should return 401 for incorrect login input', async () => {
       return route
         .post('/auth/login')
@@ -126,6 +121,14 @@ describe('AuthController (e2e)', () => {
     });
     it('should confirm email for valid details', async () => {
       return route.post(endpoint).send(input).expect(200);
+    });
+    it('should return 200 for valid login input', async () => {
+      const { body } = await route
+        .post('/auth/login')
+        .send({ email: validEmail, password: validPass })
+        .expect(200);
+
+      expect(body.accessToken).toBeTruthy();
     });
     it('should return conflict for an already verified email', async () => {
       return route.post(endpoint).send(input).expect(409);

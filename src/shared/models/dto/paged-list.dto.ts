@@ -3,15 +3,15 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { ClassType } from '../../types/abstract.type';
 
-export interface IBasePagedOutputDto<T> {
+export interface IPagedListDto<T> {
   totalCount: number;
   items: T[];
 }
 
-export function PagedOutputDto<T extends ClassType>(
+export function PagedListDto<T extends ClassType>(
   entityDto: T
-): Type<IBasePagedOutputDto<T>> {
-  class Paged implements IBasePagedOutputDto<T> {
+): Type<IPagedListDto<T>> {
+  class Paged implements IPagedListDto<T> {
     totalCount: number;
     @ApiProperty({ type: entityDto })
     items: T[];

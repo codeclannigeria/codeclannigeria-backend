@@ -3,7 +3,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { IsAlphanumeric, IsUrl, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto } from '~shared/models/dto/base.dto';
-import { PagedOutputDto } from '~shared/models/dto';
+import { PagedListDto } from '~shared/models/dto';
 
 @Exclude()
 export class CourseDto extends BaseDto {
@@ -23,4 +23,4 @@ export class CourseDto extends BaseDto {
 
   readonly enrollmentCount: number;
 }
-export class PagedCourseOutputDto extends PagedOutputDto(CourseDto) {}
+export class PagedCourseOutputDto extends PagedListDto(CourseDto) {}

@@ -2,7 +2,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { IsAlphanumeric, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto } from '~shared/models/dto/base.dto';
-import { PagedOutputDto } from '~shared/models/dto';
+import { PagedListDto } from '~shared/models/dto';
 
 @Exclude()
 export class TrackDto extends BaseDto {
@@ -14,4 +14,4 @@ export class TrackDto extends BaseDto {
   @Expose()
   description: string;
 }
-export class PagedTrackOutputDto extends PagedOutputDto(TrackDto) {}
+export class PagedTrackOutputDto extends PagedListDto(TrackDto) {}

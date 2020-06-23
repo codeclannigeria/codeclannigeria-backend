@@ -6,12 +6,12 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
-import { TrackDto } from 'src/tracks/models/dto/tack.dto';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { BaseCrudController } from '../shared/controllers/base.controller';
+import { TrackDto } from '../tracks/models/dto/tack.dto';
 import { CreateUserDto } from './models/dto/create-user.dto';
 import { PagedUserOutputDto, UserDto } from './models/dto/user.dto';
 import { User, UserRole } from './models/user.entity';

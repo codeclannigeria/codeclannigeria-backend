@@ -1,3 +1,4 @@
+import { User } from './../users/models/user.entity';
 import {
   Body,
   ConflictException,
@@ -7,7 +8,8 @@ import {
   NotFoundException,
   Post,
   UnauthorizedException,
-  UseGuards
+  UseGuards,
+  Req
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
@@ -16,7 +18,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
-
+import { Request } from 'express';
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
 import configuration from '../shared/config/configuration';
 import { ApiException } from '../shared/errors/api-exception';
@@ -48,11 +50,11 @@ export class AuthController {
   @ApiOkResponse({ type: LoginResDto })
   @ApiUnauthorizedResponse({ type: ApiException })
   @UseGuards(AuthenticationGuard)
-  async login(@Body() input: LoginReqDto): Promise<LoginResDto> {
-    const accessToken = await this.authService.login(
-      input.email,
-      input.password
-    );
+  async login(
+    @Body() input: LoginReqDto,
+    @Req() req?: Request
+  ): Promise<LoginResDto> {
+    const accessToken = await this.authService.getAuthToken(req.user as User);
     return { accessToken };
   }
   @Post('register')

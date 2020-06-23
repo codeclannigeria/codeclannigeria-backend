@@ -5,12 +5,12 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
@@ -37,6 +37,7 @@ export class TracksController extends BaseCtrl {
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise<TrackDto> {
     const exist = await this.trackService.findOneAsync({
@@ -46,6 +47,6 @@ export class TracksController extends BaseCtrl {
       throw new ConflictException(
         `Track with the title "${exist.title}" already exists`
       );
-    return super.create(input);
+    return await super.create(input);
   }
 }

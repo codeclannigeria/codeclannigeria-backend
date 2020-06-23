@@ -1,17 +1,23 @@
-import { InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Inject,
+  InternalServerErrorException,
+  Logger,
+  Optional
+} from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
 import { Request } from 'express';
 import { MongoError } from 'mongodb';
 import { CreateQuery, Query, Types } from 'mongoose';
 
+import { UserRole } from '../../users/models/user.entity';
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
-import { UserRole } from './../../users/models/user.entity';
 
 export abstract class BaseService<T extends BaseEntity> {
-  // @Optional()
-  // @Inject(REQUEST)
+  @Optional()
+  @Inject(REQUEST)
   protected readonly req: Request;
 
   constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) {}
@@ -33,6 +39,9 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   protected getUserId(): any {
     return this.req?.user?.['userId'] || null;
+  }
+  protected getUserRole(): UserRole {
+    return this.req?.user?.['role'] || null;
   }
 
   insert(entity: T): Promise<DocumentType<T>> {
@@ -59,12 +68,6 @@ export abstract class BaseService<T extends BaseEntity> {
     filter = { ...filter, isDeleted: { $ne: true } };
 
     return this.entity.find(filter, null, opts);
-  }
-
-  private whereOwn() {
-    return this.req?.user?.['role'] === UserRole.ADMIN
-      ? {}
-      : { createdBy: this.getUserId() };
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -136,9 +139,12 @@ export abstract class BaseService<T extends BaseEntity> {
       .where(this.whereOwn());
   }
   softDeleteById(id: string): QueryItem<T> {
-    const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
-
+    const update = {
+      isDeleted: true,
+      deletedBy: this.getUserId()
+    } as any;
     return this.entity
+
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
       .where(this.whereOwn())
       .where('isDeleted')
@@ -185,5 +191,10 @@ export abstract class BaseService<T extends BaseEntity> {
     } catch (e) {
       BaseService.throwMongoError(e);
     }
+  }
+  private whereOwn() {
+    return this.getUserRole() === UserRole.ADMIN
+      ? {}
+      : { createdBy: this.getUserId() };
   }
 }

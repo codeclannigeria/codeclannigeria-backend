@@ -1,3 +1,3 @@
 export * from './base.dto';
-export * from './paged-in.dto';
-export * from './paged-out.dto';
+export * from './find.dto';
+export * from './paged-list.dto';

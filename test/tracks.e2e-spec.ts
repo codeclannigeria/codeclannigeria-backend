@@ -5,7 +5,10 @@ import {
   ExecutionContext,
   INestApplication,
   ValidationPipe,
-  UnauthorizedException
+  UnauthorizedException,
+  BadGatewayException,
+  BadRequestException,
+  ForbiddenException
 } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -31,7 +34,7 @@ describe('TracksController (e2e)', () => {
   let mongo: typeof mongoose;
   const validEmail = 'email@gmail.com';
   const validPass = 'pass@45Pdd';
-  let jwtPayload: JwtPayload;
+  let currentUser: JwtPayload;
   let TrackModel: ReturnModelType<typeof Track>;
   const jwtGuard = {
     canActivate: (context: ExecutionContext): boolean => {
@@ -39,11 +42,9 @@ describe('TracksController (e2e)', () => {
     }
   };
   const rolesGuard = {
-    // canActivate: (context: ExecutionContext) => {
-    //   // const req = context.switchToHttp().getRequest();
-    //   // req.user = 'user';
-    //   return false;
-    // }
+    canActivate: (context: ExecutionContext): boolean => {
+      throw new ForbiddenException();
+    }
   };
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -52,8 +53,8 @@ describe('TracksController (e2e)', () => {
     })
       .overrideGuard(JwtAuthGuard)
       .useValue(jwtGuard)
-      .overrideGuard(RolesGuard)
-      .useValue(rolesGuard)
+      // .overrideGuard(RolesGuard)
+      // .useValue(rolesGuard)
       .compile();
 
     app = module.createNestApplication();
@@ -90,7 +91,7 @@ describe('TracksController (e2e)', () => {
       lastName: 'lastName',
       password: validPass
     });
-    jwtPayload = {
+    currentUser = {
       email: user.email,
       userId: user.id,
       role: user.role
@@ -103,30 +104,66 @@ describe('TracksController (e2e)', () => {
       title: 'Track1',
       description: 'Description'
     };
-    it('should 401 if user not logged in', () => {
+    it('should return 401 if user not logged in', () => {
       return route.post('/tracks').send(input).expect(401);
     });
-    it('should create track and return 201', async () => {
+    it('should return 403 if user role is neither ADMIN nor MENTOR', async () => {
       jest
         .spyOn(jwtGuard, 'canActivate')
         .mockImplementation((context: ExecutionContext) => {
           const req = context.switchToHttp().getRequest();
-          req.user = jwtPayload;
+          req.user = currentUser;
           return true;
         });
+      return route.post('/tracks').send(input).expect(403);
+    });
+    let track: Track;
+    it('should return 201 if user role is permitted', async () => {
+      currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/tracks').send(input).expect(201);
-      const tracks = await TrackModel.find();
-      console.log(body);
+      track = await service.findById(body.id);
+      expect(track.createdBy.toString()).toBe(currentUser.userId);
+    });
+    it('should return 409 for existing track title', async () => {
+      return route.post('/tracks').send(input).expect(409);
+    });
+    it('should return 200 when track is updated', async () => {
+      const newTitle = 'NEW_TITLE';
+      const { body } = await route
+        .put(`/tracks/${track.id}`)
+        .send({ ...input, title: newTitle })
+        .expect(200);
+
+      const { updatedBy } = await service.findById(body.id);
+      expect(body.title).toBe(newTitle);
+      expect(updatedBy.toString()).toBe(currentUser.userId);
+    });
+    it('should return 403 for non-permitted user trying to UPDATE track', async () => {
+      currentUser.role = UserRole.MENTEE;
+      return route.put(`/tracks/${track.id}`).send(input).expect(403);
+    });
+    it('should return 403 for non-permitted user trying to DELETE track', async () => {
+      return route.delete(`/tracks/${track.id}`).send(input).expect(403);
+    });
+    it('should soft delete track', async () => {
+      currentUser.role = UserRole.ADMIN;
+
+      await route.delete(`/tracks/${track.id}`).send(input).expect(200);
+
+      const { deletedBy, isDeleted } = await TrackModel.findById(track.id);
+      const res = await service.findById(track.id);
+
+      expect(deletedBy.toString()).toBe(currentUser.userId);
+      expect(isDeleted).toBe(true);
+      expect(res).toBeFalsy();
     });
   });
   afterAll(async () => {
     const { collections } = mongoose.connection;
 
-    Object.keys(collections).forEach(async (k) => {
-      console.log(k);
-      const { result } = await collections[`${k}`].deleteMany({});
-      console.log(result);
-    });
+    Object.keys(collections).forEach(
+      async (k) => await collections[`${k}`].deleteMany({})
+    );
 
     await mongo.disconnect();
     await inMemoryDb.stop();
