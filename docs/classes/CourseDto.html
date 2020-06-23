@@ -158,7 +158,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/courses/models/dtos/course.dto.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/courses/models/dtos/course.dto.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -186,7 +186,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/courses/models/dtos/course.dto.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/courses/models/dtos/course.dto.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -216,13 +216,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @IsUrl()<br />@MaxLength(columnSize.length256)<br />
+                                @IsUrl()<br />@MaxLength(columnSize.length256)<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/courses/models/dtos/course.dto.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/courses/models/dtos/course.dto.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -258,7 +258,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/courses/models/dtos/course.dto.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/courses/models/dtos/course.dto.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -289,7 +289,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiProperty()<br />
+                                @ApiProperty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -301,7 +301,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:10</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:14</a></code>
 </div>
                             </td>
                         </tr>
@@ -333,7 +333,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @IsMongoId()<br />
+                                @IsMongoId()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -345,7 +345,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:6</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
 </div>
                             </td>
                         </tr>
@@ -377,7 +377,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiProperty()<br />
+                                @ApiProperty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -389,7 +389,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:11</a></code>
 </div>
                             </td>
                         </tr>
@@ -410,12 +410,13 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { Expose } from &#x27;class-transformer&#x27;;
-import { IsAlphanumeric, MaxLength, IsUrl } from &#x27;class-validator&#x27;;
+import { Exclude, Expose } from &#x27;class-transformer&#x27;;
+import { IsAlphanumeric, IsUrl, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
 import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
-import { PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
+import { PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
+@Exclude()
 export class CourseDto extends BaseDto {
   @Expose()
   @MaxLength(columnSize.length32)
@@ -428,11 +429,12 @@ export class CourseDto extends BaseDto {
   description: string;
   @IsUrl()
   @MaxLength(columnSize.length256)
+  @Expose()
   playlistUrl: string;
 
   readonly enrollmentCount: number;
 }
-export class PagedCourseOutputDto extends PagedOutputDto(CourseDto) {}
+export class PagedCourseOutputDto extends PagedListDto(CourseDto) {}
 </code></pre>
     </div>
 </div>

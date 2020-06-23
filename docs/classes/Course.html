@@ -212,7 +212,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/courses/models/course.entity.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/courses/models/course.entity.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -249,7 +249,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/courses/models/course.entity.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/courses/models/course.entity.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -286,7 +286,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/courses/models/course.entity.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/courses/models/course.entity.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -317,13 +317,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: false})<br />
+                                @prop({required: true, maxlength: undefined, trim: true, text: true, uppercase: true, unique: false})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/courses/models/course.entity.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/courses/models/course.entity.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -964,6 +964,7 @@ export class Course extends BaseEntity {
     maxlength: columnSize.length32,
     trim: true,
     text: true,
+    uppercase: true,
     unique: false
   })
   readonly title!: string;

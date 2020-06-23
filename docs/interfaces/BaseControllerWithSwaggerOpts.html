@@ -91,7 +91,7 @@
                                         <a href="#entityDto">entityDto</a>
                                 </li>
                                 <li>
-                                        <a href="#pagedOutputDto">pagedOutputDto</a>
+                                        <a href="#pagedEntityOutputDto">pagedEntityOutputDto</a>
                                 </li>
                                 <li>
                                         <a href="#updateDto">updateDto</a>
@@ -169,13 +169,13 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="pagedOutputDto"></a>
-                                        <span class="name"><b>pagedOutputDto</b><a href="#pagedOutputDto"><span class="icon ion-ios-link"></span></a></span>
+                                        <a name="pagedEntityOutputDto"></a>
+                                        <span class="name"><b>pagedEntityOutputDto</b><a href="#pagedEntityOutputDto"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>pagedOutputDto:     <code>literal type</code>
+                                        <code>pagedEntityOutputDto:     <code>literal type</code>
 </code>
                                     </td>
                                 </tr>
@@ -243,12 +243,12 @@ export interface BaseControllerWithSwaggerOpts&lt;
   TEntityDto,
   TCreateDto,
   TUpdateDto,
-  TPagedOutputDto
+  TPagedEntityOutputDto
 &gt; extends BaseControllerWithAuthOptions&lt;TEntity&gt; {
   entityDto: { new (): TEntityDto };
   createDto: { new (): TCreateDto };
   updateDto: { new (): TUpdateDto };
-  pagedOutputDto: { new (): TPagedOutputDto };
+  pagedEntityOutputDto: { new (): TPagedEntityOutputDto };
 }
 </code></pre>
     </div>

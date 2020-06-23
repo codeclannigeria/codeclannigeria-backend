@@ -6,11 +6,11 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
 import { CoursesService } from './courses.service';
 import { Course } from './models/course.entity';

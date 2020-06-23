@@ -73,7 +73,13 @@
                             <a href="#Authorize" title="src/shared/decorators/authorize.decorator.ts"><b>Authorize</b>&nbsp;&nbsp;&nbsp;(src/.../authorize.decorator.ts)</a>
                         </li>
                         <li>
-                            <a href="#BaseModel" title="src/shared/shared.module.ts"><b>BaseModel</b>&nbsp;&nbsp;&nbsp;(src/.../shared.module.ts)</a>
+                            <a href="#BaseCtrl" title="src/categories/categories.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../categories.controller.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BaseCtrl" title="src/tracks/tracks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.controller.ts)</a>
                         </li>
                         <li>
                             <a href="#CategoryModel" title="src/categories/categories.module.ts"><b>CategoryModel</b>&nbsp;&nbsp;&nbsp;(src/.../categories.module.ts)</a>
@@ -97,6 +103,9 @@
                             <a href="#dbFactory" title="test/db-test.module.ts"><b>dbFactory</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
+                            <a href="#dbServer" title="test/db-test.module.ts"><b>dbServer</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
+                        </li>
+                        <li>
                             <a href="#defaultAuth" title="src/shared/utils/get-auth-obj.util.ts"><b>defaultAuth</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
                         </li>
                         <li>
@@ -109,16 +118,13 @@
                             <a href="#getAuthObj" title="src/shared/utils/get-auth-obj.util.ts"><b>getAuthObj</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
                         </li>
                         <li>
+                            <a href="#inMemoryDb" title="test/db-test.module.ts"><b>inMemoryDb</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
+                        </li>
+                        <li>
                             <a href="#jwtConstants" title="src/auth/constants.ts"><b>jwtConstants</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
                         </li>
                         <li>
                             <a href="#module" title="src/main.ts"><b>module</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#mongod" title="test/db-test.module.ts"><b>mongod</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#roles" title="src/shared/utils/get-auth-obj.util.ts"><b>roles</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
                         </li>
                         <li>
                             <a href="#Roles" title="src/shared/decorators/roles.decorator.ts"><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
@@ -344,25 +350,103 @@
             </tbody>
         </table>
 </section>
-    <h3>src/shared/shared.module.ts</h3>
+    <h3>src/categories/categories.controller.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="BaseModel"></a>
+                        <a name="BaseCtrl"></a>
                         <span class="name">
                             <b>
-                            BaseModel</b>
-                            <a href="#BaseModel"><span class="icon ion-ios-link"></span></a>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>MongooseModule.forFeature([
-  { name: BaseEntity.modelName, schema: BaseEntity.schema }
-])</code>
+                            <i>Default value : </i><code>BaseCrudController&lt;Category, CategoryDto, CreateCategoryDto&gt;({
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  },
+  entity: Category,
+  entityDto: CategoryDto,
+  createDto: CategoryDto,
+  updateDto: CategoryDto,
+  pagedEntityOutputDto: PagedCategoryOutDto
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/users/users.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;User, UserDto, CreateUserDto&gt;({
+  entity: User,
+  entityDto: UserDto,
+  createDto: CreateUserDto,
+  updateDto: CreateUserDto,
+  pagedEntityOutputDto: PagedUserOutputDto,
+  auth: {
+    find: [UserRole.ADMIN],
+    findById: [UserRole.ADMIN],
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
+  }
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/tracks/tracks.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;({
+  entity: Track,
+  entityDto: TrackDto,
+  createDto: CreateTrackDto,
+  updateDto: CreateTrackDto,
+  pagedEntityOutputDto: PagedTrackOutputDto,
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  }
+})</code>
                         </td>
                     </tr>
 
@@ -532,10 +616,7 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>MongooseModule.forRootAsync({
   useFactory: async () &#x3D;&gt; {
-    process.env.MAILER_API_KEY &#x3D; &#x27;api_key_mailgun&#x27;;
-    process.env.MAILER_DOMAIN &#x3D; &#x27;mailer_domain_mailgun&#x27;;
-    const uri &#x3D; await mongod.getUri();
-
+    const uri &#x3D; await dbServer.getUri();
     return {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -555,17 +636,38 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="mongod"></a>
+                        <a name="dbServer"></a>
                         <span class="name">
                             <b>
-                            mongod</b>
-                            <a href="#mongod"><span class="icon ion-ios-link"></span></a>
+                            dbServer</b>
+                            <a href="#dbServer"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>new MongoMemoryServer()</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="inMemoryDb"></a>
+                        <span class="name">
+                            <b>
+                            inMemoryDb</b>
+                            <a href="#inMemoryDb"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>dbServer</code>
                         </td>
                     </tr>
 
@@ -596,25 +698,25 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-  find: {
-    enableAuth: true,
-    authRoles: roles
-  },
-  findById: {
-    enableAuth: true,
-    authRoles: roles
-  },
   create: {
     enableAuth: true,
-    authRoles: roles
+    authRoles: []
   },
   update: {
     enableAuth: true,
-    authRoles: roles
+    authRoles: []
+  },
+  find: {
+    enableAuth: true,
+    authRoles: []
+  },
+  findById: {
+    enableAuth: true,
+    authRoles: []
   },
   delete: {
     enableAuth: true,
-    authRoles: roles
+    authRoles: []
   }
 }</code>
                         </td>
@@ -640,13 +742,20 @@
                             <i>Default value : </i><code>(
   authObj: DefaultAuthObject | boolean
 ): ControllerAuth &#x3D;&gt; {
+  const roles &#x3D; Object.values(UserRole);
+  defaultAuth.create.authRoles &#x3D; roles;
+  defaultAuth.update.authRoles &#x3D; roles;
+  defaultAuth.find.authRoles &#x3D; roles;
+  defaultAuth.findById.authRoles &#x3D; roles;
+  defaultAuth.delete.authRoles &#x3D; roles;
+
   if (typeof authObj &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     if (authObj &#x3D;&#x3D;&#x3D; false) {
       defaultAuth.create.enableAuth &#x3D; false;
-      defaultAuth.delete.enableAuth &#x3D; false;
+      defaultAuth.update.enableAuth &#x3D; false;
       defaultAuth.find.enableAuth &#x3D; false;
       defaultAuth.findById.enableAuth &#x3D; false;
-      defaultAuth.update.enableAuth &#x3D; false;
+      defaultAuth.delete.enableAuth &#x3D; false;
       return defaultAuth;
     }
     if (authObj &#x3D;&#x3D;&#x3D; true) return defaultAuth;
@@ -654,57 +763,36 @@
 
   if (typeof authObj?.find &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     defaultAuth.find.enableAuth &#x3D; authObj.find;
-  } else if (authObj?.find?.length) {
+  } else if (!!authObj?.find?.length) {
     defaultAuth.find.authRoles &#x3D; authObj.find;
   }
 
   if (typeof authObj?.findById &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     defaultAuth.findById.enableAuth &#x3D; authObj.findById;
-  } else if (authObj?.findById?.length) {
+  } else if (!!authObj?.findById?.length) {
     defaultAuth.findById.authRoles &#x3D; authObj.findById;
   }
 
   if (typeof authObj?.update &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     defaultAuth.update.enableAuth &#x3D; authObj.update;
-  } else if (authObj?.update?.length) {
+  } else if (!!authObj?.update?.length) {
     defaultAuth.update.authRoles &#x3D; authObj.update;
   }
 
   if (typeof authObj?.create &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     defaultAuth.create.enableAuth &#x3D; authObj.create;
-  } else if (authObj?.create?.length) {
+  } else if (!!authObj?.create?.length) {
     defaultAuth.create.authRoles &#x3D; authObj.create;
   }
 
   if (typeof authObj?.delete &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
     defaultAuth.delete.enableAuth &#x3D; authObj.delete;
-  } else if (authObj?.delete?.length) {
+  } else if (!!authObj?.delete?.length) {
     defaultAuth.delete.authRoles &#x3D; authObj.delete;
   }
 
   return defaultAuth;
 }</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="roles"></a>
-                        <span class="name">
-                            <b>
-                            roles</b>
-                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>Object.values(UserRole)</code>
                         </td>
                     </tr>
 

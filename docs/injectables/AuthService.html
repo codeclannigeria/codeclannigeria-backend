@@ -96,7 +96,7 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#login">login</a>
+                                <a href="#getAuthToken">getAuthToken</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -141,12 +141,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(usersService: <a href="../classes/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>)</code>
+<code>constructor(usersService: <a href="../injectables/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/auth/auth.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/auth/auth.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -167,7 +167,7 @@
                                                         <td>usersService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/UsersService.html" target="_self" >UsersService</a></code>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -225,8 +225,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/auth/auth.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/auth/auth.service.ts:72</a></div>
                 </td>
             </tr>
 
@@ -276,28 +276,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="login"></a>
+                    <a name="getAuthToken"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            login
+                            getAuthToken
                         </b>
-                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getAuthToken"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pass: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getAuthToken(user: <a href="../classes/User.html">User</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/auth/auth.service.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/auth/auth.service.ts:57</a></div>
                 </td>
             </tr>
 
@@ -317,21 +317,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>email</td>
+                                    <td>user</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>pass</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
                                     </td>
 
                                     <td>
@@ -380,8 +368,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/auth/auth.service.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/auth/auth.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -421,8 +409,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/auth/auth.service.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/auth/auth.service.ts:68</a></div>
                 </td>
             </tr>
 
@@ -462,8 +450,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">src/auth/auth.service.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/auth/auth.service.ts:92</a></div>
                 </td>
             </tr>
 
@@ -534,8 +522,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/auth/auth.service.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/auth/auth.service.ts:108</a></div>
                 </td>
             </tr>
 
@@ -607,8 +595,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">src/auth/auth.service.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/auth/auth.service.ts:125</a></div>
                 </td>
             </tr>
 
@@ -703,8 +691,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/auth/auth.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/auth/auth.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -799,7 +787,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/auth/auth.service.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/auth/auth.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -812,11 +800,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiException } from &#x27;./../shared/errors/api-exception&#x27;;
+import {
   Injectable,
   Logger,
   OnModuleInit,
-  UnauthorizedException
+  UnauthorizedException,
+  HttpStatus,
+  HttpException
 } from &#x27;@nestjs/common&#x27;;
 import { Client, ClientRedis, Transport } from &#x27;@nestjs/microservices&#x27;;
 import * as bcrypt from &#x27;bcrypt&#x27;;
@@ -850,28 +841,22 @@ export class AuthService implements OnModuleInit {
     }
   }
   async validateUser(email: string, pw: string): Promise&lt;User&gt; {
-    const user &#x3D; await this.usersService.findOneAsync({ email });
+    const user &#x3D; await this.usersService.findOneAsync({
+      email: email?.toLowerCase()
+    });
     if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified)
-      throw new UnauthorizedException(&#x27;Please confirm your email&#x27;);
-    try {
-      const isValid &#x3D; await bcrypt.compare(pw, user.password);
-      if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
-    } catch (error) {
-      Logger.error(error);
-      throw authErrors.INVALID_LOGIN_ATTEMPT;
-    }
+      throw new HttpException(
+        { message: &#x27;Unconfirmed Email&#x27;, errorType: &#x27;UNCONFIRMED_EMAIL&#x27; },
+        HttpStatus.UNAUTHORIZED
+      );
+    const isValid &#x3D; await bcrypt.compare(pw, user.password);
+    if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
     return user;
   }
 
-  async login(email: string, pass: string): Promise&lt;string&gt; {
-    const user &#x3D; await this.usersService.findOneAsync({ email });
-
-    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
-    const isValidPassword &#x3D; await bcrypt.compare(pass, user.password);
-    if (!isValidPassword) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
+  async getAuthToken(user: User): Promise&lt;string&gt; {
     const { jwtValidityHrs, jwtSecret } &#x3D; configuration();
     const expiresIn &#x3D; 60 * 60 * jwtValidityHrs;
     const payload: JwtPayload &#x3D; {

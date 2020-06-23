@@ -194,13 +194,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: true})<br />
+                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: false, uppercase: true})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/categories/models/category.entity.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/categories/models/category.entity.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -830,17 +830,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { columnSize } from &#x27;~shared/constants&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { index, prop } from &#x27;@typegoose/typegoose&#x27;;
+import { columnSize } from &#x27;~shared/constants&#x27;;
 import { BaseEntity } from &#x27;~shared/models/base.entity&#x27;;
-import { prop } from &#x27;@typegoose/typegoose&#x27;;
 
+@index({ name: 1 }, { unique: true })
 export class Category extends BaseEntity {
   @prop({
     required: true,
     maxlength: columnSize.length32,
     trim: true,
     text: true,
-    unique: true
+    unique: false,
+    uppercase: true
   })
   readonly name!: string;
 }
