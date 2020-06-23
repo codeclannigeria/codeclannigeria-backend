@@ -17,7 +17,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest  --runInBand --detectOpenHandles",
     "doc": "npx compodoc -p tsconfig.json -d \"docs\"",
-    "test:watch": "jest --watch --runInBand",
+    "test:unit": "jest --watch --runInBand",
     "test:cov": "jest --coverage --runInBand --detectOpenHandles",
     "test:debug": "node --inspect-brk -r tsconfig-pathhmrs/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --detectOpenHandles --runInBand --config ./test/jest-e2e.json",
@@ -119,7 +119,7 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "../coverage/unit",
     "testEnvironment": "node",
     "verbose": true,
     "bail": 1,
