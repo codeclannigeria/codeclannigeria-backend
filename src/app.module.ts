@@ -5,15 +5,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
 import { CoursesModule } from './courses/courses.module';
-import { MailModule } from './shared/mail/mail.module';
 import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared';
 import configuration from './shared/config/configuration';
+import { MailModule } from './shared/mail/mail.module';
 import { envValidation } from './shared/validations/env.validation';
+import { StagesController } from './stages/stages.controller';
+import { StagesModule } from './stages/stages.module';
+import { StagesService } from './stages/stages.service';
 import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
-import { CategoriesModule } from './categories/categories.module';
 
 export const Config = ConfigModule.forRoot({
   isGlobal: true,
@@ -40,10 +43,11 @@ const Database = MongooseModule.forRoot(configuration().database.uri, {
     ProfileModule,
     TracksModule,
     CoursesModule,
-    CategoriesModule
+    CategoriesModule,
+    StagesModule
   ],
 
-  controllers: [AppController],
-  providers: [AppService]
+  controllers: [AppController, StagesController],
+  providers: [AppService, StagesService]
 })
 export class AppModule {}

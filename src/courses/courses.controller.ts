@@ -27,7 +27,7 @@ export class CoursesController extends BaseCrudController<
   entityDto: CourseDto,
   createDto: CreateCourseDto,
   updateDto: CreateCourseDto,
-  pagedEntityOutputDto: PagedCourseOutputDto,
+  pagedListDto: PagedCourseOutputDto,
   auth: {
     create: [UserRole.MENTOR, UserRole.ADMIN],
     update: [UserRole.MENTOR, UserRole.ADMIN],

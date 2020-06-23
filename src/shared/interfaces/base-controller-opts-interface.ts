@@ -18,5 +18,5 @@ export interface BaseControllerWithSwaggerOpts<
   entityDto: { new (): TEntityDto };
   createDto: { new (): TCreateDto };
   updateDto: { new (): TUpdateDto };
-  pagedEntityOutputDto: { new (): TPagedEntityOutputDto };
+  pagedListDto: { new (): TPagedEntityOutputDto };
 }

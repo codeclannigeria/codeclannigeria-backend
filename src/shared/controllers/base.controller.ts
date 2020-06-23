@@ -35,14 +35,14 @@ export function BaseCrudController<
   TEntityDto,
   TCreateDto,
   TUpdateDto = Partial<TCreateDto>,
-  TPagedOutputDto = any
+  TPagedListDto = any
 >(
   options: BaseControllerWithSwaggerOpts<
     TEntity,
     TEntityDto,
     TCreateDto,
     TUpdateDto,
-    TPagedOutputDto
+    TPagedListDto
   >
 ): Type<
   IBaseController<
@@ -58,7 +58,7 @@ export function BaseCrudController<
     entityDto: EntityDto,
     createDto: CreateDto,
     updateDto: UpdateDto,
-    pagedEntityOutputDto: PagedEntityOutputDto
+    pagedListDto: PagedListDto
   } = options;
   const auth = getAuthObj(options.auth);
   @ApiTags(pluralize(Entity.name))
@@ -84,7 +84,7 @@ export function BaseCrudController<
     }
 
     @Get()
-    @ApiResponse({ type: PagedEntityOutputDto, status: HttpStatus.OK })
+    @ApiResponse({ type: PagedListDto, status: HttpStatus.OK })
     @ApiResponse({ type: ApiException, status: HttpStatus.OK })
     @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))

@@ -22,7 +22,7 @@ const BaseCtrl = BaseCrudController<User, UserDto, CreateUserDto>({
   entityDto: UserDto,
   createDto: CreateUserDto,
   updateDto: CreateUserDto,
-  pagedEntityOutputDto: PagedUserOutputDto,
+  pagedListDto: PagedUserOutputDto,
   auth: {
     find: [UserRole.ADMIN],
     findById: [UserRole.ADMIN],

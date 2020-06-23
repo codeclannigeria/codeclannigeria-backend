@@ -26,7 +26,7 @@ const BaseCtrl = BaseCrudController<Category, CategoryDto, CreateCategoryDto>({
   entityDto: CategoryDto,
   createDto: CategoryDto,
   updateDto: CategoryDto,
-  pagedEntityOutputDto: PagedCategoryOutDto
+  pagedListDto: PagedCategoryOutDto
 });
 
 export class CategoriesController extends BaseCtrl {

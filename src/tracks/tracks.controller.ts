@@ -22,7 +22,7 @@ const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entityDto: TrackDto,
   createDto: CreateTrackDto,
   updateDto: CreateTrackDto,
-  pagedEntityOutputDto: PagedTrackOutputDto,
+  pagedListDto: PagedTrackOutputDto,
   auth: {
     update: [UserRole.ADMIN, UserRole.MENTOR],
     delete: [UserRole.ADMIN, UserRole.MENTOR]

@@ -1,11 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-
-import { CategoriesController } from './categories.controller';
-import { CategoriesService } from './categories.service';
-import { Category } from './models/category.entity';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { BaseService } from '~shared/services';
+
+import { DbTest } from '../../test/db-test.module';
+import { CategoriesController } from './categories.controller';
+import { CategoriesModule } from './categories.module';
 
 jest.mock('~shared/services');
 const mongod = new MongoMemoryServer();
@@ -28,14 +27,7 @@ describe('Categories Controller', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        MongooseModule.forFeature([
-          { name: Category.modelName, schema: Category.schema }
-        ]),
-        dbFactory
-      ],
-      controllers: [CategoriesController],
-      providers: [CategoriesService, BaseService]
+      imports: [CategoriesModule, DbTest]
     }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
