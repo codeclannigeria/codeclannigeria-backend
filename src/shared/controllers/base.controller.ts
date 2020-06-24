@@ -16,7 +16,7 @@ import {
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import * as pluralize from 'pluralize';
-import { Authenticate } from '~shared/decorators';
+import { Authenticate, ApiSwaggerOperation } from '~shared/decorators';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { IBaseController } from '~shared/interfaces';
 import { IPagedListDto } from '~shared/models/dto';
@@ -77,6 +77,7 @@ export function BaseCrudController<
     @Authenticate(auth.create.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.create.enableAuth, Roles(...auth.create.authRoles))
     @Authenticate(auth.create.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'Create' })
     async create(@Body() input: TCreateDto) {
       const entity = this.service.createEntity(input);
       await this.service.insertAsync(entity);
@@ -89,6 +90,7 @@ export function BaseCrudController<
     @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))
     @Authenticate(auth.find.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'FindAll' })
     async findAll(@Query() query: FindDto) {
       const { skip, limit, search, opts } = query;
       const conditions = JSON.parse(search || '{}');
@@ -110,6 +112,7 @@ export function BaseCrudController<
     @Authenticate(auth.findById.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.findById.enableAuth, Roles(...auth.findById.authRoles))
     @Authenticate(auth.findById.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'FindById' })
     async findById(@Param('id') id: string) {
       const entity = await this.service.findByIdAsync(id);
       if (!entity)
@@ -125,6 +128,7 @@ export function BaseCrudController<
     @Authenticate(auth.update.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.update.enableAuth, Roles(...auth.update.authRoles))
     @Authenticate(auth.update.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'Update' })
     async update(@Param('id') id: string, @Body() input: TUpdateDto) {
       const existingEntity = await this.service.findByIdAsync(id);
       if (!existingEntity)
@@ -143,6 +147,7 @@ export function BaseCrudController<
     @Authenticate(auth.delete.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
     @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'Delete' })
     async delete(@Param('id') id: string) {
       await this.service.softDeleteByIdAsync(id);
     }
