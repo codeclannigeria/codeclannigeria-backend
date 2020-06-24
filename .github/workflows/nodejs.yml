@@ -43,3 +43,6 @@ jobs:
 
       - name: Running e2e tests
         run: npm run test:e2e-ci
+
+      - name: Merge reports
+        run: npm run test:coverage

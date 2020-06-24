@@ -11,7 +11,7 @@
     "start:dev": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:watch": "nest start --watch",
-    "start:clean": "npm run prebuild && npm run start:webpack",
+    "start:clean": "npm run prebuild && npm run start:hmr",
     "start:hmr": "nest build --webpack --webpackPath webpack-hmr.config.js",
     "start": "node -r ./tsconfig-paths-bootstrap.js dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -22,8 +22,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-pathhmrs/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --detectOpenHandles --runInBand --config ./test/jest-e2e.json",
     "test:unit-ci": "npm run test:cov -- --forceExit",
-    "test:e2e-ci": "npm run test:e2e -- --forceExit",
-    "test:ci": "npm run test:unit-ci && npm run test:e2e-ci"
+    "test:e2e-ci": "npm run test:e2e -- --coverage --forceExit",
+    "test:ci": "npm run test:unit-ci && npm run test:e2e-ci",
+    "test:coverage": "npx ts-node merge-coverage.ts --report coverage/unit/coverage-final.json coverage/e2e/coverage-final.json"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -78,6 +79,7 @@
     "@types/express": "^4.17.6",
     "@types/express-rate-limit": "^5.0.0",
     "@types/express-session": "^1.17.0",
+    "@types/fs-extra": "^9.0.1",
     "@types/hapi__joi": "^17.1.2",
     "@types/helmet": "0.0.47",
     "@types/jest": "^26.0.0",
@@ -94,6 +96,7 @@
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.21.2",
+    "istanbul-api": "^3.0.0",
     "jest": "^26.0.1",
     "mongodb-memory-server": "^6.6.1",
     "prettier": "^2.0.5",
@@ -121,8 +124,15 @@
     ],
     "coverageDirectory": "../coverage/unit",
     "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      ".module.ts$",
+      ".spec.ts$"
+    ],
     "verbose": true,
     "bail": 1,
+    "coverageReporters": [
+      "json"
+    ],
     "moduleNameMapper": {
       "~shared(.*)$": "<rootDir>/shared$1",
       "~test(.*)$": "<rootDir>/test$1"
