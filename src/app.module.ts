@@ -12,9 +12,7 @@ import { SharedModule } from './shared';
 import configuration from './shared/config/configuration';
 import { MailModule } from './shared/mail/mail.module';
 import { envValidation } from './shared/validations/env.validation';
-import { StagesController } from './stages/stages.controller';
 import { StagesModule } from './stages/stages.module';
-import { StagesService } from './stages/stages.service';
 import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
 
@@ -47,7 +45,7 @@ const Database = MongooseModule.forRoot(configuration().database.uri, {
     StagesModule
   ],
 
-  controllers: [AppController, StagesController],
-  providers: [AppService, StagesService]
+  controllers: [AppController],
+  providers: [AppService]
 })
 export class AppModule {}
