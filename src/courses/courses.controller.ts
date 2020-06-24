@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
@@ -38,11 +38,12 @@ export class CoursesController extends BaseCrudController<
     super(courseService);
   }
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @ApiResponse({ type: CourseDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateCourseDto): Promise<CourseDto> {
     const exist = await this.courseService.findOneAsync({
       title: input.title.toUpperCase()

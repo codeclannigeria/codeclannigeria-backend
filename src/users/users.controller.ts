@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
@@ -36,11 +36,12 @@ export class UsersController extends BaseCtrl {
     super(usersService);
   }
   @Post()
-  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiResponse({ type: UserDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateUserDto): Promise<UserDto> {
     const exist = await this.usersService.findOneAsync({
       title: input.email.toLowerCase()

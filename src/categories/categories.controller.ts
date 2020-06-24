@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
@@ -35,11 +35,12 @@ export class CategoriesController extends BaseCtrl {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   @ApiResponse({ type: CategoryDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateCategoryDto): Promise<CategoryDto> {
     const exist = await this.categoryService.findOneAsync({
       title: input.name.toUpperCase()
