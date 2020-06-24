@@ -30,7 +30,7 @@ const BaseCtrl = BaseCrudController<Stage, StageDto, CreateStageDto>({
 });
 
 export class StagesController extends BaseCtrl {
-  constructor(protected readonly stageService: StagesService) {
+  constructor(protected stageService: StagesService) {
     super(stageService);
   }
   @Post()
