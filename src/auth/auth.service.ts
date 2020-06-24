@@ -1,11 +1,8 @@
-import { ApiException } from './../shared/errors/api-exception';
 import {
-  Injectable,
-  Logger,
-  OnModuleInit,
-  UnauthorizedException,
+  HttpException,
   HttpStatus,
-  HttpException
+  Injectable,
+  OnModuleInit
 } from '@nestjs/common';
 import { Client, ClientRedis, Transport } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';

@@ -1,14 +1,8 @@
-import { Track } from './../src/tracks/models/track.entity';
-import { JwtPayload } from './../src/auth/models/jwt-payload';
-import { RolesGuard } from '../src/auth/guards/roles.guard';
 import {
   ExecutionContext,
   INestApplication,
-  ValidationPipe,
   UnauthorizedException,
-  BadGatewayException,
-  BadRequestException,
-  ForbiddenException
+  ValidationPipe
 } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -25,6 +19,8 @@ import { CreateTrackDto } from '../src/tracks/models/dto/create-track.dto';
 import { TracksModule } from '../src/tracks/tracks.module';
 import { TracksService } from '../src/tracks/tracks.service';
 import { User, UserRole } from '../src/users/models/user.entity';
+import { JwtPayload } from './../src/auth/models/jwt-payload';
+import { Track } from './../src/tracks/models/track.entity';
 import { DbTest, inMemoryDb } from './db-test.module';
 
 describe('TracksController (e2e)', () => {
@@ -41,11 +37,7 @@ describe('TracksController (e2e)', () => {
       throw new UnauthorizedException();
     }
   };
-  const rolesGuard = {
-    canActivate: (context: ExecutionContext): boolean => {
-      throw new ForbiddenException();
-    }
-  };
+
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [TracksModule, DbTest],
@@ -53,8 +45,6 @@ describe('TracksController (e2e)', () => {
     })
       .overrideGuard(JwtAuthGuard)
       .useValue(jwtGuard)
-      // .overrideGuard(RolesGuard)
-      // .useValue(rolesGuard)
       .compile();
 
     app = module.createNestApplication();

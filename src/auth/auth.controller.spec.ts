@@ -7,8 +7,6 @@ import { UsersService } from '../users/users.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LoginReqDto } from './models/dto/auth.dto';
-import { AuthenticationGuard } from './guards/auth.guard';
-import { boolean } from '@hapi/joi';
 
 process.env.JWT_VALIDITY_HOURS = '24';
 process.env.JWT_SECRET = 'secrete';

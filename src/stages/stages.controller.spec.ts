@@ -1,6 +1,6 @@
-import { DbTest } from '../../test/db-test.module';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { DbTest } from '../../test/db-test.module';
 import { StagesController } from './stages.controller';
 import { StagesModule } from './stages.module';
 
