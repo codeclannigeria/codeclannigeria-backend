@@ -70,19 +70,16 @@
                             <a href="#authErrors" title="src/shared/errors/auth.errors.ts"><b>authErrors</b>&nbsp;&nbsp;&nbsp;(src/.../auth.errors.ts)</a>
                         </li>
                         <li>
-                            <a href="#Authorize" title="src/shared/decorators/authorize.decorator.ts"><b>Authorize</b>&nbsp;&nbsp;&nbsp;(src/.../authorize.decorator.ts)</a>
+                            <a href="#BaseCtrl" title="src/categories/categories.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../categories.controller.ts)</a>
                         </li>
                         <li>
-                            <a href="#BaseCtrl" title="src/categories/categories.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../categories.controller.ts)</a>
+                            <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
                         </li>
                         <li>
                             <a href="#BaseCtrl" title="src/tracks/tracks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.controller.ts)</a>
                         </li>
                         <li>
                             <a href="#BaseCtrl" title="src/stages/stages.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../stages.controller.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
                         </li>
                         <li>
                             <a href="#CategoryModel" title="src/categories/categories.module.ts"><b>CategoryModel</b>&nbsp;&nbsp;&nbsp;(src/.../categories.module.ts)</a>
@@ -323,39 +320,6 @@
             </tbody>
         </table>
 </section>
-    <h3>src/shared/decorators/authorize.decorator.ts</h3>
-    <section>
-    <h3></h3>        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="Authorize"></a>
-                        <span class="name">
-                            <b>
-                            Authorize</b>
-                            <a href="#Authorize"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>(
-  isAuthorizationEnabled: boolean,
-  decorator: MethodDecorator
-): MethodDecorator &#x3D;&gt; {
-  return (target, key: string | symbol, value: any): any &#x3D;&gt; {
-    if (isAuthorizationEnabled) {
-      decorator(target, key, value);
-    }
-  };
-}</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-</section>
     <h3>src/categories/categories.controller.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
@@ -382,6 +346,42 @@
   createDto: CategoryDto,
   updateDto: CategoryDto,
   pagedListDto: PagedCategoryOutDto
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/users/users.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;User, UserDto, CreateUserDto&gt;({
+  entity: User,
+  entityDto: UserDto,
+  createDto: CreateUserDto,
+  updateDto: CreateUserDto,
+  pagedListDto: PagedUserOutputDto,
+  auth: {
+    find: [UserRole.ADMIN],
+    findById: [UserRole.ADMIN],
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
+  }
 })</code>
                         </td>
                     </tr>
@@ -447,42 +447,6 @@
   updateDto: CreateStageDto,
   pagedListDto: PagedListStageDto,
   auth: {
-    update: [UserRole.ADMIN],
-    delete: [UserRole.ADMIN]
-  }
-})</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-</section>
-    <h3>src/users/users.controller.ts</h3>
-    <section>
-    <h3></h3>        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="BaseCtrl"></a>
-                        <span class="name">
-                            <b>
-                            BaseCtrl</b>
-                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>BaseCrudController&lt;User, UserDto, CreateUserDto&gt;({
-  entity: User,
-  entityDto: UserDto,
-  createDto: CreateUserDto,
-  updateDto: CreateUserDto,
-  pagedListDto: PagedUserOutputDto,
-  auth: {
-    find: [UserRole.ADMIN],
-    findById: [UserRole.ADMIN],
     update: [UserRole.ADMIN],
     delete: [UserRole.ADMIN]
   }
