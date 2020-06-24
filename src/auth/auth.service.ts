@@ -12,7 +12,7 @@ import { authErrors } from '~shared/errors';
 import { generateRandomToken } from '~shared/utils/random-token';
 
 import { User } from '../users/models/user.entity';
-import { UsersService } from './../users/users.service';
+import { UsersService } from '../users/users.service';
 import { AuthEventEnum } from './models/auth.enums';
 import { JwtPayload } from './models/jwt-payload';
 import { TokenType } from './models/temporary-token.entity';

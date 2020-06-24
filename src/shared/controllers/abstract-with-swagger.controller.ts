@@ -28,7 +28,7 @@ import { AbstractControllerWithSwaggerOptions } from '../interfaces';
 import { BaseEntity } from '../models/base.entity';
 import { AbstractDocument } from '../types';
 import { getAuthObj } from '../utils';
-import { RolesGuard } from './../../auth/guards/roles.guard';
+import { RolesGuard } from '../../auth/guards/roles.guard';
 
 export function AbstractController<
   T extends BaseEntity,

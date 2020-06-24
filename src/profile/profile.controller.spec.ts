@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UsersService } from './../users/users.service';
+import { UsersService } from '../users/users.service';
 import { ProfileController } from './profile.controller';
 
 describe('Profile Controller', () => {

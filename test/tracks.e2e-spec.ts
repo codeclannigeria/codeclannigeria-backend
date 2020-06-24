@@ -14,13 +14,13 @@ import {
 import * as request from 'supertest';
 
 import { JwtAuthGuard } from '../src/auth/guards';
+import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { CreateTrackDto } from '../src/tracks/models/dto/create-track.dto';
+import { Track } from '../src/tracks/models/track.entity';
 import { TracksModule } from '../src/tracks/tracks.module';
 import { TracksService } from '../src/tracks/tracks.service';
 import { User, UserRole } from '../src/users/models/user.entity';
-import { JwtPayload } from './../src/auth/models/jwt-payload';
-import { Track } from './../src/tracks/models/track.entity';
 import { DbTest, inMemoryDb } from './db-test.module';
 
 describe('TracksController (e2e)', () => {
@@ -34,6 +34,8 @@ describe('TracksController (e2e)', () => {
   let TrackModel: ReturnModelType<typeof Track>;
   const jwtGuard = {
     canActivate: (context: ExecutionContext): boolean => {
+      const req = context.switchToHttp().getRequest();
+      req.user = currentUser;
       throw new UnauthorizedException();
     }
   };

@@ -1,4 +1,3 @@
-import { User } from './../users/models/user.entity';
 import {
   Body,
   ConflictException,
@@ -7,9 +6,9 @@ import {
   HttpStatus,
   NotFoundException,
   Post,
+  Req,
   UnauthorizedException,
-  UseGuards,
-  Req
+  UseGuards
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
@@ -19,6 +18,7 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { Request } from 'express';
+
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
 import configuration from '../shared/config/configuration';
 import { ApiException } from '../shared/errors/api-exception';
@@ -27,7 +27,8 @@ import {
   RegisterUserDto,
   RegisterUserResDto
 } from '../users/models/dto/register-user.dto';
-import { UsersService } from './../users/users.service';
+import { User } from '../users/models/user.entity';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthenticationGuard } from './guards/auth.guard';
 import { AcctVerifyDto } from './models/dto/acct-verification.dto';

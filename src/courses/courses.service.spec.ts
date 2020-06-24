@@ -1,9 +1,9 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { DbTest } from '../../test/db-test.module';
 import { CoursesService } from './courses.service';
 import { Course } from './models/course.entity';
-import { DbTest } from '../../test/db-test.module';
 
 describe('CoursesService', () => {
   let service: CoursesService;

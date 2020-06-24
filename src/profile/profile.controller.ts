@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserDto } from '../users/models/dto/user.dto';
-import { UsersService } from './../users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Controller('profile')
 export class ProfileController {
