@@ -96,6 +96,54 @@
     </table>
 </section>
 
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(courseService: <a href="../injectables/CoursesService.html">CoursesService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/courses/courses.controller.ts:36</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>courseService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CoursesService.html" target="_self" >CoursesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
             <section>
@@ -134,8 +182,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/courses/courses.controller.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/courses/courses.controller.ts:46</a></div>
                 </td>
             </tr>
 
@@ -206,6 +254,7 @@ import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { CoursesService } from &#x27;./courses.service&#x27;;
 import { Course } from &#x27;./models/course.entity&#x27;;
 import { CourseDto, PagedCourseOutputDto } from &#x27;./models/dtos/course.dto&#x27;;
 import { CreateCourseDto } from &#x27;./models/dtos/create-course.dto&#x27;;
@@ -213,18 +262,23 @@ import { CreateCourseDto } from &#x27;./models/dtos/create-course.dto&#x27;;
 export class CoursesController extends BaseCrudController&lt;
   Course,
   CourseDto,
+  CreateCourseDto,
   CreateCourseDto
 &gt;({
   entity: Course,
   entityDto: CourseDto,
   createDto: CreateCourseDto,
   updateDto: CreateCourseDto,
-  pagedOutputDto: PagedCourseOutputDto,
+  pagedListDto: PagedCourseOutputDto,
   auth: {
+    create: [UserRole.MENTOR, UserRole.ADMIN],
     update: [UserRole.MENTOR, UserRole.ADMIN],
     delete: [UserRole.MENTOR, UserRole.ADMIN]
   }
 }) {
+  constructor(protected readonly courseService: CoursesService) {
+    super(courseService);
+  }
   @Post()
   @ApiResponse({ type: CourseDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
@@ -232,10 +286,13 @@ export class CoursesController extends BaseCrudController&lt;
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateCourseDto): Promise&lt;CourseDto&gt; {
-    const exist &#x3D; await this.service.findOneAsync({ title: input.title });
+    const exist &#x3D; await this.courseService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
     if (exist)
-      throw new ConflictException(&#x27;Course with the title already exists&#x27;);
-
+      throw new ConflictException(
+        &#x60;Course with the title &quot;${exist.title}&quot; already exists&#x60;
+      );
     return super.create(input);
   }
 }

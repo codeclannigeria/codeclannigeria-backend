@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BaseService } from '~shared/services';
 
+import { DbTest } from '../../test/db-test.module';
 import { TracksController } from './tracks.controller';
+import { TracksModule } from './tracks.module';
 
 jest.mock('~shared/services');
 describe('Tracks Controller', () => {
@@ -9,8 +10,7 @@ describe('Tracks Controller', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [TracksController],
-      providers: [BaseService]
+      imports: [TracksModule, DbTest]
     }).compile();
 
     controller = module.get<TracksController>(TracksController);

@@ -132,7 +132,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validate(payload: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>validate(payload: <a href="../interfaces/JwtPayload.html">JwtPayload | PromiseLike<JwtPayload></a>)</code>
                 </td>
             </tr>
 
@@ -162,7 +162,7 @@
                                 <tr>
                                     <td>payload</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                <code><a href="../interfaces/JwtPayload.html" target="_self" >JwtPayload | PromiseLike&lt;JwtPayload&gt;</a></code>
                                     </td>
 
                                     <td>
@@ -210,7 +210,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any): Promise&lt;JwtPayload&gt; {
+  async validate(
+    payload: JwtPayload | PromiseLike&lt;JwtPayload&gt;
+  ): Promise&lt;JwtPayload&gt; {
     return payload;
   }
 }

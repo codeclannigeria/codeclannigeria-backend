@@ -27,16 +27,22 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content class">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li>Controllers</li>
-  <li>CoursesController</li>
+  <li>Classes</li>
+  <li>PagedListStageDto</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -54,15 +60,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/courses/courses.controller.ts</code>
+            <code>src/stages/models/dtos/stage.dto.ts.ts</code>
         </p>
 
-            <p class="comment">
-                <h3>Prefix</h3>
-            </p>
-            <p class="comment">
-                <code>courses</code>
-            </p>
+
+
+
+
+
+
+
 
 
 
@@ -73,32 +80,30 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CreateCourseDto } from &#x27;./models/dtos/create-course.dto&#x27;;
-import { CourseDto } from &#x27;./models/dtos/course.dto&#x27;;
-import { Controller } from &#x27;@nestjs/common&#x27;;
-import { abstractControllerWithSwagger } from &#x27;~shared/controllers&#x27;;
-import { Course } from &#x27;./models/course.entity&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Expose, Exclude } from &#x27;class-transformer&#x27;;
+import { IsAlphanumeric, MaxLength, Min, IsInt } from &#x27;class-validator&#x27;;
+import { columnSize } from &#x27;~shared/constants&#x27;;
+import { PagedListDto } from &#x27;~shared/models/dto&#x27;;
+import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
 
-@Controller(&#x27;courses&#x27;)
-export class CoursesController extends abstractControllerWithSwagger&lt;
-  Course,
-  CourseDto,
-  CreateCourseDto
-&gt;({
-  model: Course,
-  modelCreate: CreateCourseDto,
-  modelVm: CourseDto,
-  auth: true
-}) {}
+@Exclude()
+export class StageDto extends BaseDto {
+  @MaxLength(columnSize.length32)
+  @IsAlphanumeric()
+  @Expose()
+  title: string;
+  @MaxLength(columnSize.length128)
+  @Expose()
+  description: string;
+  @Expose()
+  @Min(0)
+  @IsInt()
+  taskCount: number;
+}
+export class PagedListStageDto extends PagedListDto(StageDto) {}
 </code></pre>
     </div>
 </div>
-
-
-
-
-
-
 
 
 
@@ -123,8 +128,8 @@ export class CoursesController extends abstractControllerWithSwagger&lt;
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'CoursesController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'PagedListStageDto.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

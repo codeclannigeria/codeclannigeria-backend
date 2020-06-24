@@ -74,14 +74,15 @@
 import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
 import { MongoMemoryServer } from &#x27;mongodb-memory-server&#x27;;
 
-const mongod &#x3D; new MongoMemoryServer();
+process.env.MAILER_API_KEY &#x3D; &#x27;api_key_mailgun&#x27;;
+process.env.MONGOMS_SYSTEM_BINARY &#x3D; &#x27;/usr/local/bin/mongod&#x27;;
+process.env.MAILER_DOMAIN &#x3D; &#x27;mailer_domain_mailgun&#x27;;
+const dbServer &#x3D; new MongoMemoryServer();
+export const inMemoryDb &#x3D; dbServer;
 
 const dbFactory &#x3D; MongooseModule.forRootAsync({
   useFactory: async () &#x3D;&gt; {
-    process.env.MAILER_API_KEY &#x3D; &#x27;api_key_mailgun&#x27;;
-    process.env.MAILER_DOMAIN &#x3D; &#x27;mailer_domain_mailgun&#x27;;
-    const uri &#x3D; await mongod.getUri();
-
+    const uri &#x3D; await dbServer.getUri();
     return {
       useNewUrlParser: true,
       useUnifiedTopology: true,

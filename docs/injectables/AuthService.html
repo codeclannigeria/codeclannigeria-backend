@@ -96,7 +96,7 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#login">login</a>
+                                <a href="#getAuthToken">getAuthToken</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -141,7 +141,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(usersService: <a href="../classes/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>)</code>
+<code>constructor(usersService: <a href="../injectables/UsersService.html">UsersService</a>, tokenService: <a href="../injectables/TempTokensService.html">TempTokensService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -167,7 +167,7 @@
                                                         <td>usersService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/UsersService.html" target="_self" >UsersService</a></code>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -225,8 +225,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/auth/auth.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/auth/auth.service.ts:69</a></div>
                 </td>
             </tr>
 
@@ -276,28 +276,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="login"></a>
+                    <a name="getAuthToken"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            login
+                            getAuthToken
                         </b>
-                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getAuthToken"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pass: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getAuthToken(user: <a href="../classes/User.html">User</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/auth/auth.service.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/auth/auth.service.ts:54</a></div>
                 </td>
             </tr>
 
@@ -317,21 +317,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>email</td>
+                                    <td>user</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>pass</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
                                     </td>
 
                                     <td>
@@ -421,8 +409,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="71"
-                            class="link-to-prism">src/auth/auth.service.ts:71</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">src/auth/auth.service.ts:65</a></div>
                 </td>
             </tr>
 
@@ -462,8 +450,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">src/auth/auth.service.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">src/auth/auth.service.ts:89</a></div>
                 </td>
             </tr>
 
@@ -534,8 +522,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/auth/auth.service.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/auth/auth.service.ts:105</a></div>
                 </td>
             </tr>
 
@@ -607,8 +595,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">src/auth/auth.service.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/auth/auth.service.ts:122</a></div>
                 </td>
             </tr>
 
@@ -813,10 +801,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  HttpException,
+  HttpStatus,
   Injectable,
-  Logger,
-  OnModuleInit,
-  UnauthorizedException
+  OnModuleInit
 } from &#x27;@nestjs/common&#x27;;
 import { Client, ClientRedis, Transport } from &#x27;@nestjs/microservices&#x27;;
 import * as bcrypt from &#x27;bcrypt&#x27;;
@@ -826,7 +814,7 @@ import { authErrors } from &#x27;~shared/errors&#x27;;
 import { generateRandomToken } from &#x27;~shared/utils/random-token&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
-import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AuthEventEnum } from &#x27;./models/auth.enums&#x27;;
 import { JwtPayload } from &#x27;./models/jwt-payload&#x27;;
 import { TokenType } from &#x27;./models/temporary-token.entity&#x27;;
@@ -850,28 +838,22 @@ export class AuthService implements OnModuleInit {
     }
   }
   async validateUser(email: string, pw: string): Promise&lt;User&gt; {
-    const user &#x3D; await this.usersService.findOneAsync({ email });
+    const user &#x3D; await this.usersService.findOneAsync({
+      email: email?.toLowerCase()
+    });
     if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified)
-      throw new UnauthorizedException(&#x27;Please confirm your email&#x27;);
-    try {
-      const isValid &#x3D; await bcrypt.compare(pw, user.password);
-      if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
-    } catch (error) {
-      Logger.error(error);
-      throw authErrors.INVALID_LOGIN_ATTEMPT;
-    }
+      throw new HttpException(
+        { message: &#x27;Unconfirmed Email&#x27;, errorType: &#x27;UNCONFIRMED_EMAIL&#x27; },
+        HttpStatus.UNAUTHORIZED
+      );
+    const isValid &#x3D; await bcrypt.compare(pw, user.password);
+    if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
     return user;
   }
 
-  async login(email: string, pass: string): Promise&lt;string&gt; {
-    const user &#x3D; await this.usersService.findOneAsync({ email });
-
-    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
-    const isValidPassword &#x3D; await bcrypt.compare(pass, user.password);
-    if (!isValidPassword) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
+  async getAuthToken(user: User): Promise&lt;string&gt; {
     const { jwtValidityHrs, jwtSecret } &#x3D; configuration();
     const expiresIn &#x3D; 60 * 60 * jwtValidityHrs;
     const payload: JwtPayload &#x3D; {

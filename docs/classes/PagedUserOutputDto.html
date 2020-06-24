@@ -81,26 +81,32 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { Exclude, Expose } from &#x27;class-transformer&#x27;;
 import { IsEmail, IsEnum, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseDto, PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
+import { BaseDto, PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
 import { UserRole } from &#x27;../user.entity&#x27;;
 
+@Exclude()
 export class UserDto extends BaseDto {
+  @Expose()
   @MaxLength(columnSize.length64)
   firstName: string;
+  @Expose()
   @MaxLength(columnSize.length64)
   lastName: string;
   @MaxLength(columnSize.length64)
   @IsEmail()
+  @Expose()
   email: string;
   @IsEnum(UserRole)
   @ApiProperty({ enum: UserRole })
+  @Expose()
   role?: UserRole &#x3D; UserRole.MENTEE;
 }
 
-export class PagedUserOutputDto extends PagedOutputDto(UserDto) {}
+export class PagedUserOutputDto extends PagedListDto(UserDto) {}
 </code></pre>
     </div>
 </div>

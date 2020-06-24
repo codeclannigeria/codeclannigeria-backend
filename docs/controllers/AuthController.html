@@ -139,7 +139,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(input: <a href="../classes/LoginReqDto.html">LoginReqDto</a>)</code>
+                    <code>login(input: <a href="../classes/LoginReqDto.html">LoginReqDto</a>, req?: Request)</code>
                 </td>
             </tr>
 
@@ -153,8 +153,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">src/auth/auth.controller.ts:51</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/auth/auth.controller.ts:54</a></div>
                 </td>
             </tr>
 
@@ -181,6 +181,18 @@
 
                                     <td>
                                         No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
                                     </td>
 
 
@@ -232,8 +244,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/auth/auth.controller.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/auth/auth.controller.ts:64</a></div>
                 </td>
             </tr>
 
@@ -311,8 +323,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="136"
-                            class="link-to-prism">src/auth/auth.controller.ts:136</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">src/auth/auth.controller.ts:139</a></div>
                 </td>
             </tr>
 
@@ -390,8 +402,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">src/auth/auth.controller.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">src/auth/auth.controller.ts:76</a></div>
                 </td>
             </tr>
 
@@ -469,8 +481,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/auth/auth.controller.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="114"
+                            class="link-to-prism">src/auth/auth.controller.ts:114</a></div>
                 </td>
             </tr>
 
@@ -548,8 +560,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">src/auth/auth.controller.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/auth/auth.controller.ts:101</a></div>
                 </td>
             </tr>
 
@@ -608,6 +620,7 @@
   HttpStatus,
   NotFoundException,
   Post,
+  Req,
   UnauthorizedException,
   UseGuards
 } from &#x27;@nestjs/common&#x27;;
@@ -618,6 +631,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse
 } from &#x27;@nestjs/swagger&#x27;;
+import { Request } from &#x27;express&#x27;;
 
 import { LoginReqDto } from &#x27;../auth/models/dto/auth.dto&#x27;;
 import configuration from &#x27;../shared/config/configuration&#x27;;
@@ -627,7 +641,8 @@ import {
   RegisterUserDto,
   RegisterUserResDto
 } from &#x27;../users/models/dto/register-user.dto&#x27;;
-import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { User } from &#x27;../users/models/user.entity&#x27;;
+import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { AuthenticationGuard } from &#x27;./guards/auth.guard&#x27;;
 import { AcctVerifyDto } from &#x27;./models/dto/acct-verification.dto&#x27;;
@@ -650,11 +665,11 @@ export class AuthController {
   @ApiOkResponse({ type: LoginResDto })
   @ApiUnauthorizedResponse({ type: ApiException })
   @UseGuards(AuthenticationGuard)
-  async login(@Body() input: LoginReqDto): Promise&lt;LoginResDto&gt; {
-    const accessToken &#x3D; await this.authService.login(
-      input.email,
-      input.password
-    );
+  async login(
+    @Body() input: LoginReqDto,
+    @Req() req?: Request
+  ): Promise&lt;LoginResDto&gt; {
+    const accessToken &#x3D; await this.authService.getAuthToken(req.user as User);
     return { accessToken };
   }
   @Post(&#x27;register&#x27;)

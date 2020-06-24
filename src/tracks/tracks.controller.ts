@@ -5,52 +5,48 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
-import { ApiException } from '~shared/errors/api-exception';
+import { ApiException } from '~shared/errors';
 
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
 
-export class TracksController extends BaseCrudController<
-  Track,
-  TrackDto,
-  CreateTrackDto,
-  CreateTrackDto
->({
+const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
   entityDto: TrackDto,
   createDto: CreateTrackDto,
   updateDto: CreateTrackDto,
-  pagedOutputDto: PagedTrackOutputDto,
+  pagedListDto: PagedTrackOutputDto,
   auth: {
     update: [UserRole.ADMIN, UserRole.MENTOR],
     delete: [UserRole.ADMIN, UserRole.MENTOR]
   }
-}) {
-  /**
-   *
-   */
-  // constructor(protected service: TracksService) {
-  //   super(service);
-  // }
+});
+export class TracksController extends BaseCtrl {
+  constructor(protected trackService: TracksService) {
+    super(trackService);
+  }
   @Post()
   @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise<TrackDto> {
-    const exist = await this.service.findOneAsync({ title: input.title });
+    const exist = await this.trackService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
     if (exist)
-      throw new ConflictException('Track with the title already exists');
-
-    return super.create(input);
+      throw new ConflictException(
+        `Track with the title "${exist.title}" already exists`
+      );
+    return await super.create(input);
   }
 }

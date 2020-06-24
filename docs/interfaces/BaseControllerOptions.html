@@ -141,12 +141,12 @@ export interface BaseControllerWithSwaggerOpts&lt;
   TEntityDto,
   TCreateDto,
   TUpdateDto,
-  TPagedOutputDto
+  TPagedEntityOutputDto
 &gt; extends BaseControllerWithAuthOptions&lt;TEntity&gt; {
   entityDto: { new (): TEntityDto };
   createDto: { new (): TCreateDto };
   updateDto: { new (): TUpdateDto };
-  pagedOutputDto: { new (): TPagedOutputDto };
+  pagedListDto: { new (): TPagedEntityOutputDto };
 }
 </code></pre>
     </div>

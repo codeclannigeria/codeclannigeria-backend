@@ -5,6 +5,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { User } from './models/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { BaseService } from '~shared/services';
 
 const mongod = new MongoMemoryServer();
 
@@ -34,7 +35,10 @@ describe('Users Controller', () => {
         dbFactory
       ],
       controllers: [UsersController],
-      providers: [UsersService]
+      providers: [
+        UsersService,
+        { provide: BaseService, useClass: UsersService }
+      ]
     }).compile();
 
     controller = module.get<UsersController>(UsersController);

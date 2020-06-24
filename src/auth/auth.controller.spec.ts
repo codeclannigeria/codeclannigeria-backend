@@ -19,6 +19,7 @@ describe('Auth Controller', () => {
   let controller: AuthController;
   let usersService: UsersService;
   const authService: any = {};
+
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       controllers: [AuthController],
@@ -28,6 +29,7 @@ describe('Auth Controller', () => {
       .useValue(authService)
       .overrideProvider(MailService)
       .useValue({ sendMailAsync: () => Promise.resolve() })
+
       .compile();
 
     controller = module.get<AuthController>(AuthController);
@@ -77,28 +79,33 @@ describe('Auth Controller', () => {
         email: input.email,
         password: 'incorrect!P@ss'
       };
-      authService.login = () => Promise.reject(new UnauthorizedException());
-      await expect(controller.login(loginInput)).rejects.toThrowError(
-        UnauthorizedException
-      );
+      authService.getAuthToken = () =>
+        Promise.reject(new UnauthorizedException());
+
+      await expect(
+        controller.login(loginInput, { user: 'user' } as any)
+      ).rejects.toThrowError(UnauthorizedException);
     });
     it(`should throw ${UnauthorizedException.name} for incorrect email`, async () => {
       const loginInput: LoginReqDto = {
         email: 'incorrect@email.com',
         password: input.password
       };
-      await expect(controller.login(loginInput)).rejects.toThrowError(
-        UnauthorizedException
-      );
+      await expect(
+        controller.login(loginInput, { user: 'user' } as any)
+      ).rejects.toThrowError(UnauthorizedException);
     });
     it('should return JWT on successful login', async () => {
       const loginInput: LoginReqDto = {
         email: input.email,
         password: input.password
       };
-      authService.login = () => Promise.resolve({ accessToken: 'token' });
+      authService.getAuthToken = () =>
+        Promise.resolve({ accessToken: 'token' });
 
-      const { accessToken } = await controller.login(loginInput);
+      const { accessToken } = await controller.login(loginInput, {
+        user: 'user'
+      } as any);
       expect(accessToken).toBeTruthy();
     });
   });

@@ -204,7 +204,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/tracks/models/track.entity.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/tracks/models/track.entity.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -235,13 +235,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: false})<br />
+                                @prop({required: true, maxlength: undefined, trim: true, text: true, uppercase: true, unique: false})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/tracks/models/track.entity.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/tracks/models/track.entity.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -871,9 +871,9 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { columnSize } from &#x27;~shared/constants&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { index, prop } from &#x27;@typegoose/typegoose&#x27;;
+import { columnSize } from &#x27;~shared/constants&#x27;;
 import { BaseEntity } from &#x27;~shared/models/base.entity&#x27;;
-import { index, prop } from &#x27;@typegoose/typegoose&#x27;;
 
 @index({ title: 1 }, { unique: true })
 export class Track extends BaseEntity {
@@ -882,9 +882,11 @@ export class Track extends BaseEntity {
     maxlength: columnSize.length32,
     trim: true,
     text: true,
+    uppercase: true,
     unique: false
   })
   readonly title!: string;
+
   @prop({
     required: true,
     maxlength: columnSize.length128,

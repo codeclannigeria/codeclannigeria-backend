@@ -17,8 +17,7 @@ import { Writable } from '../../shared/types';
 export enum UserRole {
   MENTEE = 'MENTEE',
   MENTOR = 'MENTOR',
-  ADMIN = 'ADMIN',
-  SUPER_ADMIN = 'SUPER_ADMIN'
+  ADMIN = 'ADMIN'
 }
 
 @pre<User>('save', async function () {

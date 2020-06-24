@@ -21,44 +21,44 @@
 <polygon fill="#fb8072" stroke="transparent" points="406,-10 406,-30 426,-30 426,-10 406,-10"/>
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
-<title>cluster_SharedModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="173,-70 173,-268 323,-268 323,-70 173,-70"/>
+<title>cluster_StagesModule</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="167,-70 167,-268 329,-268 329,-70 167,-70"/>
 </g>
 <g id="clust4" class="cluster">
-<title>cluster_SharedModule_exports</title>
-<polygon fill="none" stroke="#000000" points="196,-208 196,-260 300,-260 300,-208 196,-208"/>
+<title>cluster_StagesModule_exports</title>
+<polygon fill="none" stroke="#000000" points="191,-208 191,-260 305,-260 305,-208 191,-208"/>
 </g>
 <g id="clust6" class="cluster">
-<title>cluster_SharedModule_providers</title>
-<polygon fill="none" stroke="#000000" points="181,-78 181,-130 315,-130 315,-78 181,-78"/>
+<title>cluster_StagesModule_providers</title>
+<polygon fill="none" stroke="#000000" points="175,-78 175,-130 321,-130 321,-78 175,-78"/>
 </g>
-<!-- BaseService  -->
+<!-- StagesService  -->
 <g id="node1" class="node">
-<title>BaseService </title>
-<polygon fill="#fb8072" stroke="#000000" points="292.1885,-252 203.8115,-252 203.8115,-216 292.1885,-216 292.1885,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService </text>
+<title>StagesService </title>
+<polygon fill="#fb8072" stroke="#000000" points="297.0246,-252 198.9754,-252 198.9754,-216 297.0246,-216 297.0246,-252"/>
+<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">StagesService </text>
 </g>
-<!-- SharedModule -->
+<!-- StagesModule -->
 <g id="node2" class="node">
-<title>SharedModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="297.4231,-187 294.4231,-191 273.4231,-191 270.4231,-187 198.5769,-187 198.5769,-151 297.4231,-151 297.4231,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">SharedModule</text>
+<title>StagesModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="296.0968,-187 293.0968,-191 272.0968,-191 269.0968,-187 199.9032,-187 199.9032,-151 296.0968,-151 296.0968,-187"/>
+<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">StagesModule</text>
 </g>
-<!-- SharedModule&#45;&gt;BaseService  -->
+<!-- StagesModule&#45;&gt;StagesService  -->
 <g id="edge1" class="edge">
-<title>SharedModule&#45;&gt;BaseService </title>
+<title>StagesModule&#45;&gt;StagesService </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
 </g>
-<!-- BaseService -->
+<!-- StagesService -->
 <g id="node3" class="node">
-<title>BaseService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="248" cy="-104" rx="58.5232" ry="18"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseService</text>
+<title>StagesService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="248" cy="-104" rx="65.4033" ry="18"/>
+<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">StagesService</text>
 </g>
-<!-- BaseService&#45;&gt;SharedModule -->
+<!-- StagesService&#45;&gt;StagesModule -->
 <g id="edge2" class="edge">
-<title>BaseService&#45;&gt;SharedModule</title>
+<title>StagesService&#45;&gt;StagesModule</title>
 <path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
 <polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
 </g>

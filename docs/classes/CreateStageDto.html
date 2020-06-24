@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>PagedTrackResDto</li>
+  <li>CreateStageDto</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/tracks/models/dto/paged-track.dto.ts</code>
+            <code>src/stages/models/dtos/create-stage.dto.ts.ts</code>
         </p>
 
 
@@ -80,11 +80,15 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PagedOutDto } from &#x27;~shared/models/dto/paged-out.dto&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
 
-import { TrackDto } from &#x27;./tack.dto&#x27;;
+import { StageDto } from &#x27;./stage.dto.ts&#x27;;
 
-export class PagedTrackResDto extends PagedOutDto(TrackDto) {}
+export class CreateStageDto extends PickType(StageDto, [
+  &#x27;title&#x27;,
+  &#x27;description&#x27;,
+  &#x27;taskCount&#x27;
+]) {}
 </code></pre>
     </div>
 </div>
@@ -113,7 +117,7 @@ export class PagedTrackResDto extends PagedOutDto(TrackDto) {}
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'PagedTrackResDto.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'CreateStageDto.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

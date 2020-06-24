@@ -2,7 +2,7 @@
   "moduleFileExtensions": ["js", "json", "ts"],
   "roots": ["<rootDir>/../src/", "<rootDir>"],
   "setupFilesAfterEnv": ["<rootDir>/setup.e2e.ts"],
-  "coverageDirectory": "<rootDir>../coverage",
+  "coverageDirectory": "<rootDir>../coverage/e2e",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {

@@ -145,13 +145,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length128)<br />
+                                @MaxLength(columnSize.length128)<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/categories/models/dtos/category.dto.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/categories/models/dtos/category.dto.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -181,13 +181,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length32)<br />
+                                @MaxLength(columnSize.length32)<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/categories/models/dtos/category.dto.ts:7</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/categories/models/dtos/category.dto.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -218,7 +218,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiProperty()<br />
+                                @ApiProperty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -230,7 +230,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:10</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:14</a></code>
 </div>
                             </td>
                         </tr>
@@ -262,7 +262,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @IsMongoId()<br />
+                                @IsMongoId()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -274,7 +274,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:6</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
 </div>
                             </td>
                         </tr>
@@ -306,7 +306,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @ApiProperty()<br />
+                                @ApiProperty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -318,7 +318,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:8</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseDto.html#source" target="_self" >BaseDto:11</a></code>
 </div>
                             </td>
                         </tr>
@@ -338,17 +338,21 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MaxLength } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Exclude, Expose } from &#x27;class-transformer&#x27;;
+import { MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseDto, PagedOutputDto } from &#x27;~shared/models/dto&#x27;;
+import { BaseDto, PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
+@Exclude()
 export class CategoryDto extends BaseDto {
   @MaxLength(columnSize.length32)
+  @Expose()
   name: string;
   @MaxLength(columnSize.length128)
+  @Expose()
   description: string;
 }
-export class PagedCategoryOutDto extends PagedOutputDto(CategoryDto) {}
+export class PagedCategoryOutDto extends PagedListDto(CategoryDto) {}
 </code></pre>
     </div>
 </div>

@@ -17,23 +17,21 @@ import { Category } from './models/category.entity';
 import { CategoryDto, PagedCategoryOutDto } from './models/dtos/category.dto';
 import { CreateCategoryDto } from './models/dtos/create-category.dto';
 
-export class CategoriesController extends BaseCrudController<
-  Category,
-  CategoryDto,
-  CreateCategoryDto
->({
+const BaseCtrl = BaseCrudController<Category, CategoryDto, CreateCategoryDto>({
   auth: {
     update: [UserRole.ADMIN, UserRole.MENTOR],
     delete: [UserRole.ADMIN, UserRole.MENTOR]
   },
-  createDto: CreateCategoryDto,
-  updateDto: CreateCategoryDto,
   entity: Category,
-  pagedOutputDto: PagedCategoryOutDto,
-  entityDto: CategoryDto
-}) {
-  constructor(protected readonly service: CategoriesService) {
-    super(service);
+  entityDto: CategoryDto,
+  createDto: CategoryDto,
+  updateDto: CategoryDto,
+  pagedListDto: PagedCategoryOutDto
+});
+
+export class CategoriesController extends BaseCtrl {
+  constructor(protected readonly categoryService: CategoriesService) {
+    super(categoryService);
   }
 
   @Post()
@@ -43,9 +41,13 @@ export class CategoriesController extends BaseCrudController<
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateCategoryDto): Promise<CategoryDto> {
-    const exist = await this.service.findOneAsync({ title: input.name });
+    const exist = await this.categoryService.findOneAsync({
+      title: input.name.toUpperCase()
+    });
     if (exist)
-      throw new ConflictException('Category with the name already exists');
+      throw new ConflictException(
+        `Category with the name "${exist.name}" already exists`
+      );
 
     return super.create(input);
   }

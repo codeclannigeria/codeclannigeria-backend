@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -36,9 +36,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li>LocalStrategy</li>
+  <li>Classes</li>
+  <li>StagesController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,9 +60,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/auth/strategies/local.strategy.ts</code>
+            <code>src/stages/stages.controller.ts</code>
         </p>
 
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../miscellaneous/variables.html#BaseCtrl" target="_self" >BaseCtrl</a></code>
+            </p>
 
 
 
@@ -77,7 +88,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#validate">validate</a>
+                                <a href="#create">create</a>
                             </li>
                         </ul>
                     </td>
@@ -97,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(moduleRef: ModuleRef)</code>
+<code>constructor(stageService: <a href="../injectables/StagesService.html">StagesService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/auth/strategies/local.strategy.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/stages/stages.controller.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -120,10 +131,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>moduleRef</td>
+                                                        <td>stageService</td>
                                                   
                                                         <td>
-                                                                    <code>ModuleRef</code>
+                                                                        <code><a href="../injectables/StagesService.html" target="_self" >StagesService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -140,6 +151,7 @@
         </table>
 </section>
 
+
             <section>
     
     <h3 id="methods">
@@ -149,28 +161,35 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="validate"></a>
+                    <a name="create"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            validate
+                            create
                         </b>
-                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validate(request: Request, username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>create(input: <a href="../classes/CreateStageDto.html">CreateStageDto</a>)</code>
                 </td>
             </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post()<br />@ApiResponse({type: StageDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/auth/strategies/local.strategy.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/stages/stages.controller.ts:42</a></div>
                 </td>
             </tr>
 
@@ -190,33 +209,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>request</td>
+                                    <td>input</td>
                                     <td>
-                                            <code>Request</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>username</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>password</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../classes/CreateStageDto.html" target="_self" >CreateStageDto</a></code>
                                     </td>
 
                                     <td>
@@ -231,7 +226,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>{}</code>
+                        <b>Returns : </b>    <code>Promise&lt;StageDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -243,42 +238,69 @@
     </table>
 </section>
 
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, UnauthorizedException } from &#x27;@nestjs/common&#x27;;
-import { ContextIdFactory, ModuleRef } from &#x27;@nestjs/core&#x27;;
-import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
-import { Strategy } from &#x27;passport-local&#x27;;
-import { AuthService } from &#x27;../auth.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Body,
+  ConflictException,
+  HttpStatus,
+  Post,
+  UseGuards
+} from &#x27;@nestjs/common&#x27;;
+import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
+import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
+import { ApiException } from &#x27;~shared/errors&#x27;;
 
-@Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private moduleRef: ModuleRef) {
-    super({
-      passReqToCallback: true,
-      usernameField: &#x27;email&#x27;,
-    });
+import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto.ts&#x27;;
+import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto.ts&#x27;;
+import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { StagesService } from &#x27;./stages.service&#x27;;
+
+const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
+  entity: Stage,
+  entityDto: StageDto,
+  createDto: CreateStageDto,
+  updateDto: CreateStageDto,
+  pagedListDto: PagedListStageDto,
+  auth: {
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
   }
+});
 
-  async validate(request: Request, username: string, password: string) {
-    const contextId &#x3D; ContextIdFactory.getByRequest(request);
-    // &quot;AuthService&quot; is a request-scoped provider
-    const authService &#x3D; await this.moduleRef.resolve(AuthService, contextId);
-    const user &#x3D; await authService.validateUser(username, password);
-    if (!user.isActive) throw new UnauthorizedException();
-    return user;
+export class StagesController extends BaseCtrl {
+  constructor(protected readonly stageService: StagesService) {
+    super(stageService);
+  }
+  @Post()
+  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateStageDto): Promise&lt;StageDto&gt; {
+    const exist &#x3D; await this.stageService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
+    if (exist)
+      throw new ConflictException(
+        &#x60;Stage with the title &quot;${exist.title}&quot; already exists&#x60;
+      );
+    return super.create(input);
   }
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -303,8 +325,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'LocalStrategy.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'StagesController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

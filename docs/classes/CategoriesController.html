@@ -64,6 +64,12 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../miscellaneous/variables.html#BaseCtrl" target="_self" >BaseCtrl</a></code>
+            </p>
 
 
 
@@ -102,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(service: <a href="../classes/CategoriesService.html">CategoriesService</a>)</code>
+<code>constructor(categoryService: <a href="../classes/CategoriesService.html">CategoriesService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/categories/categories.controller.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/categories/categories.controller.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -125,7 +131,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>service</td>
+                                                        <td>categoryService</td>
                                                   
                                                         <td>
                                                                         <code><a href="../classes/CategoriesService.html" target="_self" >CategoriesService</a></code>
@@ -182,8 +188,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">src/categories/categories.controller.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/categories/categories.controller.ts:43</a></div>
                 </td>
             </tr>
 
@@ -259,23 +265,21 @@ import { Category } from &#x27;./models/category.entity&#x27;;
 import { CategoryDto, PagedCategoryOutDto } from &#x27;./models/dtos/category.dto&#x27;;
 import { CreateCategoryDto } from &#x27;./models/dtos/create-category.dto&#x27;;
 
-export class CategoriesController extends BaseCrudController&lt;
-  Category,
-  CategoryDto,
-  CreateCategoryDto
-&gt;({
+const BaseCtrl &#x3D; BaseCrudController&lt;Category, CategoryDto, CreateCategoryDto&gt;({
   auth: {
     update: [UserRole.ADMIN, UserRole.MENTOR],
     delete: [UserRole.ADMIN, UserRole.MENTOR]
   },
-  createDto: CreateCategoryDto,
-  updateDto: CreateCategoryDto,
   entity: Category,
-  pagedOutputDto: PagedCategoryOutDto,
-  entityDto: CategoryDto
-}) {
-  constructor(protected readonly service: CategoriesService) {
-    super(service);
+  entityDto: CategoryDto,
+  createDto: CategoryDto,
+  updateDto: CategoryDto,
+  pagedListDto: PagedCategoryOutDto
+});
+
+export class CategoriesController extends BaseCtrl {
+  constructor(protected readonly categoryService: CategoriesService) {
+    super(categoryService);
   }
 
   @Post()
@@ -285,9 +289,13 @@ export class CategoriesController extends BaseCrudController&lt;
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateCategoryDto): Promise&lt;CategoryDto&gt; {
-    const exist &#x3D; await this.service.findOneAsync({ title: input.name });
+    const exist &#x3D; await this.categoryService.findOneAsync({
+      title: input.name.toUpperCase()
+    });
     if (exist)
-      throw new ConflictException(&#x27;Category with the name already exists&#x27;);
+      throw new ConflictException(
+        &#x60;Category with the name &quot;${exist.name}&quot; already exists&#x60;
+      );
 
     return super.create(input);
   }

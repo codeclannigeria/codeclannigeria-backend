@@ -1,10 +1,8 @@
 import {
   Inject,
-  Injectable,
   InternalServerErrorException,
   Logger,
-  Optional,
-  Scope
+  Optional
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
@@ -13,24 +11,16 @@ import { Request } from 'express';
 import { MongoError } from 'mongodb';
 import { CreateQuery, Query, Types } from 'mongoose';
 
+import { UserRole } from '../../users/models/user.entity';
 import { BaseEntity } from '../models/base.entity';
 import { QueryItem, QueryList, Writable } from '../types';
-import { UserRole } from './../../users/models/user.entity';
-import { InjectModel } from '@nestjs/mongoose';
 
-@Injectable({ scope: Scope.REQUEST })
-export class BaseService<T extends BaseEntity> {
+export abstract class BaseService<T extends BaseEntity> {
   @Optional()
   @Inject(REQUEST)
-  private readonly req: Request;
-  protected entity: ReturnModelType<AnyParamConstructor<T>>;
+  protected readonly req: Request;
 
-  constructor(
-    @InjectModel(BaseEntity.modelName)
-    entity: ReturnModelType<AnyParamConstructor<T>>
-  ) {
-    this.entity = entity;
-  }
+  constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) {}
 
   protected static throwMongoError(err: MongoError): void {
     throw new InternalServerErrorException(err, err.errmsg);
@@ -49,6 +39,9 @@ export class BaseService<T extends BaseEntity> {
   }
   protected getUserId(): any {
     return this.req?.user?.['userId'] || null;
+  }
+  protected getUserRole(): UserRole {
+    return this.req?.user?.['role'] || null;
   }
 
   insert(entity: T): Promise<DocumentType<T>> {
@@ -75,12 +68,6 @@ export class BaseService<T extends BaseEntity> {
     filter = { ...filter, isDeleted: { $ne: true } };
 
     return this.entity.find(filter, null, opts);
-  }
-
-  private whereOwn() {
-    return this.req.user?.['role'] === UserRole.ADMIN
-      ? {}
-      : { createdBy: this.getUserId() };
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -119,10 +106,19 @@ export class BaseService<T extends BaseEntity> {
       BaseService.throwMongoError(e);
     }
   }
-
+  hardDeleteMany(filter = {}): QueryItem<T> {
+    try {
+      return this.entity.deleteMany(filter).where(this.whereOwn()).lean();
+    } catch (error) {
+      BaseService.throwMongoError(error);
+    }
+  }
   hardDelete(filter = {}): QueryItem<T> {
-    filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOneAndDelete(filter).where(this.whereOwn());
+    try {
+      return this.entity.findOneAndDelete(filter).where(this.whereOwn()).lean();
+    } catch (error) {
+      BaseService.throwMongoError(error);
+    }
   }
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
@@ -143,9 +139,12 @@ export class BaseService<T extends BaseEntity> {
       .where(this.whereOwn());
   }
   softDeleteById(id: string): QueryItem<T> {
-    const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
-
+    const update = {
+      isDeleted: true,
+      deletedBy: this.getUserId()
+    } as any;
     return this.entity
+
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
       .where(this.whereOwn())
       .where('isDeleted')
@@ -192,5 +191,10 @@ export class BaseService<T extends BaseEntity> {
     } catch (e) {
       BaseService.throwMongoError(e);
     }
+  }
+  private whereOwn() {
+    return this.getUserRole() === UserRole.ADMIN
+      ? {}
+      : { createdBy: this.getUserId() };
   }
 }

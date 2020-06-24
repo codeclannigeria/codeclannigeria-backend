@@ -325,6 +325,7 @@ export class AuthenticationGuard implements CanActivate {
     if (!configuration().isAuthEnabled) return true;
     const { email, password }: LoginReqDto &#x3D; request.body;
     const user &#x3D; await this.authService.validateUser(email, password);
+
     if (!user || !user.isActive) throw new UnauthorizedException();
     request.user &#x3D; user;
     return true;

@@ -143,9 +143,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Module } from &#x27;@nestjs/common&#x27;;
+import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
+import { BaseService } from &#x27;~shared/services&#x27;;
+
 import { CategoriesController } from &#x27;./categories.controller&#x27;;
 import { CategoriesService } from &#x27;./categories.service&#x27;;
-import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
 import { Category } from &#x27;./models/category.entity&#x27;;
 
 const CategoryModel &#x3D; MongooseModule.forFeature([
@@ -153,8 +155,11 @@ const CategoryModel &#x3D; MongooseModule.forFeature([
 ]);
 @Module({
   imports: [CategoryModel],
+  providers: [
+    CategoriesService,
+    { provide: BaseService, useClass: CategoriesService }
+  ],
   controllers: [CategoriesController],
-  providers: [CategoriesService],
   exports: [CategoriesService, CategoryModel]
 })
 export class CategoriesModule {}

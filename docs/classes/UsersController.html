@@ -64,9 +64,43 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../miscellaneous/variables.html#BaseCtrl" target="_self" >BaseCtrl</a></code>
+            </p>
 
 
 
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#create">create</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
 
             <section>
     <h3 id="constructor">Constructor</h3>
@@ -74,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(usersService: <a href="../classes/UsersService.html">UsersService</a>)</code>
+<code>constructor(usersService: <a href="../injectables/UsersService.html">UsersService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/users/users.controller.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/users/users.controller.ts:34</a></div>
                             </td>
                         </tr>
 
@@ -100,7 +134,7 @@
                                                         <td>usersService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/UsersService.html" target="_self" >UsersService</a></code>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -118,7 +152,91 @@
 </section>
 
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            create
+                        </b>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(input: <a href="../classes/CreateUserDto.html">CreateUserDto</a>)</code>
+                </td>
+            </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post()<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/users/users.controller.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/CreateUserDto.html" target="_self" >CreateUserDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -128,39 +246,58 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { UseGuards } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Body,
+  ConflictException,
+  HttpStatus,
+  Post,
+  UseGuards
+} from &#x27;@nestjs/common&#x27;;
+import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
+import { ApiException } from &#x27;~shared/errors&#x27;;
 
-import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
-import { RolesGuard } from &#x27;../auth/guards/roles.guard&#x27;;
+import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { BaseCrudController } from &#x27;../shared/controllers/base.controller&#x27;;
+import { TrackDto } from &#x27;../tracks/models/dto/tack.dto&#x27;;
 import { CreateUserDto } from &#x27;./models/dto/create-user.dto&#x27;;
 import { PagedUserOutputDto, UserDto } from &#x27;./models/dto/user.dto&#x27;;
 import { User, UserRole } from &#x27;./models/user.entity&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
 
-@UseGuards(JwtAuthGuard, RolesGuard)
-@ApiBearerAuth()
-export class UsersController extends BaseCrudController&lt;
-  User,
-  UserDto,
-  CreateUserDto
-&gt;({
+const BaseCtrl &#x3D; BaseCrudController&lt;User, UserDto, CreateUserDto&gt;({
   entity: User,
   entityDto: UserDto,
   createDto: CreateUserDto,
   updateDto: CreateUserDto,
-  pagedOutputDto: PagedUserOutputDto,
+  pagedListDto: PagedUserOutputDto,
   auth: {
-    create: [UserRole.ADMIN],
     find: [UserRole.ADMIN],
     findById: [UserRole.ADMIN],
     update: [UserRole.ADMIN],
     delete: [UserRole.ADMIN]
   }
-}) {
+});
+
+export class UsersController extends BaseCtrl {
   constructor(protected readonly usersService: UsersService) {
     super(usersService);
+  }
+  @Post()
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateUserDto): Promise&lt;UserDto&gt; {
+    const exist &#x3D; await this.usersService.findOneAsync({
+      title: input.email.toLowerCase()
+    });
+    if (exist)
+      throw new ConflictException(
+        &#x60;User with the email &quot;${exist.email}&quot; already exists&#x60;
+      );
+    return super.create(input);
   }
 }
 </code></pre>
