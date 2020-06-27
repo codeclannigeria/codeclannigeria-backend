@@ -5,13 +5,12 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { BaseCrudController } from '../shared/controllers/base.controller';
-import { TrackDto } from '../tracks/models/dto/tack.dto';
 import { CreateUserDto } from './models/dto/create-user.dto';
 import { PagedUserOutputDto, UserDto } from './models/dto/user.dto';
 import { User, UserRole } from './models/user.entity';
@@ -36,11 +35,12 @@ export class UsersController extends BaseCtrl {
     super(usersService);
   }
   @Post()
-  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiResponse({ type: UserDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateUserDto): Promise<UserDto> {
     const exist = await this.usersService.findOneAsync({
       title: input.email.toLowerCase()

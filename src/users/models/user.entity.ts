@@ -1,18 +1,18 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import {
+  getModelForClass,
   index,
   pre,
   prop,
-  getModelForClass,
   ReturnModelType
 } from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
+import { Writable } from '~shared/types/abstract.type';
 
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
-import { Writable } from '../../shared/types';
 
 export enum UserRole {
   MENTEE = 'MENTEE',
@@ -64,7 +64,7 @@ export class User extends BaseEntity {
     required: true,
     default: UserRole.MENTEE
   })
-  readonly role: UserRole = UserRole.MENTEE;
+  readonly role = UserRole.MENTEE;
 
   @prop({ required: true, default: false })
   readonly isEmailVerified: boolean;

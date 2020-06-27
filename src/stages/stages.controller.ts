@@ -5,7 +5,7 @@ import {
   Post,
   UseGuards
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
@@ -33,12 +33,14 @@ export class StagesController extends BaseCtrl {
   constructor(protected stageService: StagesService) {
     super(stageService);
   }
+
   @Post()
-  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateStageDto): Promise<StageDto> {
     const exist = await this.stageService.findOneAsync({
       title: input.title.toUpperCase()

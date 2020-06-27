@@ -7,7 +7,6 @@ import { MailService } from '../shared/mail/mail.service';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { AuthHandler } from './handlers/auth.handler';
 import { TemporaryToken } from './models/temporary-token.entity';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -26,7 +25,6 @@ const Config = [
     JwtStrategy,
     SessionSerializer,
     MailService,
-    AuthHandler,
     TempTokensService
   ],
   controllers: [AuthController],

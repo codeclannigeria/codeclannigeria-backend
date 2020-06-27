@@ -15,6 +15,7 @@ import { envValidation } from './shared/validations/env.validation';
 import { StagesModule } from './stages/stages.module';
 import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
+import { TasksModule } from './tasks/tasks.module';
 
 export const Config = ConfigModule.forRoot({
   isGlobal: true,
@@ -42,7 +43,8 @@ const Database = MongooseModule.forRoot(configuration().database.uri, {
     TracksModule,
     CoursesModule,
     CategoriesModule,
-    StagesModule
+    StagesModule,
+    TasksModule
   ],
 
   controllers: [AppController],

@@ -29,7 +29,6 @@ describe('Auth Controller', () => {
       .useValue(authService)
       .overrideProvider(MailService)
       .useValue({ sendMailAsync: () => Promise.resolve() })
-
       .compile();
 
     controller = module.get<AuthController>(AuthController);

@@ -182,14 +182,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiResponse({type: StageDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Post()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({type: StageDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@ApiResponse({status: undefined, type: ApiException})<br />@ApiBearerAuth()<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/stages/stages.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/stages/stages.controller.ts:44</a></div>
                 </td>
             </tr>
 
@@ -253,7 +253,7 @@
   Post,
   UseGuards
 } from &#x27;@nestjs/common&#x27;;
-import { ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { ApiResponse, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
@@ -278,15 +278,17 @@ const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;(
 });
 
 export class StagesController extends BaseCtrl {
-  constructor(protected readonly stageService: StagesService) {
+  constructor(protected stageService: StagesService) {
     super(stageService);
   }
+
   @Post()
-  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiResponse({ type: StageDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @ApiBearerAuth()
   async create(@Body() input: CreateStageDto): Promise&lt;StageDto&gt; {
     const exist &#x3D; await this.stageService.findOneAsync({
       title: input.title.toUpperCase()

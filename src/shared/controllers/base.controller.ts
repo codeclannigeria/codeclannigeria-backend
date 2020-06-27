@@ -16,7 +16,7 @@ import {
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import * as pluralize from 'pluralize';
-import { Authenticate, ApiSwaggerOperation } from '~shared/decorators';
+import { ApiSwaggerOperation, Authenticate } from '~shared/decorators';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { IBaseController } from '~shared/interfaces';
 import { IPagedListDto } from '~shared/models/dto';
@@ -66,7 +66,7 @@ export function BaseCrudController<
   class BaseController {
     constructor(
       @Inject(BaseService)
-      protected readonly service: BaseService<TEntity>
+      protected service: BaseService<TEntity>
     ) {}
 
     @Post()

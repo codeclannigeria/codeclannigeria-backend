@@ -52,7 +52,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({ type: ApiException })
   @UseGuards(AuthenticationGuard)
   async login(
-    @Body() input: LoginReqDto,
+    @Body() _: LoginReqDto,
     @Req() req?: Request
   ): Promise<LoginResDto> {
     const accessToken = await this.authService.getAuthToken(req.user as User);

@@ -80,13 +80,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { OmitType } from &#x27;@nestjs/swagger&#x27;;
 
 import { TrackDto } from &#x27;./tack.dto&#x27;;
 
-export class CreateTrackDto extends PickType(TrackDto, [
-  &#x27;title&#x27;,
-  &#x27;description&#x27;
+export class CreateTrackDto extends OmitType(TrackDto, [
+  &#x27;id&#x27;,
+  &#x27;createdAt&#x27;,
+  &#x27;updatedAt&#x27;
 ]) {}
 </code></pre>
     </div>

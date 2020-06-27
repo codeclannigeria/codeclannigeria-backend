@@ -178,11 +178,12 @@ import { StagesService } from &#x27;./stages.service&#x27;;
 const StageModel &#x3D; MongooseModule.forFeature([
   { name: Stage.modelName, schema: Stage.schema }
 ]);
+const baseService &#x3D; { provide: BaseService, useClass: StagesService };
 @Module({
   imports: [StageModel],
-  providers: [StagesService, { provide: BaseService, useClass: StagesService }],
+  providers: [StagesService, baseService],
   controllers: [StagesController],
-  exports: [StageModel, StagesService]
+  exports: [StageModel, StagesService, baseService]
 })
 export class StagesModule {}
 </code></pre>

@@ -139,7 +139,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(input: <a href="../classes/LoginReqDto.html">LoginReqDto</a>, req?: Request)</code>
+                    <code>login(_: <a href="../classes/LoginReqDto.html">LoginReqDto</a>, req?: Request)</code>
                 </td>
             </tr>
 
@@ -174,7 +174,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>input</td>
+                                    <td>_</td>
                                     <td>
                                                 <code><a href="../classes/LoginReqDto.html" target="_self" >LoginReqDto</a></code>
                                     </td>
@@ -666,7 +666,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({ type: ApiException })
   @UseGuards(AuthenticationGuard)
   async login(
-    @Body() input: LoginReqDto,
+    @Body() _: LoginReqDto,
     @Req() req?: Request
   ): Promise&lt;LoginResDto&gt; {
     const accessToken &#x3D; await this.authService.getAuthToken(req.user as User);

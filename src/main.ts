@@ -70,8 +70,13 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      docExpansion: 'none'
+    }
+  });
 
   const listener = await app.listen(process.env.PORT || port, function () {
     Logger.log('Listening on port ' + listener.address().port);

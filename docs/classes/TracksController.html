@@ -182,7 +182,7 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Post()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined})<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
@@ -281,10 +281,10 @@ export class TracksController extends BaseCtrl {
     super(trackService);
   }
   @Post()
-  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN })
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise&lt;TrackDto&gt; {

@@ -210,7 +210,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/stages/stages.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/stages/stages.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -2225,10 +2225,11 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Scope } from &#x27;@nestjs/common&#x27;;
-import { BaseService } from &#x27;~shared/services&#x27;;
-import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
+import { BaseService } from &#x27;~shared/services&#x27;;
+
+import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class StagesService extends BaseService&lt;Stage&gt; {

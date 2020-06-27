@@ -178,11 +178,12 @@ import { TracksService } from &#x27;./tracks.service&#x27;;
 const TrackModel &#x3D; MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
 ]);
+const baseService &#x3D; { provide: BaseService, useClass: TracksService };
 @Module({
   imports: [TrackModel],
-  providers: [TracksService, { provide: BaseService, useClass: TracksService }],
+  providers: [TracksService, baseService],
   controllers: [TracksController],
-  exports: [TrackModel, TracksService]
+  exports: [TrackModel, TracksService, baseService]
 })
 export class TracksModule {}
 </code></pre>

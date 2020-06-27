@@ -33,10 +33,10 @@ export class TracksController extends BaseCtrl {
     super(trackService);
   }
   @Post()
-  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN })
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async create(@Body() input: CreateTrackDto): Promise<TrackDto> {

@@ -771,9 +771,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { buildSchema, prop, Ref } from &#x27;@typegoose/typegoose&#x27;;
 import { TimeStamps } from &#x27;@typegoose/typegoose/lib/defaultClasses&#x27;;
 import { Schema } from &#x27;mongoose&#x27;;
+import { Writable } from &#x27;~shared/types/abstract.type&#x27;;
 
 import { User } from &#x27;../../users/models/user.entity&#x27;;
-import { Writable } from &#x27;../types&#x27;;
 
 export class BaseEntity extends TimeStamps {
   id: string;

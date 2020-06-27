@@ -1,9 +1,9 @@
 import { buildSchema, prop, Ref } from '@typegoose/typegoose';
 import { TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { Schema } from 'mongoose';
+import { Writable } from '~shared/types/abstract.type';
 
 import { User } from '../../users/models/user.entity';
-import { Writable } from '../types';
 
 export class BaseEntity extends TimeStamps {
   id: string;
