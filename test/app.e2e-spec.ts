@@ -5,11 +5,10 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { DbTest } from './db-test.module';
 
-describe('AppController (e2e)', () => {
+describe.skip('AppController (e2e)', () => {
   let app: INestApplication;
   let route: request.SuperTest<request.Test>;
   beforeAll(async () => {
-    process.env.ROOT_URL = 'http://localhost:3000';
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule, DbTest]
     }).compile();
