@@ -5,6 +5,8 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { DbTest } from './db-test.module';
 
+process.env.ROOT_URL = 'http://localhost:3000';
+
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let route: request.SuperTest<request.Test>;

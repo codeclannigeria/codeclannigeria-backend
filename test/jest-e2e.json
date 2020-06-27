@@ -16,7 +16,7 @@
   },
 
   "rootDir": "..",
+  "coveragePathIgnorePatterns": [".module.ts$", "main.ts", ".spec.ts$"],
   "testPathIgnorePatterns": ["/node_modules/", "/src/"],
-  "coveragePathIgnorePatterns": [".module.ts$", ".spec.ts$"],
   "coverageReporters": ["json"]
 }
