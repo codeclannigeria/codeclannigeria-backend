@@ -1,4 +1,5 @@
-import { index, prop } from '@typegoose/typegoose';
+import { Stage } from './../../stages/models/stage.entity.ts';
+import { index, prop, Ref } from '@typegoose/typegoose';
 import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
 
@@ -22,4 +23,7 @@ export class Track extends BaseEntity {
     unique: false
   })
   readonly description!: string;
+
+  @prop({ ref: Stage, required: true })
+  readonly stage!: Ref<Stage[]>;
 }

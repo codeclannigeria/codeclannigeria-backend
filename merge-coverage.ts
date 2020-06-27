@@ -3,11 +3,6 @@ import { createReporter } from 'istanbul-api';
 import { createCoverageMap } from 'istanbul-lib-coverage';
 import * as yargs from 'yargs';
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
-
 async function main() {
   const argv = yargs.options({
     report: {
@@ -36,3 +31,7 @@ async function main() {
   reporter.write(map);
   console.log('Created a merged coverage report in ./coverage');
 }
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
