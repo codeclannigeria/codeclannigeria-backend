@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>CoursesController</li>
+  <li>TasksController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,10 +60,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/courses/courses.controller.ts</code>
+            <code>src/tasks/tasks.controller.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../miscellaneous/variables.html#BaseCtrl" target="_self" >BaseCtrl</a></code>
+            </p>
 
 
 
@@ -102,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(courseService: <a href="../injectables/CoursesService.html">CoursesService</a>)</code>
+<code>constructor(tasksService: <a href="../injectables/TasksService.html">TasksService</a>, stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/courses/courses.controller.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/tasks/tasks.controller.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -125,10 +131,34 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>courseService</td>
+                                                        <td>tasksService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/CoursesService.html" target="_self" >CoursesService</a></code>
+                                                                        <code><a href="../injectables/TasksService.html" target="_self" >TasksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>stageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StagesService.html" target="_self" >StagesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>trackService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TracksService.html" target="_self" >TracksService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -168,7 +198,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(input: <a href="../classes/CreateCourseDto.html">CreateCourseDto</a>)</code>
+                    <code>create(input: <a href="../classes/CreateTaskDto.html">CreateTaskDto</a>)</code>
                 </td>
             </tr>
 
@@ -176,14 +206,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiResponse({type: CourseDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@ApiResponse({status: undefined, type: ApiException})<br />@ApiBearerAuth()<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: TaskDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">src/courses/courses.controller.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:51</a></div>
                 </td>
             </tr>
 
@@ -205,7 +235,7 @@
                                 <tr>
                                     <td>input</td>
                                     <td>
-                                                <code><a href="../classes/CreateCourseDto.html" target="_self" >CreateCourseDto</a></code>
+                                                <code><a href="../classes/CreateTaskDto.html" target="_self" >CreateTaskDto</a></code>
                                     </td>
 
                                     <td>
@@ -220,7 +250,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;CourseDto&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;TaskDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -240,61 +270,72 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TracksService } from &#x27;./../tracks/tracks.service&#x27;;
+import { StagesService } from &#x27;./../stages/stages.service&#x27;;
+import {
   Body,
   ConflictException,
   HttpStatus,
   Post,
-  UseGuards
+  UseGuards,
+  NotFoundException,
+  Inject
 } from &#x27;@nestjs/common&#x27;;
-import { ApiResponse, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
-import { CoursesService } from &#x27;./courses.service&#x27;;
-import { Course } from &#x27;./models/course.entity&#x27;;
-import { CourseDto, PagedCourseOutputDto } from &#x27;./models/dtos/course.dto&#x27;;
-import { CreateCourseDto } from &#x27;./models/dtos/create-course.dto&#x27;;
+import { CreateTaskDto } from &#x27;./models/dtos/create-task.dto&#x27;;
+import { PagedListTaskDto, TaskDto } from &#x27;./models/dtos/task.dto&#x27;;
+import { Task } from &#x27;./models/task.entity&#x27;;
+import { TasksService } from &#x27;./tasks.service&#x27;;
 
-export class CoursesController extends BaseCrudController&lt;
-  Course,
-  CourseDto,
-  CreateCourseDto,
-  CreateCourseDto
-&gt;({
-  entity: Course,
-  entityDto: CourseDto,
-  createDto: CreateCourseDto,
-  updateDto: CreateCourseDto,
-  pagedListDto: PagedCourseOutputDto,
-  auth: {
-    create: [UserRole.MENTOR, UserRole.ADMIN],
-    update: [UserRole.MENTOR, UserRole.ADMIN],
-    delete: [UserRole.MENTOR, UserRole.ADMIN]
+const BaseCtrl &#x3D; BaseCrudController&lt;Task, TaskDto, CreateTaskDto&gt;({
+  entity: Task,
+  createDto: CreateTaskDto,
+  pagedListDto: PagedListTaskDto,
+  entityDto: TaskDto,
+  updateDto: CreateTaskDto,
+  auth: true
+});
+
+export class TasksController extends BaseCtrl {
+  constructor(
+    private tasksService: TasksService,
+    @Inject(StagesService)
+    private stageService: StagesService,
+    @Inject(TracksService)
+    private trackService: TracksService
+  ) {
+    super(tasksService);
   }
-}) {
-  constructor(protected readonly courseService: CoursesService) {
-    super(courseService);
-  }
+
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
-  @ApiResponse({ type: CourseDto, status: HttpStatus.CREATED })
+  @ApiResponse({ type: TaskDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiBearerAuth()
-  async create(@Body() input: CreateCourseDto): Promise&lt;CourseDto&gt; {
-    const exist &#x3D; await this.courseService.findOneAsync({
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateTaskDto): Promise&lt;TaskDto&gt; {
+    const task &#x3D; await this.tasksService.findOneAsync({
       title: input.title.toUpperCase()
     });
-    if (exist)
+    if (task) {
       throw new ConflictException(
-        &#x60;Course with the title &quot;${exist.title}&quot; already exists&#x60;
+        &#x60;Task with the title &quot;${task.title}&quot; already exists&#x60;
       );
-    return super.create(input);
+    }
+    const stage &#x3D; await this.stageService.findByIdAsync(input.stage);
+    if (!stage)
+      throw new NotFoundException(&#x60;Stage with ${input.stage} not found&#x60;);
+    const track &#x3D; await this.trackService.findByIdAsync(input.track);
+    if (!track)
+      throw new NotFoundException(&#x60;Track with ${input.track} not found&#x60;);
+    return await super.create(input);
   }
 }
 </code></pre>
@@ -325,7 +366,7 @@ export class CoursesController extends BaseCrudController&lt;
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CoursesController.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'TasksController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

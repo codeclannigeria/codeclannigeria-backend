@@ -38,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>StagesService</li>
+  <li>TasksService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/stages/stages.service.ts</code>
+            <code>src/tasks/tasks.service.ts</code>
         </p>
 
 
@@ -205,12 +205,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>)</code>
+<code>constructor(taskEntity: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/stages/stages.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/tasks/tasks.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -228,7 +228,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>taskEntity</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -2229,15 +2229,15 @@ import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
-import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { Task } from &#x27;./models/task.entity&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
-export class StagesService extends BaseService&lt;Stage&gt; {
+export class TasksService extends BaseService&lt;Task&gt; {
   constructor(
-    @InjectModel(Stage.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Stage&gt;
+    @InjectModel(Task.modelName)
+    protected readonly taskEntity: ReturnModelType&lt;typeof Task&gt;
   ) {
-    super(entity);
+    super(taskEntity);
   }
 }
 </code></pre>
@@ -2273,7 +2273,7 @@ export class StagesService extends BaseService&lt;Stage&gt; {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'StagesService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'TasksService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

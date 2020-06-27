@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>CreateTrackDto</li>
+  <li>PagedListTaskDto</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/tracks/models/dto/create-track.dto.ts</code>
+            <code>src/tasks/models/dtos/task.dto.ts</code>
         </p>
 
 
@@ -80,15 +80,43 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { OmitType } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+import { Exclude, Expose, Type } from &#x27;class-transformer&#x27;;
+import {
+  IsAlphanumeric,
+  IsDate,
+  IsMongoId,
+  IsOptional,
+  MaxLength,
+  MinDate
+} from &#x27;class-validator&#x27;;
+import { columnSize } from &#x27;~shared/constants&#x27;;
+import { BaseDto, PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
-import { TrackDto } from &#x27;./tack.dto&#x27;;
-
-export class CreateTrackDto extends OmitType(TrackDto, [
-  &#x27;id&#x27;,
-  &#x27;createdAt&#x27;,
-  &#x27;updatedAt&#x27;
-]) {}
+@Exclude()
+export class TaskDto extends BaseDto {
+  @MaxLength(columnSize.length32)
+  @IsAlphanumeric()
+  @Expose()
+  title: string;
+  @MaxLength(columnSize.length128)
+  @Expose()
+  description: string;
+  @IsMongoId()
+  @Expose()
+  track: string;
+  @IsMongoId()
+  @Expose()
+  stage: string;
+  @Expose()
+  @IsDate()
+  @MinDate(new Date(), { message: &#x27;Date must be in future&#x27; })
+  @IsOptional()
+  @ApiProperty({ type: Date })
+  @Type(() &#x3D;&gt; Date)
+  deadline?: Date;
+}
+export class PagedListTaskDto extends PagedListDto(TaskDto) {}
 </code></pre>
     </div>
 </div>
@@ -117,7 +145,7 @@ export class CreateTrackDto extends OmitType(TrackDto, [
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CreateTrackDto.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'PagedListTaskDto.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

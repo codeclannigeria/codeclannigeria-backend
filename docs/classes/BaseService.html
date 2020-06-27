@@ -2083,10 +2083,10 @@ import { AnyParamConstructor } from &#x27;@typegoose/typegoose/lib/types&#x27;;
 import { Request } from &#x27;express&#x27;;
 import { MongoError } from &#x27;mongodb&#x27;;
 import { CreateQuery, Query, Types } from &#x27;mongoose&#x27;;
+import { QueryItem, QueryList, Writable } from &#x27;~shared/types/abstract.type&#x27;;
 
 import { UserRole } from &#x27;../../users/models/user.entity&#x27;;
 import { BaseEntity } from &#x27;../models/base.entity&#x27;;
-import { QueryItem, QueryList, Writable } from &#x27;../types&#x27;;
 
 export abstract class BaseService&lt;T extends BaseEntity&gt; {
   @Optional()
