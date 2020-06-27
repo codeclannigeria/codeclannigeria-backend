@@ -3,14 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
-import { Stage } from './models/stage.entity.ts';
+import { Task } from './models/task.entity';
 
 @Injectable({ scope: Scope.REQUEST })
-export class StagesService extends BaseService<Stage> {
+export class TasksService extends BaseService<Task> {
   constructor(
-    @InjectModel(Stage.modelName)
-    protected readonly entity: ReturnModelType<typeof Stage>
+    @InjectModel(Task.modelName)
+    protected readonly taskEntity: ReturnModelType<typeof Task>
   ) {
-    super(entity);
+    super(taskEntity);
   }
 }

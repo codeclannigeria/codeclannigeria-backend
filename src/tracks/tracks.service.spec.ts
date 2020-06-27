@@ -9,8 +9,6 @@ const mongod = new MongoMemoryServer();
 
 const dbFactory = MongooseModule.forRootAsync({
   useFactory: async () => {
-    // process.env.MAILER_API_KEY = 'api_key_mailgun';
-    // process.env.MAILER_DOMAIN = 'mailer_domain_mailgun';
     const uri = await mongod.getUri();
 
     return {
@@ -25,7 +23,6 @@ const dbFactory = MongooseModule.forRootAsync({
 
 describe('TracksService', () => {
   let service: TracksService;
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
