@@ -1,8 +1,8 @@
 import { Exclude, Expose } from 'class-transformer';
-import { IsAlphanumeric, MaxLength } from 'class-validator';
+import { IsAlphanumeric, IsMongoId, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
-import { BaseDto } from '~shared/models/dto/base.dto';
 import { PagedListDto } from '~shared/models/dto';
+import { BaseDto } from '~shared/models/dto/base.dto';
 
 @Exclude()
 export class TrackDto extends BaseDto {
@@ -13,5 +13,9 @@ export class TrackDto extends BaseDto {
   @MaxLength(columnSize.length128)
   @Expose()
   description: string;
+
+  @Expose()
+  @IsMongoId()
+  stage: string;
 }
 export class PagedTrackOutputDto extends PagedListDto(TrackDto) {}

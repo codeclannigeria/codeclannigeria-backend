@@ -16,6 +16,7 @@ import * as request from 'supertest';
 import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
+import { Stage } from '../src/stages/models/stage.entity.ts';
 import { CreateTrackDto } from '../src/tracks/models/dto/create-track.dto';
 import { Track } from '../src/tracks/models/track.entity';
 import { TracksModule } from '../src/tracks/tracks.module';
@@ -31,7 +32,9 @@ describe('TracksController (e2e)', () => {
   const validEmail = 'email@gmail.com';
   const validPass = 'pass@45Pdd';
   let currentUser: JwtPayload;
+  let stage: Stage;
   let TrackModel: ReturnModelType<typeof Track>;
+  let StageModel: ReturnModelType<typeof Stage>;
   const jwtGuard = {
     canActivate: (context: ExecutionContext): boolean => {
       const req = context.switchToHttp().getRequest();
@@ -75,6 +78,7 @@ describe('TracksController (e2e)', () => {
       useFindAndModify: false
     });
     TrackModel = getModelForClass(Track, { existingMongoose: mongo });
+    StageModel = getModelForClass(Stage, { existingMongoose: mongo });
     const UserModel = getModelForClass(User);
 
     const user = await UserModel.create({
@@ -83,6 +87,7 @@ describe('TracksController (e2e)', () => {
       lastName: 'lastName',
       password: validPass
     });
+
     currentUser = {
       email: user.email,
       userId: user.id,
@@ -94,7 +99,8 @@ describe('TracksController (e2e)', () => {
   describe('/tracks (POST)', () => {
     const input: CreateTrackDto = {
       title: 'Track1',
-      description: 'Description'
+      description: 'Description',
+      stage: ''
     };
     it('should return 401 if user not logged in', () => {
       return route.post('/tracks').send(input).expect(401);
@@ -111,6 +117,12 @@ describe('TracksController (e2e)', () => {
     });
     let track: Track;
     it('should return 201 if user role is permitted', async () => {
+      stage = await StageModel.create({
+        title: 'TITLE',
+        description: 'description',
+        taskCount: 2
+      });
+      input.stage = stage.id;
       currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/tracks').send(input).expect(201);
       track = await service.findById(body.id);

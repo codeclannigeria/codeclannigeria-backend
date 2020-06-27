@@ -21,4 +21,5 @@ describe('AppController (e2e)', () => {
   it('/ (GET)', () => {
     return route.get('/').expect(200);
   });
+  afterAll(async () => await app.close());
 });
