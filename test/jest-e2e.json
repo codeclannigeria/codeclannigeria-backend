@@ -1,6 +1,6 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "setupFilesAfterEnv": ["<rootDir>/test/setup.e2e.ts"],
+  "setupFilesAfterEnv": ["<rootDir>/test/helpers/setup.e2e.ts"],
   "coverageDirectory": "<rootDir>/coverage/e2e",
   "testEnvironment": "node",
   "collectCoverageFrom": ["<rootDir>/src/**"],

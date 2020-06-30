@@ -1,7 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 
-import { DbTest } from '../../test/db-test.module';
+import { DbTest } from '../../test/helpers/db-test.module';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
 import { TemporaryToken } from './models/temporary-token.entity';
