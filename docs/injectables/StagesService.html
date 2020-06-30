@@ -98,6 +98,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#insert">insert</a>
+                            </li>
+                            <li>
                                 <a href="#count">count</a>
                             </li>
                             <li>
@@ -205,12 +209,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>)</code>
+<code>constructor(entity: ReturnModelType<>, track: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/stages/stages.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/stages/stages.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -239,6 +243,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>track</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -253,6 +269,78 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="insert"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            insert
+                        </b>
+                        <a href="#insert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>insert(stage: <a href="../classes/Stage.html">Stage</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="20"
+                            class="link-to-prism">src/stages/stages.service.ts:20</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>stage</td>
+                                    <td>
+                                                <code><a href="../classes/Stage.html" target="_self" >Stage</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Stage.html" target="_self" >Promise&lt;DocumentType&lt;Stage&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -281,7 +369,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:183</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:178</a></code>
 </div>
                 </td>
             </tr>
@@ -363,7 +451,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:188</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:183</a></code>
 </div>
                 </td>
             </tr>
@@ -443,7 +531,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:37</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:33</a></code>
 </div>
                 </td>
             </tr>
@@ -519,7 +607,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:59</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:55</a></code>
 </div>
                 </td>
             </tr>
@@ -616,7 +704,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:73</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:69</a></code>
 </div>
                 </td>
             </tr>
@@ -696,7 +784,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:95</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:90</a></code>
 </div>
                 </td>
             </tr>
@@ -774,7 +862,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:102</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:97</a></code>
 </div>
                 </td>
             </tr>
@@ -850,7 +938,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:81</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:77</a></code>
 </div>
                 </td>
             </tr>
@@ -932,7 +1020,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:86</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:82</a></code>
 </div>
                 </td>
             </tr>
@@ -1014,7 +1102,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:40</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:36</a></code>
 </div>
                 </td>
             </tr>
@@ -1061,7 +1149,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:43</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:39</a></code>
 </div>
                 </td>
             </tr>
@@ -1106,7 +1194,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:116</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:111</a></code>
 </div>
                 </td>
             </tr>
@@ -1186,7 +1274,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:136</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:131</a></code>
 </div>
                 </td>
             </tr>
@@ -1262,7 +1350,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:109</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:104</a></code>
 </div>
                 </td>
             </tr>
@@ -1342,7 +1430,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:47</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:43</a></code>
 </div>
                 </td>
             </tr>
@@ -1420,7 +1508,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:51</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:47</a></code>
 </div>
                 </td>
             </tr>
@@ -1496,7 +1584,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:123</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:118</a></code>
 </div>
                 </td>
             </tr>
@@ -1578,7 +1666,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:128</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:123</a></code>
 </div>
                 </td>
             </tr>
@@ -1658,7 +1746,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:141</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:136</a></code>
 </div>
                 </td>
             </tr>
@@ -1736,7 +1824,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:154</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:149</a></code>
 </div>
                 </td>
             </tr>
@@ -1815,7 +1903,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:25</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:20</a></code>
 </div>
                 </td>
             </tr>
@@ -1894,7 +1982,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:29</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:25</a></code>
 </div>
                 </td>
             </tr>
@@ -1970,7 +2058,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:162</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:157</a></code>
 </div>
                 </td>
             </tr>
@@ -2060,7 +2148,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:175</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:170</a></code>
 </div>
                 </td>
             </tr>
@@ -2150,7 +2238,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:195</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:190</a></code>
 </div>
                 </td>
             </tr>
@@ -2210,7 +2298,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:21</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseService.html#source" target="_self" >BaseService:16</a></code>
 </div>
                             </td>
                         </tr>
@@ -2226,18 +2314,33 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Scope } from &#x27;@nestjs/common&#x27;;
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
-import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
+import { DocumentType, ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
+import { Track } from &#x27;../tracks/models/track.entity&#x27;;
 import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class StagesService extends BaseService&lt;Stage&gt; {
   constructor(
     @InjectModel(Stage.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Stage&gt;
+    protected readonly entity: ReturnModelType&lt;typeof Stage&gt;,
+    @InjectModel(Track.modelName)
+    protected readonly track: ReturnModelType&lt;typeof Track&gt;
   ) {
     super(entity);
+  }
+
+  async insert(stage: Stage): Promise&lt;DocumentType&lt;Stage&gt;&gt; {
+    const newStage &#x3D; await super.insert(stage);
+    const track &#x3D; newStage.track as any;
+    track.stages.push(newStage.id);
+    await this.track.findByIdAndUpdate(track.id, {
+      stages: track.stages,
+      updatedBy: this.getUserId()
+    });
+
+    return newStage;
   }
 }
 </code></pre>

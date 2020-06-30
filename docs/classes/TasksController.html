@@ -88,7 +88,15 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#assignTasks">assignTasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#create">create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#submitTask">submitTask</a>
                             </li>
                         </ul>
                     </td>
@@ -108,12 +116,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tasksService: <a href="../injectables/TasksService.html">TasksService</a>, stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
+<code>constructor(tasksService: <a href="../injectables/TasksService.html">TasksService</a>, stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>, userService: <a href="../injectables/UsersService.html">UsersService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/tasks/tasks.controller.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/tasks/tasks.controller.ts:40</a></div>
                             </td>
                         </tr>
 
@@ -166,6 +174,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -181,6 +201,85 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assignTasks"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            assignTasks
+                        </b>
+                        <a href="#assignTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assignTasks(input: <a href="../classes/AssignTasksDto.html">AssignTasksDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;assign&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBody({description: &#x27;Assigns task(s) to a user&#x27;, type: AssignTasksDto})<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="85"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:85</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/AssignTasksDto.html" target="_self" >AssignTasksDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -206,14 +305,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@ApiResponse({type: TaskDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Post()<br />@ApiResponse({type: TaskDto, status: undefined})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">src/tasks/tasks.controller.ts:51</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:59</a></div>
                 </td>
             </tr>
 
@@ -260,6 +359,85 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitTask"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            submitTask
+                        </b>
+                        <a href="#submitTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submitTask(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;:taskId/submit&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>taskId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -270,24 +448,28 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TracksService } from &#x27;./../tracks/tracks.service&#x27;;
-import { StagesService } from &#x27;./../stages/stages.service&#x27;;
-import {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   Body,
   ConflictException,
+  HttpCode,
   HttpStatus,
+  Inject,
+  NotFoundException,
+  Param,
   Post,
   UseGuards,
-  NotFoundException,
-  Inject
 } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { ApiBearerAuth, ApiBody, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { StagesService } from &#x27;../stages/stages.service&#x27;;
+import { TracksService } from &#x27;../tracks/tracks.service&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { UsersService } from &#x27;../users/users.service&#x27;;
+import { AssignTasksDto } from &#x27;./models/dtos/assign-tasks.dto&#x27;;
 import { CreateTaskDto } from &#x27;./models/dtos/create-task.dto&#x27;;
 import { PagedListTaskDto, TaskDto } from &#x27;./models/dtos/task.dto&#x27;;
 import { Task } from &#x27;./models/task.entity&#x27;;
@@ -299,7 +481,10 @@ const BaseCtrl &#x3D; BaseCrudController&lt;Task, TaskDto, CreateTaskDto&gt;({
   pagedListDto: PagedListTaskDto,
   entityDto: TaskDto,
   updateDto: CreateTaskDto,
-  auth: true
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  }
 });
 
 export class TasksController extends BaseCtrl {
@@ -308,14 +493,15 @@ export class TasksController extends BaseCtrl {
     @Inject(StagesService)
     private stageService: StagesService,
     @Inject(TracksService)
-    private trackService: TracksService
+    private trackService: TracksService,
+    @Inject(UsersService)
+    private userService: UsersService
   ) {
     super(tasksService);
   }
 
   @Post()
   @ApiResponse({ type: TaskDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiBearerAuth()
@@ -336,6 +522,44 @@ export class TasksController extends BaseCtrl {
     if (!track)
       throw new NotFoundException(&#x60;Track with ${input.track} not found&#x60;);
     return await super.create(input);
+  }
+
+  @Post(&#x27;assign&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiBody({ description: &#x27;Assigns task(s) to a user&#x27;, type: AssignTasksDto })
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async assignTasks(@Body() input: AssignTasksDto): Promise&lt;void&gt; {
+    const user &#x3D; await this.userService.findByIdAsync(input.userId);
+
+    if (!user)
+      throw new NotFoundException(&#x60;User with Id ${input.userId} not found&#x60;);
+
+    const taskCount &#x3D; await this.tasksService.countAsync({
+      _id: { $in: input.taskIdList }
+    });
+
+    if (taskCount !&#x3D;&#x3D; input.taskIdList.length)
+      throw new NotFoundException(&#x60;Not all task exist&#x60;);
+
+    await this.tasksService.assignTasks(input.userId, input.taskIdList);
+  }
+  @Post(&#x27;:taskId/submit&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async submitTask(@Param(&#x27;taskId&#x27;) taskId: string): Promise&lt;void&gt; {
+
+    const tasks &#x3D; await this.tasksService.getAssignedTasks();
+    const task &#x3D; tasks.find((x) &#x3D;&gt; x.id &#x3D;&#x3D;&#x3D; taskId);
+    if (!task) throw new NotFoundException(&#x60;Track with ${taskId} not found&#x60;);
+    await this.tasksService.submitTask(task);
   }
 }
 </code></pre>
