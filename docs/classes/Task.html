@@ -161,6 +161,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#complete">complete</a>
+                            </li>
+                            <li>
                                 <a href="#activate">activate</a>
                             </li>
                             <li>
@@ -219,7 +222,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/tasks/models/task.entity.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/tasks/models/task.entity.ts:41</a></div>
                             </td>
                         </tr>
 
@@ -256,7 +259,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/tasks/models/task.entity.ts:33</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/tasks/models/task.entity.ts:34</a></div>
                             </td>
                         </tr>
 
@@ -293,7 +296,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/tasks/models/task.entity.ts:54</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/tasks/models/task.entity.ts:55</a></div>
                             </td>
                         </tr>
 
@@ -315,7 +318,13 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>TaskStatus.NOT_SUBMITTED</code>
+                            <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >TaskStatus</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>TaskStatus.STARTED</code>
                         </td>
                     </tr>
                     <tr>
@@ -329,7 +338,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/tasks/models/task.entity.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/tasks/models/task.entity.ts:49</a></div>
                             </td>
                         </tr>
 
@@ -366,7 +375,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/tasks/models/task.entity.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/tasks/models/task.entity.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -403,7 +412,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/tasks/models/task.entity.ts:51</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/tasks/models/task.entity.ts:52</a></div>
                             </td>
                         </tr>
 
@@ -841,6 +850,45 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="complete"></a>
+                    <span class="name">
+                        <b>
+                            complete
+                        </b>
+                        <a href="#complete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>complete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/tasks/models/task.entity.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="activate"></a>
                     <span class="name">
                         <b>
@@ -1036,14 +1084,15 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { index, prop, Ref } from &#x27;@typegoose/typegoose&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
 import { BaseEntity } from &#x27;~shared/models/base.entity&#x27;;
+import { Writable } from &#x27;~shared/types/abstract.type&#x27;;
 
 import { Stage } from &#x27;../../stages/models/stage.entity.ts&#x27;;
 import { Track } from &#x27;../../tracks/models/track.entity&#x27;;
 
 export enum TaskStatus {
-  NOT_SUBMITTED &#x3D; &#x27;NOT_SUBMITTED&#x27;,
-  SUBMITTED &#x3D; &#x27;SUBMITTED&#x27;,
-  PENDING &#x3D; &#x27;PENDING&#x27;
+  STARTED &#x3D; &#x27;STARTED&#x27;,
+  UNCOMPLETED &#x3D; &#x27;UNCOMPLETED&#x27;,
+  COMPLETED &#x3D; &#x27;COMPLETED&#x27;
 }
 
 @index({ title: 1 }, { unique: true })
@@ -1078,15 +1127,19 @@ export class Task extends BaseEntity {
     enum: TaskStatus,
     type: String,
     required: true,
-    default: TaskStatus.NOT_SUBMITTED
+    default: TaskStatus.STARTED
   })
-  readonly status &#x3D; TaskStatus.NOT_SUBMITTED;
+  readonly status: TaskStatus &#x3D; TaskStatus.STARTED;
 
   @prop({ ref: Track, required: true })
   readonly track!: Ref&lt;Track&gt;;
 
   @prop({ ref: Stage, required: true })
   readonly stage!: Ref&lt;Stage&gt;;
+
+  complete(): void {
+    (this as Writable&lt;Task&gt;).status &#x3D; TaskStatus.COMPLETED;
+  }
 }
 </code></pre>
     </div>

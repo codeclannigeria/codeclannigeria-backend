@@ -4,6 +4,7 @@ import {
   index,
   pre,
   prop,
+  Ref,
   ReturnModelType
 } from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
@@ -13,6 +14,7 @@ import { Writable } from '~shared/types/abstract.type';
 
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
+import { Task } from '../../tasks/models/task.entity';
 
 export enum UserRole {
   MENTEE = 'MENTEE',
@@ -72,6 +74,8 @@ export class User extends BaseEntity {
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
+  @prop({ ref: 'Task', required: true })
+  readonly tasks!: Ref<Task>[];
   /**
    * Get User's full name
    *
@@ -89,6 +93,7 @@ export class User extends BaseEntity {
   confirmEmail(): void {
     (this as Writable<User>).isEmailVerified = true;
   }
+
   static get model(): ReturnModelType<typeof User> {
     return getModelForClass(this);
   }

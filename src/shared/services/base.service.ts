@@ -1,9 +1,4 @@
-import {
-  Inject,
-  InternalServerErrorException,
-  Logger,
-  Optional
-} from '@nestjs/common';
+import { Inject, InternalServerErrorException, Logger, Optional } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
@@ -20,9 +15,10 @@ export abstract class BaseService<T extends BaseEntity> {
   @Inject(REQUEST)
   protected readonly req: Request;
 
-  constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) {}
+  constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) { }
 
   protected static throwMongoError(err: MongoError): void {
+    Logger.error(err)
     throw new InternalServerErrorException(err, err.errmsg);
   }
 
@@ -52,10 +48,10 @@ export abstract class BaseService<T extends BaseEntity> {
     try {
       return await this.insert(entity);
     } catch (e) {
-      Logger.error(e);
       BaseService.throwMongoError(e);
     }
   }
+
   findAll(filter = {}, opts = {}): QueryList<T> {
     if (filter.hasOwnProperty('id')) {
       Object.defineProperty(
@@ -87,7 +83,6 @@ export abstract class BaseService<T extends BaseEntity> {
     try {
       return await this.findOne(filter).exec();
     } catch (e) {
-      Logger.error(e);
       BaseService.throwMongoError(e);
     }
   }

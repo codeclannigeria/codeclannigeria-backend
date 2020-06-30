@@ -108,12 +108,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(stageService: <a href="../injectables/StagesService.html">StagesService</a>)</code>
+<code>constructor(stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/stages/stages.controller.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/stages/stages.controller.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -135,6 +135,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/StagesService.html" target="_self" >StagesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>trackService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TracksService.html" target="_self" >TracksService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -188,8 +200,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/stages/stages.controller.ts:44</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/stages/stages.controller.ts:43</a></div>
                 </td>
             </tr>
 
@@ -246,19 +258,14 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Body,
-  ConflictException,
-  HttpStatus,
-  Post,
-  UseGuards
-} from &#x27;@nestjs/common&#x27;;
-import { ApiResponse, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, ConflictException, HttpStatus, Inject, NotFoundException, Post, UseGuards } from &#x27;@nestjs/common&#x27;;
+import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { TracksService } from &#x27;../tracks/tracks.service&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
 import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto.ts&#x27;;
 import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto.ts&#x27;;
@@ -278,7 +285,11 @@ const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;(
 });
 
 export class StagesController extends BaseCtrl {
-  constructor(protected stageService: StagesService) {
+  constructor(
+    protected stageService: StagesService,
+    @Inject(TracksService)
+    private trackService: TracksService
+  ) {
     super(stageService);
   }
 
@@ -290,14 +301,22 @@ export class StagesController extends BaseCtrl {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   @ApiBearerAuth()
   async create(@Body() input: CreateStageDto): Promise&lt;StageDto&gt; {
-    const exist &#x3D; await this.stageService.findOneAsync({
+    const track &#x3D; await this.trackService.findByIdAsync(input.track);
+    if (!track) {
+      throw new NotFoundException(
+        &#x60;Track with id ${input.track} does not exist&#x60;
+      );
+    }
+
+    const stage &#x3D; await this.stageService.findOneAsync({
       title: input.title.toUpperCase()
     });
-    if (exist)
+    if (stage) {
       throw new ConflictException(
-        &#x60;Stage with the title &quot;${exist.title}&quot; already exists&#x60;
+        &#x60;Stage with the title &quot;${stage.title}&quot; already exists&#x60;
       );
-    return super.create(input);
+    }
+    return await super.create(input);
   }
 }
 </code></pre>

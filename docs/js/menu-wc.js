@@ -220,13 +220,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/StagesModule.html" data-type="entity-link">StagesModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-StagesModule-94947366e9492106c1eb06a1bb8717e1"' : 'data-target="#xs-injectables-links-module-StagesModule-94947366e9492106c1eb06a1bb8717e1"' }>
+                                        'data-target="#injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' : 'data-target="#xs-injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-StagesModule-94947366e9492106c1eb06a1bb8717e1"' :
-                                        'id="xs-injectables-links-module-StagesModule-94947366e9492106c1eb06a1bb8717e1"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' :
+                                        'id="xs-injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' }>
                                         <li class="link">
                                             <a href="injectables/StagesService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>StagesService</a>
@@ -238,13 +238,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/TasksModule.html" data-type="entity-link">TasksModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-TasksModule-3542a6d3f61e357057b06805f3d1b8bd"' : 'data-target="#xs-injectables-links-module-TasksModule-3542a6d3f61e357057b06805f3d1b8bd"' }>
+                                        'data-target="#injectables-links-module-TasksModule-20a384b63f8ea1051137768226a8f10c"' : 'data-target="#xs-injectables-links-module-TasksModule-20a384b63f8ea1051137768226a8f10c"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TasksModule-3542a6d3f61e357057b06805f3d1b8bd"' :
-                                        'id="xs-injectables-links-module-TasksModule-3542a6d3f61e357057b06805f3d1b8bd"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TasksModule-20a384b63f8ea1051137768226a8f10c"' :
+                                        'id="xs-injectables-links-module-TasksModule-20a384b63f8ea1051137768226a8f10c"' }>
                                         <li class="link">
                                             <a href="injectables/TasksService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>TasksService</a>
@@ -303,6 +303,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/ApiException.html" data-type="entity-link">ApiException</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/AssignTasksDto.html" data-type="entity-link">AssignTasksDto</a>
                             </li>
                             <li class="link">
                                 <a href="classes/BaseDto.html" data-type="entity-link">BaseDto</a>

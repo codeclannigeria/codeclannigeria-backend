@@ -8,7 +8,7 @@ import { ResetPassInput } from '../src/auth/models/dto/reset-pw.dto';
 import { ValidateTokenInput } from '../src/auth/models/dto/validate-token.dto';
 import { MailService } from '../src/shared/mail/mail.service';
 import { RegisterUserDto } from '../src/users/models/dto/register-user.dto';
-import { DbTest } from './db-test.module';
+import { DbTest } from './helpers/db-test.module';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

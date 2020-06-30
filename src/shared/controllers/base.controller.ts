@@ -81,7 +81,10 @@ export function BaseCrudController<
     async create(@Body() input: TCreateDto) {
       const entity = this.service.createEntity(input);
       await this.service.insertAsync(entity);
-      return plainToClass(EntityDto, entity);
+      return plainToClass(EntityDto, entity, {
+        enableImplicitConversion: true,
+        excludeExtraneousValues: true
+      });
     }
 
     @Get()
@@ -102,7 +105,10 @@ export function BaseCrudController<
         .skip(skip);
 
       const totalCount = await this.service.countAsync();
-      const items = plainToClass(EntityDto, entities);
+      const items = plainToClass(EntityDto, entities, {
+        enableImplicitConversion: true,
+        excludeExtraneousValues: true
+      });
       return { totalCount, items };
     }
 
@@ -117,7 +123,10 @@ export function BaseCrudController<
       const entity = await this.service.findByIdAsync(id);
       if (!entity)
         throw new NotFoundException(`Entity with id ${id} does not exist`);
-      return plainToClass(EntityDto, entity);
+      return plainToClass(EntityDto, entity, {
+        enableImplicitConversion: true,
+        excludeExtraneousValues: true
+      });
     }
 
     @Put(':id')
@@ -139,7 +148,10 @@ export function BaseCrudController<
       });
       const toBeUpdatedEntity = { ...value, ...input };
       const result = await this.service.updateAsync(id, toBeUpdatedEntity);
-      return plainToClass(EntityDto, result);
+      return plainToClass(EntityDto, result, {
+        enableImplicitConversion: true,
+        excludeExtraneousValues: true
+      });
     }
 
     @Delete(':id')

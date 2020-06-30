@@ -79,10 +79,10 @@
                             <a href="#BaseCtrl" title="src/tasks/tasks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tasks.controller.ts)</a>
                         </li>
                         <li>
-                            <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
+                            <a href="#BaseCtrl" title="src/tracks/tracks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.controller.ts)</a>
                         </li>
                         <li>
-                            <a href="#BaseCtrl" title="src/tracks/tracks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.controller.ts)</a>
+                            <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
                         </li>
                         <li>
                             <a href="#baseService" title="src/stages/stages.module.ts"><b>baseService</b>&nbsp;&nbsp;&nbsp;(src/.../stages.module.ts)</a>
@@ -112,10 +112,10 @@
                             <a href="#Database" title="src/app.module.ts"><b>Database</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#dbFactory" title="test/db-test.module.ts"><b>dbFactory</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
+                            <a href="#dbFactory" title="test/helpers/db-test.module.ts"><b>dbFactory</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
-                            <a href="#dbServer" title="test/db-test.module.ts"><b>dbServer</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
+                            <a href="#dbServer" title="test/helpers/db-test.module.ts"><b>dbServer</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
                             <a href="#defaultAuth" title="src/shared/utils/get-auth-obj.util.ts"><b>defaultAuth</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
@@ -130,7 +130,7 @@
                             <a href="#getAuthObj" title="src/shared/utils/get-auth-obj.util.ts"><b>getAuthObj</b>&nbsp;&nbsp;&nbsp;(src/.../get-auth-obj.util.ts)</a>
                         </li>
                         <li>
-                            <a href="#inMemoryDb" title="test/db-test.module.ts"><b>inMemoryDb</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
+                            <a href="#inMemoryDb" title="test/helpers/db-test.module.ts"><b>inMemoryDb</b>&nbsp;&nbsp;&nbsp;(test/.../db-test.module.ts)</a>
                         </li>
                         <li>
                             <a href="#module" title="src/main.ts"><b>module</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
@@ -422,7 +422,44 @@
   pagedListDto: PagedListTaskDto,
   entityDto: TaskDto,
   updateDto: CreateTaskDto,
-  auth: true
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  }
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/tracks/tracks.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;({
+  entity: Track,
+  entityDto: TrackDto,
+  createDto: CreateTrackDto,
+  updateDto: CreateTrackDto,
+  pagedListDto: PagedTrackOutputDto,
+  auth: {
+    update: [UserRole.ADMIN, UserRole.MENTOR],
+    delete: [UserRole.ADMIN, UserRole.MENTOR]
+  }
 })</code>
                         </td>
                     </tr>
@@ -458,40 +495,6 @@
     findById: [UserRole.ADMIN],
     update: [UserRole.ADMIN],
     delete: [UserRole.ADMIN]
-  }
-})</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-</section>
-    <h3>src/tracks/tracks.controller.ts</h3>
-    <section>
-    <h3></h3>        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="BaseCtrl"></a>
-                        <span class="name">
-                            <b>
-                            BaseCtrl</b>
-                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;({
-  entity: Track,
-  entityDto: TrackDto,
-  createDto: CreateTrackDto,
-  updateDto: CreateTrackDto,
-  pagedListDto: PagedTrackOutputDto,
-  auth: {
-    update: [UserRole.ADMIN, UserRole.MENTOR],
-    delete: [UserRole.ADMIN, UserRole.MENTOR]
   }
 })</code>
                         </td>
@@ -804,7 +807,7 @@
             </tbody>
         </table>
 </section>
-    <h3>test/db-test.module.ts</h3>
+    <h3>test/helpers/db-test.module.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>

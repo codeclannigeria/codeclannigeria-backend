@@ -45,6 +45,7 @@ export class CategoriesController extends BaseCtrl {
     const exist = await this.categoryService.findOneAsync({
       title: input.name.toUpperCase()
     });
+
     if (exist)
       throw new ConflictException(
         `Category with the name "${exist.name}" already exists`

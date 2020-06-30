@@ -1,14 +1,15 @@
 import { index, prop, Ref } from '@typegoose/typegoose';
 import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
+import { Writable } from '~shared/types/abstract.type';
 
 import { Stage } from '../../stages/models/stage.entity.ts';
 import { Track } from '../../tracks/models/track.entity';
 
 export enum TaskStatus {
-  NOT_SUBMITTED = 'NOT_SUBMITTED',
-  SUBMITTED = 'SUBMITTED',
-  PENDING = 'PENDING'
+  STARTED = 'STARTED',
+  UNCOMPLETED = 'UNCOMPLETED',
+  COMPLETED = 'COMPLETED'
 }
 
 @index({ title: 1 }, { unique: true })
@@ -43,13 +44,17 @@ export class Task extends BaseEntity {
     enum: TaskStatus,
     type: String,
     required: true,
-    default: TaskStatus.NOT_SUBMITTED
+    default: TaskStatus.STARTED
   })
-  readonly status = TaskStatus.NOT_SUBMITTED;
+  readonly status: TaskStatus = TaskStatus.STARTED;
 
   @prop({ ref: Track, required: true })
   readonly track!: Ref<Track>;
 
   @prop({ ref: Stage, required: true })
   readonly stage!: Ref<Stage>;
+
+  complete(): void {
+    (this as Writable<Task>).status = TaskStatus.COMPLETED;
+  }
 }
