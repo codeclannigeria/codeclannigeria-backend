@@ -1,12 +1,4 @@
-import {
-  Body,
-  ConflictException,
-  HttpStatus,
-  Inject,
-  NotFoundException,
-  Post,
-  UseGuards
-} from '@nestjs/common';
+import { Body, ConflictException, HttpStatus, Inject, NotFoundException, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
@@ -19,7 +11,6 @@ import { CreateStageDto } from './models/dtos/create-stage.dto.ts';
 import { PagedListStageDto, StageDto } from './models/dtos/stage.dto.ts';
 import { Stage } from './models/stage.entity.ts';
 import { StagesService } from './stages.service';
-import { plainToClass } from 'class-transformer';
 
 const BaseCtrl = BaseCrudController<Stage, StageDto, CreateStageDto>({
   entity: Stage,

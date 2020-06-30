@@ -1,4 +1,3 @@
-import { TaskStatus } from './../src/tasks/models/task.entity';
 import { ExecutionContext, INestApplication, UnauthorizedException, ValidationPipe } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -15,8 +14,8 @@ import { Task } from '../src/tasks/models/task.entity';
 import { TasksModule } from '../src/tasks/tasks.module';
 import { TasksService } from '../src/tasks/tasks.service';
 import { Track } from '../src/tracks/models/track.entity';
-import { CreateUserDto } from '../src/users/models/dto/create-user.dto';
 import { User, UserRole } from '../src/users/models/user.entity';
+import { TaskStatus } from './../src/tasks/models/task.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('TasksController (e2e)', () => {

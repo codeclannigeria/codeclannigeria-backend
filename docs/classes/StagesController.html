@@ -113,7 +113,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/stages/stages.controller.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/stages/stages.controller.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -200,8 +200,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">src/stages/stages.controller.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/stages/stages.controller.ts:43</a></div>
                 </td>
             </tr>
 
@@ -258,15 +258,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Body,
-  ConflictException,
-  HttpStatus,
-  Inject,
-  NotFoundException,
-  Post,
-  UseGuards
-} from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, ConflictException, HttpStatus, Inject, NotFoundException, Post, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
@@ -279,7 +271,6 @@ import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto.ts&#x27;;
 import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto.ts&#x27;;
 import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
 import { StagesService } from &#x27;./stages.service&#x27;;
-import { plainToClass } from &#x27;class-transformer&#x27;;
 
 const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
   entity: Stage,
