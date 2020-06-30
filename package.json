@@ -13,7 +13,7 @@
     "start:watch": "nest start --watch",
     "start:clean": "npm run prebuild && npm run start:hmr",
     "start:hmr": "nest build --webpack --webpackPath webpack-hmr.config.js",
-    "start": "node -r ./tsconfig-paths-bootstrap.js dist/main",
+    "start": "node -r ./tsconfig-paths-bootstrap.js dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest  --runInBand --detectOpenHandles",
     "doc": "npx compodoc -p tsconfig.json -d \"docs\"",
