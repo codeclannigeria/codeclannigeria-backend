@@ -1,10 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  OnModuleInit
-} from '@nestjs/common';
-import { Client, ClientRedis, Transport } from '@nestjs/microservices';
+import { HttpException, HttpStatus, Injectable, Scope } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import configuration from '~shared/config/configuration';
@@ -13,41 +7,39 @@ import { generateRandomToken } from '~shared/utils/random-token';
 
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
-import { AuthEventEnum } from './models/auth.enums';
 import { JwtPayload } from './models/jwt-payload';
 import { TokenType } from './models/temporary-token.entity';
 import { TempTokensService } from './temp-token.service';
 
 @Injectable()
-export class AuthService implements OnModuleInit {
+export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly tokenService: TempTokensService
-  ) {}
-  @Client({ transport: Transport.REDIS })
-  private client: ClientRedis;
-
-  async onModuleInit(): Promise<void> {
-    // Connect your client to the redis server on startup.
-    try {
-      // await this.client.connect();
-    } catch (error) {
-      //Logger.error(error);
-    }
-  }
+  ) { }
   async validateUser(email: string, pw: string): Promise<User> {
     const user = await this.usersService.findOneAsync({
       email: email?.toLowerCase()
     });
+    if (user.loginAttemptCount >= 3) {
+      throw new HttpException(
+        { message: 'User is locked out', errorType: 'USER_LOCKED_OUT' },
+        HttpStatus.UNAUTHORIZED
+      );
+    }
     if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
-    if (!user.isEmailVerified)
+    if (!user.isEmailVerified) {
       throw new HttpException(
         { message: 'Unconfirmed Email', errorType: 'UNCONFIRMED_EMAIL' },
         HttpStatus.UNAUTHORIZED
       );
+    }
+    await this.usersService.incrementLoginAttempt(user.id);
     const isValid = await bcrypt.compare(pw, user.password);
-    if (!isValid) throw authErrors.INVALID_LOGIN_ATTEMPT;
-
+    if (!isValid) {
+      throw authErrors.INVALID_LOGIN_ATTEMPT;
+    }
+    await this.usersService.resetLoginAttempt(user.id)
     return user;
   }
 
@@ -62,9 +54,6 @@ export class AuthService implements OnModuleInit {
     return jwt.sign(payload, jwtSecret, { expiresIn });
   }
 
-  async pub(): Promise<void> {
-    this.client.emit(AuthEventEnum.UserRegistered, 'email');
-  }
 
   async generateTempToken({
     user,

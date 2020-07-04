@@ -181,7 +181,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/users/models/dto/user.dto.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/users/models/dto/user.dto.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -326,7 +326,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/users/models/dto/user.dto.ts:36</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/users/models/dto/user.dto.ts:38</a></div>
                             </td>
                         </tr>
 
@@ -364,7 +364,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/users/models/dto/user.dto.ts:47</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/users/models/dto/user.dto.ts:50</a></div>
                             </td>
                         </tr>
 
@@ -444,7 +444,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/users/models/dto/user.dto.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/users/models/dto/user.dto.ts:54</a></div>
                             </td>
                         </tr>
 
@@ -481,7 +481,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/users/models/dto/user.dto.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/users/models/dto/user.dto.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -645,29 +645,32 @@ export class UserDto extends BaseDto {
   @Expose()
   @MaxLength(columnSize.length64)
   firstName: string;
-  @Expose()
 
+  @Expose()
   @MaxLength(columnSize.length64)
   lastName: string;
-  @Expose()
 
+  @Expose()
   @MaxLength(columnSize.length64)
   @IsEmail()
   email: string;
-  @Expose()
 
+  @Expose()
   @IsEnum(UserRole)
   @ApiProperty({ enum: UserRole })
   role?: UserRole &#x3D; UserRole.MENTEE;
+
   @Expose()
   @IsOptional()
   @MaxLength(columnSize.length128)
   description?: string;
+
   @Expose()
   @IsPhoneNumber(&quot;ZZ&quot;, { message: &#x27;Invalid phone number. Valid phone number sample +2347063644568&#x27; })
   @MaxLength(columnSize.length64)
   @IsOptional()
   phoneNumber?: string;
+
   @Expose()
   @IsArray()
   @Length(1, columnSize.length32, { each: true })
@@ -679,6 +682,7 @@ export class UserDto extends BaseDto {
   @Expose()
   @IsOptional()
   readonly photoUrl?: string;
+
   @ApiProperty({ readOnly: true })
   @Expose()
   readonly tasks?: any[];

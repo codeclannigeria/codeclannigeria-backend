@@ -11,29 +11,32 @@ export class UserDto extends BaseDto {
   @Expose()
   @MaxLength(columnSize.length64)
   firstName: string;
-  @Expose()
 
+  @Expose()
   @MaxLength(columnSize.length64)
   lastName: string;
-  @Expose()
 
+  @Expose()
   @MaxLength(columnSize.length64)
   @IsEmail()
   email: string;
-  @Expose()
 
+  @Expose()
   @IsEnum(UserRole)
   @ApiProperty({ enum: UserRole })
   role?: UserRole = UserRole.MENTEE;
+
   @Expose()
   @IsOptional()
   @MaxLength(columnSize.length128)
   description?: string;
+
   @Expose()
   @IsPhoneNumber("ZZ", { message: 'Invalid phone number. Valid phone number sample +2347063644568' })
   @MaxLength(columnSize.length64)
   @IsOptional()
   phoneNumber?: string;
+
   @Expose()
   @IsArray()
   @Length(1, columnSize.length32, { each: true })
@@ -45,6 +48,7 @@ export class UserDto extends BaseDto {
   @Expose()
   @IsOptional()
   readonly photoUrl?: string;
+
   @ApiProperty({ readOnly: true })
   @Expose()
   readonly tasks?: any[];
