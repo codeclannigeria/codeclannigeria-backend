@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Scope } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import configuration from '~shared/config/configuration';
