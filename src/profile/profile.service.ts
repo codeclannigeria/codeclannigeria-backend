@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import * as cloudinary from 'cloudinary';
-import DataUri = require('datauri/parser');
+import DataURIParser = require('datauri/parser');
 import configuration from '~shared/config/configuration';
 
 import { User } from '../users/models/user.entity';
@@ -23,7 +23,7 @@ export class ProfileService {
         this.uploader = cloudinary.v2.uploader
     }
     async uploadAvatar(file: any, userId: string): Promise<void> {
-        const dataUri = new DataUri();
+        const dataUri = new DataURIParser()
         const { content } = dataUri.format(`.${file.originalname.split('.')[0]}`, file.buffer)
         const { secure_url } = await this.uploader.upload(content, { discard_original_filename: true, folder: 'ccn/avatars', public_id: userId });
 
