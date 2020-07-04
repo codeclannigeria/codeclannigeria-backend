@@ -8,6 +8,12 @@ interface Mailer {
   key: string;
   domain: string;
 }
+interface Cloudinary {
+  key: string;
+  secret: string;
+  name: string;
+
+}
 interface Configuration {
   port: number;
   jwtSecret: string;
@@ -19,6 +25,7 @@ interface Configuration {
   isAuthEnabled: boolean;
   appEmail: string;
   mailer: Mailer;
+  cloudinary: Cloudinary
 }
 
 export default (): Configuration => ({
@@ -39,5 +46,10 @@ export default (): Configuration => ({
     port: +process.env.DATABASE_PORT,
     name: process.env.DATABASE_NAME,
     uri: process.env.MONGODB_URI
+  },
+  cloudinary: {
+    secret: process.env.CLOUDINARY_API_SECRET,
+    key: process.env.CLOUDINARY_API_KEY,
+    name: process.env.CLOUDINARY_NAME
   }
 });

@@ -58,6 +58,9 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#ApiFile" title="src/shared/decorators/file-upload.decorator.ts"><b>ApiFile</b>&nbsp;&nbsp;&nbsp;(src/.../file-upload.decorator.ts)</a>
+                        </li>
+                        <li>
                             <a href="#ApiSwaggerOperation" title="src/shared/decorators/api-swagger-operation.decorator.ts"><b>ApiSwaggerOperation</b>&nbsp;&nbsp;&nbsp;(src/.../api-swagger-operation.decorator.ts)</a>
                         </li>
                         <li>
@@ -73,6 +76,9 @@
                             <a href="#BaseCtrl" title="src/categories/categories.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../categories.controller.ts)</a>
                         </li>
                         <li>
+                            <a href="#BaseCtrl" title="src/stages/stages.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../stages.controller.ts)</a>
+                        </li>
+                        <li>
                             <a href="#BaseCtrl" title="src/tasks/tasks.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../tasks.controller.ts)</a>
                         </li>
                         <li>
@@ -82,16 +88,13 @@
                             <a href="#BaseCtrl" title="src/users/users.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../users.controller.ts)</a>
                         </li>
                         <li>
-                            <a href="#BaseCtrl" title="src/stages/stages.controller.ts"><b>BaseCtrl</b>&nbsp;&nbsp;&nbsp;(src/.../stages.controller.ts)</a>
+                            <a href="#baseService" title="src/stages/stages.module.ts"><b>baseService</b>&nbsp;&nbsp;&nbsp;(src/.../stages.module.ts)</a>
                         </li>
                         <li>
                             <a href="#baseService" title="src/tasks/tasks.module.ts"><b>baseService</b>&nbsp;&nbsp;&nbsp;(src/.../tasks.module.ts)</a>
                         </li>
                         <li>
                             <a href="#baseService" title="src/tracks/tracks.module.ts"><b>baseService</b>&nbsp;&nbsp;&nbsp;(src/.../tracks.module.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#baseService" title="src/stages/stages.module.ts"><b>baseService</b>&nbsp;&nbsp;&nbsp;(src/.../stages.module.ts)</a>
                         </li>
                         <li>
                             <a href="#CategoryModel" title="src/categories/categories.module.ts"><b>CategoryModel</b>&nbsp;&nbsp;&nbsp;(src/.../categories.module.ts)</a>
@@ -157,6 +160,49 @@
     </table>
 </section>
 
+    <h3>src/shared/decorators/file-upload.decorator.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ApiFile"></a>
+                        <span class="name">
+                            <b>
+                            ApiFile</b>
+                            <a href="#ApiFile"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(fileName &#x3D; &#x27;file&#x27;, description?: string): MethodDecorator &#x3D;&gt; (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+) &#x3D;&gt; {
+    ApiBody({
+        required: true,
+        description,
+        schema: {
+            type: &#x27;object&#x27;,
+            required: [&#x27;true&#x27;],
+            properties: {
+                [fileName]: {
+                    type: &#x27;string&#x27;,
+                    format: &#x27;binary&#x27;,
+                },
+            },
+        },
+    })(target, propertyKey, descriptor);
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/shared/decorators/api-swagger-operation.decorator.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
@@ -366,6 +412,40 @@
             </tbody>
         </table>
 </section>
+    <h3>src/stages/stages.controller.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="BaseCtrl"></a>
+                        <span class="name">
+                            <b>
+                            BaseCtrl</b>
+                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
+  entity: Stage,
+  entityDto: StageDto,
+  createDto: CreateStageDto,
+  updateDto: CreateStageDto,
+  pagedListDto: PagedListStageDto,
+  auth: {
+    update: [UserRole.ADMIN],
+    delete: [UserRole.ADMIN]
+  }
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
     <h3>src/tasks/tasks.controller.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
@@ -470,33 +550,52 @@
             </tbody>
         </table>
 </section>
-    <h3>src/stages/stages.controller.ts</h3>
+    <h3>src/stages/stages.module.ts</h3>
     <section>
     <h3></h3>        <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="BaseCtrl"></a>
+                        <a name="baseService"></a>
                         <span class="name">
                             <b>
-                            BaseCtrl</b>
-                            <a href="#BaseCtrl"><span class="icon ion-ios-link"></span></a>
+                            baseService</b>
+                            <a href="#baseService"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
-  entity: Stage,
-  entityDto: StageDto,
-  createDto: CreateStageDto,
-  updateDto: CreateStageDto,
-  pagedListDto: PagedListStageDto,
-  auth: {
-    update: [UserRole.ADMIN],
-    delete: [UserRole.ADMIN]
-  }
-})</code>
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{ provide: BaseService, useClass: StagesService }</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="StageModel"></a>
+                        <span class="name">
+                            <b>
+                            StageModel</b>
+                            <a href="#StageModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>MongooseModule.forFeature([
+  { name: Stage.modelName, schema: Stage.schema }
+])</code>
                         </td>
                     </tr>
 
@@ -602,59 +701,6 @@
                         <td class="col-md-4">
                             <i>Default value : </i><code>MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
-])</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-</section>
-    <h3>src/stages/stages.module.ts</h3>
-    <section>
-    <h3></h3>        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="baseService"></a>
-                        <span class="name">
-                            <b>
-                            baseService</b>
-                            <a href="#baseService"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>{ provide: BaseService, useClass: StagesService }</code>
-                        </td>
-                    </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="StageModel"></a>
-                        <span class="name">
-                            <b>
-                            StageModel</b>
-                            <a href="#StageModel"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>MongooseModule.forFeature([
-  { name: Stage.modelName, schema: Stage.schema }
 ])</code>
                         </td>
                     </tr>
@@ -1042,7 +1088,10 @@
     MAILER_API_KEY: Joi.string().required(),
     MAILER_DOMAIN: Joi.string().required(),
     API_AUTH_ENABLED: Joi.string().valid(&#x27;true&#x27;, &#x27;false&#x27;).default(&#x27;true&#x27;),
-    APP_EMAIL: Joi.string().email().required()
+    APP_EMAIL: Joi.string().email().required(),
+    CLOUDINARY_API_KEY: Joi.string().required(),
+    CLOUDINARY_API_SECRET: Joi.string().required(),
+    CLOUDINARY_NAME: Joi.string().required()
   });
 }</code>
                         </td>

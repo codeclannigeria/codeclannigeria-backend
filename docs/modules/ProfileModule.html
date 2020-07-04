@@ -63,61 +63,73 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_ProfileModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="112,-70 112,-268 384,-268 384,-70 112,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="37,-70 37,-268 459,-268 459,-70 37,-70"/>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_ProfileModule_imports</title>
-<polygon fill="none" stroke="#000000" points="268,-78 268,-130 376,-130 376,-78 268,-78"/>
+<polygon fill="none" stroke="#000000" points="343,-78 343,-130 451,-130 451,-78 343,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_ProfileModule_exports</title>
-<polygon fill="none" stroke="#000000" points="200,-208 200,-260 310,-260 310,-208 200,-208"/>
+<polygon fill="none" stroke="#000000" points="203,-208 203,-260 319,-260 319,-208 203,-208"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_ProfileModule_providers</title>
-<polygon fill="none" stroke="#000000" points="120,-78 120,-130 260,-130 260,-78 120,-78"/>
+<polygon fill="none" stroke="#000000" points="45,-78 45,-130 335,-130 335,-78 45,-78"/>
 </g>
 <!-- UsersModule -->
 <g id="node1" class="node">
 <title>UsersModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="367.9218,-122 364.9218,-126 343.9218,-126 340.9218,-122 276.0782,-122 276.0782,-86 367.9218,-86 367.9218,-122"/>
-<text text-anchor="middle" x="322" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="442.9218,-122 439.9218,-126 418.9218,-126 415.9218,-122 351.0782,-122 351.0782,-86 442.9218,-86 442.9218,-122"/>
+<text text-anchor="middle" x="397" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersModule</text>
 </g>
 <!-- ProfileModule -->
 <g id="node2" class="node">
 <title>ProfileModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="303.65,-187 300.65,-191 279.65,-191 276.65,-187 206.35,-187 206.35,-151 303.65,-151 303.65,-187"/>
-<text text-anchor="middle" x="255" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfileModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="309.65,-187 306.65,-191 285.65,-191 282.65,-187 212.35,-187 212.35,-151 309.65,-151 309.65,-187"/>
+<text text-anchor="middle" x="261" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfileModule</text>
 </g>
 <!-- UsersModule&#45;&gt;ProfileModule -->
 <g id="edge1" class="edge">
 <title>UsersModule&#45;&gt;ProfileModule</title>
-<path fill="none" stroke="#000000" d="M290.0572,-122.1061C290.0572,-122.1061 290.0572,-140.991 290.0572,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="286.5572,-140.9909 290.0572,-150.991 293.5572,-140.991 286.5572,-140.9909"/>
+<path fill="none" stroke="#000000" d="M397,-122.1061C397,-141.3391 397,-169 397,-169 397,-169 319.715,-169 319.715,-169"/>
+<polygon fill="#000000" stroke="#000000" points="319.715,-165.5001 309.715,-169 319.715,-172.5001 319.715,-165.5001"/>
 </g>
-<!-- UsersService  -->
+<!-- ProfileService  -->
 <g id="node3" class="node">
-<title>UsersService </title>
-<polygon fill="#fb8072" stroke="#000000" points="301.8493,-252 208.1507,-252 208.1507,-216 301.8493,-216 301.8493,-252"/>
-<text text-anchor="middle" x="255" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersService </text>
+<title>ProfileService </title>
+<polygon fill="#fb8072" stroke="#000000" points="310.5781,-252 211.4219,-252 211.4219,-216 310.5781,-216 310.5781,-252"/>
+<text text-anchor="middle" x="261" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfileService </text>
 </g>
-<!-- ProfileModule&#45;&gt;UsersService  -->
+<!-- ProfileModule&#45;&gt;ProfileService  -->
 <g id="edge2" class="edge">
-<title>ProfileModule&#45;&gt;UsersService </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M255,-187.1061C255,-187.1061 255,-205.991 255,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="251.5001,-205.9909 255,-215.991 258.5001,-205.991 251.5001,-205.9909"/>
+<title>ProfileModule&#45;&gt;ProfileService </title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M261,-187.1061C261,-187.1061 261,-205.991 261,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="257.5001,-205.9909 261,-215.991 264.5001,-205.991 257.5001,-205.9909"/>
+</g>
+<!-- ProfileService -->
+<g id="node4" class="node">
+<title>ProfileService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="261" cy="-104" rx="66.0454" ry="18"/>
+<text text-anchor="middle" x="261" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfileService</text>
+</g>
+<!-- ProfileService&#45;&gt;ProfileModule -->
+<g id="edge3" class="edge">
+<title>ProfileService&#45;&gt;ProfileModule</title>
+<path fill="none" stroke="#000000" d="M261,-122.1061C261,-122.1061 261,-140.991 261,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="257.5001,-140.9909 261,-150.991 264.5001,-140.991 257.5001,-140.9909"/>
 </g>
 <!-- UsersService -->
-<g id="node4" class="node">
+<g id="node5" class="node">
 <title>UsersService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="190" cy="-104" rx="61.9519" ry="18"/>
-<text text-anchor="middle" x="190" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersService</text>
+<ellipse fill="#fdb462" stroke="#000000" cx="115" cy="-104" rx="61.9519" ry="18"/>
+<text text-anchor="middle" x="115" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersService</text>
 </g>
 <!-- UsersService&#45;&gt;ProfileModule -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>UsersService&#45;&gt;ProfileModule</title>
-<path fill="none" stroke="#000000" d="M229.0756,-118.104C229.0756,-118.104 229.0756,-140.7209 229.0756,-140.7209"/>
-<polygon fill="#000000" stroke="#000000" points="225.5757,-140.7209 229.0756,-150.7209 232.5757,-140.7209 225.5757,-140.7209"/>
+<path fill="none" stroke="#000000" d="M115,-122.1061C115,-141.3391 115,-169 115,-169 115,-169 201.978,-169 201.978,-169"/>
+<polygon fill="#000000" stroke="#000000" points="201.978,-172.5001 211.978,-169 201.9779,-165.5001 201.978,-172.5001"/>
 </g>
 </g>
 </svg>
@@ -162,6 +174,9 @@
                             title="Official documentation about module providers"><span class="icon ion-ios-information-circle-outline"></a></h3>
                     <ul class="list-group">
                         <li class="list-group-item">
+                            <a href="../injectables/ProfileService.html">ProfileService</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="../injectables/UsersService.html">UsersService</a>
                         </li>
                     </ul>
@@ -189,7 +204,7 @@
                                 class="icon ion-ios-information-circle-outline"></a></h3>
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <a href="../s/UsersService.html">UsersService</a>
+                            <a href="../s/ProfileService.html">ProfileService</a>
                         </li>
                     </ul>
                 </div>
@@ -206,14 +221,15 @@
 import { UsersModule } from &#x27;../users/users.module&#x27;;
 import { UsersService } from &#x27;../users/users.service&#x27;;
 import { ProfileController } from &#x27;./profile.controller&#x27;;
+import { ProfileService } from &#x27;./profile.service&#x27;;
 
 @Module({
   imports: [UsersModule],
-  providers: [UsersService],
+  providers: [UsersService, ProfileService],
   controllers: [ProfileController],
-  exports: [UsersService]
+  exports: [ProfileService]
 })
-export class ProfileModule {}
+export class ProfileModule { }
 </code></pre>
     </div>
 </div>

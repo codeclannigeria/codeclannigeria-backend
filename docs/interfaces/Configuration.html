@@ -82,6 +82,9 @@
                                         <a href="#appEmail">appEmail</a>
                                 </li>
                                 <li>
+                                        <a href="#cloudinary">cloudinary</a>
+                                </li>
+                                <li>
                                         <a href="#database">database</a>
                                 </li>
                                 <li>
@@ -138,6 +141,35 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="cloudinary"></a>
+                                        <span class="name"><b>cloudinary</b><a href="#cloudinary"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>cloudinary:         <code><a href="../interfaces/Cloudinary.html" target="_self" >Cloudinary</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/Cloudinary.html" target="_self" >Cloudinary</a></code>
 
                                         </td>
                                     </tr>
@@ -424,6 +456,12 @@ interface Mailer {
   key: string;
   domain: string;
 }
+interface Cloudinary {
+  key: string;
+  secret: string;
+  name: string;
+
+}
 interface Configuration {
   port: number;
   jwtSecret: string;
@@ -435,6 +473,7 @@ interface Configuration {
   isAuthEnabled: boolean;
   appEmail: string;
   mailer: Mailer;
+  cloudinary: Cloudinary
 }
 
 export default (): Configuration &#x3D;&gt; ({
@@ -455,6 +494,11 @@ export default (): Configuration &#x3D;&gt; ({
     port: +process.env.DATABASE_PORT,
     name: process.env.DATABASE_NAME,
     uri: process.env.MONGODB_URI
+  },
+  cloudinary: {
+    secret: process.env.CLOUDINARY_API_SECRET,
+    key: process.env.CLOUDINARY_API_KEY,
+    name: process.env.CLOUDINARY_NAME
   }
 });
 </code></pre>

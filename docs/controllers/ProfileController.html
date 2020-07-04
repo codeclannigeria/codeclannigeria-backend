@@ -85,6 +85,14 @@
                                     <span class="modifier">Async</span>
                                 <a href="#getProfile">getProfile</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateProfile">updateProfile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadFile">uploadFile</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -127,14 +135,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br /></code>
+                    <code>@Get()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({type: UserDto, status: undefined})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/profile/profile.controller.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/profile/profile.controller.ts:38</a></div>
                 </td>
             </tr>
 
@@ -181,32 +189,283 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateProfile"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            updateProfile
+                        </b>
+                        <a href="#updateProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateProfile(input: <a href="../classes/UpdateProfileDto.html">UpdateProfileDto</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Put()<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({type: UserDto, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">src/profile/profile.controller.ts:51</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateProfileDto.html" target="_self" >UpdateProfileDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFile"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            uploadFile
+                        </b>
+                        <a href="#uploadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFile(file: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;upload_profile_photo&#x27;)<br />@UseInterceptors(undefined)<br />@ApiConsumes(&#x27;multipart/form-data&#x27;)<br />@ApiBody({description: &#x27;Upload avatar photo&#x27;, type: AvatarUploadDto})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({type: UserDto, status: undefined})<br />@HttpCode(HttpStatus.OK)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/profile/profile.controller.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Req, UseGuards } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  Post,
+  Put,
+  Req,
+  UnsupportedMediaTypeException,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from &#x27;@nestjs/common&#x27;;
+import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { plainToClass } from &#x27;class-transformer&#x27;;
 import { Request } from &#x27;express&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
+import { User } from &#x27;../users/models/user.entity&#x27;;
 import { UsersService } from &#x27;../users/users.service&#x27;;
+import { AvatarUploadDto } from &#x27;./dto/avatar-upload.dto&#x27;;
+import { UpdateProfileDto } from &#x27;./dto/update-profile.dto&#x27;;
+import { ProfileService } from &#x27;./profile.service&#x27;;
 
+@ApiTags(&quot;Profile&quot;)
 @Controller(&#x27;profile&#x27;)
 export class ProfileController {
-  constructor(private readonly profileService: UsersService) {}
+  constructor(private readonly userService: UsersService, private profileService: ProfileService) { }
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.profileService.findOneAsync({
-      email: req.user[&#x27;email&#x27;]
+    const user &#x3D; await this.userService.findOneAsync({
+      email: req.user[&#x27;email&#x27;].toLowerCase()
     });
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
+    });
+  }
+  @Put()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ type: UserDto, status: HttpStatus.OK })
+  async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise&lt;void&gt; {
+
+    const id &#x3D; req.user[&#x27;userId&#x27;];
+    const user &#x3D; await this.userService.findByIdAsync(id);
+    if (!user)
+      throw new NotFoundException(&#x60;Entity with Id ${id} does not exist&#x60;);
+    const value &#x3D; plainToClass(UserDto, user, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    });
+    const toBeUpdatedEntity &#x3D; { ...value, ...input } as Partial&lt;User&gt;;
+    await this.userService.updateAsync(id, toBeUpdatedEntity);
+  }
+  @Post(&#x27;upload_profile_photo&#x27;)
+  @UseInterceptors(FileInterceptor(&#x27;file&#x27;))
+  @ApiConsumes(&#x27;multipart/form-data&#x27;)
+  @ApiBody({
+    description: &#x27;Upload avatar photo&#x27;,
+    type: AvatarUploadDto,
+  })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ type: UserDto, status: HttpStatus.OK })
+  @HttpCode(HttpStatus.OK)
+  async uploadFile(@UploadedFile() file: any, @Req() req: Request): Promise&lt;UserDto&gt; {
+    if (!file)
+      throw new BadRequestException(&quot;File image cannot be empty&quot;)
+
+    if (file.mimetype.split(&#x27;/&#x27;)[0] !&#x3D;&#x3D; &quot;image&quot;)
+      throw new UnsupportedMediaTypeException(&quot;File is not an image&quot;);
+
+    if (file.size / 1024 &gt; 200)
+      throw new BadRequestException(&quot;File cannot be larger than 200KB&quot;)
+
+    const id &#x3D; req.user[&#x27;userId&#x27;];
+    await this.profileService.uploadAvatar(file, id);
+    const user &#x3D; await this.userService.findByIdAsync(id)
+
+    return plainToClass(UserDto, user, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
     });
   }
 }

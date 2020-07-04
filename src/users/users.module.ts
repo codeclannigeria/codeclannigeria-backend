@@ -6,7 +6,7 @@ import { User } from './models/user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
-const UserModel = MongooseModule.forFeature([
+export const UserModel = MongooseModule.forFeature([
   { name: User.modelName, schema: User.schema }
 ]);
 @Module({
@@ -15,4 +15,4 @@ const UserModel = MongooseModule.forFeature([
   controllers: [UsersController],
   exports: [UsersService, UserModel]
 })
-export class UsersModule {}
+export class UsersModule { }

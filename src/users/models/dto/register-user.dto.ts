@@ -7,7 +7,9 @@ export class RegisterUserDto extends OmitType(UserDto, [
   'id',
   'role',
   'createdAt',
-  'updatedAt'
+  'updatedAt',
+  'tasks',
+  'photoUrl'
 ]) {
   @MinLength(6)
   password: string;

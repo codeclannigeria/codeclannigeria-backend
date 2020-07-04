@@ -1,8 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
-import configuration from '../config/configuration';
-
 export class ApiException {
   @ApiProperty()
   statusCode?: number;
