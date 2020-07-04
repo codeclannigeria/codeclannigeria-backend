@@ -36,7 +36,6 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false
   })
   readonly firstName!: string;
   @prop({
@@ -44,7 +43,6 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false
   })
   readonly lastName!: string;
   @prop({
@@ -56,6 +54,26 @@ export class User extends BaseEntity {
     unique: false
   })
   readonly email!: string;
+  @prop({
+    maxlength: columnSize.length64,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly phoneNumber!: string;
+  @prop({
+    default: null
+  })
+  readonly photoUrl: string = null;
+  @prop({
+    maxlength: columnSize.length128,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly description!: string;
+  @prop({ items: String, default: [] })
+  readonly technologies: string[] = [];
   @prop({ required: true, maxlength: columnSize.length64 })
   @Exclude()
   readonly password!: string;

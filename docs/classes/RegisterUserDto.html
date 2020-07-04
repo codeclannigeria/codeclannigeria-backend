@@ -130,7 +130,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/users/models/dto/register-user.dto.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/users/models/dto/register-user.dto.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -158,7 +158,9 @@ export class RegisterUserDto extends OmitType(UserDto, [
   &#x27;id&#x27;,
   &#x27;role&#x27;,
   &#x27;createdAt&#x27;,
-  &#x27;updatedAt&#x27;
+  &#x27;updatedAt&#x27;,
+  &#x27;tasks&#x27;,
+  &#x27;photoUrl&#x27;
 ]) {
   @MinLength(6)
   password: string;

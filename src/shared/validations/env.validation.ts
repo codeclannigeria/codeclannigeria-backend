@@ -17,6 +17,9 @@ export const envValidation = (): any => {
     MAILER_API_KEY: Joi.string().required(),
     MAILER_DOMAIN: Joi.string().required(),
     API_AUTH_ENABLED: Joi.string().valid('true', 'false').default('true'),
-    APP_EMAIL: Joi.string().email().required()
+    APP_EMAIL: Joi.string().email().required(),
+    CLOUDINARY_API_KEY: Joi.string().required(),
+    CLOUDINARY_API_SECRET: Joi.string().required(),
+    CLOUDINARY_NAME: Joi.string().required()
   });
 };

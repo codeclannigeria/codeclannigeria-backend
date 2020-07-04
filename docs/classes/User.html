@@ -87,6 +87,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Readonly</span>
+                                <a href="#description">description</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#email">email</a>
                             </li>
                             <li>
@@ -116,11 +120,23 @@
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
+                                <a href="#phoneNumber">phoneNumber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#photoUrl">photoUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
                                 <a href="#role">role</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
                                 <a href="#tasks">tasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#technologies">technologies</a>
                             </li>
                             <li>
                                     <span class="modifier">Readonly</span>
@@ -230,6 +246,43 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="description"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Readonly</span>
+                            description</b>
+                            <a href="#description"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @prop({maxlength: undefined, trim: true, text: true, default: undefined})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/users/models/user.entity.ts:74</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="email"></a>
                         <span class="name">
                             <b>
@@ -256,7 +309,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/users/models/user.entity.ts:58</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/users/models/user.entity.ts:56</a></div>
                             </td>
                         </tr>
 
@@ -293,7 +346,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/users/models/user.entity.ts:76</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/users/models/user.entity.ts:94</a></div>
                             </td>
                         </tr>
 
@@ -324,13 +377,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: false})<br />
+                                @prop({required: true, maxlength: undefined, trim: true, text: true})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/users/models/user.entity.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/users/models/user.entity.ts:40</a></div>
                             </td>
                         </tr>
 
@@ -367,7 +420,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/users/models/user.entity.ts:72</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/users/models/user.entity.ts:90</a></div>
                             </td>
                         </tr>
 
@@ -398,13 +451,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({required: true, maxlength: undefined, trim: true, text: true, unique: false})<br />
+                                @prop({required: true, maxlength: undefined, trim: true, text: true})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/users/models/user.entity.ts:49</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/users/models/user.entity.ts:47</a></div>
                             </td>
                         </tr>
 
@@ -442,7 +495,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/users/models/user.entity.ts:74</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/users/models/user.entity.ts:92</a></div>
                             </td>
                         </tr>
 
@@ -479,7 +532,86 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/users/models/user.entity.ts:61</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/users/models/user.entity.ts:79</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="phoneNumber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Readonly</span>
+                            phoneNumber</b>
+                            <a href="#phoneNumber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @prop({maxlength: undefined, trim: true, text: true, default: undefined})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/users/models/user.entity.ts:63</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="photoUrl"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Readonly</span>
+                            photoUrl</b>
+                            <a href="#photoUrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @prop({default: undefined})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/users/models/user.entity.ts:67</a></div>
                             </td>
                         </tr>
 
@@ -515,7 +647,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/users/models/user.entity.ts:69</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/users/models/user.entity.ts:87</a></div>
                             </td>
                         </tr>
 
@@ -552,7 +684,49 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/users/models/user.entity.ts:78</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/users/models/user.entity.ts:96</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="technologies"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Readonly</span>
+                            technologies</b>
+                            <a href="#technologies"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>string[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @prop({items: String, default: undefined})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/users/models/user.entity.ts:76</a></div>
                             </td>
                         </tr>
 
@@ -1008,8 +1182,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="93"
-                            class="link-to-prism">src/users/models/user.entity.ts:93</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/users/models/user.entity.ts:111</a></div>
                 </td>
             </tr>
 
@@ -1047,8 +1221,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="88"
-                            class="link-to-prism">src/users/models/user.entity.ts:88</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/users/models/user.entity.ts:106</a></div>
                 </td>
             </tr>
 
@@ -1276,7 +1450,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/users/models/user.entity.ts:85</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/users/models/user.entity.ts:103</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -1311,7 +1485,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/users/models/user.entity.ts:97</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">src/users/models/user.entity.ts:115</a></div>
                                 </td>
                             </tr>
 
@@ -1360,7 +1534,6 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false
   })
   readonly firstName!: string;
   @prop({
@@ -1368,7 +1541,6 @@ export class User extends BaseEntity {
     maxlength: columnSize.length64,
     trim: true,
     text: true,
-    unique: false
   })
   readonly lastName!: string;
   @prop({
@@ -1380,6 +1552,26 @@ export class User extends BaseEntity {
     unique: false
   })
   readonly email!: string;
+  @prop({
+    maxlength: columnSize.length64,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly phoneNumber!: string;
+  @prop({
+    default: null
+  })
+  readonly photoUrl: string &#x3D; null;
+  @prop({
+    maxlength: columnSize.length128,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly description!: string;
+  @prop({ items: String, default: [] })
+  readonly technologies: string[] &#x3D; [];
   @prop({ required: true, maxlength: columnSize.length64 })
   @Exclude()
   readonly password!: string;
