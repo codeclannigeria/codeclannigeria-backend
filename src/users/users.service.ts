@@ -13,4 +13,11 @@ export class UsersService extends BaseService<User> {
   ) {
     super(userEntity);
   }
+
+  async incrementLoginAttempt(userId: string): Promise<void> {
+    await this.userEntity.updateOne({ _id: userId }, { $inc: { loginAttemptCount: 1 }, updatedBy: userId as any }).exec();
+  }
+  async resetLoginAttempt(userId: string): Promise<void> {
+    await this.userEntity.updateOne({ _id: userId }, { $set: { loginAttemptCount: 0 }, updatedBy: userId as any }).exec();
+  }
 }

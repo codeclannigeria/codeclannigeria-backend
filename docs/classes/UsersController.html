@@ -293,10 +293,11 @@ export class UsersController extends BaseCtrl {
     const exist &#x3D; await this.usersService.findOneAsync({
       title: input.email.toLowerCase()
     });
-    if (exist)
+    if (exist) {
       throw new ConflictException(
         &#x60;User with the email &quot;${exist.email}&quot; already exists&#x60;
       );
+    }
     return super.create(input);
   }
 }

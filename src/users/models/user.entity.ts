@@ -77,7 +77,11 @@ export class User extends BaseEntity {
   @prop({ required: true, maxlength: columnSize.length64 })
   @Exclude()
   readonly password!: string;
-
+  @Exclude()
+  @prop({
+    default: 0
+  })
+  readonly loginAttemptCount!: number;
   @prop({
     enum: UserRole,
     type: String,
