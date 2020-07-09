@@ -1,9 +1,13 @@
+import { UserDto } from './../users/models/dto/user.dto';
 import {
   Body,
   ConflictException,
   HttpStatus,
   Post,
-  UseGuards
+  UseGuards,
+  HttpCode,
+  Param,
+  NotFoundException
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { BaseCrudController } from '~shared/controllers/base.controller';
@@ -49,4 +53,17 @@ export class TracksController extends BaseCtrl {
       );
     return await super.create(input);
   }
+  // @Post(":trackId/enroll")
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(UserRole.MENTEE)
+  //   @HttpCode(HttpStatus.OK)
+  // @ApiResponse({ type: UserDto, status: HttpStatus.OK })
+  // @ApiBearerAuth()
+  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // async enroll(@Param("trackId") trackId: string): Promise<void> {
+  //   const tracks = await this.trackService.getAssignedtracks();
+  //   const track = tracks.find((x) => x.id === trackId);
+  //   if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
+  //   await this.trackService.enroll(track);
+  // }
 }
