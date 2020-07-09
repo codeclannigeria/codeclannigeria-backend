@@ -167,7 +167,7 @@ describe('TasksController (e2e)', () => {
                     password: 'pass1#Word'
                 });
                 input = {
-                    userId: user.id,
+                    userIdList: [user.id],
                     taskIdList: [task.id]
                 }
                 await route.post('/tasks/assign').send(input).expect(200)
@@ -176,7 +176,7 @@ describe('TasksController (e2e)', () => {
             });
             it('should assign task to user', async () => {
                 input = {
-                    userId: user.id,
+                    userIdList: [user.id],
                     taskIdList: [task.id, task.id]
                 }
                 return route.post('/tasks/assign').send(input).expect(404)

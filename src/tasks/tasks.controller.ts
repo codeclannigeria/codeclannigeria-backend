@@ -83,19 +83,24 @@ export class TasksController extends BaseCtrl {
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async assignTasks(@Body() input: AssignTasksDto): Promise<void> {
-    const user = await this.userService.findByIdAsync(input.userId);
+    for (let i = 0; i < input.userIdList.length; i++) {
+      const userId = input.userIdList[i];
+      const user = await this.userService.findByIdAsync(userId);
 
-    if (!user)
-      throw new NotFoundException(`User with Id ${input.userId} not found`);
+      if (!user)
+        throw new NotFoundException(`User with Id ${userId} not found`);
 
-    const taskCount = await this.tasksService.countAsync({
-      _id: { $in: input.taskIdList }
-    });
+      const taskCount = await this.tasksService.countAsync({
+        _id: { $in: input.taskIdList }
+      });
 
-    if (taskCount !== input.taskIdList.length)
-      throw new NotFoundException(`Not all task exist`);
+      if (taskCount !== input.taskIdList.length)
+        throw new NotFoundException(`Not all task exist`);
 
-    await this.tasksService.assignTasks(input.userId, input.taskIdList);
+      await this.tasksService.assignTasks(userId, input.taskIdList);
+
+    }
+
   }
   @Post(':taskId/submit')
   @HttpCode(HttpStatus.OK)
