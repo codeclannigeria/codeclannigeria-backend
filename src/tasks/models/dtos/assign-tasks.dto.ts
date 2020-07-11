@@ -4,6 +4,7 @@ export class AssignTasksDto {
   @IsArray()
   @IsMongoId({ each: true })
   taskIdList: string[];
-  @IsMongoId()
-  userId: string;
+  @IsArray()
+  @IsMongoId({ each: true })
+  userIdList: string[];
 }

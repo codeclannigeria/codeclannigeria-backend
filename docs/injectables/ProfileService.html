@@ -66,20 +66,6 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Properties</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#uploader">uploader</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -116,7 +102,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/profile/profile.service.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/profile/profile.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -183,8 +169,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/profile/profile.service.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/profile/profile.service.ts:15</a></div>
                 </td>
             </tr>
 
@@ -244,33 +230,6 @@
         </tbody>
     </table>
 </section>
-            <section>
-    
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="uploader"></a>
-                        <span class="name">
-                            <b>
-                            uploader</b>
-                            <a href="#uploader"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/profile/profile.service.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-</section>
 
     </div>
 
@@ -279,33 +238,20 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
-import * as cloudinary from &#x27;cloudinary&#x27;;
-import DataURIParser &#x3D; require(&#x27;datauri/parser&#x27;);
-import configuration from &#x27;~shared/config/configuration&#x27;;
+import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
 
 @Injectable()
 export class ProfileService {
-    uploader: typeof cloudinary.v2.uploader;
 
 
     constructor(@InjectModel(User.modelName)
-    protected readonly userEntity: ReturnModelType&lt;typeof User&gt;) {
-        const { cloudinary: config } &#x3D; configuration();
-        cloudinary.v2.config({
-            cloud_name: config.name,
-            api_key: config.key,
-            api_secret: config.secret
-        })
-        this.uploader &#x3D; cloudinary.v2.uploader
-    }
-    async uploadAvatar(file: any, userId: string): Promise&lt;void&gt; {
-        const dataUri &#x3D; new DataURIParser()
-        const { content } &#x3D; dataUri.format(&#x60;.${file.originalname.split(&#x27;.&#x27;)[0]}&#x60;, file.buffer)
-        const { secure_url } &#x3D; await this.uploader.upload(content, { discard_original_filename: true, folder: &#x27;ccn/avatars&#x27;, public_id: userId });
+    protected readonly userEntity: ReturnModelType&lt;typeof User&gt;) { }
 
-        await this.userEntity.updateOne({ _id: userId }, { photoUrl: secure_url })
+    async uploadAvatar(file: any, userId: string): Promise&lt;void&gt; {
+        const photoUrl &#x3D; await uploadImg(file, &quot;avatars&quot;, userId);
+        await this.userEntity.updateOne({ _id: userId }, { photoUrl })
     }
 }
 </code></pre>

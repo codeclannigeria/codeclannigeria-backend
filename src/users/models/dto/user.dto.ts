@@ -52,6 +52,9 @@ export class UserDto extends BaseDto {
   @ApiProperty({ readOnly: true })
   @Expose()
   readonly tasks?: any[];
+  // @ApiProperty({ readOnly: true })
+  // @Expose()
+  // readonly tracks?: any[];
 }
 
 export class PagedUserOutputDto extends PagedListDto(UserDto) { }

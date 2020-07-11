@@ -390,8 +390,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="107"
-                            class="link-to-prism">src/tasks/tasks.controller.ts:107</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:112</a></div>
                 </td>
             </tr>
 
@@ -533,19 +533,24 @@ export class TasksController extends BaseCtrl {
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async assignTasks(@Body() input: AssignTasksDto): Promise&lt;void&gt; {
-    const user &#x3D; await this.userService.findByIdAsync(input.userId);
+    for (let i &#x3D; 0; i &lt; input.userIdList.length; i++) {
+      const userId &#x3D; input.userIdList[i];
+      const user &#x3D; await this.userService.findByIdAsync(userId);
 
-    if (!user)
-      throw new NotFoundException(&#x60;User with Id ${input.userId} not found&#x60;);
+      if (!user)
+        throw new NotFoundException(&#x60;User with Id ${userId} not found&#x60;);
 
-    const taskCount &#x3D; await this.tasksService.countAsync({
-      _id: { $in: input.taskIdList }
-    });
+      const taskCount &#x3D; await this.tasksService.countAsync({
+        _id: { $in: input.taskIdList }
+      });
 
-    if (taskCount !&#x3D;&#x3D; input.taskIdList.length)
-      throw new NotFoundException(&#x60;Not all task exist&#x60;);
+      if (taskCount !&#x3D;&#x3D; input.taskIdList.length)
+        throw new NotFoundException(&#x60;Not all task exist&#x60;);
 
-    await this.tasksService.assignTasks(input.userId, input.taskIdList);
+      await this.tasksService.assignTasks(userId, input.taskIdList);
+
+    }
+
   }
   @Post(&#x27;:taskId/submit&#x27;)
   @HttpCode(HttpStatus.OK)

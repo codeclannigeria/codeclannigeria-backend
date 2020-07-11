@@ -78,7 +78,7 @@ describe('Tasks Controller', () => {
   describe('Task Assignment', () => {
     const input: AssignTasksDto = {
       taskIdList: ['task1', 'task2'],
-      userId: 'userId'
+      userIdList: ['userId']
     };
     it(`should throw ${NotFoundException.name} if user does not exist`, async () => {
       taskService.assignTasks = jest.fn().mockResolvedValue(null);

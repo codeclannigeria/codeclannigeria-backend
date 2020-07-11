@@ -1,12 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import {
-  getModelForClass,
-  index,
-  pre,
-  prop,
-  Ref,
-  ReturnModelType
-} from '@typegoose/typegoose';
+import { getModelForClass, index, pre, prop, Ref, ReturnModelType } from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
@@ -98,6 +91,8 @@ export class User extends BaseEntity {
   readonly failedSignInAttempts!: number;
   @prop({ ref: 'Task', required: true })
   readonly tasks!: Ref<Task>[];
+  // @prop({ ref: 'Track', required: true })
+  // readonly tracks!: Ref<Track>[];
   /**
    * Get User's full name
    *

@@ -260,13 +260,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/TracksModule.html" data-type="entity-link">TracksModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' : 'data-target="#xs-injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' }>
+                                        'data-target="#injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' : 'data-target="#xs-injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' :
-                                        'id="xs-injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' :
+                                        'id="xs-injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' }>
                                         <li class="link">
                                             <a href="injectables/TracksService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>TracksService</a>
@@ -361,6 +361,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/CreateUserDto.html" data-type="entity-link">CreateUserDto</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CreateWithThumbnailTrackDto.html" data-type="entity-link">CreateWithThumbnailTrackDto</a>
                             </li>
                             <li class="link">
                                 <a href="classes/FindDto.html" data-type="entity-link">FindDto</a>
@@ -505,6 +508,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/BaseControllerWithSwaggerOpts.html" data-type="entity-link">BaseControllerWithSwaggerOpts</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/BufferedFile.html" data-type="entity-link">BufferedFile</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Cloudinary.html" data-type="entity-link">Cloudinary</a>

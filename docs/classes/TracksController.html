@@ -90,6 +90,10 @@
                                     <span class="modifier">Async</span>
                                 <a href="#create">create</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createTrack">createTrack</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -113,7 +117,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/tracks/tracks.controller.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/tracks/tracks.controller.ts:41</a></div>
                             </td>
                         </tr>
 
@@ -188,8 +192,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:53</a></div>
                 </td>
             </tr>
 
@@ -236,6 +240,109 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTrack"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            createTrack
+                        </b>
+                        <a href="#createTrack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTrack(input: <a href="../classes/CreateWithThumbnailTrackDto.html">CreateWithThumbnailTrackDto</a>, thumbnail: <a href="../interfaces/BufferedFile.html">BufferedFile</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;create_with_thumbnail&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined, type: ApiException})<br />@UseInterceptors(undefined)<br />@ApiConsumes(&#x27;multipart/form-data&#x27;)<br />@ApiBearerAuth()<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:72</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/CreateWithThumbnailTrackDto.html" target="_self" >CreateWithThumbnailTrackDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>thumbnail</td>
+                                    <td>
+                                                <code><a href="../interfaces/BufferedFile.html" target="_self" >BufferedFile</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;TrackDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -247,20 +354,29 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
   Body,
   ConflictException,
   HttpStatus,
   Post,
-  UseGuards
+  Req,
+  UnsupportedMediaTypeException,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
+import { ApiBearerAuth, ApiConsumes, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { Request } from &#x27;express&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
+import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
+import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
-import { CreateTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
+import { CreateTrackDto, CreateWithThumbnailTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
 import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
 import { Track } from &#x27;./models/track.entity&#x27;;
 import { TracksService } from &#x27;./tracks.service&#x27;;
@@ -276,10 +392,12 @@ const BaseCtrl &#x3D; BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;(
     delete: [UserRole.ADMIN, UserRole.MENTOR]
   }
 });
+const ONE_KB &#x3D; 1024;
 export class TracksController extends BaseCtrl {
   constructor(protected trackService: TracksService) {
     super(trackService);
   }
+
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
@@ -297,6 +415,57 @@ export class TracksController extends BaseCtrl {
       );
     return await super.create(input);
   }
+
+  @Post(&quot;create_with_thumbnail&quot;)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseInterceptors(FileInterceptor(&quot;thumbnail&quot;))
+  @ApiConsumes(&#x27;multipart/form-data&#x27;)
+  @ApiBearerAuth()
+  async createTrack(@Body() input: CreateWithThumbnailTrackDto, @UploadedFile() thumbnail: BufferedFile, @Req() req: Request): Promise&lt;TrackDto&gt; {
+    if (!thumbnail)
+      throw new BadRequestException(&quot;Thumbnail image cannot be empty&quot;)
+
+    if (thumbnail.mimetype.split(&#x27;/&#x27;)[0] !&#x3D;&#x3D; &quot;image&quot;)
+      throw new UnsupportedMediaTypeException(&quot;File is not an image&quot;);
+    if (thumbnail.size / ONE_KB &gt; 200)
+      throw new BadRequestException(&quot;File cannot be larger than 200KB&quot;)
+
+
+    const exist &#x3D; await this.trackService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
+    if (exist)
+      throw new ConflictException(
+        &#x60;Track with the title &quot;${exist.title}&quot; already exists&#x60;
+      );
+    const userId &#x3D; req.user[&#x27;userId&#x27;];
+
+    const thumbnailUrl &#x3D; await uploadImg(thumbnail, &quot;avatars&quot;, userId);
+    const dto &#x3D; input as any;
+    dto.thumbnailUrl &#x3D; thumbnailUrl;
+    delete dto.thumbnail
+    return await super.create(dto);
+  }
+
+  // @Post(&quot;:trackId/enroll&quot;)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles(UserRole.MENTEE)
+  // @HttpCode(HttpStatus.OK)
+  // @ApiResponse({ type: UserDto, status: HttpStatus.OK })
+  // @ApiBearerAuth()
+  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // async enroll(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;UserDto&gt; {
+  //   const track &#x3D; await this.trackService.findByIdAsync(trackId);
+  //   if (!track) throw new NotFoundException(&#x60;Track with ${trackId} not found&#x60;);
+  //   const user &#x3D; await this.trackService.enroll(track.id);
+  //   return plainToClass(UserDto, user, {
+  //     enableImplicitConversion: true,
+  //     excludeExtraneousValues: true
+  //   });
+  // }
 }
 </code></pre>
     </div>
