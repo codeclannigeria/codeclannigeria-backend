@@ -88,6 +88,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#create">create</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#createTrack">createTrack</a>
                             </li>
                         </ul>
@@ -161,6 +165,85 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="create"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            create
+                        </b>
+                        <a href="#create"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>create(input: <a href="../classes/CreateTrackDto.html">CreateTrackDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN, UserRole.MENTOR)<br />@ApiResponse({type: TrackDto, status: undefined})<br />@ApiResponse({status: undefined})<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:53</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/CreateTrackDto.html" target="_self" >CreateTrackDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;TrackDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="createTrack"></a>
                     <span class="name">
                         <b>
@@ -188,8 +271,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:72</a></div>
                 </td>
             </tr>
 
@@ -285,13 +368,13 @@
 import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { Request } from &#x27;express&#x27;;
-import { JwtAuthGuard, RolesGuard } from &#x27;src/auth/guards&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
+import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
 import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
@@ -313,6 +396,24 @@ const ONE_KB &#x3D; 1024;
 export class TracksController extends BaseCtrl {
   constructor(protected trackService: TracksService) {
     super(trackService);
+  }
+
+  @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN })
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateTrackDto): Promise&lt;TrackDto&gt; {
+    const exist &#x3D; await this.trackService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
+    if (exist)
+      throw new ConflictException(
+        &#x60;Track with the title &quot;${exist.title}&quot; already exists&#x60;
+      );
+    return await super.create(input);
   }
 
   @Post(&quot;create_with_thumbnail&quot;)

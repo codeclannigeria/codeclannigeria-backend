@@ -13,13 +13,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { Request } from 'express';
-import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 import { BufferedFile } from '~shared/interfaces';
 import { uploadImg } from '~shared/utils/upload-img.util';
 
+import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
@@ -41,6 +41,24 @@ const ONE_KB = 1024;
 export class TracksController extends BaseCtrl {
   constructor(protected trackService: TracksService) {
     super(trackService);
+  }
+
+  @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN })
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async create(@Body() input: CreateTrackDto): Promise<TrackDto> {
+    const exist = await this.trackService.findOneAsync({
+      title: input.title.toUpperCase()
+    });
+    if (exist)
+      throw new ConflictException(
+        `Track with the title "${exist.title}" already exists`
+      );
+    return await super.create(input);
   }
 
   @Post("create_with_thumbnail")
