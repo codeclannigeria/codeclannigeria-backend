@@ -260,13 +260,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/TracksModule.html" data-type="entity-link">TracksModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' : 'data-target="#xs-injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' }>
+                                        'data-target="#injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' : 'data-target="#xs-injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' :
-                                        'id="xs-injectables-links-module-TracksModule-f36a188f4db70818411549eefa98dfae"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' :
+                                        'id="xs-injectables-links-module-TracksModule-acccfb0b80b6f1cd38721a76b29ce533"' }>
                                         <li class="link">
                                             <a href="injectables/TracksService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>TracksService</a>
