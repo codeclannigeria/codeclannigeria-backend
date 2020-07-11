@@ -4,27 +4,27 @@ import {
   ConflictException,
   HttpStatus,
   Post,
+  Req,
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  Req,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
+import { Request } from 'express';
 import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 import { BufferedFile } from '~shared/interfaces';
-import { Request } from 'express';
+import { uploadImg } from '~shared/utils/upload-img.util';
 
 import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
-import { uploadImg } from '~shared/utils/upload-img.util';
 
 const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
@@ -80,14 +80,17 @@ export class TracksController extends BaseCtrl {
   // @Post(":trackId/enroll")
   // @UseGuards(JwtAuthGuard, RolesGuard)
   // @Roles(UserRole.MENTEE)
-  //   @HttpCode(HttpStatus.OK)
+  // @HttpCode(HttpStatus.OK)
   // @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   // @ApiBearerAuth()
   // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  // async enroll(@Param("trackId") trackId: string): Promise<void> {
-  //   const tracks = await this.trackService.getAssignedtracks();
-  //   const track = tracks.find((x) => x.id === trackId);
+  // async enroll(@Param("trackId") trackId: string): Promise<UserDto> {
+  //   const track = await this.trackService.findByIdAsync(trackId);
   //   if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
-  //   await this.trackService.enroll(track);
+  //   const user = await this.trackService.enroll(track.id);
+  //   return plainToClass(UserDto, user, {
+  //     enableImplicitConversion: true,
+  //     excludeExtraneousValues: true
+  //   });
   // }
 }

@@ -16,4 +16,4 @@ const baseService = { provide: BaseService, useClass: TracksService };
   controllers: [TracksController],
   exports: [TrackModel, TracksService, baseService]
 })
-export class TracksModule {}
+export class TracksModule { }
