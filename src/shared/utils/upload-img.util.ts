@@ -1,0 +1,20 @@
+import configuration from "~shared/config/configuration";
+import * as cloudinary from 'cloudinary';
+import DataURIParser = require('datauri/parser');
+
+export const uploadImg = async (file: any, folderName: string, uniqId?: string): Promise<string> => {
+
+    const { cloudinary: config } = configuration();
+    cloudinary.v2.config({
+        cloud_name: config.name,
+        api_key: config.key,
+        api_secret: config.secret
+    })
+
+    const dataUri = new DataURIParser()
+    const { content } = dataUri.format(`.${file.originalname.split('.')[0]}`, file.buffer)
+    const { secure_url } = await cloudinary.v2.uploader.upload(content,
+        { discard_original_filename: true, folder: `ccn/${folderName}`, public_id: uniqId });
+
+    return secure_url;
+}

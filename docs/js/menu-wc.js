@@ -363,6 +363,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/CreateUserDto.html" data-type="entity-link">CreateUserDto</a>
                             </li>
                             <li class="link">
+                                <a href="classes/CreateWithThumbnailTrackDto.html" data-type="entity-link">CreateWithThumbnailTrackDto</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/FindDto.html" data-type="entity-link">FindDto</a>
                             </li>
                             <li class="link">
@@ -505,6 +508,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/BaseControllerWithSwaggerOpts.html" data-type="entity-link">BaseControllerWithSwaggerOpts</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/BufferedFile.html" data-type="entity-link">BufferedFile</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/Cloudinary.html" data-type="entity-link">Cloudinary</a>

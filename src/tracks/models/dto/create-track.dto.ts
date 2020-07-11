@@ -1,9 +1,24 @@
-import { OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { BufferedFile } from '~shared/interfaces/buffer-file.interface';
 
 import { TrackDto } from './tack.dto';
 
 export class CreateTrackDto extends OmitType(TrackDto, [
   'id',
   'createdAt',
-  'updatedAt'
-]) {}
+  'updatedAt',
+  'thumbnailUrl'
+]) {
+
+}
+
+
+export class CreateWithThumbnailTrackDto extends OmitType(TrackDto, [
+  'id',
+  'createdAt',
+  'updatedAt',
+  'thumbnailUrl'
+]) {
+  @ApiProperty({ type: 'string', format: 'binary' })
+  thumbnail: BufferedFile;
+}

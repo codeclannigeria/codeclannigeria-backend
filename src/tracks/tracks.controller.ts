@@ -1,25 +1,30 @@
-import { UserDto } from './../users/models/dto/user.dto';
 import {
+  BadRequestException,
   Body,
   ConflictException,
   HttpStatus,
   Post,
+  UnsupportedMediaTypeException,
+  UploadedFile,
   UseGuards,
-  HttpCode,
-  Param,
-  NotFoundException
+  UseInterceptors,
+  Req,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard, RolesGuard } from 'src/auth/guards';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
+import { BufferedFile } from '~shared/interfaces';
+import { Request } from 'express';
 
-import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
-import { CreateTrackDto } from './models/dto/create-track.dto';
+import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
+import { uploadImg } from '~shared/utils/upload-img.util';
 
 const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
@@ -32,18 +37,30 @@ const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
     delete: [UserRole.ADMIN, UserRole.MENTOR]
   }
 });
+const ONE_KB = 1024;
 export class TracksController extends BaseCtrl {
   constructor(protected trackService: TracksService) {
     super(trackService);
   }
-  @Post()
+
+  @Post("create_with_thumbnail")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
-  @ApiResponse({ status: HttpStatus.FORBIDDEN })
+  @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
+  @UseInterceptors(FileInterceptor("thumbnail"))
+  @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async create(@Body() input: CreateTrackDto): Promise<TrackDto> {
+  async createTrack(@Body() input: CreateWithThumbnailTrackDto, @UploadedFile() thumbnail: BufferedFile, @Req() req: Request): Promise<TrackDto> {
+    if (!thumbnail)
+      throw new BadRequestException("Thumbnail image cannot be empty")
+
+    if (thumbnail.mimetype.split('/')[0] !== "image")
+      throw new UnsupportedMediaTypeException("File is not an image");
+    if (thumbnail.size / ONE_KB > 200)
+      throw new BadRequestException("File cannot be larger than 200KB")
+
+
     const exist = await this.trackService.findOneAsync({
       title: input.title.toUpperCase()
     });
@@ -51,8 +68,15 @@ export class TracksController extends BaseCtrl {
       throw new ConflictException(
         `Track with the title "${exist.title}" already exists`
       );
-    return await super.create(input);
+    const userId = req.user['userId'];
+
+    const thumbnailUrl = await uploadImg(thumbnail, "avatars", userId);
+    const dto = input as any;
+    dto.thumbnailUrl = thumbnailUrl;
+    delete dto.thumbnail
+    return await super.create(dto);
   }
+
   // @Post(":trackId/enroll")
   // @UseGuards(JwtAuthGuard, RolesGuard)
   // @Roles(UserRole.MENTEE)

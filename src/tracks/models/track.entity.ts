@@ -27,4 +27,9 @@ export class Track extends BaseEntity {
 
   @prop({ ref: 'Stage', default: [] })
   readonly stages: Ref<Stage>[] = [];
+
+  @prop({
+    default: null
+  })
+  readonly thumbnailUrl: string = null;
 }
