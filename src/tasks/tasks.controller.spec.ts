@@ -6,7 +6,6 @@ import { DbTest } from '~test/helpers/db-test.module';
 import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UsersService } from '../users/users.service';
-import { AssignTasksDto } from './models/dtos/assign-tasks.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
 import { TasksController } from './tasks.controller';
 import { TasksModule } from './tasks.module';
@@ -75,39 +74,16 @@ describe('Tasks Controller', () => {
       );
     });
   });
-  describe('Task Assignment', () => {
-    const input: AssignTasksDto = {
-      taskIdList: ['task1', 'task2'],
-      userIdList: ['userId']
-    };
-    it(`should throw ${NotFoundException.name} if user does not exist`, async () => {
-      taskService.assignTasks = jest.fn().mockResolvedValue(null);
-      await expect(controller.assignTasks(input)).rejects.toThrowError(
-        NotFoundException
-      );
-    });
-    it(`should throw ${NotFoundException.name} if one or more tasks do not exist out of the list`, async () => {
-      userService.findByIdAsync = jest.fn().mockResolvedValue('user');
-      taskService.countAsync = jest.fn().mockResolvedValue(1);
-      await expect(controller.assignTasks(input)).rejects.toThrowError(
-        NotFoundException
-      );
-    });
-    it('should assign task successfully', async () => {
-      taskService.countAsync = jest.fn().mockResolvedValue(2);
-      await controller.assignTasks(input);
-    });
-  });
 
   describe('Submit Task', () => {
-    it(`should throw ${NotFoundException.name} for non-assigned task`, async () => {
-      taskService.getAssignedTasks = jest.fn().mockResolvedValue([{ id: "task" }])
+    it(`should throw ${NotFoundException.name} for non-existing task`, async () => {
+      taskService.findByIdAsync = jest.fn().mockResolvedValue(null)
       await expect(controller.submitTask('taskId')).rejects.toThrowError(NotFoundException);
     });
-    it(`should throw ${NotFoundException.name} for non-assigned task`, async () => {
-      taskService.getAssignedTasks = jest.fn().mockResolvedValue([{ id: "taskId", complete: jest.fn() }])
+    it(`should submit task`, async () => {
+      taskService.findByIdAsync = jest.fn().mockResolvedValue('task')
       taskService.submitTask = jest.fn()
-      taskService.updateAsync = jest.fn()
+
       await controller.submitTask('taskId')
     });
   });

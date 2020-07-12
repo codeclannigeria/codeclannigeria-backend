@@ -88,11 +88,19 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#assignedTasks">assignedTasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#create">create</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#createTrack">createTrack</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#enroll">enroll</a>
                             </li>
                         </ul>
                     </td>
@@ -117,7 +125,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/tracks/tracks.controller.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/tracks/tracks.controller.ts:47</a></div>
                             </td>
                         </tr>
 
@@ -165,6 +173,85 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="assignedTasks"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            assignedTasks
+                        </b>
+                        <a href="#assignedTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>assignedTasks(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:trackId/stages&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:110</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;StageDto[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="create"></a>
                     <span class="name">
                         <b>
@@ -192,8 +279,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:59</a></div>
                 </td>
             </tr>
 
@@ -271,8 +358,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:78</a></div>
                 </td>
             </tr>
 
@@ -343,6 +430,85 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enroll"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            enroll
+                        </b>
+                        <a href="#enroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enroll(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;:trackId/enroll&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@HttpCode(HttpStatus.OK)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:128</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -357,7 +523,11 @@
   BadRequestException,
   Body,
   ConflictException,
+  Get,
+  HttpCode,
   HttpStatus,
+  NotFoundException,
+  Param,
   Post,
   Req,
   UnsupportedMediaTypeException,
@@ -367,6 +537,7 @@
 } from &#x27;@nestjs/common&#x27;;
 import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { plainToClass } from &#x27;class-transformer&#x27;;
 import { Request } from &#x27;express&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
@@ -375,6 +546,7 @@ import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { StageDto } from &#x27;../stages/models/dtos/stage.dto.ts&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
 import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
@@ -450,22 +622,35 @@ export class TracksController extends BaseCtrl {
     return await super.create(dto);
   }
 
-  // @Post(&quot;:trackId/enroll&quot;)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(UserRole.MENTEE)
-  // @HttpCode(HttpStatus.OK)
-  // @ApiResponse({ type: UserDto, status: HttpStatus.OK })
-  // @ApiBearerAuth()
-  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  // async enroll(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;UserDto&gt; {
-  //   const track &#x3D; await this.trackService.findByIdAsync(trackId);
-  //   if (!track) throw new NotFoundException(&#x60;Track with ${trackId} not found&#x60;);
-  //   const user &#x3D; await this.trackService.enroll(track.id);
-  //   return plainToClass(UserDto, user, {
-  //     enableImplicitConversion: true,
-  //     excludeExtraneousValues: true
-  //   });
-  // }
+  @Get(&#x27;:trackId/stages&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async assignedTasks(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;StageDto[]&gt; {
+    const track &#x3D; await this.trackService.findByIdAsync(trackId);
+    if (!track) throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;)
+    const stages &#x3D; await this.trackService.getStages(trackId);
+
+    return plainToClass(StageDto, stages, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    });
+
+  }
+
+  @Post(&quot;:trackId/enroll&quot;)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async enroll(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;void&gt; {
+    const track &#x3D; await this.trackService.findByIdAsync(trackId);
+    if (!track) throw new NotFoundException(&#x60;Track with ${trackId} not found&#x60;);
+    await this.trackService.enroll(track.id);
+  }
 }
 </code></pre>
     </div>

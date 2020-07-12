@@ -16,11 +16,11 @@ export class TasksService extends BaseService<Task> {
     super(taskEntity);
   }
 
-  async assignTasks(userId: string, taskIdList: string[]): Promise<void> {
-    await this.userService.updateAsync(userId, {
-      $addToSet: { tasks: taskIdList }
-    } as any);
-  }
+  // async assignTasks(userId: string, taskIdList: string[]): Promise<void> {
+  //   await this.userService.updateAsync(userId, {
+  //     $addToSet: { tasks: taskIdList }
+  //   } as any);
+  // }
   async submitTask(task: Task): Promise<void> {
     await this.taskEntity.updateOne(
       { _id: task.id },
@@ -29,10 +29,4 @@ export class TasksService extends BaseService<Task> {
       });
   }
 
-  async getAssignedTasks(userId?: string): Promise<Task[]> {
-    const user = await this.userService.findById(userId || this.getUserId());
-    await user.populate('tasks').execPopulate()
-
-    return user.tasks as Task[];
-  }
 }

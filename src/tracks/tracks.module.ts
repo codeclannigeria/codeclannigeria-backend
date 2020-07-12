@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BaseService } from '~shared/services';
 
+import { UsersModule } from '../users/users.module';
 import { Track } from './models/track.entity';
 import { TracksController } from './tracks.controller';
 import { TracksService } from './tracks.service';
@@ -11,7 +12,7 @@ const TrackModel = MongooseModule.forFeature([
 ]);
 const baseService = { provide: BaseService, useClass: TracksService };
 @Module({
-  imports: [TrackModel],
+  imports: [TrackModel, UsersModule],
   providers: [TracksService, baseService],
   controllers: [TracksController],
   exports: [TrackModel, TracksService, baseService]
