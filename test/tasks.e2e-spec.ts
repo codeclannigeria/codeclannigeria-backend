@@ -8,7 +8,6 @@ import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { Stage } from '../src/stages/models/stage.entity.ts';
-import { AssignTasksDto } from '../src/tasks/models/dtos/assign-tasks.dto';
 import { CreateTaskDto } from '../src/tasks/models/dtos/create-task.dto';
 import { Task } from '../src/tasks/models/task.entity';
 import { TasksModule } from '../src/tasks/tasks.module';

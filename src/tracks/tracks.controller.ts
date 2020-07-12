@@ -25,8 +25,8 @@ import { BufferedFile } from '~shared/interfaces';
 import { uploadImg } from '~shared/utils/upload-img.util';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
-import { UserRole } from '../users/models/user.entity';
 import { StageDto } from '../stages/models/dtos/stage.dto.ts';
+import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';

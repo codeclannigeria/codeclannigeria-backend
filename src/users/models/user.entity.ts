@@ -7,7 +7,6 @@ import { Writable } from '~shared/types/abstract.type';
 
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
-import { Task } from '../../tasks/models/task.entity';
 import { Track } from '../../tracks/models/track.entity';
 
 export enum UserRole {

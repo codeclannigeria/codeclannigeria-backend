@@ -6,7 +6,6 @@ import { DbTest } from '~test/helpers/db-test.module';
 import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UsersService } from '../users/users.service';
-import { AssignTasksDto } from './models/dtos/assign-tasks.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
 import { TasksController } from './tasks.controller';
 import { TasksModule } from './tasks.module';
