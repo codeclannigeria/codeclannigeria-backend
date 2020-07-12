@@ -22,45 +22,61 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_TracksModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="166,-70 166,-268 330,-268 330,-70 166,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="108,-70 108,-268 388,-268 388,-70 108,-70"/>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_TracksModule_imports</title>
+<polygon fill="none" stroke="#000000" points="272,-78 272,-130 380,-130 380,-78 272,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_TracksModule_exports</title>
-<polygon fill="none" stroke="#000000" points="190,-208 190,-260 306,-260 306,-208 190,-208"/>
+<polygon fill="none" stroke="#000000" points="198,-208 198,-260 314,-260 314,-208 198,-208"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_TracksModule_providers</title>
-<polygon fill="none" stroke="#000000" points="174,-78 174,-130 322,-130 322,-78 174,-78"/>
+<polygon fill="none" stroke="#000000" points="116,-78 116,-130 264,-130 264,-78 116,-78"/>
 </g>
-<!-- TracksService  -->
+<!-- UsersModule -->
 <g id="node1" class="node">
-<title>TracksService </title>
-<polygon fill="#fb8072" stroke="#000000" points="297.5655,-252 198.4345,-252 198.4345,-216 297.5655,-216 297.5655,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksService </text>
+<title>UsersModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="371.9218,-122 368.9218,-126 347.9218,-126 344.9218,-122 280.0782,-122 280.0782,-86 371.9218,-86 371.9218,-122"/>
+<text text-anchor="middle" x="326" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersModule</text>
 </g>
 <!-- TracksModule -->
 <g id="node2" class="node">
 <title>TracksModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="296.6375,-187 293.6375,-191 272.6375,-191 269.6375,-187 199.3625,-187 199.3625,-151 296.6375,-151 296.6375,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="304.6375,-187 301.6375,-191 280.6375,-191 277.6375,-187 207.3625,-187 207.3625,-151 304.6375,-151 304.6375,-187"/>
+<text text-anchor="middle" x="256" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksModule</text>
+</g>
+<!-- UsersModule&#45;&gt;TracksModule -->
+<g id="edge1" class="edge">
+<title>UsersModule&#45;&gt;TracksModule</title>
+<path fill="none" stroke="#000000" d="M292.554,-122.1061C292.554,-122.1061 292.554,-140.991 292.554,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="289.0541,-140.9909 292.554,-150.991 296.0541,-140.991 289.0541,-140.9909"/>
+</g>
+<!-- TracksService  -->
+<g id="node3" class="node">
+<title>TracksService </title>
+<polygon fill="#fb8072" stroke="#000000" points="305.5655,-252 206.4345,-252 206.4345,-216 305.5655,-216 305.5655,-252"/>
+<text text-anchor="middle" x="256" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksService </text>
 </g>
 <!-- TracksModule&#45;&gt;TracksService  -->
-<g id="edge1" class="edge">
+<g id="edge2" class="edge">
 <title>TracksModule&#45;&gt;TracksService </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M256,-187.1061C256,-187.1061 256,-205.991 256,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="252.5001,-205.9909 256,-215.991 259.5001,-205.991 252.5001,-205.9909"/>
 </g>
 <!-- TracksService -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>TracksService</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="248" cy="-104" rx="66.0281" ry="18"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksService</text>
+<ellipse fill="#fdb462" stroke="#000000" cx="190" cy="-104" rx="66.0281" ry="18"/>
+<text text-anchor="middle" x="190" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksService</text>
 </g>
 <!-- TracksService&#45;&gt;TracksModule -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>TracksService&#45;&gt;TracksModule</title>
-<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
+<path fill="none" stroke="#000000" d="M231.7226,-118.104C231.7226,-118.104 231.7226,-140.7209 231.7226,-140.7209"/>
+<polygon fill="#000000" stroke="#000000" points="228.2227,-140.7209 231.7226,-150.7209 235.2227,-140.7209 228.2227,-140.7209"/>
 </g>
 </g>
 </svg>
