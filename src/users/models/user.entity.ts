@@ -8,6 +8,7 @@ import { Writable } from '~shared/types/abstract.type';
 import { columnSize } from '../../shared/constants';
 import { BaseEntity } from '../../shared/models/base.entity';
 import { Task } from '../../tasks/models/task.entity';
+import { Track } from '../../tracks/models/track.entity';
 
 export enum UserRole {
   MENTEE = 'MENTEE',
@@ -65,7 +66,7 @@ export class User extends BaseEntity {
     default: null
   })
   readonly description!: string;
-  @prop({ items: String, default: [] })
+  @prop({ type: String, default: [] })
   readonly technologies: string[] = [];
   @prop({ required: true, maxlength: columnSize.length64 })
   @Exclude()
@@ -89,10 +90,10 @@ export class User extends BaseEntity {
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
-  @prop({ ref: 'Task', required: true })
-  readonly tasks!: Ref<Task>[];
-  // @prop({ ref: 'Track', required: true })
-  // readonly tracks!: Ref<Track>[];
+  // @prop({ ref: 'Task', required: true })
+  // readonly tasks!: Ref<Task>[];
+  @prop({ ref: 'Track', required: true })
+  readonly tracks!: Ref<Track>[];
   /**
    * Get User's full name
    *

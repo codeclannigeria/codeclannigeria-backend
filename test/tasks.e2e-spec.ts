@@ -155,42 +155,13 @@ describe('TasksController (e2e)', () => {
             return route.delete(`/tasks/${task.id}`).send(input).expect(403);
         });
 
-        let user: User;
-        describe('/tasks/assign', () => {
-            let input: AssignTasksDto;
-            it('should assign task to user', async () => {
-                currentUser.role = UserRole.ADMIN;
-                user = await UserModel.create({
-                    firstName: 'firstName',
-                    lastName: 'lastName',
-                    email: 'email@new.com',
-                    password: 'pass1#Word'
-                });
-                input = {
-                    userIdList: [user.id],
-                    taskIdList: [task.id]
-                }
-                await route.post('/tasks/assign').send(input).expect(200)
-                user = await UserModel.findById(user.id);
-                expect(user.tasks[0].toString()).toBe(task.id)
-            });
-            it('should assign task to user', async () => {
-                input = {
-                    userIdList: [user.id],
-                    taskIdList: [task.id, task.id]
-                }
-                return route.post('/tasks/assign').send(input).expect(404)
-            });
-        });
-        describe('/tasks/:taskId/submit', () => {
-            it('should submit task', async () => {
-                currentUser.role = UserRole.MENTEE;
-                currentUser.userId = user.id;
-                await route.post(`/tasks/${task.id}/submit`).send(input).expect(200)
-                const dbTask = await TaskModel.findById(task.id);
-                expect(dbTask.status).toBe(TaskStatus.COMPLETED)
-                expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)
-            });
+
+        it('should submit task', async () => {
+            currentUser.role = UserRole.MENTEE;
+            await route.post(`/tasks/${task.id}/submit`).send(input).expect(200)
+            const dbTask = await TaskModel.findById(task.id);
+            expect(dbTask.status).toBe(TaskStatus.COMPLETED)
+            expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)
         });
 
         it('should soft delete track', async () => {

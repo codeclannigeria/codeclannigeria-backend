@@ -2,7 +2,11 @@ import {
   BadRequestException,
   Body,
   ConflictException,
+  Get,
+  HttpCode,
   HttpStatus,
+  NotFoundException,
+  Param,
   Post,
   Req,
   UnsupportedMediaTypeException,
@@ -12,6 +16,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
+import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
@@ -21,6 +26,7 @@ import { uploadImg } from '~shared/utils/upload-img.util';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { UserRole } from '../users/models/user.entity';
+import { StageDto } from '../stages/models/dtos/stage.dto.ts';
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
 import { Track } from './models/track.entity';
@@ -95,20 +101,33 @@ export class TracksController extends BaseCtrl {
     return await super.create(dto);
   }
 
-  // @Post(":trackId/enroll")
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles(UserRole.MENTEE)
-  // @HttpCode(HttpStatus.OK)
-  // @ApiResponse({ type: UserDto, status: HttpStatus.OK })
-  // @ApiBearerAuth()
-  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  // async enroll(@Param("trackId") trackId: string): Promise<UserDto> {
-  //   const track = await this.trackService.findByIdAsync(trackId);
-  //   if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
-  //   const user = await this.trackService.enroll(track.id);
-  //   return plainToClass(UserDto, user, {
-  //     enableImplicitConversion: true,
-  //     excludeExtraneousValues: true
-  //   });
-  // }
+  @Get(':trackId/stages')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async assignedTasks(@Param("trackId") trackId: string): Promise<StageDto[]> {
+    const track = await this.trackService.findByIdAsync(trackId);
+    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+    const stages = await this.trackService.getStages(trackId);
+
+    return plainToClass(StageDto, stages, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    });
+
+  }
+
+  @Post(":trackId/enroll")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async enroll(@Param("trackId") trackId: string): Promise<void> {
+    const track = await this.trackService.findByIdAsync(trackId);
+    if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
+    await this.trackService.enroll(track.id);
+  }
 }
