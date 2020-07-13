@@ -21,13 +21,15 @@ export class AuthService {
     const user = await this.usersService.findOneAsync({
       email: email?.toLowerCase()
     });
+
+    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
     if (user.loginAttemptCount >= 3) {
       throw new HttpException(
         { message: 'User is locked out', errorType: 'USER_LOCKED_OUT' },
         HttpStatus.UNAUTHORIZED
       );
     }
-    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified) {
       throw new HttpException(
         { message: 'Unconfirmed Email', errorType: 'UNCONFIRMED_EMAIL' },
