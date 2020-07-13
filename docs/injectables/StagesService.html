@@ -2318,7 +2318,7 @@ import { DocumentType, ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
 import { Track } from &#x27;../tracks/models/track.entity&#x27;;
-import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { Stage } from &#x27;./models/stage.entity&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class StagesService extends BaseService&lt;Stage&gt; {
@@ -2334,9 +2334,9 @@ export class StagesService extends BaseService&lt;Stage&gt; {
   async insert(stage: Stage): Promise&lt;DocumentType&lt;Stage&gt;&gt; {
     const newStage &#x3D; await super.insert(stage);
     const track &#x3D; newStage.track as any;
-    track.stages.push(newStage.id);
+
     await this.track.findByIdAndUpdate(track.id, {
-      stages: track.stages,
+      $addToSet: { stages: newStage.id },
       updatedBy: this.getUserId()
     });
 

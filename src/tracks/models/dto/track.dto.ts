@@ -1,9 +1,9 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsAlphanumeric, MaxLength, IsOptional, IsNotEmpty } from 'class-validator';
+import { IsAlphanumeric, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
 import { BaseDto } from '~shared/models/dto/base.dto';
-import { ApiProperty } from '@nestjs/swagger';
 
 @Exclude()
 export class TrackDto extends BaseDto {

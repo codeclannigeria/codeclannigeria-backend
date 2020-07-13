@@ -4,7 +4,7 @@ import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
 import { Track } from '../tracks/models/track.entity';
-import { Stage } from './models/stage.entity.ts';
+import { Stage } from './models/stage.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class StagesService extends BaseService<Stage> {
@@ -20,9 +20,9 @@ export class StagesService extends BaseService<Stage> {
   async insert(stage: Stage): Promise<DocumentType<Stage>> {
     const newStage = await super.insert(stage);
     const track = newStage.track as any;
-    track.stages.push(newStage.id);
+
     await this.track.findByIdAndUpdate(track.id, {
-      stages: track.stages,
+      $addToSet: { stages: newStage.id },
       updatedBy: this.getUserId()
     });
 

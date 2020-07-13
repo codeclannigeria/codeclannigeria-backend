@@ -2071,7 +2071,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, InternalServerErrorException, Logger, Optional } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, InternalServerErrorException, Optional } from &#x27;@nestjs/common&#x27;;
 import { REQUEST } from &#x27;@nestjs/core&#x27;;
 import { DocumentType, ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { AnyParamConstructor } from &#x27;@typegoose/typegoose/lib/types&#x27;;
@@ -2091,7 +2091,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   constructor(protected entity: ReturnModelType&lt;AnyParamConstructor&lt;T&gt;&gt;) { }
 
   protected static throwMongoError(err: MongoError): void {
-    Logger.error(err)
+    console.error(err)
     throw new InternalServerErrorException(err, err.errmsg);
   }
 

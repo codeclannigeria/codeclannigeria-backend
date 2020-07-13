@@ -16,8 +16,8 @@ import * as request from 'supertest';
 import { JwtAuthGuard } from '../src/auth/guards/jwt-auth.guard';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
-import { CreateStageDto } from '../src/stages/models/dtos/create-stage.dto.ts';
-import { Stage } from '../src/stages/models/stage.entity.ts';
+import { CreateStageDto } from '../src/stages/models/dtos/create-stage.dto';
+import { Stage } from '../src/stages/models/stage.entity';
 import { StagesModule } from '../src/stages/stages.module';
 import { StagesService } from '../src/stages/stages.service';
 import { Track } from '../src/tracks/models/track.entity';
@@ -136,8 +136,10 @@ describe('StagesController (e2e)', () => {
       const { body } = await route.post('/stages').send(input).expect(201);
       stage = await stageService.findByIdAsync(body.id);
       track = await trackService.findByIdAsync(trackModel.id);
+
       expect(stage.createdBy.toString()).toBe(currentUser.userId);
       expect(track.stages.includes(stage.id as any)).toBe(true);
+      expect(body.track.id).toBe(trackModel.id)
     });
     it('should return 409 for existing stage title', async () => {
       return route.post('/stages').send(input).expect(409);

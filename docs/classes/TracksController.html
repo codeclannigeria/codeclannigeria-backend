@@ -455,14 +455,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;:trackId/enroll&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@HttpCode(HttpStatus.OK)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Post(&#x27;:trackId/enroll&#x27;)<br />@UseGuards(JwtAuthGuard)<br />@HttpCode(HttpStatus.OK)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:127</a></div>
                 </td>
             </tr>
 
@@ -546,10 +546,10 @@ import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
-import { StageDto } from &#x27;../stages/models/dtos/stage.dto.ts&#x27;;
+import { StageDto } from &#x27;../stages/models/dtos/stage.dto&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
-import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/tack.dto&#x27;;
+import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/track.dto&#x27;;
 import { Track } from &#x27;./models/track.entity&#x27;;
 import { TracksService } from &#x27;./tracks.service&#x27;;
 
@@ -641,8 +641,7 @@ export class TracksController extends BaseCtrl {
   }
 
   @Post(&quot;:trackId/enroll&quot;)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.MENTEE)
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })

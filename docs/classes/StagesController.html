@@ -267,9 +267,9 @@ import { ApiException } from &#x27;~shared/errors&#x27;;
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { TracksService } from &#x27;../tracks/tracks.service&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
-import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto.ts&#x27;;
-import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto.ts&#x27;;
-import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { CreateStageDto } from &#x27;./models/dtos/create-stage.dto&#x27;;
+import { PagedListStageDto, StageDto } from &#x27;./models/dtos/stage.dto&#x27;;
+import { Stage } from &#x27;./models/stage.entity&#x27;;
 import { StagesService } from &#x27;./stages.service&#x27;;
 
 const BaseCtrl &#x3D; BaseCrudController&lt;Stage, StageDto, CreateStageDto&gt;({
@@ -311,6 +311,7 @@ export class StagesController extends BaseCtrl {
     const stage &#x3D; await this.stageService.findOneAsync({
       title: input.title.toUpperCase()
     });
+
     if (stage) {
       throw new ConflictException(
         &#x60;Stage with the title &quot;${stage.title}&quot; already exists&#x60;

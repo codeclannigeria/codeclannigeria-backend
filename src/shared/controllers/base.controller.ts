@@ -67,7 +67,7 @@ export function BaseCrudController<
     constructor(
       @Inject(BaseService)
       protected service: BaseService<TEntity>
-    ) {}
+    ) { }
 
     @Post()
     @ApiResponse({ type: EntityDto, status: HttpStatus.CREATED })

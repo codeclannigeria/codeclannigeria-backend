@@ -1,17 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
-import {
-  IsAlphanumeric,
-  IsInt,
-  IsOptional,
-  MaxLength,
-  Min
-} from 'class-validator';
+import { Exclude, Expose, Type } from 'class-transformer';
+import { IsAlphanumeric, IsInt, IsOptional, MaxLength, Min } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
 import { BaseDto } from '~shared/models/dto/base.dto';
 
-import { TrackDto } from '../../../tracks/models/dto/tack.dto';
+import { TrackDto } from '../../../tracks/models/dto/track.dto';
 
 @Exclude()
 export class StageDto extends BaseDto {
@@ -28,7 +22,8 @@ export class StageDto extends BaseDto {
   @IsOptional()
   taskCount?: number = 0;
   @Expose()
-  @ApiProperty({ type: TrackDto })
-  track: TrackDto;
+  @ApiProperty({ type: TrackDto, readOnly: true })
+  @Type(() => TrackDto)
+  readonly track: TrackDto;
 }
-export class PagedListStageDto extends PagedListDto(StageDto) {}
+export class PagedListStageDto extends PagedListDto(StageDto) { }

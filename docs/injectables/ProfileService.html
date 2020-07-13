@@ -102,7 +102,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/profile/profile.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/profile/profile.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -162,15 +162,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>uploadAvatar(file: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>uploadAvatar(file: <a href="../interfaces/BufferedFile.html">BufferedFile</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/profile/profile.service.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/profile/profile.service.ts:16</a></div>
                 </td>
             </tr>
 
@@ -192,7 +192,7 @@
                                 <tr>
                                     <td>file</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                <code><a href="../interfaces/BufferedFile.html" target="_self" >BufferedFile</a></code>
                                     </td>
 
                                     <td>
@@ -238,6 +238,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
+import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
@@ -249,7 +250,7 @@ export class ProfileService {
     constructor(@InjectModel(User.modelName)
     protected readonly userEntity: ReturnModelType&lt;typeof User&gt;) { }
 
-    async uploadAvatar(file: any, userId: string): Promise&lt;void&gt; {
+    async uploadAvatar(file: BufferedFile, userId: string): Promise&lt;void&gt; {
         const photoUrl &#x3D; await uploadImg(file, &quot;avatars&quot;, userId);
         await this.userEntity.updateOne({ _id: userId }, { photoUrl })
     }

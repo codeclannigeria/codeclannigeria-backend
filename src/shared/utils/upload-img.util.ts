@@ -1,8 +1,9 @@
-import configuration from "~shared/config/configuration";
 import * as cloudinary from 'cloudinary';
 import DataURIParser = require('datauri/parser');
+import configuration from '~shared/config/configuration';
+import { BufferedFile } from '~shared/interfaces';
 
-export const uploadImg = async (file: any, folderName: string, uniqId?: string): Promise<string> => {
+export const uploadImg = async (file: BufferedFile, folderName: string, uniqId?: string): Promise<string> => {
 
     const { cloudinary: config } = configuration();
     cloudinary.v2.config({

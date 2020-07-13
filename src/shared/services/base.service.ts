@@ -1,4 +1,4 @@
-import { Inject, InternalServerErrorException, Logger, Optional } from '@nestjs/common';
+import { Inject, InternalServerErrorException, Optional } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { DocumentType, ReturnModelType } from '@typegoose/typegoose';
 import { AnyParamConstructor } from '@typegoose/typegoose/lib/types';
@@ -18,7 +18,7 @@ export abstract class BaseService<T extends BaseEntity> {
   constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) { }
 
   protected static throwMongoError(err: MongoError): void {
-    Logger.error(err)
+    console.error(err)
     throw new InternalServerErrorException(err, err.errmsg);
   }
 

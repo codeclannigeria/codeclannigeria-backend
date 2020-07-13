@@ -3,7 +3,7 @@ import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
 import { Writable } from '~shared/types/abstract.type';
 
-import { Stage } from '../../stages/models/stage.entity.ts';
+import { Stage } from '../../stages/models/stage.entity';
 import { Track } from '../../tracks/models/track.entity';
 
 export enum TaskStatus {
