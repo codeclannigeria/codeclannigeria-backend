@@ -7,9 +7,9 @@ import { ApiException } from '~shared/errors';
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
 import { TracksService } from '../tracks/tracks.service';
 import { UserRole } from '../users/models/user.entity';
-import { CreateStageDto } from './models/dtos/create-stage.dto.ts';
-import { PagedListStageDto, StageDto } from './models/dtos/stage.dto.ts';
-import { Stage } from './models/stage.entity.ts';
+import { CreateStageDto } from './models/dtos/create-stage.dto';
+import { PagedListStageDto, StageDto } from './models/dtos/stage.dto';
+import { Stage } from './models/stage.entity';
 import { StagesService } from './stages.service';
 
 const BaseCtrl = BaseCrudController<Stage, StageDto, CreateStageDto>({
@@ -51,6 +51,7 @@ export class StagesController extends BaseCtrl {
     const stage = await this.stageService.findOneAsync({
       title: input.title.toUpperCase()
     });
+
     if (stage) {
       throw new ConflictException(
         `Stage with the title "${stage.title}" already exists`

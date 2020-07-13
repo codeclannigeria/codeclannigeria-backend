@@ -8,7 +8,7 @@ export class RegisterUserDto extends OmitType(UserDto, [
   'role',
   'createdAt',
   'updatedAt',
-  'tasks',
+  'tracks',
   'photoUrl'
 ]) {
   @MinLength(6)

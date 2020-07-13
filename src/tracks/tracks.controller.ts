@@ -25,10 +25,10 @@ import { BufferedFile } from '~shared/interfaces';
 import { uploadImg } from '~shared/utils/upload-img.util';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
-import { StageDto } from '../stages/models/dtos/stage.dto.ts';
+import { StageDto } from '../stages/models/dtos/stage.dto';
 import { UserRole } from '../users/models/user.entity';
 import { CreateTrackDto, CreateWithThumbnailTrackDto } from './models/dto/create-track.dto';
-import { PagedTrackOutputDto, TrackDto } from './models/dto/tack.dto';
+import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
 
@@ -120,8 +120,7 @@ export class TracksController extends BaseCtrl {
   }
 
   @Post(":trackId/enroll")
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.MENTEE)
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })

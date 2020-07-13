@@ -1,7 +1,7 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { BufferedFile } from '~shared/interfaces/buffer-file.interface';
 
-import { TrackDto } from './tack.dto';
+import { TrackDto } from './track.dto';
 
 export class CreateTrackDto extends OmitType(TrackDto, [
   'id',

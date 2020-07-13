@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  NotFoundException,
   Post,
   Put,
   Req,
@@ -18,10 +17,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
+import { BufferedFile } from '~shared/interfaces';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserDto } from '../users/models/dto/user.dto';
-import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { AvatarUploadDto } from './dto/avatar-upload.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -36,9 +35,7 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async getProfile(@Req() req: Request): Promise<UserDto> {
-    const user = await this.userService.findOneAsync({
-      email: req.user['email'].toLowerCase()
-    });
+    const user = await this.userService.findByIdAsync(req.user['userId']);
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
@@ -49,17 +46,8 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise<void> {
-
     const id = req.user['userId'];
-    const user = await this.userService.findByIdAsync(id);
-    if (!user)
-      throw new NotFoundException(`Entity with Id ${id} does not exist`);
-    const value = plainToClass(UserDto, user, {
-      enableImplicitConversion: true,
-      excludeExtraneousValues: true
-    });
-    const toBeUpdatedEntity = { ...value, ...input } as Partial<User>;
-    await this.userService.updateAsync(id, toBeUpdatedEntity);
+    await this.userService.updateAsync(id, input);
   }
   @Post('upload_profile_photo')
   @UseInterceptors(FileInterceptor('file'))
@@ -72,7 +60,7 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   @HttpCode(HttpStatus.OK)
-  async uploadFile(@UploadedFile() file: any, @Req() req: Request): Promise<UserDto> {
+  async uploadFile(@UploadedFile() file: BufferedFile, @Req() req: Request): Promise<UserDto> {
     if (!file)
       throw new BadRequestException("File image cannot be empty")
 

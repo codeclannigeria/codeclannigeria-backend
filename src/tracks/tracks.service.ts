@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
-import { Stage } from '../stages/models/stage.entity.ts';
+import { Stage } from '../stages/models/stage.entity';
 import { UsersService } from './../users/users.service';
 import { Track } from './models/track.entity';
 

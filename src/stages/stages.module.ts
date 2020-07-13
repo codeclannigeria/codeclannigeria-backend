@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BaseService } from '~shared/services';
 
 import { TracksModule } from '../tracks/tracks.module';
-import { Stage } from './models/stage.entity.ts';
+import { Stage } from './models/stage.entity';
 import { StagesController } from './stages.controller';
 import { StagesService } from './stages.service';
 
@@ -17,4 +17,4 @@ const baseService = { provide: BaseService, useClass: StagesService };
   controllers: [StagesController],
   exports: [StageModel, StagesService, baseService]
 })
-export class StagesModule {}
+export class StagesModule { }

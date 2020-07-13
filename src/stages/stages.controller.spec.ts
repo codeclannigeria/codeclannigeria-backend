@@ -4,7 +4,7 @@ import { BaseService } from '~shared/services';
 import { DbTest } from '~test/helpers/db-test.module';
 
 import { TracksService } from '../tracks/tracks.service';
-import { CreateStageDto } from './models/dtos/create-stage.dto.ts';
+import { CreateStageDto } from './models/dtos/create-stage.dto';
 import { StagesController } from './stages.controller';
 import { StagesModule } from './stages.module';
 import { StagesService } from './stages.service';
@@ -57,7 +57,9 @@ describe('Stages Controller', () => {
         .mockResolvedValue({ stages: [], updateOne: jest.fn() });
       stageService.createEntity = jest.fn().mockReturnValue(input);
       const result = await controller.create(input);
-      expect(result).toMatchObject(input);
+      const inputCopy = { ...input };
+      delete inputCopy.track;
+      expect(result).toMatchObject(inputCopy);
     });
     it(`should throw ${ConflictException.name} for existing Stage`, async () => {
       stageService.findOneAsync = jest.fn().mockResolvedValue(input);
