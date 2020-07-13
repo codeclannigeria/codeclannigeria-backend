@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
 
 import { User } from '../users/models/user.entity';
@@ -9,7 +9,6 @@ export class SessionSerializer extends PassportSerializer {
     done(null, user);
   }
   deserializeUser(user: User, done: (err: Error, user: User) => void): any {
-    //Logger.log(user);
     done(null, user);
   }
 }

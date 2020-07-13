@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import * as mg from 'nodemailer-mailgun-transport';
@@ -25,7 +24,7 @@ export class MailService {
     );
   }
 
-  async sendMailAsync(mailOptions: Mail.Options) {
+  async sendMailAsync(mailOptions: Mail.Options): Promise<void> {
     const info = await this.transporter.sendMail(mailOptions);
     Logger.debug(`Message sent: ${info.messageId}`);
 
