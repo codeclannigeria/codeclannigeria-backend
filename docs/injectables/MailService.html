@@ -126,7 +126,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/shared/mail/mail.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/shared/mail/mail.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -163,8 +163,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/shared/mail/mail.service.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/shared/mail/mail.service.ts:15</a></div>
                 </td>
             </tr>
 
@@ -204,8 +204,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/shared/mail/mail.service.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/shared/mail/mail.service.ts:27</a></div>
                 </td>
             </tr>
 
@@ -242,7 +242,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -279,7 +279,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/shared/mail/mail.service.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/shared/mail/mail.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -307,7 +307,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/shared/mail/mail.service.ts:11</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/shared/mail/mail.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -346,7 +346,7 @@ export class MailService {
     );
   }
 
-  async sendMailAsync(mailOptions: Mail.Options) {
+  async sendMailAsync(mailOptions: Mail.Options): Promise&lt;void&gt; {
     const info &#x3D; await this.transporter.sendMail(mailOptions);
     Logger.debug(&#x60;Message sent: ${info.messageId}&#x60;);
 

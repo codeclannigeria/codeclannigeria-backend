@@ -275,7 +275,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Logger } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { PassportSerializer } from &#x27;@nestjs/passport&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
@@ -286,7 +286,6 @@ export class SessionSerializer extends PassportSerializer {
     done(null, user);
   }
   deserializeUser(user: User, done: (err: Error, user: User) &#x3D;&gt; void): any {
-    //Logger.log(user);
     done(null, user);
   }
 }
