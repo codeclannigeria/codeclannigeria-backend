@@ -56,7 +56,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
     "mongoose-autopopulate": "^0.12.2",
-    "nodemailer": "^6.4.8",
+    "nodemailer": "^6.4.10",
     "nodemailer-mailgun-transport": "^2.0.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
