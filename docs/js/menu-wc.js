@@ -309,9 +309,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ApiException.html" data-type="entity-link">ApiException</a>
                             </li>
                             <li class="link">
-                                <a href="classes/AssignTasksDto.html" data-type="entity-link">AssignTasksDto</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/AvatarUploadDto.html" data-type="entity-link">AvatarUploadDto</a>
                             </li>
                             <li class="link">

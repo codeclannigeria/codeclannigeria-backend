@@ -239,7 +239,7 @@
 import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
-import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
+import { uploadFileToCloud } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { User } from &#x27;../users/models/user.entity&#x27;;
 
@@ -251,7 +251,7 @@ export class ProfileService {
     protected readonly userEntity: ReturnModelType&lt;typeof User&gt;) { }
 
     async uploadAvatar(file: BufferedFile, userId: string): Promise&lt;void&gt; {
-        const photoUrl &#x3D; await uploadImg(file, &quot;avatars&quot;, userId);
+        const photoUrl &#x3D; await uploadFileToCloud(file, &quot;avatars&quot;, userId);
         await this.userEntity.updateOne({ _id: userId }, { photoUrl })
     }
 }

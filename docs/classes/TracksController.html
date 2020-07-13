@@ -543,7 +543,7 @@ import { BaseCrudController } from &#x27;~shared/controllers/base.controller&#x2
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
-import { uploadImg } from &#x27;~shared/utils/upload-img.util&#x27;;
+import { uploadFileToCloud } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
 import { StageDto } from &#x27;../stages/models/dtos/stage.dto&#x27;;
@@ -615,7 +615,7 @@ export class TracksController extends BaseCtrl {
       );
     const userId &#x3D; req.user[&#x27;userId&#x27;];
 
-    const thumbnailUrl &#x3D; await uploadImg(thumbnail, &quot;avatars&quot;, userId);
+    const thumbnailUrl &#x3D; await uploadFileToCloud(thumbnail, &quot;avatars&quot;, userId);
     const dto &#x3D; input as any;
     dto.thumbnailUrl &#x3D; thumbnailUrl;
     delete dto.thumbnail
