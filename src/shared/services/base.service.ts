@@ -162,6 +162,8 @@ export abstract class BaseService<T extends BaseEntity> {
       updatedAt: undefined
     } as any;
 
+    delete update.createdAt
+    delete update.updatedAt
 
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
