@@ -109,7 +109,7 @@ describe('ProfileController (e2e)', () => {
         });
         it('should upload avatar', async () => {
             const mockPhotoUrl = "https://www.securePhtotUrl.com";
-            jest.spyOn(uploader, 'uploadImg').mockResolvedValue(mockPhotoUrl)
+            jest.spyOn(uploader, 'uploadFileToCloud').mockResolvedValue(mockPhotoUrl)
 
             const { body } = await route.post('/profile/upload_profile_photo')
                 .set('Content-Type', 'multipart/form-data')

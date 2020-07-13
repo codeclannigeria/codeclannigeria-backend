@@ -46,7 +46,7 @@ export const getAuthObj = (
       defaultAuth.delete.enableAuth = false;
       return defaultAuth;
     }
-    if (authObj === true) return defaultAuth;
+    return defaultAuth;
   }
 
   if (typeof authObj?.find === 'boolean') {

@@ -155,9 +155,16 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   update(id: string, item: Partial<T>): QueryItem<T> {
-    const update = { ...item, updatedBy: this.getUserId() } as any;
-    delete update?.createdAt;
-    delete update?.updatedAt;
+    const update = {
+      ...item,
+      updatedBy: this.getUserId(),
+      createdAt: undefined,
+      updatedAt: undefined
+    } as any;
+
+    delete update.createdAt
+    delete update.updatedAt
+
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
