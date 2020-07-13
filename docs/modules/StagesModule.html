@@ -197,7 +197,7 @@ import { MongooseModule } from &#x27;@nestjs/mongoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
 import { TracksModule } from &#x27;../tracks/tracks.module&#x27;;
-import { Stage } from &#x27;./models/stage.entity.ts&#x27;;
+import { Stage } from &#x27;./models/stage.entity&#x27;;
 import { StagesController } from &#x27;./stages.controller&#x27;;
 import { StagesService } from &#x27;./stages.service&#x27;;
 
@@ -211,7 +211,7 @@ const baseService &#x3D; { provide: BaseService, useClass: StagesService };
   controllers: [StagesController],
   exports: [StageModel, StagesService, baseService]
 })
-export class StagesModule {}
+export class StagesModule { }
 </code></pre>
     </div>
 </div>

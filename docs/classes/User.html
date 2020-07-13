@@ -758,16 +758,21 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @prop({ref: &#x27;Track&#x27;, required: true})<br />
+                                @prop({ref: &#x27;Track&#x27;, default: undefined})<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/users/models/user.entity.ts:95</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/users/models/user.entity.ts:93</a></div>
                             </td>
                         </tr>
 
@@ -1223,8 +1228,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">src/users/models/user.entity.ts:110</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/users/models/user.entity.ts:108</a></div>
                 </td>
             </tr>
 
@@ -1262,8 +1267,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="105"
-                            class="link-to-prism">src/users/models/user.entity.ts:105</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="103"
+                            class="link-to-prism">src/users/models/user.entity.ts:103</a></div>
                 </td>
             </tr>
 
@@ -1491,7 +1496,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/users/models/user.entity.ts:102</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/users/models/user.entity.ts:100</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -1526,7 +1531,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">src/users/models/user.entity.ts:114</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/users/models/user.entity.ts:112</a></div>
                                 </td>
                             </tr>
 
@@ -1604,7 +1609,7 @@ export class User extends BaseEntity {
     default: null
   })
   readonly description!: string;
-  @prop({ type: String, default: [] })
+  @prop({ type: String, default: null })
   readonly technologies: string[] &#x3D; [];
   @prop({ required: true, maxlength: columnSize.length64 })
   @Exclude()
@@ -1628,10 +1633,8 @@ export class User extends BaseEntity {
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
-  // @prop({ ref: &#x27;Task&#x27;, required: true })
-  // readonly tasks!: Ref&lt;Task&gt;[];
-  @prop({ ref: &#x27;Track&#x27;, required: true })
-  readonly tracks!: Ref&lt;Track&gt;[];
+  @prop({ ref: &#x27;Track&#x27;, default: [] })
+  readonly tracks: Ref&lt;Track&gt;[] &#x3D; [];
   /**
    * Get User&#x27;s full name
    *

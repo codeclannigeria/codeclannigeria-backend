@@ -224,13 +224,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/StagesModule.html" data-type="entity-link">StagesModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' : 'data-target="#xs-injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' }>
+                                        'data-target="#injectables-links-module-StagesModule-097db90243ab167311b5fd8c6b67891f"' : 'data-target="#xs-injectables-links-module-StagesModule-097db90243ab167311b5fd8c6b67891f"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' :
-                                        'id="xs-injectables-links-module-StagesModule-7f25ab73587efdd73408c185e5a50203"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-StagesModule-097db90243ab167311b5fd8c6b67891f"' :
+                                        'id="xs-injectables-links-module-StagesModule-097db90243ab167311b5fd8c6b67891f"' }>
                                         <li class="link">
                                             <a href="injectables/StagesService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>StagesService</a>

@@ -141,8 +141,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/profile/profile.controller.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/profile/profile.controller.ts:37</a></div>
                 </td>
             </tr>
 
@@ -220,8 +220,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">src/profile/profile.controller.ts:51</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/profile/profile.controller.ts:48</a></div>
                 </td>
             </tr>
 
@@ -297,7 +297,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>uploadFile(file: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, req: Request)</code>
+                    <code>uploadFile(file: <a href="../interfaces/BufferedFile.html">BufferedFile</a>, req: Request)</code>
                 </td>
             </tr>
 
@@ -311,8 +311,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/profile/profile.controller.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">src/profile/profile.controller.ts:63</a></div>
                 </td>
             </tr>
 
@@ -334,7 +334,7 @@
                                 <tr>
                                     <td>file</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                <code><a href="../interfaces/BufferedFile.html" target="_self" >BufferedFile</a></code>
                                     </td>
 
                                     <td>
@@ -382,7 +382,6 @@
   Get,
   HttpCode,
   HttpStatus,
-  NotFoundException,
   Post,
   Put,
   Req,
@@ -395,10 +394,10 @@ import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { plainToClass } from &#x27;class-transformer&#x27;;
 import { Request } from &#x27;express&#x27;;
+import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
 import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
-import { User } from &#x27;../users/models/user.entity&#x27;;
 import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AvatarUploadDto } from &#x27;./dto/avatar-upload.dto&#x27;;
 import { UpdateProfileDto } from &#x27;./dto/update-profile.dto&#x27;;
@@ -413,9 +412,7 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.userService.findOneAsync({
-      email: req.user[&#x27;email&#x27;].toLowerCase()
-    });
+    const user &#x3D; await this.userService.findByIdAsync(req.user[&#x27;userId&#x27;]);
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
@@ -426,17 +423,8 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise&lt;void&gt; {
-
     const id &#x3D; req.user[&#x27;userId&#x27;];
-    const user &#x3D; await this.userService.findByIdAsync(id);
-    if (!user)
-      throw new NotFoundException(&#x60;Entity with Id ${id} does not exist&#x60;);
-    const value &#x3D; plainToClass(UserDto, user, {
-      enableImplicitConversion: true,
-      excludeExtraneousValues: true
-    });
-    const toBeUpdatedEntity &#x3D; { ...value, ...input } as Partial&lt;User&gt;;
-    await this.userService.updateAsync(id, toBeUpdatedEntity);
+    await this.userService.updateAsync(id, input);
   }
   @Post(&#x27;upload_profile_photo&#x27;)
   @UseInterceptors(FileInterceptor(&#x27;file&#x27;))
@@ -449,7 +437,7 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   @HttpCode(HttpStatus.OK)
-  async uploadFile(@UploadedFile() file: any, @Req() req: Request): Promise&lt;UserDto&gt; {
+  async uploadFile(@UploadedFile() file: BufferedFile, @Req() req: Request): Promise&lt;UserDto&gt; {
     if (!file)
       throw new BadRequestException(&quot;File image cannot be empty&quot;)
 

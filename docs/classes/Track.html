@@ -967,7 +967,7 @@
 import { columnSize } from &#x27;~shared/constants&#x27;;
 import { BaseEntity } from &#x27;~shared/models/base.entity&#x27;;
 
-import { Stage } from &#x27;../../stages/models/stage.entity.ts&#x27;;
+import { Stage } from &#x27;../../stages/models/stage.entity&#x27;;
 
 @index({ title: 1 }, { unique: true })
 export class Track extends BaseEntity {
@@ -990,7 +990,7 @@ export class Track extends BaseEntity {
   })
   readonly description!: string;
 
-  @prop({ ref: &#x27;Stage&#x27;, default: [] })
+  @prop({ ref: &#x27;Stage&#x27;, default: null })
   readonly stages: Ref&lt;Stage&gt;[] &#x3D; [];
 
   @prop({
