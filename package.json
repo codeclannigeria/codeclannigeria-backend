@@ -85,7 +85,7 @@
     "@types/hapi__joi": "^17.1.2",
     "@types/helmet": "0.0.47",
     "@types/jest": "^26.0.0",
-    "@types/mongoose": "^5.7.24",
+    "@types/mongoose": "^5.7.31",
     "@types/mongoose-autopopulate": "^0.10.1",
     "@types/node": "^14.0.13",
     "@types/nodemailer": "^6.4.0",
