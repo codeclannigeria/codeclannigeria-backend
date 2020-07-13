@@ -319,8 +319,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="178"
-                            class="link-to-prism">src/shared/services/base.service.ts:178</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="185"
+                            class="link-to-prism">src/shared/services/base.service.ts:185</a></div>
                 </td>
             </tr>
 
@@ -395,8 +395,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="183"
-                            class="link-to-prism">src/shared/services/base.service.ts:183</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="190"
+                            class="link-to-prism">src/shared/services/base.service.ts:190</a></div>
                 </td>
             </tr>
 
@@ -1960,8 +1960,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="170"
-                            class="link-to-prism">src/shared/services/base.service.ts:170</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="177"
+                            class="link-to-prism">src/shared/services/base.service.ts:177</a></div>
                 </td>
             </tr>
 
@@ -2044,8 +2044,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="190"
-                            class="link-to-prism">src/shared/services/base.service.ts:190</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="197"
+                            class="link-to-prism">src/shared/services/base.service.ts:197</a></div>
                 </td>
             </tr>
 
@@ -2228,9 +2228,16 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   }
 
   update(id: string, item: Partial&lt;T&gt;): QueryItem&lt;T&gt; {
-    const update &#x3D; { ...item, updatedBy: this.getUserId() } as any;
-    delete update?.createdAt;
-    delete update?.updatedAt;
+    const update &#x3D; {
+      ...item,
+      updatedBy: this.getUserId(),
+      createdAt: undefined,
+      updatedAt: undefined
+    } as any;
+
+    delete update.createdAt
+    delete update.updatedAt
+
     return this.entity
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true

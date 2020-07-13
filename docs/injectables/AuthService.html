@@ -202,8 +202,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/auth/auth.service.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/auth/auth.service.ts:60</a></div>
                 </td>
             </tr>
 
@@ -273,8 +273,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/auth/auth.service.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/auth/auth.service.ts:48</a></div>
                 </td>
             </tr>
 
@@ -345,8 +345,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">src/auth/auth.service.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/auth/auth.service.ts:80</a></div>
                 </td>
             </tr>
 
@@ -417,8 +417,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">src/auth/auth.service.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/auth/auth.service.ts:96</a></div>
                 </td>
             </tr>
 
@@ -490,8 +490,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="111"
-                            class="link-to-prism">src/auth/auth.service.ts:111</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="113"
+                            class="link-to-prism">src/auth/auth.service.ts:113</a></div>
                 </td>
             </tr>
 
@@ -675,13 +675,15 @@ export class AuthService {
     const user &#x3D; await this.usersService.findOneAsync({
       email: email?.toLowerCase()
     });
+
+    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
+
     if (user.loginAttemptCount &gt;&#x3D; 3) {
       throw new HttpException(
         { message: &#x27;User is locked out&#x27;, errorType: &#x27;USER_LOCKED_OUT&#x27; },
         HttpStatus.UNAUTHORIZED
       );
     }
-    if (!user) throw authErrors.INVALID_LOGIN_ATTEMPT;
     if (!user.isEmailVerified) {
       throw new HttpException(
         { message: &#x27;Unconfirmed Email&#x27;, errorType: &#x27;UNCONFIRMED_EMAIL&#x27; },
