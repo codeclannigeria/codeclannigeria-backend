@@ -35,7 +35,9 @@ export class ProfileController {
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async getProfile(@Req() req: Request): Promise<UserDto> {
-    const user = await this.userService.findByIdAsync(req.user['userId']);
+    const user = await (await this.userService.findById(req.user['userId'])
+      .populate("tracks"))
+      .execPopulate();
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
