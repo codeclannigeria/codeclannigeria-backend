@@ -13,7 +13,10 @@ describe('Profile Controller', () => {
   let controller: ProfileController;
   const req: any = { user: { userId: "userId" } };
   const profileService: any = { uploadAvatar: () => Promise.resolve() }
-  const userService: any = { findByIdAsync: () => 'user' }
+  const userService: any = {
+    findByIdAsync: () => 'user',
+    findById: () => ({ tracks: [], id: 'id' })
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [ProfileModule, DbTest]
@@ -32,8 +35,9 @@ describe('Profile Controller', () => {
   });
 
   it('should get current logged in user', async () => {
+
     const result = await controller.getProfile(req);
-    expect(result).toBe('user')
+    expect(result.id).toBe('id')
   });
 
   it('should update current user', async () => {
