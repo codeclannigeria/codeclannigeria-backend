@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import * as Joi from '@hapi/joi';
 
 export const envValidation = (): any => {
   return Joi.object({
