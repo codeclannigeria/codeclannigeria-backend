@@ -49,9 +49,13 @@ export class ProfileController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
-  async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise<void> {
+  async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise<UserDto> {
     const id = req.user['userId'];
-    await this.userService.updateAsync(id, input);
+    const user = await this.userService.updateAsync(id, input);
+    return plainToClass(UserDto, user, {
+      excludeExtraneousValues: true,
+      enableImplicitConversion: true
+    });
   }
   @Post('upload_profile_photo')
   @UseInterceptors(FileInterceptor('file'))

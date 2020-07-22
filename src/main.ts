@@ -36,7 +36,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   // validation
-  const { jwtSecret, port, database, environment } = configuration();
+  const { jwtSecret, port, database } = configuration();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
