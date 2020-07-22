@@ -4,6 +4,7 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
 import { Stage } from '../stages/models/stage.entity';
+import { User } from '../users/models/user.entity';
 import { UsersService } from './../users/users.service';
 import { Track } from './models/track.entity';
 
@@ -32,9 +33,9 @@ export class TracksService extends BaseService<Track> {
   //   } as any);
   // }
 
-  async enroll(trackId: string): Promise<void> {
+  async enroll(trackId: string): Promise<User> {
     const userId = this.getUserId();
-    await this.userService.updateAsync(userId, { $addToSet: { tracks: trackId }, updatedBy: userId } as any)
+    return this.userService.updateAsync(userId, { $addToSet: { tracks: trackId }, updatedBy: userId } as any)
   }
 
   async getStages(trackId: string): Promise<Stage[]> {
