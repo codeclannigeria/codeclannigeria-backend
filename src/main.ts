@@ -41,7 +41,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidUnknownValues: true,
-      disableErrorMessages: environment === 'production',
+      // disableErrorMessages: environment === 'production',
       forbidNonWhitelisted: true,
       transform: true,
       transformOptions: {
