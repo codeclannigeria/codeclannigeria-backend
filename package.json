@@ -53,7 +53,7 @@
     "express-session": "^1.17.1",
     "helmet": "^3.23.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.23",
+    "mongoose": "^5.9.25",
     "mongoose-autopopulate": "^0.12.2",
     "nodemailer": "^6.4.10",
     "nodemailer-mailgun-transport": "^2.0.0",
