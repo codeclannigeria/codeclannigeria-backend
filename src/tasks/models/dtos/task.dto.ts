@@ -6,7 +6,8 @@ import {
   IsMongoId,
   IsOptional,
   MaxLength,
-  MinDate
+  MinDate,
+  IsNotEmpty
 } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
@@ -14,7 +15,7 @@ import { BaseDto, PagedListDto } from '~shared/models/dto';
 @Exclude()
 export class TaskDto extends BaseDto {
   @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @IsNotEmpty()
   @Expose()
   title: string;
   @MaxLength(columnSize.length128)
@@ -34,4 +35,4 @@ export class TaskDto extends BaseDto {
   @Type(() => Date)
   deadline?: Date;
 }
-export class PagedListTaskDto extends PagedListDto(TaskDto) {}
+export class PagedListTaskDto extends PagedListDto(TaskDto) { }
