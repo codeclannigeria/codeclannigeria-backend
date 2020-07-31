@@ -1,4 +1,10 @@
-import { ExecutionContext, INestApplication, ValidationPipe, UnsupportedMediaTypeException, HttpStatus } from '@nestjs/common';
+import {
+    ExecutionContext,
+    HttpStatus,
+    INestApplication,
+    UnsupportedMediaTypeException,
+    ValidationPipe,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelForClass, mongoose, ReturnModelType } from '@typegoose/typegoose';
 import * as request from 'supertest';
@@ -9,7 +15,7 @@ import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { UpdateProfileDto } from '../src/profile/dto/update-profile.dto';
 import { ProfileModule } from '../src/profile/profile.module';
-import { User } from '../src/users/models/user.entity';
+import { Gender, User } from '../src/users/models/user.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('ProfileController (e2e)', () => {
@@ -92,7 +98,11 @@ describe('ProfileController (e2e)', () => {
             lastName: "NewLastName",
             phoneNumber: "+2348074455596",
             technologies: [".NET", "NodeJs"],
-            description: "description"
+            description: "description",
+            city: "Lagos",
+            dob: new Date(2000, 1, 1),
+            country: 'Nigeria',
+            gender: Gender.FEMALE
         }
         await route.put('/profile').send(input).expect(200);
 

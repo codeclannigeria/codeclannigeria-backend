@@ -14,7 +14,11 @@ export enum UserRole {
   MENTOR = 'MENTOR',
   ADMIN = 'ADMIN'
 }
-
+export enum Gender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  UNSPECIFIED = 'UNSPECIFIED'
+}
 @pre<User>('save', async function () {
   try {
     (this as Writable<User>).password = await hash(this.password, 10);
@@ -65,6 +69,38 @@ export class User extends BaseEntity {
     default: null
   })
   readonly description!: string;
+
+
+  @prop({
+    maxlength: columnSize.length64,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly city: string = null;
+
+  @prop({
+    maxlength: columnSize.length64,
+    trim: true,
+    text: true,
+    default: null
+  })
+  readonly country: string = null;
+
+  @prop({
+    enum: Gender,
+    type: String,
+    default: Gender.UNSPECIFIED
+  })
+  readonly gender: Gender = Gender.UNSPECIFIED;
+
+  @prop({
+    type: Date,
+    default: null
+  })
+  readonly dob: Date = null;
+
+
   @prop({ type: String, default: null })
   readonly technologies: string[] = [];
   @prop({ required: true, maxlength: columnSize.length64 })

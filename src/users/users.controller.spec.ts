@@ -4,6 +4,7 @@ import { BaseService } from '~shared/services';
 import { DbTest } from '~test/helpers/db-test.module';
 
 import { CreateUserDto } from './models/dto/create-user.dto';
+import { Gender } from './models/user.entity';
 import { UsersController } from './users.controller';
 import { UsersModule } from './users.module';
 import { UsersService } from './users.service';
@@ -35,6 +36,10 @@ describe('Users Controller', () => {
       email: 'email@gmail.com',
       firstName: 'firstName',
       lastName: 'lastName',
+      country: "Nigeria",
+      city: "Lagos",
+      gender: Gender.FEMALE,
+      dob: new Date(2000, 1, 1)
     }
     await expect(controller.create(input)).rejects.toThrowError(ConflictException)
   });
