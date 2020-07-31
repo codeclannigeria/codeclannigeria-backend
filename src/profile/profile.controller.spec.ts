@@ -45,8 +45,8 @@ describe('Profile Controller', () => {
     const input: UpdateProfileDto = {
       firstName: 'firstName',
       lastName: 'lastName',
-      country: "Canada",
-      city: "Toronto",
+      country: "Nigeria",
+      city: "Abuja",
       gender: Gender.FEMALE,
       dob: new Date(2000, 1, 1)
     }
