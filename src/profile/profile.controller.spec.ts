@@ -1,13 +1,14 @@
-import { BufferedFile } from '~shared/interfaces';
-import { ProfileService } from './profile.service';
+import { BadRequestException, UnsupportedMediaTypeException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { BufferedFile } from '~shared/interfaces';
 import { DbTest } from '~test/helpers/db-test.module';
 
+import { Gender } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileController } from './profile.controller';
 import { ProfileModule } from './profile.module';
-import { UpdateProfileDto } from './dto/update-profile.dto';
-import { UnsupportedMediaTypeException, BadRequestException } from '@nestjs/common';
+import { ProfileService } from './profile.service';
 
 describe('Profile Controller', () => {
   let controller: ProfileController;
@@ -44,6 +45,10 @@ describe('Profile Controller', () => {
     const input: UpdateProfileDto = {
       firstName: 'firstName',
       lastName: 'lastName',
+      country: "Nigeria",
+      city: "Lagos",
+      gender: Gender.FEMALE,
+      dob: new Date(2000, 1, 1)
     }
     userService.updateAsync = () => Promise.resolve();
     return controller.updateProfile(input, req);
