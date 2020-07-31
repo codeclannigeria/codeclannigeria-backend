@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsAlphanumeric, IsInt, IsOptional, MaxLength, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, MaxLength, Min } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
 import { BaseDto } from '~shared/models/dto/base.dto';
@@ -10,7 +10,7 @@ import { TrackDto } from '../../../tracks/models/dto/track.dto';
 @Exclude()
 export class StageDto extends BaseDto {
   @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @IsNotEmpty()
   @Expose()
   title: string;
   @MaxLength(columnSize.length128)

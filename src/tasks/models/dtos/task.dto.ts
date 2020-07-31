@@ -1,20 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
-import {
-  IsAlphanumeric,
-  IsDate,
-  IsMongoId,
-  IsOptional,
-  MaxLength,
-  MinDate
-} from 'class-validator';
+import { IsDate, IsMongoId, IsNotEmpty, IsOptional, MaxLength, MinDate } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
 @Exclude()
 export class TaskDto extends BaseDto {
   @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @IsNotEmpty()
   @Expose()
   title: string;
   @MaxLength(columnSize.length128)
@@ -34,4 +27,4 @@ export class TaskDto extends BaseDto {
   @Type(() => Date)
   deadline?: Date;
 }
-export class PagedListTaskDto extends PagedListDto(TaskDto) {}
+export class PagedListTaskDto extends PagedListDto(TaskDto) { }
