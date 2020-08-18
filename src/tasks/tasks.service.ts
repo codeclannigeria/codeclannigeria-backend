@@ -67,7 +67,7 @@ export class TasksService extends BaseService<Task> {
         {_id: userStage.id},
           {
             $set : {taskRemaining : 0}
-          }, 
+          },
           {
             $set : {isCompleted : true}
           }
