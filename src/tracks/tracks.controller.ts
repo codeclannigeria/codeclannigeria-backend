@@ -153,7 +153,7 @@ export class TracksController extends BaseCtrl {
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK })
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN, UserRole.MENTOR)
+  @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async createMentors(@Param("trackId") trackId: string, @Body() input: MentorInput, @Req() req: Request): Promise<void> {
