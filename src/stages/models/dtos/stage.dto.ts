@@ -20,7 +20,7 @@ export class StageDto extends BaseDto {
   @Min(0)
   @IsInt()
   @IsOptional()
-  taskCount?: number = 0;
+  taskCount?: number = 1;
   @Expose()
   @ApiProperty({ type: TrackDto, readOnly: true })
   @Type(() => TrackDto)

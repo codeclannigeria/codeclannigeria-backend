@@ -26,9 +26,10 @@ export class Stage extends BaseEntity {
     unique: false
   })
   readonly description!: string;
+
   @prop({
     required: true,
-    default: 0
+    default: 1
   })
   readonly taskCount!: number;
 

@@ -123,7 +123,8 @@ describe('TasksController (e2e)', () => {
             const newStage = await StageModel.create({
                 title: 'title',
                 description: 'description',
-                track: newTrack.id
+                track: newTrack.id,
+                level: 0
             })
             input.stage = newStage.id;
             input.track = newTrack.id;
@@ -160,7 +161,6 @@ describe('TasksController (e2e)', () => {
             currentUser.role = UserRole.MENTEE;
             const dto: SubmissionDto = {
                 description: 'description',
-                taskId: task.id,
                 taskUrl: "www.google.com"
             }
             await route.post(`/tasks/${task.id}/submit`).send(dto).expect(200)

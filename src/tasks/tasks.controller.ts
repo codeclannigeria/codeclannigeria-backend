@@ -84,7 +84,6 @@ export class TasksController extends BaseCtrl {
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
 
-
-    await this.tasksService.submitTask(input);
+    await this.tasksService.submitTask(input, task);
   }
 }
