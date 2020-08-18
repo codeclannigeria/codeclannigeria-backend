@@ -1,3 +1,5 @@
+import { MentorService } from './../mentor/mentor.service';
+import { MentorDto } from './../mentor/models/mentor.dto';
 import {
   BadRequestException,
   Body,
@@ -20,7 +22,7 @@ import { Request } from 'express';
 import { BufferedFile } from '~shared/interfaces';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { UserDto } from '../users/models/dto/user.dto';
+import { UserDto, PagedUserOutputDto } from '../users/models/dto/user.dto';
 import { UsersService } from '../users/users.service';
 import { AvatarUploadDto } from './dto/avatar-upload.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -29,7 +31,7 @@ import { ProfileService } from './profile.service';
 @ApiTags("Profile")
 @Controller('profile')
 export class ProfileController {
-  constructor(private readonly userService: UsersService, private profileService: ProfileService) { }
+  constructor(private readonly userService: UsersService, private profileService: ProfileService, private mentorService: MentorService) { }
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -44,6 +46,32 @@ export class ProfileController {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
     });
+  }
+  @Get("mentors")
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
+  async getMentors(@Req() req: Request): Promise<PagedUserOutputDto> {
+    const mentors = await this.mentorService.getMentors(req.user['userId']);
+
+    const items = plainToClass(MentorDto, mentors, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: mentors.length, items }
+  }
+  @Get("mentees")
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
+  async getMentees(@Req() req: Request): Promise<PagedUserOutputDto> {
+    const mentors = await this.mentorService.getMentees(req.user['userId']);
+
+    const items = plainToClass(MentorDto, mentors, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: mentors.length, items }
   }
   @Put()
   @UseGuards(JwtAuthGuard)
