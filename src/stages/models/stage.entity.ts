@@ -26,6 +26,13 @@ export class Stage extends BaseEntity {
     unique: false
   })
   readonly description!: string;
+
+  @prop({
+    required: true,
+    unique: true
+  })
+  readonly level!: number;
+
   @prop({
     required: true,
     default: 0

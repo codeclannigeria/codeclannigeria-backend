@@ -19,6 +19,10 @@ export class StageDto extends BaseDto {
   @Expose()
   @Min(0)
   @IsInt()
+  level: number = 0;
+  @Expose()
+  @Min(0)
+  @IsInt()
   @IsOptional()
   taskCount?: number = 0;
   @Expose()
