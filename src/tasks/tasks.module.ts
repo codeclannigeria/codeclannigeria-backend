@@ -6,7 +6,7 @@ import { StagesModule } from '../stages/stages.module';
 import { TracksModule } from '../tracks/tracks.module';
 import { UsersModule } from '../users/users.module';
 import { UserStage } from '../userstage/models/userstage.entity';
-import { Submission } from './models/submission.dto';
+import { Submission } from './models/submission.entity';
 import { Task } from './models/task.entity';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';

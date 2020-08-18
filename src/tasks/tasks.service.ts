@@ -6,7 +6,7 @@ import { BaseService } from '~shared/services';
 import { UserStage } from '../userstage/models/userstage.entity';
 import { Stage } from '../stages/models/stage.entity';
 import { SubmissionDto } from './models/dtos/submission.dto';
-import { Submission } from './models/submission.dto';
+import { Submission } from './models/submission.entity';
 import { Task } from './models/task.entity';
 
 @Injectable({ scope: Scope.REQUEST })

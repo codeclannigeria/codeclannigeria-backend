@@ -1,4 +1,4 @@
-import { IsMongoId, IsUrl, MaxLength } from 'class-validator';
+import { IsUrl, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 
 export class SubmissionDto {
