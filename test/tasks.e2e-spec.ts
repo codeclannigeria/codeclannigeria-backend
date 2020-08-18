@@ -1,3 +1,4 @@
+import { SubmissionDto } from './../src/tasks/models/dtos/submission.dto';
 import { ExecutionContext, INestApplication, UnauthorizedException, ValidationPipe } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -157,9 +158,14 @@ describe('TasksController (e2e)', () => {
 
         it('should submit task', async () => {
             currentUser.role = UserRole.MENTEE;
-            await route.post(`/tasks/${task.id}/submit`).send(input).expect(200)
+            const dto: SubmissionDto = {
+                description: 'description',
+                taskId: task.id,
+                taskUrl: "www.google.com"
+            }
+            await route.post(`/tasks/${task.id}/submit`).send(dto).expect(200)
             const dbTask = await TaskModel.findById(task.id);
-            expect(dbTask.status).toBe(TaskStatus.COMPLETED)
+
             expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)
         });
 

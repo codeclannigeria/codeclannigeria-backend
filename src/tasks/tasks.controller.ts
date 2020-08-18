@@ -22,6 +22,7 @@ import { CreateTaskDto } from './models/dtos/create-task.dto';
 import { PagedListTaskDto, TaskDto } from './models/dtos/task.dto';
 import { Task } from './models/task.entity';
 import { TasksService } from './tasks.service';
+import { SubmissionDto } from './models/dtos/submission.dto';
 
 const BaseCtrl = BaseCrudController<Task, TaskDto, CreateTaskDto>({
   entity: Task,
@@ -78,10 +79,12 @@ export class TasksController extends BaseCtrl {
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param('taskId') taskId: string): Promise<void> {
+  async submitTask(@Param('taskId') taskId: string, @Body() input: SubmissionDto): Promise<void> {
 
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
-    await this.tasksService.submitTask(task);
+
+
+    await this.tasksService.submitTask(input);
   }
 }

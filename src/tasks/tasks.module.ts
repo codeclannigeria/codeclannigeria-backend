@@ -5,6 +5,7 @@ import { BaseService } from '~shared/services';
 import { StagesModule } from '../stages/stages.module';
 import { TracksModule } from '../tracks/tracks.module';
 import { UsersModule } from '../users/users.module';
+import { Submission } from './models/submission.dto';
 import { Task } from './models/task.entity';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
@@ -12,9 +13,12 @@ import { TasksService } from './tasks.service';
 const TaskModel = MongooseModule.forFeature([
   { name: Task.modelName, schema: Task.schema }
 ]);
+const SubmissionModel = MongooseModule.forFeature([
+  { name: Submission.modelName, schema: Submission.schema }
+]);
 const baseService = { provide: BaseService, useClass: TasksService };
 @Module({
-  imports: [TaskModel, StagesModule, TracksModule, UsersModule],
+  imports: [TaskModel, StagesModule, SubmissionModel, TracksModule, UsersModule],
   providers: [TasksService, baseService],
   controllers: [TasksController],
   exports: [TaskModel, TasksService, baseService]
