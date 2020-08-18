@@ -19,5 +19,7 @@ export class TrackDto extends BaseDto {
   @Expose()
   @IsOptional()
   readonly thumbnailUrl?: string;
+
+  
 }
 export class PagedTrackOutputDto extends PagedListDto(TrackDto) { }
