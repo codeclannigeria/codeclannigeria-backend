@@ -86,7 +86,8 @@ describe('Tasks Controller', () => {
       taskService.findByIdAsync = jest.fn().mockResolvedValue('task')
       taskService.submitTask = jest.fn()
 
-      await controller.submitTask('taskId')
+      const input: SubmissionDto = { taskUrl: 'www.google.com', description: 'description' };
+      await controller.submitTask('taskId', input)
     });
   });
 });
