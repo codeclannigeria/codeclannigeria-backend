@@ -25,7 +25,7 @@ export class CreateWithThumbnailTrackDto extends OmitType(TrackDto, [
   thumbnail: BufferedFile;
 }
 
-export class TrackEnrollmentDto {
+export class MentorInput {
   @IsMongoId()
   @Expose()
   mentorId: string;
