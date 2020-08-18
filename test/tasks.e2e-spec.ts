@@ -122,7 +122,8 @@ describe('TasksController (e2e)', () => {
             const newStage = await StageModel.create({
                 title: 'title',
                 description: 'description',
-                track: newTrack.id
+                track: newTrack.id,
+                level:0
             })
             input.stage = newStage.id;
             input.track = newTrack.id;

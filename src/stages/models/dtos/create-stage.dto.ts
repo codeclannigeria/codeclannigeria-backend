@@ -7,8 +7,7 @@ import { StageDto } from './stage.dto';
 export class CreateStageDto extends PickType(StageDto, [
   'title',
   'description',
-  'taskCount',
-  'level'
+  'taskCount'
 ]) {
   @IsMongoId()
   @Expose()
