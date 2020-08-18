@@ -177,7 +177,7 @@ export class TracksController extends BaseCtrl {
     const mentor = await this.userService.findOneAsync({ _id: input.mentorId, role: UserRole.MENTOR })
     if (!mentor) throw new NotFoundException(`Mentor with ${input.mentorId} not found`);
 
-    await this.mentorService.assignMentor(req.user['id'], mentor);
+    await this.mentorService.assignMentor(req.user['userId'], mentor.id);
     await this.trackService.enroll(track.id);
   }
 }
