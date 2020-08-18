@@ -9,12 +9,12 @@ import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { Stage } from '../src/stages/models/stage.entity';
 import { CreateTaskDto } from '../src/tasks/models/dtos/create-task.dto';
+import { SubmissionDto } from '../src/tasks/models/dtos/submission.dto';
 import { Task } from '../src/tasks/models/task.entity';
 import { TasksModule } from '../src/tasks/tasks.module';
 import { TasksService } from '../src/tasks/tasks.service';
 import { Track } from '../src/tracks/models/track.entity';
 import { User, UserRole } from '../src/users/models/user.entity';
-import { TaskStatus } from './../src/tasks/models/task.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('TasksController (e2e)', () => {
@@ -123,7 +123,7 @@ describe('TasksController (e2e)', () => {
                 title: 'title',
                 description: 'description',
                 track: newTrack.id,
-                level:0
+                level: 0
             })
             input.stage = newStage.id;
             input.track = newTrack.id;
@@ -158,9 +158,13 @@ describe('TasksController (e2e)', () => {
 
         it('should submit task', async () => {
             currentUser.role = UserRole.MENTEE;
-            await route.post(`/tasks/${task.id}/submit`).send(input).expect(200)
+            const dto: SubmissionDto = {
+                description: 'description',
+                taskUrl: "www.google.com"
+            }
+            await route.post(`/tasks/${task.id}/submit`).send(dto).expect(200)
             const dbTask = await TaskModel.findById(task.id);
-            expect(dbTask.status).toBe(TaskStatus.COMPLETED)
+
             expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)
         });
 

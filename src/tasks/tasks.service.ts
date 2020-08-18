@@ -3,77 +3,74 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
-import { UsersService } from '../users/users.service';
-import { Task, TaskStatus } from './models/task.entity';
-import { Stage } from '../stages/models/stage.entity';
-import { User } from '../users/models/user.entity';
 import { UserStage } from '../userstage/models/userstage.entity';
+import { Stage } from '../stages/models/stage.entity';
+import { SubmissionDto } from './models/dtos/submission.dto';
+import { Submission } from './models/submission.entity';
+import { Task } from './models/task.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TasksService extends BaseService<Task> {
   constructor(
     @InjectModel(Task.modelName)
-    protected readonly taskEntity: ReturnModelType<typeof Task>,
-    @InjectModel(Stage.modelName)
-    protected readonly stageEntity: ReturnModelType<typeof Stage>,
-    @InjectModel(User.modelName)
-    protected readonly userEntity: ReturnModelType<typeof User>,
+    protected readonly taskModel: ReturnModelType<typeof Task>,
+    @InjectModel(Submission.modelName)
+    protected readonly submissionModel: ReturnModelType<typeof Submission>,
     @InjectModel(UserStage.modelName)
-    protected readonly userStageEntity: ReturnModelType<typeof UserStage>,
-    protected readonly userService: UsersService
+    protected readonly userStageModel: ReturnModelType<typeof UserStage>,
+    @InjectModel(Stage.modelName)
+    protected readonly stageModel: ReturnModelType<typeof Stage>
   ) {
-    super(taskEntity);
+    super(taskModel);
   }
 
-  // async assignTasks(userId: string, taskIdList: string[]): Promise<void> {
-  //   await this.userService.updateAsync(userId, {
-  //     $addToSet: { tasks: taskIdList }
-  //   } as any);
-  // }
-  async submitTask(task: Task): Promise<void> {
+  async submitTask(input: SubmissionDto, task: Task): Promise<void> {
+    const createdBy = this.getUserId();
+    const submission = await this.submissionModel.findOne({ task: task.id, createdBy });
+    if (submission) {
+      await this.submissionModel.updateOne({ _id: submission.id }, { ...input, task: task.id, updatedBy: createdBy } as any)
+      return;
+    }
+    await this.submissionModel.create({ ...input, createdBy, task: task.id })
 
-    await this.taskEntity.updateOne(
-      { _id: task.id },
-      {
-        status: TaskStatus.COMPLETED, updatedBy: this.getUserId()
-      });
-    const stage =  await this.stageEntity.findById(task.stage);
-    //check if the user has the stage recorded in the table
-    const currentUser = this.getUserId();
-    const userStage = await this.userStageEntity.findOne({user:currentUser, stage:stage.id})
-    //if no, insert it
-    if (!userStage){
-      if (stage.taskCount > 1){
-        this.userStageEntity.create({user: currentUser, stage : stage.id, track : task.track, taskRemaining : stage.taskCount - 1})
+
+    const stage = await this.stageModel.findById(task.stage);
+    const userStage = await this.userStageModel.findOne({ user: createdBy, stage: stage.id, createdBy })
+
+    if (!userStage) {
+      let doc = { user: createdBy, stage: stage.id, track: task.track, createdBy } as any;
+      if (stage.taskCount > 0) {
+        doc = { ...doc, taskRemaining: stage.taskCount - 1 };
       }
-      else{
-        this.userStageEntity.create({user: currentUser, stage : stage.id, track: task.track, taskRemaining : 0, isCompleted : true})
+      else {
+        doc = { ...doc, taskRemaining: 0, isCompleted: true };
       }
+      this.userStageModel.create(doc)
+      return;
     }
 
-    //else if the user has the stage in the table reduce their taskremaining by 1
-    else if (userStage.taskRemaining > 1){
-
-      await this.userStageEntity.updateOne(
-        {_id: userStage.id},
-          {
-            $inc : {taskRemaining : -1}
-          }
-        );
+    //user has the stage in the table, decrement their pending tasks by 1
+    if (userStage.taskRemaining > 1) {
+      await this.userStageModel.updateOne(
+        { _id: userStage.id },
+        {
+          $inc: { taskRemaining: -1 }
+        }
+      );
     }
-    else if (userStage.taskRemaining <= 1){
+    else if (userStage.taskRemaining <= 1) {
       //user has completed the stage
-      await this.userStageEntity.updateOne(
-        {_id: userStage.id},
-          {
-            $set : {taskRemaining : 0}
-          },
-          {
-            $set : {isCompleted : true}
-          }
-        );
+      await this.userStageModel.updateOne(
+        { _id: userStage.id },
+        {
+          $set: { taskRemaining: 0 }
+        },
+        {
+          $set: { isCompleted: true }
+        }
+      );
     }
-  
+
   }
 
 }

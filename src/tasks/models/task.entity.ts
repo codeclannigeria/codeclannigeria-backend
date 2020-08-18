@@ -1,7 +1,6 @@
 import { index, prop, Ref } from '@typegoose/typegoose';
 import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
-import { Writable } from '~shared/types/abstract.type';
 
 import { Stage } from '../../stages/models/stage.entity';
 import { Track } from '../../tracks/models/track.entity';
@@ -40,13 +39,6 @@ export class Task extends BaseEntity {
   })
   readonly deadline = new Date(new Date().setDate(new Date().getDate() + 7));
 
-  @prop({
-    enum: TaskStatus,
-    type: String,
-    required: true,
-    default: TaskStatus.STARTED
-  })
-  readonly status: TaskStatus = TaskStatus.STARTED;
 
   @prop({ ref: Track, required: true })
   readonly track!: Ref<Track>;
@@ -54,7 +46,5 @@ export class Task extends BaseEntity {
   @prop({ ref: Stage, required: true })
   readonly stage!: Ref<Stage>;
 
-  complete(): void {
-    (this as Writable<Task>).status = TaskStatus.COMPLETED;
-  }
+
 }
