@@ -60,6 +60,19 @@ export class ProfileController {
     }) as any;
     return { totalCount: mentors.length, items }
   }
+  @Get("mentees")
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
+  async getMentees(@Req() req: Request): Promise<PagedUserOutputDto> {
+    const mentors = await this.mentorService.getMentees(req.user['userId']);
+
+    const items = plainToClass(MentorDto, mentors, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: mentors.length, items }
+  }
   @Put()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
