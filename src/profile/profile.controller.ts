@@ -41,7 +41,7 @@ export class ProfileController {
 
     if (user.tracks.length > 0)
       user = await user.populate('tracks').execPopulate()
-
+    //get the stage for each of the tracks above
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
