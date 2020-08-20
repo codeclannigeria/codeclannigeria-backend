@@ -7,6 +7,7 @@ import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UsersService } from '../users/users.service';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
+import { SubmissionDto } from './models/dtos/submission.dto';
 import { TasksController } from './tasks.controller';
 import { TasksModule } from './tasks.module';
 import { TasksService } from './tasks.service';
@@ -78,13 +79,15 @@ describe('Tasks Controller', () => {
   describe('Submit Task', () => {
     it(`should throw ${NotFoundException.name} for non-existing task`, async () => {
       taskService.findByIdAsync = jest.fn().mockResolvedValue(null)
-      await expect(controller.submitTask('taskId')).rejects.toThrowError(NotFoundException);
+      const input: SubmissionDto = { taskUrl: 'www.google.com', description: 'description' };
+      await expect(controller.submitTask('taskId', input)).rejects.toThrowError(NotFoundException);
     });
     it(`should submit task`, async () => {
       taskService.findByIdAsync = jest.fn().mockResolvedValue('task')
       taskService.submitTask = jest.fn()
 
-      await controller.submitTask('taskId')
+      const input: SubmissionDto = { taskUrl: 'www.google.com', description: 'description' };
+      await controller.submitTask('taskId', input)
     });
   });
 });
