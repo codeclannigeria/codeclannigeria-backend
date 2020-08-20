@@ -1,5 +1,3 @@
-import { MentorService } from './../mentor/mentor.service';
-import { MentorDto } from './../mentor/models/mentor.dto';
 import {
   BadRequestException,
   Body,
@@ -22,8 +20,10 @@ import { Request } from 'express';
 import { BufferedFile } from '~shared/interfaces';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { UserDto, PagedUserOutputDto } from '../users/models/dto/user.dto';
+import { MentorService } from '../mentor/mentor.service';
+import { PagedUserOutputDto, UserDto } from '../users/models/dto/user.dto';
 import { UsersService } from '../users/users.service';
+import { MentorDto } from './../mentor/models/mentor.dto';
 import { AvatarUploadDto } from './dto/avatar-upload.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
