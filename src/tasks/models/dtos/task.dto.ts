@@ -19,6 +19,9 @@ export class TaskDto extends BaseDto {
   @IsMongoId()
   @Expose()
   stage: string;
+  @IsMongoId()
+  @Expose()
+  course: string;
   @Expose()
   @IsDate()
   @MinDate(new Date(), { message: 'Date must be in future' })

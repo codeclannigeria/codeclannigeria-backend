@@ -7,6 +7,7 @@ import * as request from 'supertest';
 import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
+import { Course } from '../src/courses/models/course.entity';
 import { Stage } from '../src/stages/models/stage.entity';
 import { CreateTaskDto } from '../src/tasks/models/dtos/create-task.dto';
 import { SubmissionDto } from '../src/tasks/models/dtos/submission.dto';
@@ -29,6 +30,8 @@ describe('TasksController (e2e)', () => {
     let UserModel: ReturnModelType<typeof User>;
     let TrackModel: ReturnModelType<typeof Track>;
     let StageModel: ReturnModelType<typeof Stage>;
+    let CourseModel: ReturnModelType<typeof Course>;
+
 
     const jwtGuard = {
         canActivate: (context: ExecutionContext): boolean => {
@@ -75,6 +78,8 @@ describe('TasksController (e2e)', () => {
         TaskModel = getModelForClass(Task, { existingMongoose: mongo });
         StageModel = getModelForClass(Stage, { existingMongoose: mongo });
         TrackModel = getModelForClass(Track, { existingMongoose: mongo });
+        CourseModel = getModelForClass(Course, { existingMongoose: mongo });
+
 
         UserModel = getModelForClass(User, { existingMongoose: mongo });
 
@@ -98,7 +103,8 @@ describe('TasksController (e2e)', () => {
             title: 'Task1',
             description: 'Description',
             stage: "",
-            track: ""
+            track: "",
+            course: ""
         };
         it('should return 401 if user not logged in', () => {
             return route.post('/tasks').send(input).expect(401);
@@ -125,8 +131,15 @@ describe('TasksController (e2e)', () => {
                 track: newTrack.id,
                 level: 0
             })
+            const newCourse = await CourseModel.create({
+                title: 'title',
+                description: 'description',
+                playlistUrl: "www.google.com",
+                enrollmentCount: 0
+            })
             input.stage = newStage.id;
             input.track = newTrack.id;
+            input.course = newCourse.id
 
             currentUser.role = UserRole.ADMIN;
             const { body } = await route.post('/tasks').send(input).expect(201);
