@@ -169,7 +169,7 @@ export abstract class BaseService<T extends BaseEntity> {
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
       })
-      .where(this.whereOwn())
+      // .where(this.whereOwn())
       .where('isDeleted')
       .ne(true);
   }

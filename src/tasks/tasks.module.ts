@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BaseService } from '~shared/services';
 
+import { CoursesModule } from '../courses/courses.module';
 import { StagesModule } from '../stages/stages.module';
 import { TracksModule } from '../tracks/tracks.module';
 import { UsersModule } from '../users/users.module';
@@ -22,7 +23,7 @@ const SubmissionModel = MongooseModule.forFeature([
 ]);
 const baseService = { provide: BaseService, useClass: TasksService };
 @Module({
-  imports: [TaskModel, StagesModule, SubmissionModel, TracksModule, UsersModule, UserStageModel],
+  imports: [TaskModel, StagesModule, CoursesModule, SubmissionModel, TracksModule, UsersModule, UserStageModel],
   providers: [TasksService, baseService],
   controllers: [TasksController],
   exports: [TaskModel, TasksService, baseService]
