@@ -3,41 +3,54 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
-import { UserStage } from '../userstage/models/userstage.entity';
 import { Stage } from '../stages/models/stage.entity';
+import { UserStage } from '../userstage/models/userstage.entity';
+import { TrackMentor } from '../tracks/models/track-mentor.entity';
 import { SubmissionDto } from './models/dtos/submission.dto';
 import { Submission } from './models/submission.entity';
 import { Task } from './models/task.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TasksService extends BaseService<Task> {
+
   constructor(
     @InjectModel(Task.modelName)
-    protected readonly taskModel: ReturnModelType<typeof Task>,
+    protected readonly TaskModel: ReturnModelType<typeof Task>,
+    @InjectModel(TrackMentor.modelName)
+    protected readonly TrackMentorModel: ReturnModelType<typeof TrackMentor>,
     @InjectModel(Submission.modelName)
-    protected readonly submissionModel: ReturnModelType<typeof Submission>,
+    protected readonly SubmissionModel: ReturnModelType<typeof Submission>,
     @InjectModel(UserStage.modelName)
-    protected readonly userStageModel: ReturnModelType<typeof UserStage>,
+    protected readonly UserStageModel: ReturnModelType<typeof UserStage>,
     @InjectModel(Stage.modelName)
-    protected readonly stageModel: ReturnModelType<typeof Stage>
+    protected readonly StageModel: ReturnModelType<typeof Stage>
   ) {
-    super(taskModel);
+    super(TaskModel);
   }
-
+  async getUserSubmissions(taskId: string): Promise<Submission[]> {
+    return this.SubmissionModel.find({ task: taskId, createdBy: this.getUserId() });
+  }
   async submitTask(input: SubmissionDto, task: Task): Promise<void> {
     const createdBy = this.getUserId();
-    const submission = await this.submissionModel.findOne({ task: task.id, createdBy });
+    const submission = await this.SubmissionModel.findOne({ task: task.id, createdBy });
     if (submission) {
-      await this.submissionModel.updateOne({ _id: submission.id }, { ...input, task: task.id, updatedBy: createdBy } as any)
+      await this.SubmissionModel.updateOne({ _id: submission.id }, { ...input, task: task.id, updatedBy: createdBy } as any)
       return;
     }
-    await this.submissionModel.create({ ...input, createdBy, task: task.id })
+    const trackMentor = await this.TrackMentorModel.findOne({ track: task.track });
+    await this.SubmissionModel.create({ ...input, createdBy, task: task.id, mentor: trackMentor.mentor })
+
+    /** move user to next stage */
+    await this.moveToNextStage(createdBy, task);
+
+  }
+
+  private async moveToNextStage(createdBy: string, task: Task): Promise<void> {
+    const stage = await this.StageModel.findById(task.stage);
+    const userStage = await this.UserStageModel.findOne({ user: createdBy, stage: stage.id, createdBy })
 
 
-    const stage = await this.stageModel.findById(task.stage);
-    const userStage = await this.userStageModel.findOne({ user: createdBy, stage: stage.id, createdBy })
-
-    if (!userStage) {
+    if (!userStage) { // user has completed first task in this stage
       let doc = { user: createdBy, stage: stage.id, track: task.track, createdBy } as any;
       if (stage.taskCount > 0) {
         doc = { ...doc, taskRemaining: stage.taskCount - 1 };
@@ -45,22 +58,19 @@ export class TasksService extends BaseService<Task> {
       else {
         doc = { ...doc, taskRemaining: 0, isCompleted: true };
       }
-      this.userStageModel.create(doc)
+      await this.UserStageModel.create(doc);
       return;
     }
-
-    //user has the stage in the table, decrement their pending tasks by 1
-    if (userStage.taskRemaining > 1) {
-      await this.userStageModel.updateOne(
+    if (userStage.taskRemaining > 1) { // user has completed next task in this stage
+      await this.UserStageModel.updateOne(
         { _id: userStage.id },
         {
           $inc: { taskRemaining: -1 }
         }
       );
     }
-    else if (userStage.taskRemaining <= 1) {
-      //user has completed the stage
-      await this.userStageModel.updateOne(
+    else if (userStage.taskRemaining <= 1) { // user has completed all tasks in this stage
+      await this.UserStageModel.updateOne(
         { _id: userStage.id },
         {
           $set: { taskRemaining: 0 }
@@ -70,7 +80,5 @@ export class TasksService extends BaseService<Task> {
         }
       );
     }
-
   }
-
 }
