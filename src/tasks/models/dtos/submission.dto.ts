@@ -1,12 +1,14 @@
-import { IsNumber, IsUrl, Max, MaxLength, Min } from 'class-validator';
+import { IsNumber, IsUrl, Max, MaxLength, Min, IsOptional } from 'class-validator';
 import { columnSize } from '~shared/constants';
-import { PagedListDto } from '~shared/models/dto';
+import { PagedListDto, BaseDto } from '~shared/models/dto';
 
-export class SubmissionDto {
+export class SubmissionDto extends BaseDto {
     @MaxLength(columnSize.length128)
-    menteeComment: string;
+    @IsOptional()
+    menteeComment?: string;
     @MaxLength(columnSize.length128)
-    mentorComment: string;
+    @IsOptional()
+    mentorComment?: string;
     @IsUrl()
     taskUrl: string;
     @IsNumber({ maxDecimalPlaces: 2 })

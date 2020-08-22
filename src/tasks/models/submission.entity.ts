@@ -7,15 +7,17 @@ import { Task } from './task.entity';
 
 export class Submission extends BaseEntity {
     @prop({
-        required: true,
         maxlength: columnSize.length128,
+        default: null
     })
     readonly menteeComment: string;
     @prop({
-        required: true,
         maxlength: columnSize.length128,
+        default: null
     })
     readonly mentorComment: string;
+    @prop({ default: false })
+    readonly isGraded!: boolean;
     @prop({
         required: true,
         maxlength: columnSize.length128,

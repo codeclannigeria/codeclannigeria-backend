@@ -1,6 +1,7 @@
 import {
   Body,
   ConflictException,
+  Get,
   HttpCode,
   HttpStatus,
   Inject,
@@ -8,9 +9,9 @@ import {
   Param,
   Post,
   UseGuards,
-  Get,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { plainToClass } from 'class-transformer';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
@@ -20,12 +21,12 @@ import { CoursesService } from '../courses/courses.service';
 import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UserRole } from '../users/models/user.entity';
+import { CreateSubmissionDto } from './models/dtos/create-subission.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
-import { SubmissionDto, PagedListSubmissionDto } from './models/dtos/submission.dto';
+import { PagedListSubmissionDto, SubmissionDto } from './models/dtos/submission.dto';
 import { PagedListTaskDto, TaskDto } from './models/dtos/task.dto';
 import { Task } from './models/task.entity';
 import { TasksService } from './tasks.service';
-import { plainToClass } from 'class-transformer';
 
 const BaseCtrl = BaseCrudController<Task, TaskDto, CreateTaskDto>({
   entity: Task,
@@ -104,7 +105,7 @@ export class TasksController extends BaseCtrl {
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param('taskId') taskId: string, @Body() input: SubmissionDto): Promise<void> {
+  async submitTask(@Param('taskId') taskId: string, @Body() input: CreateSubmissionDto): Promise<void> {
 
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);

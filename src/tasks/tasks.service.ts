@@ -4,9 +4,9 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { BaseService } from '~shared/services';
 
 import { Stage } from '../stages/models/stage.entity';
-import { UserStage } from '../userstage/models/userstage.entity';
 import { TrackMentor } from '../tracks/models/track-mentor.entity';
-import { SubmissionDto } from './models/dtos/submission.dto';
+import { UserStage } from '../userstage/models/userstage.entity';
+import { CreateSubmissionDto } from './models/dtos/create-subission.dto';
 import { Submission } from './models/submission.entity';
 import { Task } from './models/task.entity';
 
@@ -30,13 +30,14 @@ export class TasksService extends BaseService<Task> {
   async getUserSubmissions(taskId: string): Promise<Submission[]> {
     return this.SubmissionModel.find({ task: taskId, createdBy: this.getUserId() });
   }
-  async submitTask(input: SubmissionDto, task: Task): Promise<void> {
+  async submitTask(input: CreateSubmissionDto, task: Task): Promise<void> {
     const createdBy = this.getUserId();
     const submission = await this.SubmissionModel.findOne({ task: task.id, createdBy });
     if (submission) {
       await this.SubmissionModel.updateOne({ _id: submission.id }, { ...input, task: task.id, updatedBy: createdBy } as any)
       return;
     }
+
     const trackMentor = await this.TrackMentorModel.findOne({ track: task.track });
     await this.SubmissionModel.create({ ...input, createdBy, task: task.id, mentor: trackMentor.mentor })
 
