@@ -7,12 +7,14 @@ import * as request from 'supertest';
 import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
+import { Course } from '../src/courses/models/course.entity';
 import { Stage } from '../src/stages/models/stage.entity';
+import { CreateSubmissionDto } from '../src/tasks/models/dtos/create-subission.dto';
 import { CreateTaskDto } from '../src/tasks/models/dtos/create-task.dto';
-import { SubmissionDto } from '../src/tasks/models/dtos/submission.dto';
 import { Task } from '../src/tasks/models/task.entity';
 import { TasksModule } from '../src/tasks/tasks.module';
 import { TasksService } from '../src/tasks/tasks.service';
+import { TrackMentor } from '../src/tracks/models/track-mentor.entity';
 import { Track } from '../src/tracks/models/track.entity';
 import { User, UserRole } from '../src/users/models/user.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
@@ -25,10 +27,15 @@ describe('TasksController (e2e)', () => {
     const validEmail = 'email@gmail.com';
     const validPass = 'pass@45Pdd';
     let currentUser: JwtPayload;
+    let track: Track;
     let TaskModel: ReturnModelType<typeof Task>;
     let UserModel: ReturnModelType<typeof User>;
     let TrackModel: ReturnModelType<typeof Track>;
     let StageModel: ReturnModelType<typeof Stage>;
+    let TrackMentorModel: ReturnModelType<typeof TrackMentor>;
+
+    let CourseModel: ReturnModelType<typeof Course>;
+
 
     const jwtGuard = {
         canActivate: (context: ExecutionContext): boolean => {
@@ -75,6 +82,9 @@ describe('TasksController (e2e)', () => {
         TaskModel = getModelForClass(Task, { existingMongoose: mongo });
         StageModel = getModelForClass(Stage, { existingMongoose: mongo });
         TrackModel = getModelForClass(Track, { existingMongoose: mongo });
+        CourseModel = getModelForClass(Course, { existingMongoose: mongo });
+        TrackMentorModel = getModelForClass(TrackMentor, { existingMongoose: mongo });
+
 
         UserModel = getModelForClass(User, { existingMongoose: mongo });
 
@@ -98,7 +108,8 @@ describe('TasksController (e2e)', () => {
             title: 'Task1',
             description: 'Description',
             stage: "",
-            track: ""
+            track: "",
+            course: ""
         };
         it('should return 401 if user not logged in', () => {
             return route.post('/tasks').send(input).expect(401);
@@ -115,18 +126,25 @@ describe('TasksController (e2e)', () => {
         });
         let task: Task;
         it('should return 201 if user role is permitted', async () => {
-            const newTrack = await TrackModel.create({
+            track = await TrackModel.create({
                 title: 'title',
                 description: 'description'
             })
             const newStage = await StageModel.create({
                 title: 'title',
                 description: 'description',
-                track: newTrack.id,
+                track: track.id,
                 level: 0
             })
+            const newCourse = await CourseModel.create({
+                title: 'title',
+                description: 'description',
+                playlistUrl: "www.google.com",
+                enrollmentCount: 0
+            })
             input.stage = newStage.id;
-            input.track = newTrack.id;
+            input.track = track.id;
+            input.course = newCourse.id
 
             currentUser.role = UserRole.ADMIN;
             const { body } = await route.post('/tasks').send(input).expect(201);
@@ -155,14 +173,14 @@ describe('TasksController (e2e)', () => {
             return route.delete(`/tasks/${task.id}`).send(input).expect(403);
         });
 
-
         it('should submit task', async () => {
             currentUser.role = UserRole.MENTEE;
-            const dto: SubmissionDto = {
-                description: 'description',
+            TrackMentorModel.create({ mentor: currentUser.userId, track: track })
+            const dto: CreateSubmissionDto = {
+                menteeComment: 'comment',
                 taskUrl: "www.google.com"
             }
-            await route.post(`/tasks/${task.id}/submit`).send(dto).expect(200)
+            await route.post(`/tasks/${task.id}/submissions`).send(dto).expect(200)
             const dbTask = await TaskModel.findById(task.id);
 
             expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)

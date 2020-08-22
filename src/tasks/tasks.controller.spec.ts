@@ -3,11 +3,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BaseService } from '~shared/services';
 import { DbTest } from '~test/helpers/db-test.module';
 
+import { CoursesService } from '../courses/courses.service';
 import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UsersService } from '../users/users.service';
+import { CreateSubmissionDto } from './models/dtos/create-subission.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
-import { SubmissionDto } from './models/dtos/submission.dto';
 import { TasksController } from './tasks.controller';
 import { TasksModule } from './tasks.module';
 import { TasksService } from './tasks.service';
@@ -16,6 +17,7 @@ describe('Tasks Controller', () => {
   let controller: TasksController;
   const taskService: any = { findOneAsync: () => null };
   const trackService = { findByIdAsync: () => null };
+  const courseService = { findByIdAsync: () => null };
   const userService: any = { findByIdAsync: () => null };
   const stageService = { findByIdAsync: () => null };
   beforeEach(async () => {
@@ -32,6 +34,8 @@ describe('Tasks Controller', () => {
       .useValue(stageService)
       .overrideProvider(TracksService)
       .useValue(trackService)
+      .overrideProvider(CoursesService)
+      .useValue(courseService)
       .compile();
 
     controller = await module.resolve<TasksController>(TasksController);
@@ -46,7 +50,8 @@ describe('Tasks Controller', () => {
       title: 'Title',
       description: 'Description',
       stage: 'stage',
-      track: 'track'
+      track: 'track',
+      course: 'course'
     };
     it(`should throw ${NotFoundException.name} for non-existing "Stage"`, async () => {
       await expect(controller.create(input)).rejects.toThrowError(
@@ -62,6 +67,8 @@ describe('Tasks Controller', () => {
     it('should create task and return 201', async () => {
       stageService.findByIdAsync = jest.fn().mockResolvedValue(input);
       trackService.findByIdAsync = jest.fn().mockResolvedValue(input);
+      courseService.findByIdAsync = jest.fn().mockResolvedValue(input);
+
       taskService.createEntity = jest.fn().mockReturnValue(input);
       taskService.insertAsync = jest.fn();
       expect(await controller.create(input)).toMatchObject(input);
@@ -79,14 +86,14 @@ describe('Tasks Controller', () => {
   describe('Submit Task', () => {
     it(`should throw ${NotFoundException.name} for non-existing task`, async () => {
       taskService.findByIdAsync = jest.fn().mockResolvedValue(null)
-      const input: SubmissionDto = { taskUrl: 'www.google.com', description: 'description' };
+      const input: CreateSubmissionDto = { taskUrl: 'www.google.com', menteeComment: 'comment' };
       await expect(controller.submitTask('taskId', input)).rejects.toThrowError(NotFoundException);
     });
     it(`should submit task`, async () => {
       taskService.findByIdAsync = jest.fn().mockResolvedValue('task')
       taskService.submitTask = jest.fn()
 
-      const input: SubmissionDto = { taskUrl: 'www.google.com', description: 'description' };
+      const input: CreateSubmissionDto = { taskUrl: 'www.google.com', menteeComment: 'comment' };
       await controller.submitTask('taskId', input)
     });
   });

@@ -2,6 +2,7 @@ import { index, prop, Ref } from '@typegoose/typegoose';
 import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
 
+import { Course } from '../../courses/models/course.entity';
 import { Stage } from '../../stages/models/stage.entity';
 import { Track } from '../../tracks/models/track.entity';
 
@@ -46,5 +47,6 @@ export class Task extends BaseEntity {
   @prop({ ref: Stage, required: true })
   readonly stage!: Ref<Stage>;
 
-
+  @prop({ ref: Course, required: true })
+  readonly course!: Ref<Course>;
 }

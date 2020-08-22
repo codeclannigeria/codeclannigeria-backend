@@ -1,6 +1,7 @@
 import {
   Body,
   ConflictException,
+  Get,
   HttpCode,
   HttpStatus,
   Inject,
@@ -10,19 +11,22 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { plainToClass } from 'class-transformer';
 import { BaseCrudController } from '~shared/controllers';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
+import { CoursesService } from '../courses/courses.service';
 import { StagesService } from '../stages/stages.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UserRole } from '../users/models/user.entity';
+import { CreateSubmissionDto } from './models/dtos/create-subission.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
+import { PagedListSubmissionDto, SubmissionDto } from './models/dtos/submission.dto';
 import { PagedListTaskDto, TaskDto } from './models/dtos/task.dto';
 import { Task } from './models/task.entity';
 import { TasksService } from './tasks.service';
-import { SubmissionDto } from './models/dtos/submission.dto';
 
 const BaseCtrl = BaseCrudController<Task, TaskDto, CreateTaskDto>({
   entity: Task,
@@ -43,6 +47,8 @@ export class TasksController extends BaseCtrl {
     private stageService: StagesService,
     @Inject(TracksService)
     private trackService: TracksService,
+    @Inject(CoursesService)
+    private coursesService: CoursesService,
   ) {
     super(tasksService);
   }
@@ -68,18 +74,38 @@ export class TasksController extends BaseCtrl {
     const track = await this.trackService.findByIdAsync(input.track);
     if (!track)
       throw new NotFoundException(`Track with ${input.track} not found`);
+    const course = await this.coursesService.findByIdAsync(input.course);
+    if (!course)
+      throw new NotFoundException(`Course with ${input.course} not found`);
     return await super.create(input);
   }
 
+  @Get(':taskId/submissions')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK, type: PagedListSubmissionDto })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async getMentors(@Param("trackId") taskId: string): Promise<PagedListSubmissionDto> {
+    const task = await this.tasksService.findByIdAsync(taskId);
+    if (!task) throw new NotFoundException(`Task with Id ${taskId} not found`)
+    const submissions = await this.tasksService.getUserSubmissions(taskId);
 
-  @Post(':taskId/submit')
+    const items = plainToClass(SubmissionDto, submissions, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: submissions.length, items }
+  }
+
+  @Post(':taskId/submissions')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param('taskId') taskId: string, @Body() input: SubmissionDto): Promise<void> {
+  async submitTask(@Param('taskId') taskId: string, @Body() input: CreateSubmissionDto): Promise<void> {
 
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
