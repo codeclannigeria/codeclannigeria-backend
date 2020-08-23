@@ -8,7 +8,7 @@ import { Track } from './models/track.entity';
 import { TracksController } from './tracks.controller';
 import { TracksService } from './tracks.service';
 import { UserStage } from '../userstage/models/userstage.entity';
-import { UserStageService } from 'src/userstage/userstage.service';
+import { UserStageService } from '../userstage/userstage.service';
 
 const TrackModel = MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
