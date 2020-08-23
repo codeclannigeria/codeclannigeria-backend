@@ -19,17 +19,11 @@ export class UserStageService extends BaseService<UserStage> {
     super(userStageEntity);
   }
 
-  async getStages(trackId: string): Promise<Stage> {
-    const track = await (await this.entity.findById(trackId).populate("stages")).execPopulate();
-
-    return track.stage as Stage;
-  }
-
-  async getUserStages(): Promise<UserStage> {
+  
+  async getUserStages(trackId: string): Promise<UserStage[]> {
     const currentUser = this.getUserId();
-    //use the userId to get the user's stage
-    const userStage = await (await this.userStageEntity.findById(1).populate("stages")).execPopulate();
+    const userStage = await (await this.userStageEntity.find({user: currentUser, track: trackId}).populate("stage"));
 
-    return userStage as UserStage;
+    return userStage as UserStage[];
   }
 }

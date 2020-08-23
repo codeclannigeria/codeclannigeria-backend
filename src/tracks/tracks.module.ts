@@ -7,15 +7,20 @@ import { UsersModule } from '../users/users.module';
 import { Track } from './models/track.entity';
 import { TracksController } from './tracks.controller';
 import { TracksService } from './tracks.service';
+import { UserStage } from '../userstage/models/userstage.entity';
+import { UserStageService } from 'src/userstage/userstage.service';
 
 const TrackModel = MongooseModule.forFeature([
   { name: Track.modelName, schema: Track.schema }
 ]);
+const UserStageModel = MongooseModule.forFeature([
+  { name: UserStage.modelName, schema: UserStage.schema }
+]);
 
 const baseService = { provide: BaseService, useClass: TracksService };
 @Module({
-  imports: [TrackModel, UsersModule, MentorModule],
-  providers: [TracksService, baseService],
+  imports: [TrackModel, UsersModule, MentorModule,UserStageModel],
+  providers: [TracksService, baseService, UserStageService],
   controllers: [TracksController],
   exports: [TrackModel, TracksService, baseService]
 })

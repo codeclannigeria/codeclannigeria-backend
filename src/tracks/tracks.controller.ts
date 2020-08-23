@@ -36,6 +36,8 @@ import { CreateTrackDto, CreateWithThumbnailTrackDto, MentorInput } from './mode
 import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
+import { UserStageDto } from '../userstage/models/dto/userstage.dto';
+import { UserStageService } from '../userstage/userstage.service';
 
 const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
@@ -54,7 +56,8 @@ export class TracksController extends BaseCtrl {
     protected trackService: TracksService,
     protected mentorService: MentorService,
     @Inject(UsersService)
-    protected userService: UsersService
+    protected userService: UsersService,
+    protected userStageService: UserStageService
   ) {
     super(trackService);
   }
@@ -125,6 +128,26 @@ export class TracksController extends BaseCtrl {
 
     const totalCount = stages.length;
     const items = plainToClass(StageDto, stages, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount, items };
+
+  }
+
+  @Get(':trackId/userstages')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async getUserStages(@Param("trackId") trackId: string): Promise<PagedListStageDto> {
+    const track = await this.trackService.findByIdAsync(trackId);
+    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+    const userstages = await this.userStageService.getUserStages(trackId);
+
+    const totalCount = userstages.length;
+    const items = plainToClass(UserStageDto, userstages, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
