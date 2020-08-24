@@ -10,7 +10,7 @@ export class TaskDto extends BaseDto {
   @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length128)
+  @MaxLength(columnSize.length1024)
   @Expose()
   description: string;
   @IsMongoId()
