@@ -29,8 +29,6 @@ import { UserRole } from '../users/models/user.entity';
 @Controller('mentors')
 @ApiTags("Mentors")
 export class MentorController {
-
-
     constructor(
         @InjectModel(Submission.modelName)
         private SubmissionModel: ReturnModelType<typeof Submission>) {
@@ -47,6 +45,7 @@ export class MentorController {
         const conditions = JSON.parse(search || '{}');
         const options = JSON.parse(opts || '{}');
         const mentorId = req.user['userId'];
+
         const submissions = await this.SubmissionModel
             .find({ ...conditions, mentor: mentorId }, options)
             .limit(limit)
@@ -57,6 +56,7 @@ export class MentorController {
             enableImplicitConversion: true,
             excludeExtraneousValues: true
         }) as any;
+
         return { totalCount, items };
     }
 

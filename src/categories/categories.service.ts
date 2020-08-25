@@ -7,8 +7,8 @@ import { Category } from './models/category.entity';
 export class CategoriesService extends BaseService<Category> {
   constructor(
     @InjectModel(Category.modelName)
-    protected readonly entity: ReturnModelType<typeof Category>
+    protected readonly EntityModel: ReturnModelType<typeof Category>
   ) {
-    super(entity);
+    super(EntityModel);
   }
 }

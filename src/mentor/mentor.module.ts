@@ -6,9 +6,9 @@ import { TrackMentor } from '../tracks/models/track-mentor.entity';
 import { UsersModule } from '../users/users.module';
 import { MentorController } from './mentor.controller';
 import { MentorService } from './mentor.service';
-import { MentorMentee } from './models/mento-mentee.entity';
+import { MentorMentee } from './models/mentor-mentee.entity';
 
-export const MentorMenteeModel = MongooseModule.forFeature([
+const MentorMenteeModel = MongooseModule.forFeature([
   { name: MentorMentee.modelName, schema: MentorMentee.schema }
 ]);
 const TrackMentorModel = MongooseModule.forFeature([

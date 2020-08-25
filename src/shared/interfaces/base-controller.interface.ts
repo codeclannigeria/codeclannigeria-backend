@@ -4,7 +4,7 @@ export interface IBaseController<
   TUpdateDto,
   TPagedInputDto,
   TPagedOutputDto
-> {
+  > {
   create(input: TCreateDto): TEntityDto | Promise<TEntityDto>;
   findAll(input: TPagedInputDto): TPagedOutputDto | Promise<TPagedOutputDto>;
   findById(input: string): TEntityDto | Promise<TEntityDto>;

@@ -88,7 +88,7 @@ describe('StagesController (e2e)', () => {
     TrackModel = getModelForClass(Track, { existingMongoose: mongo });
     StageModel = getModelForClass(Stage, { existingMongoose: mongo });
 
-    const UserModel = getModelForClass(User);
+    const UserModel = getModelForClass(User, { existingMongoose: mongo });
     const user = await UserModel.create({
       email: validEmail,
       firstName: 'firstName',
@@ -108,7 +108,8 @@ describe('StagesController (e2e)', () => {
     const input: CreateStageDto = {
       title: 'Stage1',
       description: 'Description',
-      track: ''
+      track: '',
+      taskCount: 1
     };
     it('should return 401 if user not logged in', () => {
       return route.post('/stages').send(input).expect(401);
@@ -131,7 +132,6 @@ describe('StagesController (e2e)', () => {
         description: 'description'
       });
       input.track = trackModel.id;
-
       currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/stages').send(input).expect(201);
       stage = await stageService.findByIdAsync(body.id);

@@ -9,8 +9,8 @@ import { Course } from './models/course.entity';
 export class CoursesService extends BaseService<Course> {
   constructor(
     @InjectModel(Course.modelName)
-    protected readonly entity: ReturnModelType<typeof Course>
+    protected readonly EntityModel: ReturnModelType<typeof Course>
   ) {
-    super(entity);
+    super(EntityModel);
   }
 }

@@ -85,15 +85,16 @@ export class TracksController extends BaseCtrl {
   @UseInterceptors(FileInterceptor("thumbnail"))
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
-  async createTrack(@Body() input: CreateWithThumbnailTrackDto, @UploadedFile() thumbnail: BufferedFile, @Req() req: Request): Promise<TrackDto> {
+  async createTrack(
+    @Body() input: CreateWithThumbnailTrackDto,
+    @UploadedFile() thumbnail: BufferedFile,
+    @Req() req: Request): Promise<TrackDto> {
     if (!thumbnail)
       throw new BadRequestException("Thumbnail image cannot be empty")
-
     if (thumbnail.mimetype.split('/')[0] !== "image")
       throw new UnsupportedMediaTypeException("File is not an image");
     if (thumbnail.size / ONE_KB > 200)
       throw new BadRequestException("File cannot be larger than 200KB")
-
 
     const exist = await this.trackService.findOneAsync({
       title: input.title.toUpperCase()
@@ -102,8 +103,8 @@ export class TracksController extends BaseCtrl {
       throw new ConflictException(
         `Track with the title "${exist.title}" already exists`
       );
-    const userId = req.user['userId'];
 
+    const userId = req.user['userId'];
     const thumbnailUrl = await uploadFileToCloud(thumbnail, "avatars", userId);
     const dto = input as any;
     dto.thumbnailUrl = thumbnailUrl;
@@ -119,10 +120,10 @@ export class TracksController extends BaseCtrl {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
   async getStages(@Param("trackId") trackId: string): Promise<PagedListStageDto> {
     const track = await this.trackService.findByIdAsync(trackId);
+
     if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+
     const stages = await this.trackService.getStages(trackId);
-
-
     const totalCount = stages.length;
     const items = plainToClass(StageDto, stages, {
       enableImplicitConversion: true,
@@ -141,7 +142,6 @@ export class TracksController extends BaseCtrl {
     const track = await this.trackService.findByIdAsync(trackId);
     if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
     const mentors = await this.trackService.getMentors(trackId);
-
     const items = plainToClass(MentorDto, mentors, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
