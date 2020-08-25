@@ -9,12 +9,13 @@ import { TrackDto } from '../../../tracks/models/dto/track.dto';
 
 @Exclude()
 export class StageDto extends BaseDto {
-  @MaxLength(columnSize.length32)
+  @MaxLength(columnSize.length256)
   @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length128)
+  @MaxLength(columnSize.length1024)
   @Expose()
+  @IsNotEmpty()
   description: string;
   @Expose()
   @Min(0)
