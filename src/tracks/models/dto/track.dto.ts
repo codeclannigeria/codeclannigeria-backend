@@ -7,10 +7,11 @@ import { BaseDto } from '~shared/models/dto/base.dto';
 
 @Exclude()
 export class TrackDto extends BaseDto {
-  @MaxLength(columnSize.length128)
+  @MaxLength(columnSize.length256)
   @Expose()
+  @IsNotEmpty()
   title: string;
-  @MaxLength(columnSize.length512)
+  @MaxLength(columnSize.length1024)
   @Expose()
   @IsNotEmpty()
   description: string;
@@ -19,6 +20,6 @@ export class TrackDto extends BaseDto {
   @IsOptional()
   readonly thumbnailUrl?: string;
 
-  
+
 }
 export class PagedTrackOutputDto extends PagedListDto(TrackDto) { }

@@ -6,7 +6,7 @@ import { BaseEntity } from '~shared/models/base.entity';
 export class Course extends BaseEntity {
   @prop({
     required: true,
-    maxlength: columnSize.length32,
+    maxlength: columnSize.length256,
     trim: true,
     text: true,
     uppercase: true,
@@ -15,7 +15,7 @@ export class Course extends BaseEntity {
   readonly title!: string;
   @prop({
     required: true,
-    maxlength: columnSize.length128,
+    maxlength: columnSize.length1024,
     trim: true,
     text: true,
     unique: false
