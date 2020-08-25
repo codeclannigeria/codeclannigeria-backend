@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { IsAlphanumeric, IsNotEmpty, IsOptional, MaxLength, isAlphanumeric } from 'class-validator';
+import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
 import { BaseDto } from '~shared/models/dto/base.dto';
