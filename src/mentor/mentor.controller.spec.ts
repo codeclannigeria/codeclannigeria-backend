@@ -35,8 +35,8 @@ describe('Mentor Controller', () => {
     const submissionDto: SubmissionDto = {
       id: mongoose.Types.ObjectId().toHexString(),
       gradePercentage: 10,
-      createdAt: new Date,
-      updatedAt: new Date,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       taskUrl: 'www.google.com',
       menteeComment: null,
       mentorComment: null
@@ -48,7 +48,6 @@ describe('Mentor Controller', () => {
     const result = await controller.getSubmissions({ limit: 10 }, req);
     expect(result.totalCount).toBe(1);
     expect(result.items).toContainEqual(submissionDto)
-
   });
 
   describe('grad submission', () => {

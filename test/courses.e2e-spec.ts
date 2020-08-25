@@ -107,7 +107,7 @@ describe('Courses Controller (e2e)', () => {
         const { collections } = mongoose.connection;
 
         Object.keys(collections).forEach(
-            async (k) => await collections[`${k}`].deleteMany({})
+            async (k) => collections[`${k}`].deleteMany({})
         );
 
         await mongo.disconnect();
