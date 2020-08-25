@@ -10,11 +10,11 @@ import { Stage } from './models/stage.entity';
 export class StagesService extends BaseService<Stage> {
   constructor(
     @InjectModel(Stage.modelName)
-    protected readonly entity: ReturnModelType<typeof Stage>,
+    protected readonly EntityModel: ReturnModelType<typeof Stage>,
     @InjectModel(Track.modelName)
     protected readonly track: ReturnModelType<typeof Track>
   ) {
-    super(entity);
+    super(EntityModel);
   }
 
   async insert(stage: Stage): Promise<DocumentType<Stage>> {

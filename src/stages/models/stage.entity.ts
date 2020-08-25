@@ -34,7 +34,7 @@ export class Stage extends BaseEntity {
   readonly taskCount!: number;
 
   @prop({
-    ref: 'Track',
+    ref: Track,
     required: true,
     autopopulate: true
   })

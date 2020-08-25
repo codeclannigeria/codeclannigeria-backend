@@ -13,9 +13,10 @@ import * as uploader from '~shared/utils/upload-img.util';
 import { JwtAuthGuard } from '../src/auth/guards/jwt-auth.guard';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
+import { MentorMentee } from '../src/mentor/models/mentor-mentee.entity';
 import { UpdateProfileDto } from '../src/profile/dto/update-profile.dto';
 import { ProfileModule } from '../src/profile/profile.module';
-import { Gender, User } from '../src/users/models/user.entity';
+import { Gender, User, UserRole } from '../src/users/models/user.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('ProfileController (e2e)', () => {
@@ -69,8 +70,6 @@ describe('ProfileController (e2e)', () => {
             useFindAndModify: false
         });
         UserModel = getModelForClass(User, { existingMongoose: mongo });
-
-
         const user = await UserModel.create({
             email: validEmail,
             firstName: 'firstName',
@@ -110,6 +109,50 @@ describe('ProfileController (e2e)', () => {
         expect(user.phoneNumber).toBe(input.phoneNumber)
         expect(user.firstName).toBe(input.firstName)
     });
+
+    describe('Mentees/Mentors', () => {
+        const MentorMenteeModel = getModelForClass(MentorMentee, { existingMongoose: mongo });
+        it('should get user mentees', async () => {
+            const mentee = await UserModel.create({
+                email: "mentee@gmail.com",
+                firstName: 'Mentee',
+                lastName: 'Mentee',
+                password: validPass
+            });
+            currentUser.role = UserRole.MENTOR;
+            await MentorMenteeModel.create({
+                mentor: currentUser.userId,
+                mentee: mentee.id
+            });
+            const { body } = await route.get('/profile/mentees').expect(200);
+
+            expect(body.items.length).toBeGreaterThan(0);
+            expect(body.items[0].id).toContain(mentee.id)
+            expect(body.items[0].firstName).toContain(mentee.firstName)
+
+        });
+
+        it('should get user mentors', async () => {
+            const mentor = await UserModel.create({
+                email: "mentor@gmail.com",
+                firstName: 'Mentor',
+                lastName: 'Mentor',
+                password: validPass
+            });
+            currentUser.role = UserRole.MENTEE;
+            await MentorMenteeModel.create({
+                mentee: currentUser.userId,
+                mentor: mentor.id
+            });
+            const { body } = await route.get('/profile/mentors').expect(200);
+
+            expect(body.items.length).toBeGreaterThan(0);
+            expect(body.items[0].id).toContain(mentor.id)
+            expect(body.items[0].firstName).toContain(mentor.firstName)
+
+        });
+    });
+
 
     describe('File Upload', () => {
         it(`should return ${UnsupportedMediaTypeException.name} for non-image files`, async () => {

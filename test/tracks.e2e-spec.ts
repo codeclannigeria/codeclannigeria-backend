@@ -1,22 +1,17 @@
-import {
-  ExecutionContext,
-  INestApplication,
-  UnauthorizedException,
-  ValidationPipe
-} from '@nestjs/common';
+import { ExecutionContext, HttpStatus, INestApplication, UnauthorizedException, ValidationPipe } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  getModelForClass,
-  mongoose,
-  ReturnModelType
-} from '@typegoose/typegoose';
+import { getModelForClass, mongoose, ReturnModelType } from '@typegoose/typegoose';
 import * as request from 'supertest';
+import * as uploader from '~shared/utils/upload-img.util';
 
 import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
-import { CreateTrackDto } from '../src/tracks/models/dto/create-track.dto';
+import { MentorMentee } from '../src/mentor/models/mentor-mentee.entity';
+import { CreateStageDto } from '../src/stages/models/dtos/create-stage.dto';
+import { Stage } from '../src/stages/models/stage.entity';
+import { CreateTrackDto, MentorInput } from '../src/tracks/models/dto/create-track.dto';
 import { Track } from '../src/tracks/models/track.entity';
 import { TracksModule } from '../src/tracks/tracks.module';
 import { TracksService } from '../src/tracks/tracks.service';
@@ -30,8 +25,11 @@ describe('TracksController (e2e)', () => {
   let mongo: typeof mongoose;
   const validEmail = 'email@gmail.com';
   const validPass = 'pass@45Pdd';
+  let mentor: User;
   let currentUser: JwtPayload;
   let TrackModel: ReturnModelType<typeof Track>;
+  let UserModel: ReturnModelType<typeof User>;
+  let StageModel: ReturnModelType<typeof Stage>;
   const jwtGuard = {
     canActivate: (context: ExecutionContext): boolean => {
       const req = context.switchToHttp().getRequest();
@@ -62,10 +60,6 @@ describe('TracksController (e2e)', () => {
       })
     );
 
-    // afterEach(async () => {
-    //   await mongo.disconnect();
-    //   await inMemoryDb.stop();
-    // })
 
     await app.init();
     const contextId = ContextIdFactory.getByRequest(request);
@@ -79,8 +73,9 @@ describe('TracksController (e2e)', () => {
       useCreateIndex: true,
       useFindAndModify: false
     });
-    // TrackModel = getModelForClass(Track, { existingMongoose: mongo });
-    const UserModel = getModelForClass(User);
+
+    UserModel = getModelForClass(User);
+    TrackModel = getModelForClass(Track);
 
     const user = await UserModel.create({
       email: validEmail,
@@ -100,7 +95,7 @@ describe('TracksController (e2e)', () => {
   describe('/tracks (POST)', () => {
     const input: CreateTrackDto = {
       title: 'Track1',
-      description: 'Description'
+      description: 'Description',
     };
     it('should return 401 if user not logged in', () => {
       return route.post('/tracks').send(input).expect(401);
@@ -121,6 +116,72 @@ describe('TracksController (e2e)', () => {
       const { body } = await route.post('/tracks').send(input).expect(201);
       track = await service.findById(body.id);
       expect(track.createdBy.toString()).toBe(currentUser.userId);
+
+      StageModel = getModelForClass(Stage, { existingMongoose: mongo });
+      const stage: CreateStageDto = {
+        description: 'description',
+        title: 'title',
+        track: track.id
+      }
+      await StageModel.create({ ...stage })
+    });
+    it('should create track with a thumbnail', async () => {
+      currentUser.role = UserRole.MENTOR;
+      const thumbnailUrl = "https://www.securePhtotUrl.com";
+      jest.spyOn(uploader, 'uploadFileToCloud').mockResolvedValue(thumbnailUrl)
+      const { body } = await route.post('/tracks/create_with_thumbnail')
+        .set('Content-Type', 'multipart/form-data')
+        .attach('thumbnail', './docs/images/compodoc-vectorise.png')
+        .field({
+          description: 'desc',
+          title: 'title',
+        })
+        .expect(HttpStatus.CREATED);
+
+      expect(body.thumbnailUrl).toBe(thumbnailUrl);
+    });
+    it('should return stages via track ID', async () => {
+      currentUser.role = UserRole.MENTEE;
+      const { body } = await route.get(`/tracks/${track.id}/stages`).expect(200);
+
+      expect(body.items.length).toBeGreaterThan(0);
+      expect(body.items[0].track.id).toBe(track.id)
+
+    });
+
+    it('should create mentors of a track', async () => {
+      currentUser.role = UserRole.ADMIN;
+      const user = await UserModel.create({
+        email: 'mentor@gmail.com',
+        firstName: 'Mentor',
+        lastName: 'Mentor',
+        password: validPass,
+        role: UserRole.MENTOR,
+        technologies: ['node'],
+        description: 'description'
+      });
+      const input: MentorInput = {
+        mentorId: user.id
+      }
+      await route.post(`/tracks/${track.id}/mentors`).send(input).expect(200);
+
+      mentor = user;
+    });
+    it('should return mentors of a track', async () => {
+      const { body } = await route.get(`/tracks/${track.id}/mentors`).expect(200);
+      expect(body.items[0].id).toBe(mentor.id);
+    });
+    it('should enroll to a track', async () => {
+      const input: MentorInput = {
+        mentorId: mentor.id
+      }
+      await route.post(`/tracks/${track.id}/enroll`).send(input).expect(200);
+
+      const MentorMenteeModel = getModelForClass(MentorMentee);
+      const mentorMentee = await MentorMenteeModel.findOne({ mentor: mentor.id })
+
+      expect(mentorMentee).toBeDefined()
+      expect(mentorMentee.mentee.toString()).toBe(currentUser.userId);
     });
     it('should return 409 for existing track title', async () => {
       return route.post('/tracks').send(input).expect(409);
@@ -141,14 +202,13 @@ describe('TracksController (e2e)', () => {
       return route.put(`/tracks/${track.id}`).send(input).expect(403);
     });
     it('should return 403 for non-permitted user trying to DELETE track', async () => {
-      return route.delete(`/tracks/${track.id}`).send(input).expect(403);
+      await route.delete(`/tracks/${track.id}`).send(input).expect(403);
     });
     it('should soft delete track', async () => {
       currentUser.role = UserRole.ADMIN;
 
       await route.delete(`/tracks/${track.id}`).send(input).expect(200);
 
-      TrackModel = getModelForClass(Track, { existingMongoose: mongo });
       const { deletedBy, isDeleted } = await TrackModel.findById(track.id);
       const res = await service.findById(track.id);
 
