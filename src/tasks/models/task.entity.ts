@@ -16,7 +16,7 @@ export enum TaskStatus {
 export class Task extends BaseEntity {
   @prop({
     required: true,
-    maxlength: columnSize.length32,
+    maxlength: columnSize.length1024,
     trim: true,
     text: true,
     uppercase: true,
@@ -26,7 +26,6 @@ export class Task extends BaseEntity {
 
   @prop({
     required: true,
-    maxlength: columnSize.length128,
     trim: true,
     text: true,
     unique: false
