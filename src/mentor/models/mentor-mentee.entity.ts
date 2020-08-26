@@ -5,7 +5,7 @@ import { User } from '../../users/models/user.entity';
 
 export class MentorMentee extends BaseEntity {
     @prop({ ref: 'User', required: true })
-    readonly mentor: Ref<User>;
+    readonly mentor!: Ref<User>;
     @prop({ ref: 'User', required: true })
-    readonly mentee: Ref<User>;
+    readonly mentee!: Ref<User>;
 }

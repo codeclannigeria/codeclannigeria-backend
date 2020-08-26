@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Post,
   Put,
+  Query,
   Req,
   UnsupportedMediaTypeException,
   UploadedFile,
@@ -17,13 +18,17 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Request } from 'express';
+import { Roles } from '~shared/decorators/roles.decorator';
 import { BufferedFile } from '~shared/interfaces';
+import { FindDto } from '~shared/models/dto';
 
+import { RolesGuard } from '../auth/guards';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { MentorService } from '../mentor/mentor.service';
+import { MentorDto } from '../mentor/models/mentor.dto';
 import { PagedUserOutputDto, UserDto } from '../users/models/dto/user.dto';
+import { UserRole } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
-import { MentorDto } from './../mentor/models/mentor.dto';
 import { AvatarUploadDto } from './dto/avatar-upload.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
@@ -49,29 +54,45 @@ export class ProfileController {
   }
   @Get("mentors")
   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
-  async getMentors(@Req() req: Request): Promise<PagedUserOutputDto> {
-    const mentors = await this.mentorService.getMentors(req.user['userId']);
-
+  async getMentors(@Query() query: FindDto, @Req() req: Request): Promise<PagedUserOutputDto> {
+    const { skip, limit, search, opts } = query;
+    const conditions = JSON.parse(search || '{}');
+    const options = JSON.parse(opts || '{}');
+    const { totalCount, mentors } = await this.mentorService.getMentors(
+      {
+        menteeId: req.user['userId'],
+        conditions, options, limit, skip
+      });
     const items = plainToClass(MentorDto, mentors, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
-    return { totalCount: mentors.length, items }
+    return { totalCount, items }
   }
   @Get("mentees")
   @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTOR)
   @ApiBearerAuth()
   @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
-  async getMentees(@Req() req: Request): Promise<PagedUserOutputDto> {
-    const mentors = await this.mentorService.getMentees(req.user['userId']);
-
-    const items = plainToClass(MentorDto, mentors, {
+  async getMentees(@Query() query: FindDto, @Req() req: Request): Promise<PagedUserOutputDto> {
+    const { skip, limit, search, opts } = query;
+    const conditions = JSON.parse(search || '{}');
+    const options = JSON.parse(opts || '{}');
+    const { totalCount, mentees } = await this.mentorService.getMentees(
+      {
+        mentorId: req.user['userId'],
+        conditions, options, limit, skip
+      });
+    const items = plainToClass(MentorDto, mentees, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
-    return { totalCount: mentors.length, items }
+    return { totalCount, items }
   }
   @Put()
   @UseGuards(JwtAuthGuard)

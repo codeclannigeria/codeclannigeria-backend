@@ -8,7 +8,7 @@ import { Stage } from '../../stages/models/stage.entity';
 export class Track extends BaseEntity {
   @prop({
     required: true,
-    maxlength: columnSize.length32,
+    maxlength: columnSize.length128,
     trim: true,
     text: true,
     uppercase: true,
@@ -18,14 +18,14 @@ export class Track extends BaseEntity {
 
   @prop({
     required: true,
-    maxlength: columnSize.length128,
+    maxlength: columnSize.length256,
     trim: true,
     text: true,
     unique: false
   })
   readonly description!: string;
 
-  @prop({ ref: 'Stage', default: null })
+  @prop({ ref: 'Stage', default: [] })
   readonly stages: Ref<Stage>[] = [];
 
   @prop({

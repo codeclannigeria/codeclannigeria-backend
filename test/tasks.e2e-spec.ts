@@ -1,3 +1,4 @@
+import { SubmissionDto } from './../src/tasks/models/dtos/submission.dto';
 import { ExecutionContext, INestApplication, UnauthorizedException, ValidationPipe } from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -173,22 +174,32 @@ describe('TasksController (e2e)', () => {
             return route.delete(`/tasks/${task.id}`).send(input).expect(403);
         });
 
-        it('should submit task', async () => {
-            currentUser.role = UserRole.MENTEE;
-            TrackMentorModel.create({ mentor: currentUser.userId, track: track })
-            const dto: CreateSubmissionDto = {
-                menteeComment: 'comment',
-                taskUrl: "www.google.com"
-            }
-            await route.post(`/tasks/${task.id}/submissions`).send(dto).expect(200)
-            const dbTask = await TaskModel.findById(task.id);
+        describe('/submission', () => {
+            let submissionDto: SubmissionDto;
+            it('should submit task', async () => {
+                currentUser.role = UserRole.MENTEE;
+                TrackMentorModel.create({ mentor: currentUser.userId, track: track })
+                const dto: CreateSubmissionDto = {
+                    menteeComment: 'comment',
+                    taskUrl: "www.google.com"
+                }
+                const { body } = await route.post(`/tasks/${task.id}/submissions`).send(dto).expect(201)
+                const dbTask = await TaskModel.findById(task.id);
 
-            expect(dbTask.updatedBy.toString()).toBe(currentUser.userId)
+                expect(dbTask.updatedBy.toString()).toBe(currentUser.userId);
+                expect(body.id).toBeDefined();
+
+                submissionDto = body
+            });
+            it('should get task submissions', async () => {
+                const { body } = await route.get(`/tasks/${task.id}/submissions`).expect(200)
+                expect(body.items.length).toBeGreaterThan(0);
+                expect(body.items).toContainEqual(submissionDto);
+            });
         });
 
         it('should soft delete track', async () => {
             currentUser.role = UserRole.ADMIN;
-
             await route.delete(`/tasks/${task.id}`).send(input).expect(200);
 
             const { deletedBy, isDeleted } = await TaskModel.findById(task.id);

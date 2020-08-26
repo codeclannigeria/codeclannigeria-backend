@@ -15,7 +15,7 @@ export abstract class BaseService<T extends BaseEntity> {
   @Inject(REQUEST)
   protected readonly req: Request;
 
-  constructor(protected entity: ReturnModelType<AnyParamConstructor<T>>) { }
+  constructor(protected EntityModel: ReturnModelType<AnyParamConstructor<T>>) { }
 
   protected static throwMongoError(err: MongoError): void {
     console.error(err)
@@ -31,7 +31,7 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   createEntity(doc?: Partial<T>): T {
-    return new this.entity(doc);
+    return new this.EntityModel(doc);
   }
   protected getUserId(): any {
     return this.req?.user?.['userId'] || null;
@@ -42,7 +42,7 @@ export abstract class BaseService<T extends BaseEntity> {
 
   insert(entity: T): Promise<DocumentType<T>> {
     (entity as Writable<T>).createdBy = this.getUserId();
-    return this.entity.create(entity as CreateQuery<DocumentType<T>>);
+    return this.EntityModel.create(entity as CreateQuery<DocumentType<T>>);
   }
   async insertAsync(entity: T): Promise<DocumentType<T>> {
     try {
@@ -63,7 +63,7 @@ export abstract class BaseService<T extends BaseEntity> {
     }
     filter = { ...filter, isDeleted: { $ne: true } };
 
-    return this.entity.find(filter, null, opts);
+    return this.EntityModel.find(filter, null, opts);
   }
 
   async findAllAsync(filter = {}): Promise<Array<DocumentType<T>>> {
@@ -76,7 +76,7 @@ export abstract class BaseService<T extends BaseEntity> {
 
   findOne(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOne(filter);
+    return this.EntityModel.findOne(filter);
   }
 
   async findOneAsync(filter = {}): Promise<DocumentType<T>> {
@@ -88,7 +88,7 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   findById(id: string): QueryItem<T> {
-    return this.entity
+    return this.EntityModel
       .findById(BaseService.toObjectId(id))
       .where('isDeleted')
       .ne(true);
@@ -103,14 +103,14 @@ export abstract class BaseService<T extends BaseEntity> {
   }
   hardDeleteMany(filter = {}): QueryItem<T> {
     try {
-      return this.entity.deleteMany(filter).where(this.whereOwn()).lean();
+      return this.EntityModel.deleteMany(filter).where(this.whereOwn()).lean();
     } catch (error) {
       BaseService.throwMongoError(error);
     }
   }
   hardDelete(filter = {}): QueryItem<T> {
     try {
-      return this.entity.findOneAndDelete(filter).where(this.whereOwn()).lean();
+      return this.EntityModel.findOneAndDelete(filter).where(this.whereOwn()).lean();
     } catch (error) {
       BaseService.throwMongoError(error);
     }
@@ -118,7 +118,7 @@ export abstract class BaseService<T extends BaseEntity> {
   softDelete(filter = {}): QueryItem<T> {
     filter = { ...filter, isDeleted: { $ne: true } };
     const update = { isDeleted: true, deletedBy: this.getUserId() } as any;
-    return this.entity.findOneAndUpdate(filter, update).where(this.whereOwn());
+    return this.EntityModel.findOneAndUpdate(filter, update).where(this.whereOwn());
   }
   async softDeleteAsync(filter = {}): Promise<void> {
     try {
@@ -129,7 +129,7 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   hardDeleteById(id: string): QueryItem<T> {
-    return this.entity
+    return this.EntityModel
       .findByIdAndDelete(BaseService.toObjectId(id))
       .where(this.whereOwn());
   }
@@ -138,7 +138,7 @@ export abstract class BaseService<T extends BaseEntity> {
       isDeleted: true,
       deletedBy: this.getUserId()
     } as any;
-    return this.entity
+    return this.EntityModel
 
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
       .where(this.whereOwn())
@@ -165,7 +165,7 @@ export abstract class BaseService<T extends BaseEntity> {
     delete update.createdAt
     delete update.updatedAt
 
-    return this.entity
+    return this.EntityModel
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
       })
@@ -184,7 +184,7 @@ export abstract class BaseService<T extends BaseEntity> {
 
   count(filter = {}): Query<number> {
     filter = { ...filter, isDeleted: { $ne: true } };
-    return this.entity.countDocuments(filter);
+    return this.EntityModel.countDocuments(filter);
   }
 
   async countAsync(filter = {}): Promise<number> {

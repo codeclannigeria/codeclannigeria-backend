@@ -83,10 +83,11 @@ export class TasksController extends BaseCtrl {
   @Get(':taskId/submissions')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK, type: PagedListSubmissionDto })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getMentors(@Param("trackId") taskId: string): Promise<PagedListSubmissionDto> {
+  async getMentors(@Param("taskId") taskId: string): Promise<PagedListSubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Task with Id ${taskId} not found`)
     const submissions = await this.tasksService.getUserSubmissions(taskId);
@@ -99,17 +100,19 @@ export class TasksController extends BaseCtrl {
   }
 
   @Post(':taskId/submissions')
-  @HttpCode(HttpStatus.OK)
-  @ApiResponse({ status: HttpStatus.OK })
+  @ApiResponse({ type: SubmissionDto })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param('taskId') taskId: string, @Body() input: CreateSubmissionDto): Promise<void> {
-
+  async submitTask(@Param('taskId') taskId: string, @Body() input: CreateSubmissionDto): Promise<SubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
 
-    await this.tasksService.submitTask(input, task);
+    const submission = await this.tasksService.submitTask(input, task);
+    return plainToClass(SubmissionDto, submission, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    })
   }
 }

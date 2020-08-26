@@ -10,7 +10,7 @@ import { Track } from '../../tracks/models/track.entity';
 export class Stage extends BaseEntity {
   @prop({
     required: true,
-    maxlength: columnSize.length32,
+    maxlength: columnSize.length256,
     trim: true,
     text: true,
     uppercase: true,
@@ -20,7 +20,7 @@ export class Stage extends BaseEntity {
 
   @prop({
     required: true,
-    maxlength: columnSize.length128,
+    maxlength: columnSize.length1024,
     trim: true,
     text: true,
     unique: false
@@ -40,7 +40,7 @@ export class Stage extends BaseEntity {
   readonly taskCount!: number;
 
   @prop({
-    ref: 'Track',
+    ref: Track,
     required: true,
     autopopulate: true
   })

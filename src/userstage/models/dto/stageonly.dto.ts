@@ -1,5 +1,4 @@
-
-import { Exclude, Expose, Type } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsOptional, MaxLength, Min } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
@@ -20,4 +19,4 @@ export class StageOnlyDto extends BaseDto {
   @IsOptional()
   taskCount?: number = 1;
 }
-export class PagedListStageDto extends PagedListDto(StageOnlyDto) { }
+export class PagedListStageDto extends PagedListDto(StageOnlyDto) {}

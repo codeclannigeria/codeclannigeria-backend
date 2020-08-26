@@ -13,7 +13,7 @@ import {
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
@@ -32,7 +32,11 @@ import { PagedListStageDto, StageDto } from '../stages/models/dtos/stage.dto';
 import { PagedUserOutputDto } from '../users/models/dto/user.dto';
 import { UserRole } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
-import { CreateTrackDto, CreateWithThumbnailTrackDto, MentorInput } from './models/dto/create-track.dto';
+import {
+  CreateTrackDto,
+  CreateWithThumbnailTrackDto,
+  MentorInput
+} from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
@@ -80,23 +84,25 @@ export class TracksController extends BaseCtrl {
     return await super.create(input);
   }
 
-  @Post("create_with_thumbnail")
+  @Post('create_with_thumbnail')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
-  @UseInterceptors(FileInterceptor("thumbnail"))
+  @UseInterceptors(FileInterceptor('thumbnail'))
   @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
-  async createTrack(@Body() input: CreateWithThumbnailTrackDto, @UploadedFile() thumbnail: BufferedFile, @Req() req: Request): Promise<TrackDto> {
+  async createTrack(
+    @Body() input: CreateWithThumbnailTrackDto,
+    @UploadedFile() thumbnail: BufferedFile,
+    @Req() req: Request
+  ): Promise<TrackDto> {
     if (!thumbnail)
-      throw new BadRequestException("Thumbnail image cannot be empty")
-
-    if (thumbnail.mimetype.split('/')[0] !== "image")
-      throw new UnsupportedMediaTypeException("File is not an image");
+      throw new BadRequestException('Thumbnail image cannot be empty');
+    if (thumbnail.mimetype.split('/')[0] !== 'image')
+      throw new UnsupportedMediaTypeException('File is not an image');
     if (thumbnail.size / ONE_KB > 200)
-      throw new BadRequestException("File cannot be larger than 200KB")
-
+      throw new BadRequestException('File cannot be larger than 200KB');
 
     const exist = await this.trackService.findOneAsync({
       title: input.title.toUpperCase()
@@ -105,12 +111,12 @@ export class TracksController extends BaseCtrl {
       throw new ConflictException(
         `Track with the title "${exist.title}" already exists`
       );
-    const userId = req.user['userId'];
 
-    const thumbnailUrl = await uploadFileToCloud(thumbnail, "avatars", userId);
+    const userId = req.user['userId'];
+    const thumbnailUrl = await uploadFileToCloud(thumbnail, 'avatars', userId);
     const dto = input as any;
     dto.thumbnailUrl = thumbnailUrl;
-    delete dto.thumbnail
+    delete dto.thumbnail;
     return await super.create(dto);
   }
 
@@ -120,19 +126,21 @@ export class TracksController extends BaseCtrl {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getStages(@Param("trackId") trackId: string): Promise<PagedListStageDto> {
+  async getStages(
+    @Param('trackId') trackId: string
+  ): Promise<PagedListStageDto> {
     const track = await this.trackService.findByIdAsync(trackId);
-    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+
+    if (!track)
+      throw new NotFoundException(`Track with Id ${trackId} not found`);
+
     const stages = await this.trackService.getStages(trackId);
-
-
     const totalCount = stages.length;
     const items = plainToClass(StageDto, stages, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
     return { totalCount, items };
-
   }
 
   @Get(':trackId/userstages')
@@ -141,9 +149,12 @@ export class TracksController extends BaseCtrl {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getUserStages(@Param("trackId") trackId: string): Promise<PagedListStageDto> {
+  async getUserStages(
+    @Param('trackId') trackId: string
+  ): Promise<PagedListStageDto> {
     const track = await this.trackService.findByIdAsync(trackId);
-    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+    if (!track)
+      throw new NotFoundException(`Track with Id ${trackId} not found`);
     const userstages = await this.userStageService.getUserStages(trackId);
 
     const totalCount = userstages.length;
@@ -152,7 +163,6 @@ export class TracksController extends BaseCtrl {
       excludeExtraneousValues: true
     }) as any;
     return { totalCount, items };
-
   }
   @Get(':trackId/mentors')
   @HttpCode(HttpStatus.OK)
@@ -160,16 +170,18 @@ export class TracksController extends BaseCtrl {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getMentors(@Param("trackId") trackId: string): Promise<PagedUserOutputDto> {
+  async getMentors(
+    @Param('trackId') trackId: string
+  ): Promise<PagedUserOutputDto> {
     const track = await this.trackService.findByIdAsync(trackId);
-    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+    if (!track)
+      throw new NotFoundException(`Track with Id ${trackId} not found`);
     const mentors = await this.trackService.getMentors(trackId);
-
     const items = plainToClass(MentorDto, mentors, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
-    return { totalCount: mentors.length, items }
+    return { totalCount: mentors.length, items };
   }
 
   @Post(':trackId/mentors')
@@ -179,26 +191,47 @@ export class TracksController extends BaseCtrl {
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async createMentors(@Param("trackId") trackId: string, @Body() input: MentorInput, @Req() req: Request): Promise<void> {
-    const mentor = await this.userService.findOneAsync({ _id: input.mentorId, role: UserRole.MENTOR });
-    if (!mentor) throw new NotFoundException(`Mentor with Id ${input.mentorId} not found`)
+  async createMentors(
+    @Param('trackId') trackId: string,
+    @Body() input: MentorInput,
+    @Req() req: Request
+  ): Promise<void> {
+    const mentor = await this.userService.findOneAsync({
+      _id: input.mentorId,
+      role: UserRole.MENTOR
+    });
+    if (!mentor)
+      throw new NotFoundException(`Mentor with Id ${input.mentorId} not found`);
     const track = await this.trackService.findByIdAsync(trackId);
-    if (!track) throw new NotFoundException(`Track with Id ${trackId} not found`)
+    if (!track)
+      throw new NotFoundException(`Track with Id ${trackId} not found`);
 
-    await this.mentorService.assignMentorToTrack(trackId, input.mentorId, req.user['id']);
+    await this.mentorService.assignMentorToTrack(
+      trackId,
+      input.mentorId,
+      req.user['id']
+    );
   }
 
-  @Post(":trackId/enroll")
+  @Post(':trackId/enroll')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async enroll(@Param("trackId") trackId: string, @Body() input: MentorInput, @Req() req: Request): Promise<void> {
+  async enroll(
+    @Param('trackId') trackId: string,
+    @Body() input: MentorInput,
+    @Req() req: Request
+  ): Promise<void> {
     const track = await this.trackService.findByIdAsync(trackId);
     if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
 
-    const mentor = await this.userService.findOneAsync({ _id: input.mentorId, role: UserRole.MENTOR })
-    if (!mentor) throw new NotFoundException(`Mentor with ${input.mentorId} not found`);
+    const mentor = await this.userService.findOneAsync({
+      _id: input.mentorId,
+      role: UserRole.MENTOR
+    });
+    if (!mentor)
+      throw new NotFoundException(`Mentor with ${input.mentorId} not found`);
 
     await this.mentorService.assignMentor(req.user['userId'], mentor.id);
     await this.trackService.enroll(track.id);

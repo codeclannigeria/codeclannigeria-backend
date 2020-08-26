@@ -30,20 +30,23 @@ export class TasksService extends BaseService<Task> {
   async getUserSubmissions(taskId: string): Promise<Submission[]> {
     return this.SubmissionModel.find({ task: taskId, createdBy: this.getUserId() });
   }
-  async submitTask(input: CreateSubmissionDto, task: Task): Promise<void> {
+  async submitTask(input: CreateSubmissionDto, task: Task): Promise<Submission> {
     const createdBy = this.getUserId();
-    const submission = await this.SubmissionModel.findOne({ task: task.id, createdBy });
+    let submission = await this.SubmissionModel.findOne({ task: task.id, createdBy });
     if (submission) {
-      await this.SubmissionModel.updateOne({ _id: submission.id }, { ...input, task: task.id, updatedBy: createdBy } as any)
-      return;
+      submission = await this.SubmissionModel.updateOne(
+        { _id: submission.id },
+        { ...input, task: task.id, updatedBy: createdBy } as any)
+      return submission;
     }
 
     const trackMentor = await this.TrackMentorModel.findOne({ track: task.track });
-    await this.SubmissionModel.create({ ...input, createdBy, task: task.id, mentor: trackMentor.mentor })
+    submission = await this.SubmissionModel.create({ ...input, createdBy, task: task.id, mentor: trackMentor.mentor })
 
     /** move user to next stage */
     await this.moveToNextStage(createdBy, task);
 
+    return submission;
   }
 
   private async moveToNextStage(createdBy: string, task: Task): Promise<void> {
