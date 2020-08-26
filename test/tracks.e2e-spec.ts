@@ -1,7 +1,17 @@
-import { ExecutionContext, HttpStatus, INestApplication, UnauthorizedException, ValidationPipe } from '@nestjs/common';
+import {
+  ExecutionContext,
+  HttpStatus,
+  INestApplication,
+  UnauthorizedException,
+  ValidationPipe
+} from '@nestjs/common';
 import { ContextIdFactory } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getModelForClass, mongoose, ReturnModelType } from '@typegoose/typegoose';
+import {
+  getModelForClass,
+  mongoose,
+  ReturnModelType
+} from '@typegoose/typegoose';
 import * as request from 'supertest';
 import * as uploader from '~shared/utils/upload-img.util';
 
@@ -11,7 +21,10 @@ import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { MentorMentee } from '../src/mentor/models/mentor-mentee.entity';
 import { CreateStageDto } from '../src/stages/models/dtos/create-stage.dto';
 import { Stage } from '../src/stages/models/stage.entity';
-import { CreateTrackDto, MentorInput } from '../src/tracks/models/dto/create-track.dto';
+import {
+  CreateTrackDto,
+  MentorInput
+} from '../src/tracks/models/dto/create-track.dto';
 import { Track } from '../src/tracks/models/track.entity';
 import { TracksModule } from '../src/tracks/tracks.module';
 import { TracksService } from '../src/tracks/tracks.service';
@@ -60,7 +73,6 @@ describe('TracksController (e2e)', () => {
       })
     );
 
-
     await app.init();
     const contextId = ContextIdFactory.getByRequest(request);
     service = await module.resolve<TracksService>(TracksService, contextId);
@@ -95,7 +107,7 @@ describe('TracksController (e2e)', () => {
   describe('/tracks (POST)', () => {
     const input: CreateTrackDto = {
       title: 'Track1',
-      description: 'Description',
+      description: 'Description'
     };
     it('should return 401 if user not logged in', () => {
       return route.post('/tracks').send(input).expect(401);
@@ -121,20 +133,22 @@ describe('TracksController (e2e)', () => {
       const stage: CreateStageDto = {
         description: 'description',
         title: 'title',
-        track: track.id
-      }
-      await StageModel.create({ ...stage })
+        track: track.id,
+        level: 0
+      };
+      await StageModel.create({ ...stage });
     });
     it('should create track with a thumbnail', async () => {
       currentUser.role = UserRole.MENTOR;
-      const thumbnailUrl = "https://www.securePhtotUrl.com";
-      jest.spyOn(uploader, 'uploadFileToCloud').mockResolvedValue(thumbnailUrl)
-      const { body } = await route.post('/tracks/create_with_thumbnail')
+      const thumbnailUrl = 'https://www.securePhtotUrl.com';
+      jest.spyOn(uploader, 'uploadFileToCloud').mockResolvedValue(thumbnailUrl);
+      const { body } = await route
+        .post('/tracks/create_with_thumbnail')
         .set('Content-Type', 'multipart/form-data')
         .attach('thumbnail', './docs/images/compodoc-vectorise.png')
         .field({
           description: 'desc',
-          title: 'title',
+          title: 'title'
         })
         .expect(HttpStatus.CREATED);
 
@@ -142,11 +156,12 @@ describe('TracksController (e2e)', () => {
     });
     it('should return stages via track ID', async () => {
       currentUser.role = UserRole.MENTEE;
-      const { body } = await route.get(`/tracks/${track.id}/stages`).expect(200);
+      const { body } = await route
+        .get(`/tracks/${track.id}/stages`)
+        .expect(200);
 
       expect(body.items.length).toBeGreaterThan(0);
-      expect(body.items[0].track.id).toBe(track.id)
-
+      expect(body.items[0].track.id).toBe(track.id);
     });
 
     it('should create mentors of a track', async () => {
@@ -162,25 +177,29 @@ describe('TracksController (e2e)', () => {
       });
       const input: MentorInput = {
         mentorId: user.id
-      }
+      };
       await route.post(`/tracks/${track.id}/mentors`).send(input).expect(200);
 
       mentor = user;
     });
     it('should return mentors of a track', async () => {
-      const { body } = await route.get(`/tracks/${track.id}/mentors`).expect(200);
+      const { body } = await route
+        .get(`/tracks/${track.id}/mentors`)
+        .expect(200);
       expect(body.items[0].id).toBe(mentor.id);
     });
     it('should enroll to a track', async () => {
       const input: MentorInput = {
         mentorId: mentor.id
-      }
+      };
       await route.post(`/tracks/${track.id}/enroll`).send(input).expect(200);
 
       const MentorMenteeModel = getModelForClass(MentorMentee);
-      const mentorMentee = await MentorMenteeModel.findOne({ mentor: mentor.id })
+      const mentorMentee = await MentorMenteeModel.findOne({
+        mentor: mentor.id
+      });
 
-      expect(mentorMentee).toBeDefined()
+      expect(mentorMentee).toBeDefined();
       expect(mentorMentee.mentee.toString()).toBe(currentUser.userId);
     });
     it('should return 409 for existing track title', async () => {
