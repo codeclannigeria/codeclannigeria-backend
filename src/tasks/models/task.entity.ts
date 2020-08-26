@@ -28,7 +28,7 @@ export class Task extends BaseEntity {
     required: true,
     trim: true,
     text: true,
-    maxlength: columnSize.length1024,
+    // maxlength: columnSize.length1024,
     unique: false
   })
   readonly description!: string;
@@ -40,13 +40,12 @@ export class Task extends BaseEntity {
   })
   readonly deadline = new Date(new Date().setDate(new Date().getDate() + 7));
 
-
   @prop({ ref: Track, required: true })
   readonly track!: Ref<Track>;
 
   @prop({ ref: Stage, required: true })
   readonly stage!: Ref<Stage>;
 
-  @prop({ ref: Course, required: true })
-  readonly course!: Ref<Course>;
+  @prop({ ref: Course, default: null })
+  readonly course: Ref<Course>;
 }
