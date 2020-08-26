@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsDate, IsMongoId, IsNotEmpty, IsOptional, MaxLength, MinDate } from 'class-validator';
+import {
+  IsDate,
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+  MinDate
+} from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
@@ -10,7 +17,7 @@ export class TaskDto extends BaseDto {
   @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length1024)
+  // @MaxLength(columnSize.length1024)
   @Expose()
   @IsNotEmpty()
   description: string;
@@ -22,7 +29,8 @@ export class TaskDto extends BaseDto {
   stage: string;
   @IsMongoId()
   @Expose()
-  course: string;
+  @IsOptional()
+  course?: string;
   @Expose()
   @IsDate()
   @MinDate(new Date(), { message: 'Date must be in future' })
@@ -31,4 +39,4 @@ export class TaskDto extends BaseDto {
   @Type(() => Date)
   deadline?: Date;
 }
-export class PagedListTaskDto extends PagedListDto(TaskDto) { }
+export class PagedListTaskDto extends PagedListDto(TaskDto) {}
