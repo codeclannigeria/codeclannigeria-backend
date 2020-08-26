@@ -109,7 +109,8 @@ describe('StagesController (e2e)', () => {
       title: 'Stage1',
       description: 'Description',
       track: '',
-      taskCount: 1
+      taskCount: 1,
+      level: 0
     };
     it('should return 401 if user not logged in', () => {
       return route.post('/stages').send(input).expect(401);
@@ -139,7 +140,7 @@ describe('StagesController (e2e)', () => {
 
       expect(stage.createdBy.toString()).toBe(currentUser.userId);
       expect(track.stages.includes(stage.id as any)).toBe(true);
-      expect(body.track.id).toBe(trackModel.id)
+      expect(body.track.id).toBe(trackModel.id);
     });
     it('should return 409 for existing stage title', async () => {
       return route.post('/stages').send(input).expect(409);

@@ -44,7 +44,8 @@ describe('Stages Controller', () => {
       title: 'title',
       description: 'description',
       taskCount: 1,
-      track: 'trackId'
+      track: 'trackId',
+      level: 0
     };
     it(`should throw ${NotFoundException.name} for non-existing Track`, async () => {
       await expect(controller.create(input)).rejects.toThrowError(

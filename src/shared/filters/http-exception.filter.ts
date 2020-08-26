@@ -17,7 +17,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const res = ctx.getResponse() as Response;
     const req = ctx.getRequest();
     const statusCode = error.getStatus();
-    const stacktrace = configuration().environment === "production" ? null : error.stack;
+    const stacktrace =
+      configuration().environment === 'production' ? null : error.stack;
     const errorName = error.response.name || error.response.error || error.name;
     const errors = error.response.errors || null;
     const path = req ? req.url : null;

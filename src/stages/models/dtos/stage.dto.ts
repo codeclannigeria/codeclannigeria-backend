@@ -23,8 +23,12 @@ export class StageDto extends BaseDto {
   @IsOptional()
   taskCount?: number = 1;
   @Expose()
+  @Min(0)
+  @IsInt()
+  level: number;
+  @Expose()
   @ApiProperty({ type: TrackDto, readOnly: true })
   @Type(() => TrackDto)
   readonly track: TrackDto;
 }
-export class PagedListStageDto extends PagedListDto(StageDto) { }
+export class PagedListStageDto extends PagedListDto(StageDto) {}

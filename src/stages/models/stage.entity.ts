@@ -29,6 +29,12 @@ export class Stage extends BaseEntity {
 
   @prop({
     required: true,
+    default: 0
+  })
+  readonly level!: number;
+
+  @prop({
+    required: true,
     default: 1
   })
   readonly taskCount!: number;
