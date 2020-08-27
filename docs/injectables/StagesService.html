@@ -209,7 +209,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>, track: ReturnModelType<>)</code>
+<code>constructor(EntityModel: ReturnModelType<>, track: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -232,7 +232,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>EntityModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -2324,11 +2324,11 @@ import { Stage } from &#x27;./models/stage.entity&#x27;;
 export class StagesService extends BaseService&lt;Stage&gt; {
   constructor(
     @InjectModel(Stage.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Stage&gt;,
+    protected readonly EntityModel: ReturnModelType&lt;typeof Stage&gt;,
     @InjectModel(Track.modelName)
     protected readonly track: ReturnModelType&lt;typeof Track&gt;
   ) {
-    super(entity);
+    super(EntityModel);
   }
 
   async insert(stage: Stage): Promise&lt;DocumentType&lt;Stage&gt;&gt; {

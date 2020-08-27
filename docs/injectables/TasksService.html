@@ -99,6 +99,15 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getUserSubmissions">getUserSubmissions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#moveToNextStage">moveToNextStage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#submitTask">submitTask</a>
                             </li>
                             <li>
@@ -209,12 +218,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(taskEntity: ReturnModelType<>, userService: <a href="../injectables/UsersService.html">UsersService</a>)</code>
+<code>constructor(TaskModel: ReturnModelType<>, TrackMentorModel: ReturnModelType<>, SubmissionModel: ReturnModelType<>, UserStageModel: ReturnModelType<>, StageModel: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/tasks/tasks.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/tasks/tasks.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -232,7 +241,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>taskEntity</td>
+                                                        <td>TaskModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -244,10 +253,46 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>userService</td>
+                                                        <td>TrackMentorModel</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>SubmissionModel</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>UserStageModel</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>StageModel</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
                                                         </td>
                                                   
                                                     <td>
@@ -273,28 +318,28 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="submitTask"></a>
+                    <a name="getUserSubmissions"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            submitTask
+                            getUserSubmissions
                         </b>
-                        <a href="#submitTask"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getUserSubmissions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>submitTask(task: <a href="../classes/Task.html">Task</a>)</code>
+                    <code>getUserSubmissions(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/tasks/tasks.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/tasks/tasks.service.ts:30</a></div>
                 </td>
             </tr>
 
@@ -314,6 +359,91 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>taskId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Submission.html" target="_self" >Promise&lt;Submission[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveToNextStage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                            moveToNextStage
+                        </b>
+                        <a href="#moveToNextStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>moveToNextStage(createdBy: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, task: <a href="../classes/Task.html">Task</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/tasks/tasks.service.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>createdBy</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
                                     <td>task</td>
                                     <td>
                                                 <code><a href="../classes/Task.html" target="_self" >Task</a></code>
@@ -332,6 +462,90 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitTask"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            submitTask
+                        </b>
+                        <a href="#submitTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submitTask(input: <a href="../classes/CreateSubmissionDto.html">CreateSubmissionDto</a>, task: <a href="../classes/Task.html">Task</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/tasks/tasks.service.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/CreateSubmissionDto.html" target="_self" >CreateSubmissionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>task</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Submission.html" target="_self" >Promise&lt;Submission&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -2317,32 +2531,88 @@ import { InjectModel } from &#x27;@nestjs/mongoose&#x27;;
 import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
-import { UsersService } from &#x27;../users/users.service&#x27;;
-import { Task, TaskStatus } from &#x27;./models/task.entity&#x27;;
+import { Stage } from &#x27;../stages/models/stage.entity&#x27;;
+import { TrackMentor } from &#x27;../tracks/models/track-mentor.entity&#x27;;
+import { UserStage } from &#x27;../userstage/models/userstage.entity&#x27;;
+import { CreateSubmissionDto } from &#x27;./models/dtos/create-subission.dto&#x27;;
+import { Submission } from &#x27;./models/submission.entity&#x27;;
+import { Task } from &#x27;./models/task.entity&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class TasksService extends BaseService&lt;Task&gt; {
+
   constructor(
     @InjectModel(Task.modelName)
-    protected readonly taskEntity: ReturnModelType&lt;typeof Task&gt;,
-    protected readonly userService: UsersService
+    protected readonly TaskModel: ReturnModelType&lt;typeof Task&gt;,
+    @InjectModel(TrackMentor.modelName)
+    protected readonly TrackMentorModel: ReturnModelType&lt;typeof TrackMentor&gt;,
+    @InjectModel(Submission.modelName)
+    protected readonly SubmissionModel: ReturnModelType&lt;typeof Submission&gt;,
+    @InjectModel(UserStage.modelName)
+    protected readonly UserStageModel: ReturnModelType&lt;typeof UserStage&gt;,
+    @InjectModel(Stage.modelName)
+    protected readonly StageModel: ReturnModelType&lt;typeof Stage&gt;
   ) {
-    super(taskEntity);
+    super(TaskModel);
+  }
+  async getUserSubmissions(taskId: string): Promise&lt;Submission[]&gt; {
+    return this.SubmissionModel.find({ task: taskId, createdBy: this.getUserId() });
+  }
+  async submitTask(input: CreateSubmissionDto, task: Task): Promise&lt;Submission&gt; {
+    const createdBy &#x3D; this.getUserId();
+    let submission &#x3D; await this.SubmissionModel.findOne({ task: task.id, createdBy });
+    if (submission) {
+      submission &#x3D; await this.SubmissionModel.updateOne(
+        { _id: submission.id },
+        { ...input, task: task.id, updatedBy: createdBy } as any)
+      return submission;
+    }
+
+    const trackMentor &#x3D; await this.TrackMentorModel.findOne({ track: task.track });
+    submission &#x3D; await this.SubmissionModel.create({ ...input, createdBy, task: task.id, mentor: trackMentor.mentor })
+
+    /** move user to next stage */
+    await this.moveToNextStage(createdBy, task);
+
+    return submission;
   }
 
-  // async assignTasks(userId: string, taskIdList: string[]): Promise&lt;void&gt; {
-  //   await this.userService.updateAsync(userId, {
-  //     $addToSet: { tasks: taskIdList }
-  //   } as any);
-  // }
-  async submitTask(task: Task): Promise&lt;void&gt; {
-    await this.taskEntity.updateOne(
-      { _id: task.id },
-      {
-        status: TaskStatus.COMPLETED, updatedBy: this.getUserId()
-      });
-  }
+  private async moveToNextStage(createdBy: string, task: Task): Promise&lt;void&gt; {
+    const stage &#x3D; await this.StageModel.findById(task.stage);
+    const userStage &#x3D; await this.UserStageModel.findOne({ user: createdBy, stage: stage.id, createdBy })
 
+
+    if (!userStage) { // user has completed first task in this stage
+      let doc &#x3D; { user: createdBy, stage: stage.id, track: task.track, createdBy } as any;
+      if (stage.taskCount &gt; 0) {
+        doc &#x3D; { ...doc, taskRemaining: stage.taskCount - 1 };
+      }
+      else {
+        doc &#x3D; { ...doc, taskRemaining: 0, isCompleted: true };
+      }
+      await this.UserStageModel.create(doc);
+      return;
+    }
+    if (userStage.taskRemaining &gt; 1) { // user has completed next task in this stage
+      await this.UserStageModel.updateOne(
+        { _id: userStage.id },
+        {
+          $inc: { taskRemaining: -1 }
+        }
+      );
+    }
+    else if (userStage.taskRemaining &lt;&#x3D; 1) { // user has completed all tasks in this stage
+      await this.UserStageModel.updateOne(
+        { _id: userStage.id },
+        {
+          $set: { taskRemaining: 0 }
+        },
+        {
+          $set: { isCompleted: true }
+        }
+      );
+    }
+  }
 }
 </code></pre>
     </div>

@@ -143,7 +143,7 @@ export class TracksController extends BaseCtrl {
     return { totalCount, items };
   }
 
-  @Get(':trackId/userstages')
+  @Get(':trackId/user_stages')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
   @UseGuards(JwtAuthGuard)
@@ -155,10 +155,10 @@ export class TracksController extends BaseCtrl {
     const track = await this.trackService.findByIdAsync(trackId);
     if (!track)
       throw new NotFoundException(`Track with Id ${trackId} not found`);
-    const userstages = await this.userStageService.getUserStages(trackId);
+    const userStages = await this.userStageService.getUserStages(trackId);
 
-    const totalCount = userstages.length;
-    const items = plainToClass(UserStageDto, userstages, {
+    const totalCount = userStages.length;
+    const items = plainToClass(UserStageDto, userStages, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;

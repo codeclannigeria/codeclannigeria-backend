@@ -83,9 +83,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Exclude, Expose, Type } from &#x27;class-transformer&#x27;;
 import {
-  IsAlphanumeric,
   IsDate,
   IsMongoId,
+  IsNotEmpty,
   IsOptional,
   MaxLength,
   MinDate
@@ -95,12 +95,13 @@ import { BaseDto, PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
 @Exclude()
 export class TaskDto extends BaseDto {
-  @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @MaxLength(columnSize.length256)
+  @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length128)
+  // @MaxLength(columnSize.length1024)
   @Expose()
+  @IsNotEmpty()
   description: string;
   @IsMongoId()
   @Expose()
@@ -108,6 +109,10 @@ export class TaskDto extends BaseDto {
   @IsMongoId()
   @Expose()
   stage: string;
+  @IsMongoId()
+  @Expose()
+  @IsOptional()
+  course?: string;
   @Expose()
   @IsDate()
   @MinDate(new Date(), { message: &#x27;Date must be in future&#x27; })

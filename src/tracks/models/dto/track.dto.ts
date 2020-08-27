@@ -21,9 +21,9 @@ export class TrackDto extends BaseDto {
   @Expose()
   @IsOptional()
   readonly thumbnailUrl?: string;
-  @ApiProperty({ readOnly: true, isArray: true })
+  @ApiProperty({ readOnly: true, isArray: true, type: UserStageDto })
   @Expose()
   @Type(() => UserStageDto)
   readonly userStage: UserStageDto[];
 }
-export class PagedTrackOutputDto extends PagedListDto(TrackDto) { }
+export class PagedTrackOutputDto extends PagedListDto(TrackDto) {}

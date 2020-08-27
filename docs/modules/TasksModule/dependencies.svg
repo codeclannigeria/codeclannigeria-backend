@@ -1,1 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="704" height="284pt" viewBox="0 0 528 284"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)"><title>dependencies</title><polygon fill="#fff" stroke="transparent" points="-4 4 -4 -280 524 -280 524 4 -4 4"/><text x="239.009" y="-42.4" fill="#000" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="start">Legend</text><polygon fill="#ffffb3" stroke="transparent" points="26 -10 26 -30 46 -30 46 -10 26 -10"/><text x="49.629" y="-15.4" fill="#000" font-family="sans-serif" font-size="14" text-anchor="start">Declarations</text><polygon fill="#8dd3c7" stroke="transparent" points="139 -10 139 -30 159 -30 159 -10 139 -10"/><text x="162.725" y="-15.4" fill="#000" font-family="sans-serif" font-size="14" text-anchor="start">Module</text><polygon fill="#80b1d3" stroke="transparent" points="225 -10 225 -30 245 -30 245 -10 225 -10"/><text x="248.781" y="-15.4" fill="#000" font-family="sans-serif" font-size="14" text-anchor="start">Bootstrap</text><polygon fill="#fdb462" stroke="transparent" points="322 -10 322 -30 342 -30 342 -10 322 -10"/><text x="345.673" y="-15.4" fill="#000" font-family="sans-serif" font-size="14" text-anchor="start">Providers</text><polygon fill="#fb8072" stroke="transparent" points="418 -10 418 -30 438 -30 438 -10 418 -10"/><text x="441.726" y="-15.4" fill="#000" font-family="sans-serif" font-size="14" text-anchor="start">Exports</text><g id="clust1" class="cluster"><title>cluster_TasksModule</title><polygon fill="none" stroke="#000" stroke-dasharray="1 5" points="8 -70 8 -268 512 -268 512 -70 8 -70"/></g><g id="clust3" class="cluster"><title>cluster_TasksModule_imports</title><polygon fill="none" stroke="#000" points="166 -78 166 -130 504 -130 504 -78 166 -78"/></g><g id="clust4" class="cluster"><title>cluster_TasksModule_exports</title><polygon fill="none" stroke="#000" points="221 -208 221 -260 331 -260 331 -208 221 -208"/></g><g id="clust6" class="cluster"><title>cluster_TasksModule_providers</title><polygon fill="none" stroke="#000" points="16 -78 16 -130 158 -130 158 -78 16 -78"/></g><g id="node1" class="node"><title>StagesModule</title><polygon fill="#8dd3c7" stroke="#000" points="496.097 -122 493.097 -126 472.097 -126 469.097 -122 399.903 -122 399.903 -86 496.097 -86 496.097 -122"/><text x="448" y="-99.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">StagesModule</text></g><g id="node4" class="node"><title>TasksModule</title><polygon fill="#8dd3c7" stroke="#000" points="322.206 -187 319.206 -191 298.206 -191 295.206 -187 229.794 -187 229.794 -151 322.206 -151 322.206 -187"/><text x="276" y="-164.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">TasksModule</text></g><g id="edge1" class="edge"><title>StagesModule-&gt;TasksModule</title><path fill="none" stroke="#000" d="M448,-122.1061C448,-141.3391 448,-169 448,-169 448,-169 332.5457,-169 332.5457,-169"/><polygon fill="#000" stroke="#000" points="332.546 -165.5 322.546 -169 332.546 -172.5 332.546 -165.5"/></g><g id="node2" class="node"><title>TracksModule</title><polygon fill="#8dd3c7" stroke="#000" points="381.637 -122 378.637 -126 357.637 -126 354.637 -122 284.363 -122 284.363 -86 381.637 -86 381.637 -122"/><text x="333" y="-99.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">TracksModule</text></g><g id="edge2" class="edge"><title>TracksModule-&gt;TasksModule</title><path fill="none" stroke="#000" d="M303.1423,-122.1061C303.1423,-122.1061 303.1423,-140.991 303.1423,-140.991"/><polygon fill="#000" stroke="#000" points="299.642 -140.991 303.142 -150.991 306.642 -140.991 299.642 -140.991"/></g><g id="node3" class="node"><title>UsersModule</title><polygon fill="#8dd3c7" stroke="#000" points="265.922 -122 262.922 -126 241.922 -126 238.922 -122 174.078 -122 174.078 -86 265.922 -86 265.922 -122"/><text x="220" y="-99.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">UsersModule</text></g><g id="edge3" class="edge"><title>UsersModule-&gt;TasksModule</title><path fill="none" stroke="#000" d="M247.8037,-122.1061C247.8037,-122.1061 247.8037,-140.991 247.8037,-140.991"/><polygon fill="#000" stroke="#000" points="244.304 -140.991 247.804 -150.991 251.304 -140.991 244.304 -140.991"/></g><g id="node5" class="node"><title>TasksService</title><polygon fill="#fb8072" stroke="#000" points="323.134 -252 228.866 -252 228.866 -216 323.134 -216 323.134 -252"/><text x="276" y="-229.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">TasksService</text></g><g id="edge4" class="edge"><title>TasksModule-&gt;TasksService</title><path fill="none" stroke="#000" stroke-dasharray="5 2" d="M276,-187.1061C276,-187.1061 276,-205.991 276,-205.991"/><polygon fill="#000" stroke="#000" points="272.5 -205.991 276 -215.991 279.5 -205.991 272.5 -205.991"/></g><g id="node6" class="node"><title>TasksService</title><ellipse cx="87" cy="-104" fill="#fdb462" stroke="#000" rx="62.535" ry="18"/><text x="87" y="-99.8" fill="#000" font-family="Times,serif" font-size="14" text-anchor="middle">TasksService</text></g><g id="edge5" class="edge"><title>TasksService-&gt;TasksModule</title><path fill="none" stroke="#000" d="M87,-122.1061C87,-141.3391 87,-169 87,-169 87,-169 219.7654,-169 219.7654,-169"/><polygon fill="#000" stroke="#000" points="219.765 -172.5 229.765 -169 219.765 -165.5 219.765 -172.5"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: dependencies Pages: 1 -->
+<svg width="650pt" height="284pt"
+ viewBox="0.00 0.00 650.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)">
+<title>dependencies</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-280 646,-280 646,4 -4,4"/>
+<text text-anchor="start" x="300.0091" y="-42.4" font-family="sans-serif" font-weight="bold" font-size="14.00" fill="#000000">Legend</text>
+<polygon fill="#ffffb3" stroke="transparent" points="87,-10 87,-30 107,-30 107,-10 87,-10"/>
+<text text-anchor="start" x="110.629" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Declarations</text>
+<polygon fill="#8dd3c7" stroke="transparent" points="200,-10 200,-30 220,-30 220,-10 200,-10"/>
+<text text-anchor="start" x="223.7251" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Module</text>
+<polygon fill="#80b1d3" stroke="transparent" points="286,-10 286,-30 306,-30 306,-10 286,-10"/>
+<text text-anchor="start" x="309.7812" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Bootstrap</text>
+<polygon fill="#fdb462" stroke="transparent" points="383,-10 383,-30 403,-30 403,-10 383,-10"/>
+<text text-anchor="start" x="406.6732" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Providers</text>
+<polygon fill="#fb8072" stroke="transparent" points="479,-10 479,-30 499,-30 499,-10 479,-10"/>
+<text text-anchor="start" x="502.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
+<g id="clust1" class="cluster">
+<title>cluster_TasksModule</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="8,-70 8,-268 634,-268 634,-70 8,-70"/>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_TasksModule_imports</title>
+<polygon fill="none" stroke="#000000" points="166,-78 166,-130 626,-130 626,-78 166,-78"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_TasksModule_exports</title>
+<polygon fill="none" stroke="#000000" points="278,-208 278,-260 388,-260 388,-208 278,-208"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_TasksModule_providers</title>
+<polygon fill="none" stroke="#000000" points="16,-78 16,-130 158,-130 158,-78 16,-78"/>
+</g>
+<!-- CoursesModule -->
+<g id="node1" class="node">
+<title>CoursesModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="618.1514,-122 615.1514,-126 594.1514,-126 591.1514,-122 513.8486,-122 513.8486,-86 618.1514,-86 618.1514,-122"/>
+<text text-anchor="middle" x="566" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CoursesModule</text>
+</g>
+<!-- TasksModule -->
+<g id="node5" class="node">
+<title>TasksModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="379.2064,-187 376.2064,-191 355.2064,-191 352.2064,-187 286.7936,-187 286.7936,-151 379.2064,-151 379.2064,-187"/>
+<text text-anchor="middle" x="333" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">TasksModule</text>
+</g>
+<!-- CoursesModule&#45;&gt;TasksModule -->
+<g id="edge1" class="edge">
+<title>CoursesModule&#45;&gt;TasksModule</title>
+<path fill="none" stroke="#000000" d="M566,-122.2843C566,-143.3211 566,-175 566,-175 566,-175 389.3119,-175 389.3119,-175"/>
+<polygon fill="#000000" stroke="#000000" points="389.3119,-171.5001 379.3119,-175 389.3118,-178.5001 389.3119,-171.5001"/>
+</g>
+<!-- StagesModule -->
+<g id="node2" class="node">
+<title>StagesModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="496.0968,-122 493.0968,-126 472.0968,-126 469.0968,-122 399.9032,-122 399.9032,-86 496.0968,-86 496.0968,-122"/>
+<text text-anchor="middle" x="448" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">StagesModule</text>
+</g>
+<!-- StagesModule&#45;&gt;TasksModule -->
+<g id="edge2" class="edge">
+<title>StagesModule&#45;&gt;TasksModule</title>
+<path fill="none" stroke="#000000" d="M448,-122.0225C448,-139.3734 448,-163 448,-163 448,-163 389.1123,-163 389.1123,-163"/>
+<polygon fill="#000000" stroke="#000000" points="389.1123,-159.5001 379.1123,-163 389.1122,-166.5001 389.1123,-159.5001"/>
+</g>
+<!-- TracksModule -->
+<g id="node3" class="node">
+<title>TracksModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="381.6375,-122 378.6375,-126 357.6375,-126 354.6375,-122 284.3625,-122 284.3625,-86 381.6375,-86 381.6375,-122"/>
+<text text-anchor="middle" x="333" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">TracksModule</text>
+</g>
+<!-- TracksModule&#45;&gt;TasksModule -->
+<g id="edge3" class="edge">
+<title>TracksModule&#45;&gt;TasksModule</title>
+<path fill="none" stroke="#000000" d="M333,-122.1061C333,-122.1061 333,-140.991 333,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="329.5001,-140.9909 333,-150.991 336.5001,-140.991 329.5001,-140.9909"/>
+</g>
+<!-- UsersModule -->
+<g id="node4" class="node">
+<title>UsersModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="265.9218,-122 262.9218,-126 241.9218,-126 238.9218,-122 174.0782,-122 174.0782,-86 265.9218,-86 265.9218,-122"/>
+<text text-anchor="middle" x="220" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">UsersModule</text>
+</g>
+<!-- UsersModule&#45;&gt;TasksModule -->
+<g id="edge4" class="edge">
+<title>UsersModule&#45;&gt;TasksModule</title>
+<path fill="none" stroke="#000000" d="M220,-122.0225C220,-139.3734 220,-163 220,-163 220,-163 276.7125,-163 276.7125,-163"/>
+<polygon fill="#000000" stroke="#000000" points="276.7126,-166.5001 286.7125,-163 276.7125,-159.5001 276.7126,-166.5001"/>
+</g>
+<!-- TasksService  -->
+<g id="node6" class="node">
+<title>TasksService </title>
+<polygon fill="#fb8072" stroke="#000000" points="380.1341,-252 285.8659,-252 285.8659,-216 380.1341,-216 380.1341,-252"/>
+<text text-anchor="middle" x="333" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">TasksService </text>
+</g>
+<!-- TasksModule&#45;&gt;TasksService  -->
+<g id="edge5" class="edge">
+<title>TasksModule&#45;&gt;TasksService </title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M333,-187.1061C333,-187.1061 333,-205.991 333,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="329.5001,-205.9909 333,-215.991 336.5001,-205.991 329.5001,-205.9909"/>
+</g>
+<!-- TasksService -->
+<g id="node7" class="node">
+<title>TasksService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="87" cy="-104" rx="62.5354" ry="18"/>
+<text text-anchor="middle" x="87" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">TasksService</text>
+</g>
+<!-- TasksService&#45;&gt;TasksModule -->
+<g id="edge6" class="edge">
+<title>TasksService&#45;&gt;TasksModule</title>
+<path fill="none" stroke="#000000" d="M87,-122.2843C87,-143.3211 87,-175 87,-175 87,-175 276.7293,-175 276.7293,-175"/>
+<polygon fill="#000000" stroke="#000000" points="276.7293,-178.5001 286.7293,-175 276.7292,-171.5001 276.7293,-178.5001"/>
+</g>
+</g>
+</svg>

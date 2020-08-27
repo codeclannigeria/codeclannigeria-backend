@@ -10,18 +10,19 @@ import { UserStage } from './models/userstage.entity';
 export class UserStageService extends BaseService<UserStage> {
   constructor(
     @InjectModel(UserStage.modelName)
-    protected readonly userStageEntity: ReturnModelType<typeof UserStage>,
+    protected readonly UserStageModel: ReturnModelType<typeof UserStage>,
     protected readonly userService: UsersService
   ) {
-    super(userStageEntity);
+    super(UserStageModel);
   }
 
   async getUserStages(trackId: string): Promise<UserStage[]> {
     const currentUser = this.getUserId();
-    const userStage = await this.userStageEntity
-      .find({ user: currentUser, track: trackId })
-      .populate('stage');
+    const userStages = await this.UserStageModel.find({
+      user: currentUser,
+      track: trackId
+    });
 
-    return userStage as UserStage[];
+    return userStages;
   }
 }

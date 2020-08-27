@@ -88,11 +88,11 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#assignedTasks">assignedTasks</a>
+                                <a href="#create">create</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#create">create</a>
+                                <a href="#createMentors">createMentors</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
@@ -101,6 +101,18 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#enroll">enroll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getMentors">getMentors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getStages">getStages</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getUserStages">getUserStages</a>
                             </li>
                         </ul>
                     </td>
@@ -120,12 +132,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
+<code>constructor(trackService: <a href="../injectables/TracksService.html">TracksService</a>, mentorService: <a href="../injectables/MentorService.html">MentorService</a>, userService: <a href="../injectables/UsersService.html">UsersService</a>, userStageService: <a href="../injectables/UserStageService.html">UserStageService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/tracks/tracks.controller.ts:47</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/tracks/tracks.controller.ts:58</a></div>
                             </td>
                         </tr>
 
@@ -154,6 +166,42 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>mentorService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MentorService.html" target="_self" >MentorService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userStageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserStageService.html" target="_self" >UserStageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -169,85 +217,6 @@
     <h3 id="methods">
         Methods
     </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="assignedTasks"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            assignedTasks
-                        </b>
-                        <a href="#assignedTasks"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>assignedTasks(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@Get(&#x27;:trackId/stages&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:110</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>trackId</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;StageDto[]&gt;</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -279,8 +248,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="59"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:59</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:76</a></div>
                 </td>
             </tr>
 
@@ -331,6 +300,109 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="createMentors"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            createMentors
+                        </b>
+                        <a href="#createMentors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createMentors(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, input: <a href="../classes/MentorInput.html">MentorInput</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;:trackId/mentors&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.ADMIN)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:194</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/MentorInput.html" target="_self" >MentorInput</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="createTrack"></a>
                     <span class="name">
                         <b>
@@ -358,8 +430,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:95</a></div>
                 </td>
             </tr>
 
@@ -447,7 +519,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>enroll(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>enroll(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, input: <a href="../classes/MentorInput.html">MentorInput</a>, req: Request)</code>
                 </td>
             </tr>
 
@@ -461,8 +533,111 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="127"
-                            class="link-to-prism">src/tracks/tracks.controller.ts:127</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="221"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:221</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/MentorInput.html" target="_self" >MentorInput</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMentors"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getMentors
+                        </b>
+                        <a href="#getMentors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMentors(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:trackId/mentors&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined, type: PagedUserOutputDto})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="173"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:173</a></div>
                 </td>
             </tr>
 
@@ -499,7 +674,165 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;PagedUserOutputDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStages"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getStages
+                        </b>
+                        <a href="#getStages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getStages(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:trackId/stages&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined, type: PagedListStageDto})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;PagedListStageDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUserStages"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getUserStages
+                        </b>
+                        <a href="#getUserStages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUserStages(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;:trackId/user_stages&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined, type: PagedListStageDto})<br />@UseGuards(JwtAuthGuard)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="152"
+                            class="link-to-prism">src/tracks/tracks.controller.ts:152</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;PagedListStageDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -526,6 +859,7 @@
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   NotFoundException,
   Param,
   Post,
@@ -533,7 +867,7 @@
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from &#x27;@nestjs/common&#x27;;
 import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
@@ -546,12 +880,22 @@ import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
 import { uploadFileToCloud } from &#x27;~shared/utils/upload-img.util&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
-import { StageDto } from &#x27;../stages/models/dtos/stage.dto&#x27;;
+import { MentorService } from &#x27;../mentor/mentor.service&#x27;;
+import { MentorDto } from &#x27;../mentor/models/mentor.dto&#x27;;
+import { PagedListStageDto, StageDto } from &#x27;../stages/models/dtos/stage.dto&#x27;;
+import { PagedUserOutputDto } from &#x27;../users/models/dto/user.dto&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
-import { CreateTrackDto, CreateWithThumbnailTrackDto } from &#x27;./models/dto/create-track.dto&#x27;;
+import { UsersService } from &#x27;../users/users.service&#x27;;
+import {
+  CreateTrackDto,
+  CreateWithThumbnailTrackDto,
+  MentorInput
+} from &#x27;./models/dto/create-track.dto&#x27;;
 import { PagedTrackOutputDto, TrackDto } from &#x27;./models/dto/track.dto&#x27;;
 import { Track } from &#x27;./models/track.entity&#x27;;
 import { TracksService } from &#x27;./tracks.service&#x27;;
+import { UserStageDto } from &#x27;../userstage/models/dto/userstage.dto&#x27;;
+import { UserStageService } from &#x27;../userstage/userstage.service&#x27;;
 
 const BaseCtrl &#x3D; BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;({
   entity: Track,
@@ -566,7 +910,13 @@ const BaseCtrl &#x3D; BaseCrudController&lt;Track, TrackDto, CreateTrackDto&gt;(
 });
 const ONE_KB &#x3D; 1024;
 export class TracksController extends BaseCtrl {
-  constructor(protected trackService: TracksService) {
+  constructor(
+    protected trackService: TracksService,
+    protected mentorService: MentorService,
+    @Inject(UsersService)
+    protected userService: UsersService,
+    protected userStageService: UserStageService
+  ) {
     super(trackService);
   }
 
@@ -588,23 +938,25 @@ export class TracksController extends BaseCtrl {
     return await super.create(input);
   }
 
-  @Post(&quot;create_with_thumbnail&quot;)
+  @Post(&#x27;create_with_thumbnail&#x27;)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.MENTOR)
   @ApiResponse({ type: TrackDto, status: HttpStatus.CREATED })
   @ApiResponse({ status: HttpStatus.FORBIDDEN, type: ApiException })
-  @UseInterceptors(FileInterceptor(&quot;thumbnail&quot;))
+  @UseInterceptors(FileInterceptor(&#x27;thumbnail&#x27;))
   @ApiConsumes(&#x27;multipart/form-data&#x27;)
   @ApiBearerAuth()
-  async createTrack(@Body() input: CreateWithThumbnailTrackDto, @UploadedFile() thumbnail: BufferedFile, @Req() req: Request): Promise&lt;TrackDto&gt; {
+  async createTrack(
+    @Body() input: CreateWithThumbnailTrackDto,
+    @UploadedFile() thumbnail: BufferedFile,
+    @Req() req: Request
+  ): Promise&lt;TrackDto&gt; {
     if (!thumbnail)
-      throw new BadRequestException(&quot;Thumbnail image cannot be empty&quot;)
-
-    if (thumbnail.mimetype.split(&#x27;/&#x27;)[0] !&#x3D;&#x3D; &quot;image&quot;)
-      throw new UnsupportedMediaTypeException(&quot;File is not an image&quot;);
+      throw new BadRequestException(&#x27;Thumbnail image cannot be empty&#x27;);
+    if (thumbnail.mimetype.split(&#x27;/&#x27;)[0] !&#x3D;&#x3D; &#x27;image&#x27;)
+      throw new UnsupportedMediaTypeException(&#x27;File is not an image&#x27;);
     if (thumbnail.size / ONE_KB &gt; 200)
-      throw new BadRequestException(&quot;File cannot be larger than 200KB&quot;)
-
+      throw new BadRequestException(&#x27;File cannot be larger than 200KB&#x27;);
 
     const exist &#x3D; await this.trackService.findOneAsync({
       title: input.title.toUpperCase()
@@ -613,41 +965,129 @@ export class TracksController extends BaseCtrl {
       throw new ConflictException(
         &#x60;Track with the title &quot;${exist.title}&quot; already exists&#x60;
       );
-    const userId &#x3D; req.user[&#x27;userId&#x27;];
 
-    const thumbnailUrl &#x3D; await uploadFileToCloud(thumbnail, &quot;avatars&quot;, userId);
+    const userId &#x3D; req.user[&#x27;userId&#x27;];
+    const thumbnailUrl &#x3D; await uploadFileToCloud(thumbnail, &#x27;avatars&#x27;, userId);
     const dto &#x3D; input as any;
     dto.thumbnailUrl &#x3D; thumbnailUrl;
-    delete dto.thumbnail
+    delete dto.thumbnail;
     return await super.create(dto);
   }
 
   @Get(&#x27;:trackId/stages&#x27;)
   @HttpCode(HttpStatus.OK)
-  @ApiResponse({ status: HttpStatus.OK })
+  @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async assignedTasks(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;StageDto[]&gt; {
+  async getStages(
+    @Param(&#x27;trackId&#x27;) trackId: string
+  ): Promise&lt;PagedListStageDto&gt; {
     const track &#x3D; await this.trackService.findByIdAsync(trackId);
-    if (!track) throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;)
-    const stages &#x3D; await this.trackService.getStages(trackId);
 
-    return plainToClass(StageDto, stages, {
+    if (!track)
+      throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;);
+
+    const stages &#x3D; await this.trackService.getStages(trackId);
+    const totalCount &#x3D; stages.length;
+    const items &#x3D; plainToClass(StageDto, stages, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
-    });
-
+    }) as any;
+    return { totalCount, items };
   }
 
-  @Post(&quot;:trackId/enroll&quot;)
+  @Get(&#x27;:trackId/user_stages&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async getUserStages(
+    @Param(&#x27;trackId&#x27;) trackId: string
+  ): Promise&lt;PagedListStageDto&gt; {
+    const track &#x3D; await this.trackService.findByIdAsync(trackId);
+    if (!track)
+      throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;);
+    const userStages &#x3D; await this.userStageService.getUserStages(trackId);
+
+    const totalCount &#x3D; userStages.length;
+    const items &#x3D; plainToClass(UserStageDto, userStages, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount, items };
+  }
+  @Get(&#x27;:trackId/mentors&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK, type: PagedUserOutputDto })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async getMentors(
+    @Param(&#x27;trackId&#x27;) trackId: string
+  ): Promise&lt;PagedUserOutputDto&gt; {
+    const track &#x3D; await this.trackService.findByIdAsync(trackId);
+    if (!track)
+      throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;);
+    const mentors &#x3D; await this.trackService.getMentors(trackId);
+    const items &#x3D; plainToClass(MentorDto, mentors, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: mentors.length, items };
+  }
+
+  @Post(&#x27;:trackId/mentors&#x27;)
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async createMentors(
+    @Param(&#x27;trackId&#x27;) trackId: string,
+    @Body() input: MentorInput,
+    @Req() req: Request
+  ): Promise&lt;void&gt; {
+    const mentor &#x3D; await this.userService.findOneAsync({
+      _id: input.mentorId,
+      role: UserRole.MENTOR
+    });
+    if (!mentor)
+      throw new NotFoundException(&#x60;Mentor with Id ${input.mentorId} not found&#x60;);
+    const track &#x3D; await this.trackService.findByIdAsync(trackId);
+    if (!track)
+      throw new NotFoundException(&#x60;Track with Id ${trackId} not found&#x60;);
+
+    await this.mentorService.assignMentorToTrack(
+      trackId,
+      input.mentorId,
+      req.user[&#x27;id&#x27;]
+    );
+  }
+
+  @Post(&#x27;:trackId/enroll&#x27;)
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async enroll(@Param(&quot;trackId&quot;) trackId: string): Promise&lt;void&gt; {
+  async enroll(
+    @Param(&#x27;trackId&#x27;) trackId: string,
+    @Body() input: MentorInput,
+    @Req() req: Request
+  ): Promise&lt;void&gt; {
     const track &#x3D; await this.trackService.findByIdAsync(trackId);
     if (!track) throw new NotFoundException(&#x60;Track with ${trackId} not found&#x60;);
+
+    const mentor &#x3D; await this.userService.findOneAsync({
+      _id: input.mentorId,
+      role: UserRole.MENTOR
+    });
+    if (!mentor)
+      throw new NotFoundException(&#x60;Mentor with ${input.mentorId} not found&#x60;);
+
+    await this.mentorService.assignMentor(req.user[&#x27;userId&#x27;], mentor.id);
     await this.trackService.enroll(track.id);
   }
 }

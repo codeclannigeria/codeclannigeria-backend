@@ -152,13 +152,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length128)<br />@ApiProperty()<br />
+                                @Expose()<br />@MaxLength(columnSize.length1024)<br />@IsNotEmpty()<br />@ApiProperty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/courses/models/dtos/course.dto.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/courses/models/dtos/course.dto.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -184,9 +184,18 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @Expose()<br />@ApiProperty({readOnly: true})<br />
+                            </code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/courses/models/dtos/course.dto.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/courses/models/dtos/course.dto.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -216,13 +225,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @IsUrl()<br />@MaxLength(columnSize.length256)<br />@Expose()<br />
+                                @IsUrl()<br />@MaxLength(columnSize.length256)<br />@IsNotEmpty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/courses/models/dtos/course.dto.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/courses/models/dtos/course.dto.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -252,7 +261,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @Expose()<br />@MaxLength(columnSize.length32)<br />@ApiProperty()<br />@IsAlphanumeric()<br />
+                                @Expose()<br />@MaxLength(columnSize.length256)<br />@ApiProperty()<br />@IsNotEmpty()<br />
                             </code>
                         </td>
                     </tr>
@@ -411,30 +420,34 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Exclude, Expose } from &#x27;class-transformer&#x27;;
-import { IsAlphanumeric, IsUrl, MaxLength } from &#x27;class-validator&#x27;;
+import { IsNotEmpty, IsUrl, MaxLength } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
-import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
 import { PagedListDto } from &#x27;~shared/models/dto&#x27;;
+import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
 
 @Exclude()
 export class CourseDto extends BaseDto {
   @Expose()
-  @MaxLength(columnSize.length32)
+  @MaxLength(columnSize.length256)
   @ApiProperty()
-  @IsAlphanumeric()
+  @IsNotEmpty()
   title: string;
   @Expose()
-  @MaxLength(columnSize.length128)
+  @MaxLength(columnSize.length1024)
+  @IsNotEmpty()
   @ApiProperty()
   description: string;
   @IsUrl()
   @MaxLength(columnSize.length256)
+  @IsNotEmpty()
   @Expose()
   playlistUrl: string;
 
+  @Expose()
+  @ApiProperty({ readOnly: true })
   readonly enrollmentCount: number;
 }
-export class PagedCourseOutputDto extends PagedListDto(CourseDto) {}
+export class PagedCourseOutputDto extends PagedListDto(CourseDto) { }
 </code></pre>
     </div>
 </div>
