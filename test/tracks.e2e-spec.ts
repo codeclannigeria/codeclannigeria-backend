@@ -29,6 +29,7 @@ import { Track } from '../src/tracks/models/track.entity';
 import { TracksModule } from '../src/tracks/tracks.module';
 import { TracksService } from '../src/tracks/tracks.service';
 import { User, UserRole } from '../src/users/models/user.entity';
+import { UserStage } from '../src/userstage/models/userstage.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('TracksController (e2e)', () => {
@@ -86,8 +87,8 @@ describe('TracksController (e2e)', () => {
       useFindAndModify: false
     });
 
-    UserModel = getModelForClass(User);
-    TrackModel = getModelForClass(Track);
+    UserModel = getModelForClass(User, { existingMongoose: mongo });
+    TrackModel = getModelForClass(Track, { existingMongoose: mongo });
 
     const user = await UserModel.create({
       email: validEmail,
@@ -123,6 +124,7 @@ describe('TracksController (e2e)', () => {
       return route.post('/tracks').send(input).expect(403);
     });
     let track: Track;
+    let stageId: string;
     it('should return 201 if user role is permitted', async () => {
       currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/tracks').send(input).expect(201);
@@ -136,7 +138,7 @@ describe('TracksController (e2e)', () => {
         track: track.id,
         level: 0
       };
-      await StageModel.create({ ...stage });
+      stageId = await (await StageModel.create({ ...stage })).id;
     });
     it('should create track with a thumbnail', async () => {
       currentUser.role = UserRole.MENTOR;
@@ -155,6 +157,24 @@ describe('TracksController (e2e)', () => {
       expect(body.thumbnailUrl).toBe(thumbnailUrl);
     });
     it('should return stages via track ID', async () => {
+      const UserStageModel = getModelForClass(UserStage, {
+        existingMongoose: mongo
+      });
+      await UserStageModel.create({
+        user: currentUser.userId,
+        stage: stageId,
+        track: track.id,
+        taskRemaining: 2,
+        isCompleted: false
+      });
+      const { body } = await route
+        .get(`/tracks/${track.id}/user_stages`)
+        .expect(200);
+
+      expect(body.items.length).toBeGreaterThan(0);
+      expect(body.items[0].stage.id).toBe(stageId);
+    });
+    it('should return user stages via track ID', async () => {
       currentUser.role = UserRole.MENTEE;
       const { body } = await route
         .get(`/tracks/${track.id}/stages`)
