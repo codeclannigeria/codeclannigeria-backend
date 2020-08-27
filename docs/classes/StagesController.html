@@ -311,7 +311,6 @@ export class StagesController extends BaseCtrl {
     const stage &#x3D; await this.stageService.findOneAsync({
       title: input.title.toUpperCase()
     });
-
     if (stage) {
       throw new ConflictException(
         &#x60;Stage with the title &quot;${stage.title}&quot; already exists&#x60;

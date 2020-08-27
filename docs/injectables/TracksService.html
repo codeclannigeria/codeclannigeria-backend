@@ -103,6 +103,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getMentors">getMentors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getStages">getStages</a>
                             </li>
                             <li>
@@ -213,12 +217,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>, userService: <a href="../injectables/UsersService.html">UsersService</a>)</code>
+<code>constructor(EntityModel: ReturnModelType<>, StageModel: ReturnModelType<>, trackMentorModel: ReturnModelType<>, userService: <a href="../injectables/UsersService.html">UsersService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/tracks/tracks.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/tracks/tracks.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -236,7 +240,31 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>EntityModel</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>StageModel</td>
+                                                  
+                                                        <td>
+                                                                    <code>ReturnModelType&lt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>trackMentorModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -297,8 +325,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/tracks/tracks.service.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/tracks/tracks.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -335,7 +363,79 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >Promise&lt;User&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMentors"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getMentors
+                        </b>
+                        <a href="#getMentors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMentors(trackId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/tracks/tracks.service.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>trackId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >Promise&lt;User[]&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -369,8 +469,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/tracks/tracks.service.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">src/tracks/tracks.service.ts:38</a></div>
                 </td>
             </tr>
 
@@ -2394,43 +2494,39 @@ import { ReturnModelType } from &#x27;@typegoose/typegoose&#x27;;
 import { BaseService } from &#x27;~shared/services&#x27;;
 
 import { Stage } from &#x27;../stages/models/stage.entity&#x27;;
+import { User } from &#x27;../users/models/user.entity&#x27;;
 import { UsersService } from &#x27;./../users/users.service&#x27;;
+import { TrackMentor } from &#x27;./models/track-mentor.entity&#x27;;
 import { Track } from &#x27;./models/track.entity&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class TracksService extends BaseService&lt;Track&gt; {
 
-
-
   constructor(
     @InjectModel(Track.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Track&gt;,
+    protected readonly EntityModel: ReturnModelType&lt;typeof Track&gt;,
+    @InjectModel(Stage.modelName)
+    protected readonly StageModel: ReturnModelType&lt;typeof Stage&gt;,
+    @InjectModel(TrackMentor.modelName)
+    protected readonly trackMentorModel: ReturnModelType&lt;typeof TrackMentor&gt;,
     protected readonly userService: UsersService
 
   ) {
-    super(entity);
+    super(EntityModel);
   }
 
-  // async getAssignedTracks(userId?: string): Promise&lt;Track[]&gt; {
-  //   const user &#x3D; await this.userService.findById(userId || this.getUserId());
-  //   await user.populate(&#x27;tracks&#x27;).execPopulate()
-  //   return user.tracks as Track[];
-  // }
-  // async enroll(trackId: string): Promise&lt;User&gt; {
-  //   return this.userService.updateAsync(this.getUserId(), {
-  //     $addToSet: { tracks: trackId }
-  //   } as any);
-  // }
+  async getMentors(trackId: string): Promise&lt;User[]&gt; {
+    const mentors &#x3D; await this.trackMentorModel.find({ track: trackId }, { mentor: 1 }).populate(&quot;mentor&quot;);
+    return mentors.map(x &#x3D;&gt; x.mentor) as unknown as User[];
+  }
 
-  async enroll(trackId: string): Promise&lt;void&gt; {
+  async enroll(trackId: string): Promise&lt;User&gt; {
     const userId &#x3D; this.getUserId();
-    await this.userService.updateAsync(userId, { $addToSet: { tracks: trackId }, updatedBy: userId } as any)
+    return this.userService.updateAsync(userId, { $addToSet: { tracks: trackId }, updatedBy: userId } as any)
   }
 
   async getStages(trackId: string): Promise&lt;Stage[]&gt; {
-    const track &#x3D; await (await this.entity.findById(trackId).populate(&quot;stages&quot;)).execPopulate();
-
-    return track.stages as Stage[];
+    return this.StageModel.find({ track: trackId }).populate(&#x27;track&#x27;);
   }
 }
 </code></pre>

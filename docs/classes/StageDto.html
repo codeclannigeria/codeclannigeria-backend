@@ -89,6 +89,9 @@
                                 <a href="#description">description</a>
                             </li>
                             <li>
+                                <a href="#level">level</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Optional</span>
                                 <a href="#taskCount">taskCount</a>
                             </li>
@@ -153,13 +156,49 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length128)<br />@Expose()<br />
+                                @MaxLength(columnSize.length1024)<br />@Expose()<br />@IsNotEmpty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="level"></a>
+                        <span class="name">
+                            <b>
+                            level</b>
+                            <a href="#level"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @Expose()<br />@Min(0)<br />@IsInt()<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -187,7 +226,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>0</code>
+                            <i>Default value : </i><code>1</code>
                         </td>
                     </tr>
                     <tr>
@@ -201,7 +240,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -231,7 +270,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length32)<br />@IsAlphanumeric()<br />@Expose()<br />
+                                @MaxLength(columnSize.length256)<br />@IsNotEmpty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -274,7 +313,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/stages/models/dtos/stage.dto.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -427,7 +466,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Exclude, Expose, Type } from &#x27;class-transformer&#x27;;
-import { IsAlphanumeric, IsInt, IsOptional, MaxLength, Min } from &#x27;class-validator&#x27;;
+import { IsInt, IsNotEmpty, IsOptional, MaxLength, Min } from &#x27;class-validator&#x27;;
 import { columnSize } from &#x27;~shared/constants&#x27;;
 import { PagedListDto } from &#x27;~shared/models/dto&#x27;;
 import { BaseDto } from &#x27;~shared/models/dto/base.dto&#x27;;
@@ -436,24 +475,29 @@ import { TrackDto } from &#x27;../../../tracks/models/dto/track.dto&#x27;;
 
 @Exclude()
 export class StageDto extends BaseDto {
-  @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @MaxLength(columnSize.length256)
+  @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length128)
+  @MaxLength(columnSize.length1024)
   @Expose()
+  @IsNotEmpty()
   description: string;
   @Expose()
   @Min(0)
   @IsInt()
   @IsOptional()
-  taskCount?: number &#x3D; 0;
+  taskCount?: number &#x3D; 1;
+  @Expose()
+  @Min(0)
+  @IsInt()
+  level: number;
   @Expose()
   @ApiProperty({ type: TrackDto, readOnly: true })
   @Type(() &#x3D;&gt; TrackDto)
   readonly track: TrackDto;
 }
-export class PagedListStageDto extends PagedListDto(StageDto) { }
+export class PagedListStageDto extends PagedListDto(StageDto) {}
 </code></pre>
     </div>
 </div>

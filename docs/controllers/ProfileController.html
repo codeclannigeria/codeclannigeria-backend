@@ -83,6 +83,14 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getMentees">getMentees</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getMentors">getMentors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getProfile">getProfile</a>
                             </li>
                             <li>
@@ -114,6 +122,188 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getMentees"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getMentees
+                        </b>
+                        <a href="#getMentees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMentees(query: <a href="../classes/FindDto.html">FindDto</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;mentees&#x27;)<br />@UseGuards(JwtAuthGuard)<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTOR)<br />@ApiBearerAuth()<br />@ApiResponse({type: PagedUserOutputDto, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/profile/profile.controller.ts:82</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="../classes/FindDto.html" target="_self" >FindDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;PagedUserOutputDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMentors"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getMentors
+                        </b>
+                        <a href="#getMentors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMentors(query: <a href="../classes/FindDto.html">FindDto</a>, req: Request)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;mentors&#x27;)<br />@UseGuards(JwtAuthGuard)<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@ApiBearerAuth()<br />@ApiResponse({type: PagedUserOutputDto, status: undefined})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/profile/profile.controller.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>query</td>
+                                    <td>
+                                                <code><a href="../classes/FindDto.html" target="_self" >FindDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;PagedUserOutputDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getProfile"></a>
                     <span class="name">
                         <b>
@@ -141,8 +331,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/profile/profile.controller.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/profile/profile.controller.ts:44</a></div>
                 </td>
             </tr>
 
@@ -220,8 +410,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/profile/profile.controller.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/profile/profile.controller.ts:101</a></div>
                 </td>
             </tr>
 
@@ -270,7 +460,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;UserDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -311,8 +501,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">src/profile/profile.controller.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/profile/profile.controller.ts:120</a></div>
                 </td>
             </tr>
 
@@ -384,6 +574,7 @@
   HttpStatus,
   Post,
   Put,
+  Query,
   Req,
   UnsupportedMediaTypeException,
   UploadedFile,
@@ -394,10 +585,16 @@ import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { plainToClass } from &#x27;class-transformer&#x27;;
 import { Request } from &#x27;express&#x27;;
+import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { BufferedFile } from &#x27;~shared/interfaces&#x27;;
+import { FindDto } from &#x27;~shared/models/dto&#x27;;
 
+import { RolesGuard } from &#x27;../auth/guards&#x27;;
 import { JwtAuthGuard } from &#x27;../auth/guards/jwt-auth.guard&#x27;;
-import { UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
+import { MentorService } from &#x27;../mentor/mentor.service&#x27;;
+import { MentorDto } from &#x27;../mentor/models/mentor.dto&#x27;;
+import { PagedUserOutputDto, UserDto } from &#x27;../users/models/dto/user.dto&#x27;;
+import { UserRole } from &#x27;../users/models/user.entity&#x27;;
 import { UsersService } from &#x27;../users/users.service&#x27;;
 import { AvatarUploadDto } from &#x27;./dto/avatar-upload.dto&#x27;;
 import { UpdateProfileDto } from &#x27;./dto/update-profile.dto&#x27;;
@@ -406,25 +603,75 @@ import { ProfileService } from &#x27;./profile.service&#x27;;
 @ApiTags(&quot;Profile&quot;)
 @Controller(&#x27;profile&#x27;)
 export class ProfileController {
-  constructor(private readonly userService: UsersService, private profileService: ProfileService) { }
+  constructor(private readonly userService: UsersService, private profileService: ProfileService, private mentorService: MentorService) { }
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
   async getProfile(@Req() req: Request): Promise&lt;UserDto&gt; {
-    const user &#x3D; await this.userService.findByIdAsync(req.user[&#x27;userId&#x27;]);
+    let user &#x3D; await this.userService.findById(req.user[&#x27;userId&#x27;])
+
+    if (user.tracks.length &gt; 0)
+      user &#x3D; await user.populate(&#x27;tracks&#x27;).execPopulate()
+    //get the stage for each of the tracks above
     return plainToClass(UserDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true
     });
   }
+  @Get(&quot;mentors&quot;)
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
+  async getMentors(@Query() query: FindDto, @Req() req: Request): Promise&lt;PagedUserOutputDto&gt; {
+    const { skip, limit, search, opts } &#x3D; query;
+    const conditions &#x3D; JSON.parse(search || &#x27;{}&#x27;);
+    const options &#x3D; JSON.parse(opts || &#x27;{}&#x27;);
+    const { totalCount, mentors } &#x3D; await this.mentorService.getMentors(
+      {
+        menteeId: req.user[&#x27;userId&#x27;],
+        conditions, options, limit, skip
+      });
+    const items &#x3D; plainToClass(MentorDto, mentors, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount, items }
+  }
+  @Get(&quot;mentees&quot;)
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTOR)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserOutputDto, status: HttpStatus.OK })
+  async getMentees(@Query() query: FindDto, @Req() req: Request): Promise&lt;PagedUserOutputDto&gt; {
+    const { skip, limit, search, opts } &#x3D; query;
+    const conditions &#x3D; JSON.parse(search || &#x27;{}&#x27;);
+    const options &#x3D; JSON.parse(opts || &#x27;{}&#x27;);
+    const { totalCount, mentees } &#x3D; await this.mentorService.getMentees(
+      {
+        mentorId: req.user[&#x27;userId&#x27;],
+        conditions, options, limit, skip
+      });
+    const items &#x3D; plainToClass(MentorDto, mentees, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount, items }
+  }
   @Put()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiResponse({ type: UserDto, status: HttpStatus.OK })
-  async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise&lt;void&gt; {
+  async updateProfile(@Body() input: UpdateProfileDto, @Req() req: Request): Promise&lt;UserDto&gt; {
     const id &#x3D; req.user[&#x27;userId&#x27;];
-    await this.userService.updateAsync(id, input);
+    const user &#x3D; await this.userService.updateAsync(id, input);
+    return plainToClass(UserDto, user, {
+      excludeExtraneousValues: true,
+      enableImplicitConversion: true
+    });
   }
   @Post(&#x27;upload_profile_photo&#x27;)
   @UseInterceptors(FileInterceptor(&#x27;file&#x27;))

@@ -87,6 +87,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Optional</span>
+                                <a href="#course">course</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Optional</span>
                                 <a href="#deadline">deadline</a>
                             </li>
                             <li>
@@ -136,6 +140,43 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="course"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Optional</span>
+                            course</b>
+                            <a href="#course"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @IsMongoId()<br />@Expose()<br />@IsOptional()<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="deadline"></a>
                         <span class="name">
                             <b>
@@ -162,7 +203,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:40</a></div>
                             </td>
                         </tr>
 
@@ -192,13 +233,13 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length128)<br />@Expose()<br />
+                                @Expose()<br />@IsNotEmpty()<br />
                             </code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -234,7 +275,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -264,7 +305,7 @@
                             <b>Decorators : </b>
                             <br />
                             <code>
-                                @MaxLength(columnSize.length32)<br />@IsAlphanumeric()<br />@Expose()<br />
+                                @MaxLength(columnSize.length256)<br />@IsNotEmpty()<br />@Expose()<br />
                             </code>
                         </td>
                     </tr>
@@ -306,7 +347,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/tasks/models/dtos/task.dto.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -460,9 +501,9 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Exclude, Expose, Type } from &#x27;class-transformer&#x27;;
 import {
-  IsAlphanumeric,
   IsDate,
   IsMongoId,
+  IsNotEmpty,
   IsOptional,
   MaxLength,
   MinDate
@@ -472,12 +513,13 @@ import { BaseDto, PagedListDto } from &#x27;~shared/models/dto&#x27;;
 
 @Exclude()
 export class TaskDto extends BaseDto {
-  @MaxLength(columnSize.length32)
-  @IsAlphanumeric()
+  @MaxLength(columnSize.length256)
+  @IsNotEmpty()
   @Expose()
   title: string;
-  @MaxLength(columnSize.length128)
+  // @MaxLength(columnSize.length1024)
   @Expose()
+  @IsNotEmpty()
   description: string;
   @IsMongoId()
   @Expose()
@@ -485,6 +527,10 @@ export class TaskDto extends BaseDto {
   @IsMongoId()
   @Expose()
   stage: string;
+  @IsMongoId()
+  @Expose()
+  @IsOptional()
+  course?: string;
   @Expose()
   @IsDate()
   @MinDate(new Date(), { message: &#x27;Date must be in future&#x27; })

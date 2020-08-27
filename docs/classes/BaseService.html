@@ -204,7 +204,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<AnyParamConstructor<T>>)</code>
+<code>constructor(EntityModel: ReturnModelType<AnyParamConstructor<T>>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -227,7 +227,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>EntityModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;AnyParamConstructor&lt;T&gt;&gt;</code>
@@ -2088,7 +2088,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   @Inject(REQUEST)
   protected readonly req: Request;
 
-  constructor(protected entity: ReturnModelType&lt;AnyParamConstructor&lt;T&gt;&gt;) { }
+  constructor(protected EntityModel: ReturnModelType&lt;AnyParamConstructor&lt;T&gt;&gt;) { }
 
   protected static throwMongoError(err: MongoError): void {
     console.error(err)
@@ -2104,7 +2104,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   }
 
   createEntity(doc?: Partial&lt;T&gt;): T {
-    return new this.entity(doc);
+    return new this.EntityModel(doc);
   }
   protected getUserId(): any {
     return this.req?.user?.[&#x27;userId&#x27;] || null;
@@ -2115,7 +2115,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
 
   insert(entity: T): Promise&lt;DocumentType&lt;T&gt;&gt; {
     (entity as Writable&lt;T&gt;).createdBy &#x3D; this.getUserId();
-    return this.entity.create(entity as CreateQuery&lt;DocumentType&lt;T&gt;&gt;);
+    return this.EntityModel.create(entity as CreateQuery&lt;DocumentType&lt;T&gt;&gt;);
   }
   async insertAsync(entity: T): Promise&lt;DocumentType&lt;T&gt;&gt; {
     try {
@@ -2136,7 +2136,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
     }
     filter &#x3D; { ...filter, isDeleted: { $ne: true } };
 
-    return this.entity.find(filter, null, opts);
+    return this.EntityModel.find(filter, null, opts);
   }
 
   async findAllAsync(filter &#x3D; {}): Promise&lt;Array&lt;DocumentType&lt;T&gt;&gt;&gt; {
@@ -2149,7 +2149,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
 
   findOne(filter &#x3D; {}): QueryItem&lt;T&gt; {
     filter &#x3D; { ...filter, isDeleted: { $ne: true } };
-    return this.entity.findOne(filter);
+    return this.EntityModel.findOne(filter);
   }
 
   async findOneAsync(filter &#x3D; {}): Promise&lt;DocumentType&lt;T&gt;&gt; {
@@ -2161,7 +2161,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   }
 
   findById(id: string): QueryItem&lt;T&gt; {
-    return this.entity
+    return this.EntityModel
       .findById(BaseService.toObjectId(id))
       .where(&#x27;isDeleted&#x27;)
       .ne(true);
@@ -2176,14 +2176,14 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   }
   hardDeleteMany(filter &#x3D; {}): QueryItem&lt;T&gt; {
     try {
-      return this.entity.deleteMany(filter).where(this.whereOwn()).lean();
+      return this.EntityModel.deleteMany(filter).where(this.whereOwn()).lean();
     } catch (error) {
       BaseService.throwMongoError(error);
     }
   }
   hardDelete(filter &#x3D; {}): QueryItem&lt;T&gt; {
     try {
-      return this.entity.findOneAndDelete(filter).where(this.whereOwn()).lean();
+      return this.EntityModel.findOneAndDelete(filter).where(this.whereOwn()).lean();
     } catch (error) {
       BaseService.throwMongoError(error);
     }
@@ -2191,7 +2191,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   softDelete(filter &#x3D; {}): QueryItem&lt;T&gt; {
     filter &#x3D; { ...filter, isDeleted: { $ne: true } };
     const update &#x3D; { isDeleted: true, deletedBy: this.getUserId() } as any;
-    return this.entity.findOneAndUpdate(filter, update).where(this.whereOwn());
+    return this.EntityModel.findOneAndUpdate(filter, update).where(this.whereOwn());
   }
   async softDeleteAsync(filter &#x3D; {}): Promise&lt;void&gt; {
     try {
@@ -2202,7 +2202,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
   }
 
   hardDeleteById(id: string): QueryItem&lt;T&gt; {
-    return this.entity
+    return this.EntityModel
       .findByIdAndDelete(BaseService.toObjectId(id))
       .where(this.whereOwn());
   }
@@ -2211,7 +2211,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
       isDeleted: true,
       deletedBy: this.getUserId()
     } as any;
-    return this.entity
+    return this.EntityModel
 
       .findByIdAndUpdate(BaseService.toObjectId(id), update)
       .where(this.whereOwn())
@@ -2238,11 +2238,11 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
     delete update.createdAt
     delete update.updatedAt
 
-    return this.entity
+    return this.EntityModel
       .findByIdAndUpdate(BaseService.toObjectId(id), update, {
         new: true
       })
-      .where(this.whereOwn())
+      // .where(this.whereOwn())
       .where(&#x27;isDeleted&#x27;)
       .ne(true);
   }
@@ -2257,7 +2257,7 @@ export abstract class BaseService&lt;T extends BaseEntity&gt; {
 
   count(filter &#x3D; {}): Query&lt;number&gt; {
     filter &#x3D; { ...filter, isDeleted: { $ne: true } };
-    return this.entity.countDocuments(filter);
+    return this.EntityModel.countDocuments(filter);
   }
 
   async countAsync(filter &#x3D; {}): Promise&lt;number&gt; {

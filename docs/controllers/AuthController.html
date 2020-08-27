@@ -153,8 +153,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/auth/auth.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/auth/auth.controller.ts:55</a></div>
                 </td>
             </tr>
 
@@ -244,8 +244,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/auth/auth.controller.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">src/auth/auth.controller.ts:65</a></div>
                 </td>
             </tr>
 
@@ -323,8 +323,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="139"
-                            class="link-to-prism">src/auth/auth.controller.ts:139</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">src/auth/auth.controller.ts:142</a></div>
                 </td>
             </tr>
 
@@ -402,8 +402,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">src/auth/auth.controller.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/auth/auth.controller.ts:77</a></div>
                 </td>
             </tr>
 
@@ -481,8 +481,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="114"
-                            class="link-to-prism">src/auth/auth.controller.ts:114</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/auth/auth.controller.ts:117</a></div>
                 </td>
             </tr>
 
@@ -560,8 +560,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/auth/auth.controller.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/auth/auth.controller.ts:104</a></div>
                 </td>
             </tr>
 
@@ -632,6 +632,7 @@ import {
   ApiUnauthorizedResponse
 } from &#x27;@nestjs/swagger&#x27;;
 import { Request } from &#x27;express&#x27;;
+import * as fs from &quot;fs&quot;
 
 import { LoginReqDto } from &#x27;../auth/models/dto/auth.dto&#x27;;
 import configuration from &#x27;../shared/config/configuration&#x27;;
@@ -658,7 +659,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
     private readonly mailService: MailService
-  ) {}
+  ) { }
 
   @Post(&#x27;login&#x27;)
   @HttpCode(HttpStatus.OK)
@@ -702,7 +703,9 @@ export class AuthController {
     const url &#x3D; new URL(clientBaseUrl);
     url.searchParams.set(tokenParamName, token);
     url.searchParams.set(emailParamName, email);
-    const html &#x3D; &#x60;&lt;p&gt;Hello ${user.fullName}, please confirm your email &lt;a href&#x3D;${url.href}&gt;here&lt;/a&gt;&lt;/p&gt;&#x60;;
+    let html &#x3D; await fs.promises.readFile(&quot;./src/templates/welcome.html&quot;, { encoding: &#x27;utf8&#x27; });
+    html &#x3D; html.replace(&#x27;%fullName%&#x27;, user.fullName).replace(&#x27;%verificationUrl%&#x27;, url.href);
+
     this.mailService.sendMailAsync({
       from: configuration().appEmail,
       to: user.email,

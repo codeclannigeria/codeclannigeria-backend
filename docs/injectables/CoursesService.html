@@ -205,7 +205,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>)</code>
+<code>constructor(EntityModel: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -228,7 +228,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>EntityModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -2235,9 +2235,9 @@ import { Course } from &#x27;./models/course.entity&#x27;;
 export class CoursesService extends BaseService&lt;Course&gt; {
   constructor(
     @InjectModel(Course.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Course&gt;
+    protected readonly EntityModel: ReturnModelType&lt;typeof Course&gt;
   ) {
-    super(entity);
+    super(EntityModel);
   }
 }
 </code></pre>

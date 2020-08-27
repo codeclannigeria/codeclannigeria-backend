@@ -130,7 +130,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/stages/models/dtos/create-stage.dto.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/stages/models/dtos/create-stage.dto.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -158,7 +158,8 @@ import { StageDto } from &#x27;./stage.dto&#x27;;
 export class CreateStageDto extends PickType(StageDto, [
   &#x27;title&#x27;,
   &#x27;description&#x27;,
-  &#x27;taskCount&#x27;
+  &#x27;taskCount&#x27;,
+  &#x27;level&#x27;
 ]) {
   @IsMongoId()
   @Expose()

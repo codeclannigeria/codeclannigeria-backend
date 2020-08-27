@@ -92,6 +92,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getMentors">getMentors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#submitTask">submitTask</a>
                             </li>
                         </ul>
@@ -112,12 +116,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tasksService: <a href="../injectables/TasksService.html">TasksService</a>, stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>)</code>
+<code>constructor(tasksService: <a href="../injectables/TasksService.html">TasksService</a>, stageService: <a href="../injectables/StagesService.html">StagesService</a>, trackService: <a href="../injectables/TracksService.html">TracksService</a>, coursesService: <a href="../injectables/CoursesService.html">CoursesService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/tasks/tasks.controller.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/tasks/tasks.controller.ts:43</a></div>
                             </td>
                         </tr>
 
@@ -163,6 +167,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/TracksService.html" target="_self" >TracksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>coursesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CoursesService.html" target="_self" >CoursesService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -216,8 +232,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">src/tasks/tasks.controller.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:62</a></div>
                 </td>
             </tr>
 
@@ -268,20 +284,20 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="submitTask"></a>
+                    <a name="getMentors"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Async</span>
-                            submitTask
+                            getMentors
                         </b>
-                        <a href="#submitTask"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getMentors"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>submitTask(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>getMentors(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -289,14 +305,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post(&#x27;:taskId/submit&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                    <code>@Get(&#x27;:taskId/submissions&#x27;)<br />@HttpCode(HttpStatus.OK)<br />@ApiResponse({status: undefined, type: PagedListSubmissionDto})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">src/tasks/tasks.controller.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:90</a></div>
                 </td>
             </tr>
 
@@ -333,7 +349,98 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;PagedListSubmissionDto&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitTask"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            submitTask
+                        </b>
+                        <a href="#submitTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submitTask(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, input: <a href="../classes/CreateSubmissionDto.html">CreateSubmissionDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Post(&#x27;:taskId/submissions&#x27;)<br />@ApiResponse({type: SubmissionDto})<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(UserRole.MENTEE)<br />@ApiBearerAuth()<br />@ApiResponse({status: undefined, type: ApiException})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/tasks/tasks.controller.ts:108</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>taskId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>input</td>
+                                    <td>
+                                                <code><a href="../classes/CreateSubmissionDto.html" target="_self" >CreateSubmissionDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;SubmissionDto&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -356,6 +463,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   Body,
   ConflictException,
+  Get,
   HttpCode,
   HttpStatus,
   Inject,
@@ -365,15 +473,19 @@
   UseGuards,
 } from &#x27;@nestjs/common&#x27;;
 import { ApiBearerAuth, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
+import { plainToClass } from &#x27;class-transformer&#x27;;
 import { BaseCrudController } from &#x27;~shared/controllers&#x27;;
 import { Roles } from &#x27;~shared/decorators/roles.decorator&#x27;;
 import { ApiException } from &#x27;~shared/errors&#x27;;
 
 import { JwtAuthGuard, RolesGuard } from &#x27;../auth/guards&#x27;;
+import { CoursesService } from &#x27;../courses/courses.service&#x27;;
 import { StagesService } from &#x27;../stages/stages.service&#x27;;
 import { TracksService } from &#x27;../tracks/tracks.service&#x27;;
 import { UserRole } from &#x27;../users/models/user.entity&#x27;;
+import { CreateSubmissionDto } from &#x27;./models/dtos/create-subission.dto&#x27;;
 import { CreateTaskDto } from &#x27;./models/dtos/create-task.dto&#x27;;
+import { PagedListSubmissionDto, SubmissionDto } from &#x27;./models/dtos/submission.dto&#x27;;
 import { PagedListTaskDto, TaskDto } from &#x27;./models/dtos/task.dto&#x27;;
 import { Task } from &#x27;./models/task.entity&#x27;;
 import { TasksService } from &#x27;./tasks.service&#x27;;
@@ -397,6 +509,8 @@ export class TasksController extends BaseCtrl {
     private stageService: StagesService,
     @Inject(TracksService)
     private trackService: TracksService,
+    @Inject(CoursesService)
+    private coursesService: CoursesService,
   ) {
     super(tasksService);
   }
@@ -422,22 +536,46 @@ export class TasksController extends BaseCtrl {
     const track &#x3D; await this.trackService.findByIdAsync(input.track);
     if (!track)
       throw new NotFoundException(&#x60;Track with ${input.track} not found&#x60;);
+    const course &#x3D; await this.coursesService.findByIdAsync(input.course);
+    if (!course)
+      throw new NotFoundException(&#x60;Course with ${input.course} not found&#x60;);
     return await super.create(input);
   }
 
-
-  @Post(&#x27;:taskId/submit&#x27;)
+  @Get(&#x27;:taskId/submissions&#x27;)
   @HttpCode(HttpStatus.OK)
-  @ApiResponse({ status: HttpStatus.OK })
+  @ApiResponse({ status: HttpStatus.OK, type: PagedListSubmissionDto })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param(&#x27;taskId&#x27;) taskId: string): Promise&lt;void&gt; {
+  async getMentors(@Param(&quot;taskId&quot;) taskId: string): Promise&lt;PagedListSubmissionDto&gt; {
+    const task &#x3D; await this.tasksService.findByIdAsync(taskId);
+    if (!task) throw new NotFoundException(&#x60;Task with Id ${taskId} not found&#x60;)
+    const submissions &#x3D; await this.tasksService.getUserSubmissions(taskId);
 
+    const items &#x3D; plainToClass(SubmissionDto, submissions, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    return { totalCount: submissions.length, items }
+  }
+
+  @Post(&#x27;:taskId/submissions&#x27;)
+  @ApiResponse({ type: SubmissionDto })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async submitTask(@Param(&#x27;taskId&#x27;) taskId: string, @Body() input: CreateSubmissionDto): Promise&lt;SubmissionDto&gt; {
     const task &#x3D; await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(&#x60;Track with ${taskId} not found&#x60;);
-    await this.tasksService.submitTask(task);
+
+    const submission &#x3D; await this.tasksService.submitTask(input, task);
+    return plainToClass(SubmissionDto, submission, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    })
   }
 }
 </code></pre>

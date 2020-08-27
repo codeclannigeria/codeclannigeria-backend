@@ -210,7 +210,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(entity: ReturnModelType<>)</code>
+<code>constructor(EntityModel: ReturnModelType<>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -233,7 +233,7 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>entity</td>
+                                                        <td>EntityModel</td>
                                                   
                                                         <td>
                                                                     <code>ReturnModelType&lt;&gt;</code>
@@ -2243,9 +2243,9 @@ import { Category } from &#x27;./models/category.entity&#x27;;
 export class CategoriesService extends BaseService&lt;Category&gt; {
   constructor(
     @InjectModel(Category.modelName)
-    protected readonly entity: ReturnModelType&lt;typeof Category&gt;
+    protected readonly EntityModel: ReturnModelType&lt;typeof Category&gt;
   ) {
-    super(entity);
+    super(EntityModel);
   }
 }
 </code></pre>
