@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
-import { IsArray, IsEmail, IsEnum, IsOptional, IsPhoneNumber, Length, MaxLength, IsDate } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsPhoneNumber,
+  Length,
+  MaxLength,
+  IsDate
+} from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
@@ -52,7 +61,9 @@ export class UserDto extends BaseDto {
   dob: Date;
 
   @Expose()
-  @IsPhoneNumber("ZZ", { message: 'Invalid phone number. Valid phone number sample +2347063644568' })
+  @IsPhoneNumber('ZZ', {
+    message: 'Invalid phone number. Valid phone number sample +2347063644568'
+  })
   @MaxLength(columnSize.length64)
   @IsOptional()
   phoneNumber?: string;
@@ -69,10 +80,10 @@ export class UserDto extends BaseDto {
   @IsOptional()
   readonly photoUrl?: string;
 
-  @ApiProperty({ readOnly: true, type: [TrackDto], isArray: true })
+  @ApiProperty({ readOnly: true, type: TrackDto, isArray: true })
   @Expose()
   @Type(() => TrackDto)
   readonly tracks: TrackDto[];
 }
 
-export class PagedUserOutputDto extends PagedListDto(UserDto) { }
+export class PagedUserOutputDto extends PagedListDto(UserDto) {}

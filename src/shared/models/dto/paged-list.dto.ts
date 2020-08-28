@@ -13,7 +13,7 @@ export function PagedListDto<T extends ClassType>(
 ): Type<IPagedListDto<T>> {
   class Paged implements IPagedListDto<T> {
     totalCount: number;
-    @ApiProperty({ type: entityDto })
+    @ApiProperty({ type: entityDto, isArray: true })
     items: T[];
   }
 
