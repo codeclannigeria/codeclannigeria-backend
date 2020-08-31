@@ -103,7 +103,7 @@
     "husky": "^4.2.5",
     "istanbul-api": "^3.0.0",
     "jest": "^26.4.2",
-    "mongodb-memory-server": "^6.6.6",
+    "mongodb-memory-server": "^6.6.7",
     "prettier": "^2.1.1",
     "start-server-webpack-plugin": "^2.2.5",
     "supertest": "^4.0.2",
