@@ -39,7 +39,7 @@
     "@nestjs/platform-express": "^7.4.3",
     "@nestjs/schedule": "^0.4.0",
     "@nestjs/swagger": "^4.6.0",
-    "@typegoose/typegoose": "^7.3.4",
+    "@typegoose/typegoose": "^7.3.5",
     "bcrypt": "^5.0.0",
     "bull": "^3.18.0",
     "cache-manager": "^3.3.0",
