@@ -23,6 +23,7 @@ export class ApiException {
     message: string,
     error: string,
     stack: string,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     errors: any,
     path: string,
     statusCode: number

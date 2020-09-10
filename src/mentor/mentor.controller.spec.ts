@@ -1,3 +1,4 @@
+import { MentorService } from './mentor.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mongoose } from '@typegoose/typegoose';
@@ -12,17 +13,23 @@ import { NotFoundException } from '@nestjs/common';
 
 describe('Mentor Controller', () => {
   let controller: MentorController;
-  const submissionModel = {
-    find: () => ({ limit: () => ({ skip: jest.fn() }) }),
-    countDocuments: jest.fn(),
-    findById: jest.fn(),
+  const mentorService: any = { countSubmissions: () => 1 };
+
+  const submissionModel: any = {
+    find: () => jest.fn(),
+    findOne: jest.fn(),
     updateOne: jest.fn()
-  }
+  };
   const req = { user: 'userId' } as any;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [MentorModule, DbTest],
-    }).overrideProvider(getModelToken(Submission.modelName)).useValue(submissionModel).compile();
+      imports: [MentorModule, DbTest]
+    })
+      .overrideProvider(getModelToken(Submission.modelName))
+      .useValue(submissionModel)
+      .overrideProvider(MentorService)
+      .useValue(mentorService)
+      .compile();
 
     controller = module.get<MentorController>(MentorController);
   });
@@ -41,34 +48,31 @@ describe('Mentor Controller', () => {
       menteeComment: null,
       mentorComment: null
     };
-    jest.spyOn(submissionModel, "find").mockImplementation(() =>
-      ({ limit: () => ({ skip: jest.fn(() => Promise.resolve([submissionDto])) }) }));
-    jest.spyOn(submissionModel, "countDocuments").mockResolvedValue(1)
+    submissionModel.find = jest.fn(() => Promise.resolve([submissionDto]));
 
-    const result = await controller.getSubmissions({ limit: 10 }, req);
+    const result = await controller.getSubmissions({ limit: 1 }, req);
     expect(result.totalCount).toBe(1);
-    expect(result.items).toContainEqual(submissionDto)
+    expect(result.items).toContainEqual(submissionDto);
   });
 
   describe('grad submission', () => {
     const input: GradeSubmissionDto = {
       gradePercentage: 10,
       mentorComment: 'poor'
-    }
+    };
     it(`should throw ${NotFoundException.name} exception`, async () => {
-      await (expect(controller.gradeTask("submissionId", input, req))
-        .rejects.toThrowError(NotFoundException));
-
+      await expect(
+        controller.gradeTask('submissionId', input, req)
+      ).rejects.toThrowError(NotFoundException);
     });
+
     it('should grade task submission', async () => {
       const input: GradeSubmissionDto = {
         gradePercentage: 10,
         mentorComment: 'poor'
-      }
-      jest.spyOn(submissionModel, "findById").mockReturnValue({});
-      return controller.gradeTask("submissionId", input, req);
+      };
+      jest.spyOn(submissionModel, 'findOne').mockReturnValue({});
+      return controller.gradeTask('submissionId', input, req);
     });
   });
-
-
 });

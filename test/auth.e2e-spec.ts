@@ -2,6 +2,7 @@ import { UsersService } from '../src/users/users.service';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
+import * as fs from 'fs';
 
 import { AuthModule } from '../src/auth/auth.module';
 import { LoginReqDto } from '../src/auth/models/dto/auth.dto';
@@ -14,7 +15,7 @@ import { DbTest } from './helpers/db-test.module';
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
   let route: request.SuperTest<request.Test>;
-  let userService: UsersService
+  let userService: UsersService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -40,7 +41,7 @@ describe('AuthController (e2e)', () => {
     await app.init();
 
     route = request(app.getHttpServer());
-    userService = await module.resolve<UsersService>(UsersService)
+    userService = await module.resolve<UsersService>(UsersService);
   });
 
   let registerInput: RegisterUserDto;
@@ -87,8 +88,6 @@ describe('AuthController (e2e)', () => {
         .send({ ...loginInput, password: 'invalidP@3s' })
         .expect(401);
     });
-
-
   });
 
   const verificationInput = {
@@ -101,6 +100,8 @@ describe('AuthController (e2e)', () => {
   describe('/auth/send-email-confirmation-token (POST)', () => {
     const endpoint = '/auth/send-email-confirmation-token';
     it('should send email confirmation token for valid details', () => {
+      const promise = fs.promises;
+      jest.spyOn(promise, 'readFile').mockResolvedValue('');
       return route.post(endpoint).send(verificationInput).expect(200);
     });
     it('should return 404 for incorrect details', () => {
@@ -191,18 +192,22 @@ describe('AuthController (e2e)', () => {
           .post('/auth/login')
           .send({ ...loginInput, password: validPass })
           .expect(401);
-        const { loginAttemptCount } = await userService.findOneAsync({ email: validEmail })
-        expect(loginAttemptCount).toBeGreaterThan(0)
+        const { loginAttemptCount } = await userService.findOneAsync({
+          email: validEmail
+        });
+        expect(loginAttemptCount).toBeGreaterThan(0);
       });
-      let userId: string
+      let userId: string;
       it('should return 200 when using new password to login', async () => {
         await route.post('/auth/login').send(loginInput).expect(200);
-        const { loginAttemptCount, id } = await userService.findOneAsync({ email: validEmail })
-        expect(loginAttemptCount).toBe(0)
+        const { loginAttemptCount, id } = await userService.findOneAsync({
+          email: validEmail
+        });
+        expect(loginAttemptCount).toBe(0);
         userId = id;
       });
       it('should return 401 if user is locked out', async () => {
-        await userService.updateAsync(userId, { loginAttemptCount: 4 })
+        await userService.updateAsync(userId, { loginAttemptCount: 4 });
         await route.post('/auth/login').send(loginInput).expect(401);
       });
     });

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MailService } from '~shared/mail/mail.service';
 import { BaseService } from '~shared/services';
 
 import { CoursesModule } from '../courses/courses.module';
@@ -37,8 +38,8 @@ const baseService = { provide: BaseService, useClass: TasksService };
     UsersModule,
     UserStageModel
   ],
-  providers: [TasksService, baseService],
+  providers: [TasksService, MailService, baseService],
   controllers: [TasksController],
   exports: [TaskModel, TasksService, baseService]
 })
-export class TasksModule { }
+export class TasksModule {}

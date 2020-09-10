@@ -23,4 +23,4 @@ const SubmissionModel = MongooseModule.forFeature([
   providers: [MentorService],
   exports: [MentorService, TrackMentorModel]
 })
-export class MentorModule { }
+export class MentorModule {}
