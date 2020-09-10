@@ -12,6 +12,7 @@ import configuration from '~shared/config/configuration';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   catch(error: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse() as Response;
