@@ -108,7 +108,6 @@ export class TracksController extends BaseCtrl {
       throw new UnsupportedMediaTypeException('File is not an image');
     if (thumbnail.size / ONE_KB > 200)
       throw new BadRequestException('File cannot be larger than 200KB');
-
     const exist = await this.trackService.findOneAsync({
       title: input.title.toUpperCase()
     });
@@ -148,8 +147,7 @@ export class TracksController extends BaseCtrl {
 
     const items = plainToClass(UserStageDto, userStages, {
       enableImplicitConversion: true,
-      excludeExtraneousValues: true,
-      enableCircularCheck: false
+      excludeExtraneousValues: true
     }) as any;
     const totalCount = await this.userStageService.countAsync({ user: userId });
     return { totalCount, items };
@@ -177,27 +175,27 @@ export class TracksController extends BaseCtrl {
     return { totalCount, items };
   }
 
-  @Get(':trackId/user_stages')
-  @HttpCode(HttpStatus.OK)
-  @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getUserStages(
-    @Param('trackId') trackId: string
-  ): Promise<PagedListStageDto> {
-    const track = await this.trackService.findByIdAsync(trackId);
-    if (!track)
-      throw new NotFoundException(`Track with Id ${trackId} not found`);
-    const userStages = await this.userStageService.getUserStages(trackId);
+  // @Get(':trackId/user_stages')
+  // @HttpCode(HttpStatus.OK)
+  // @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
+  // @UseGuards(JwtAuthGuard)
+  // @ApiBearerAuth()
+  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  // async getUserStages(
+  //   @Param('trackId') trackId: string
+  // ): Promise<PagedListStageDto> {
+  //   const track = await this.trackService.findByIdAsync(trackId);
+  //   if (!track)
+  //     throw new NotFoundException(`Track with Id ${trackId} not found`);
+  //   const userStages = await this.userStageService.getUserStages(trackId);
 
-    const totalCount = userStages.length;
-    const items = plainToClass(UserStageDto, userStages, {
-      enableImplicitConversion: true,
-      excludeExtraneousValues: true
-    }) as any;
-    return { totalCount, items };
-  }
+  //   const totalCount = userStages.length;
+  //   const items = plainToClass(UserStageDto, userStages, {
+  //     enableImplicitConversion: true,
+  //     excludeExtraneousValues: true
+  //   }) as any;
+  //   return { totalCount, items };
+  // }
   @Get(':trackId/mentors')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK, type: PagedUserOutputDto })
