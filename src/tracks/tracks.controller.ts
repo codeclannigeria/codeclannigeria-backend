@@ -13,7 +13,8 @@ import {
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  Query
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
@@ -40,8 +41,12 @@ import {
 import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
-import { UserStageDto } from '../userstage/models/dto/userstage.dto';
+import {
+  UserStageDto,
+  PagedUserStageDto
+} from '../userstage/models/dto/userstage.dto';
 import { UserStageService } from '../userstage/userstage.service';
+import { FindDto } from '~shared/models/dto';
 
 const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
@@ -119,7 +124,33 @@ export class TracksController extends BaseCtrl {
     delete dto.thumbnail;
     return await super.create(dto);
   }
+  @Get('/:trackId/my_stages')
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.MENTEE)
+  @ApiBearerAuth()
+  @ApiResponse({ type: PagedUserStageDto, status: HttpStatus.OK })
+  async getMyStages(
+    @Param('trackId') trackId: string,
+    @Query() query: FindDto,
+    @Req() req: Request
+  ): Promise<PagedUserStageDto> {
+    const { skip, limit, search, opts } = query;
+    const conditions = search && JSON.parse(search);
+    const options = opts && JSON.parse(opts);
+    const userId = req.user['userId'];
+    const userStages = await this.userStageService.findAll(
+      { ...conditions, user: userId, track: trackId },
+      { ...options, limit, skip }
+    );
 
+    const items = plainToClass(UserStageDto, userStages, {
+      enableImplicitConversion: true,
+      excludeExtraneousValues: true
+    }) as any;
+    const totalCount = await this.userStageService.countAsync({ user: userId });
+    return { totalCount, items };
+  }
   @Get(':trackId/stages')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })

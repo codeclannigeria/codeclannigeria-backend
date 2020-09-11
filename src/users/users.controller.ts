@@ -3,7 +3,8 @@ import {
   ConflictException,
   HttpStatus,
   Post,
-  UseGuards
+  UseGuards,
+  Get
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { Roles } from '~shared/decorators/roles.decorator';

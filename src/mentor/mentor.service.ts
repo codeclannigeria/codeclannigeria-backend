@@ -51,10 +51,9 @@ export class MentorService {
   }): Promise<{ totalCount: number; mentors: User[] }> {
     const mentors = await this.mentorMenteeModel
       .find({ ...input.conditions, mentee: input.menteeId }, input.options)
-      .populate('mentor')
+      .populate({ path: 'mentor' })
       .limit(input.limit)
       .skip(input.skip);
-
     const totalCount = await this.mentorMenteeModel
       .find({ mentee: input.menteeId })
       .countDocuments();
@@ -70,7 +69,7 @@ export class MentorService {
   }): Promise<{ totalCount: number; mentees: User[] }> {
     const mentees = await this.mentorMenteeModel
       .find({ ...input.conditions, mentor: input.mentorId }, input.options)
-      .populate('mentee')
+      .populate({ path: 'mentee', populate: { path: 'tracks' } })
       .limit(input.limit)
       .skip(input.skip);
 
