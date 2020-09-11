@@ -4,6 +4,7 @@ import { MailService } from '~shared/mail/mail.service';
 import { BaseService } from '~shared/services';
 
 import { CoursesModule } from '../courses/courses.module';
+import { MentorMentee } from '../mentor/models/mentor-mentee.entity';
 import { StagesModule } from '../stages/stages.module';
 import { TrackMentor } from '../tracks/models/track-mentor.entity';
 import { TracksModule } from '../tracks/tracks.module';
@@ -26,6 +27,9 @@ const UserStageModel = MongooseModule.forFeature([
 const SubmissionModel = MongooseModule.forFeature([
   { name: Submission.modelName, schema: Submission.schema }
 ]);
+const MentorMenteeModel = MongooseModule.forFeature([
+  { name: MentorMentee.modelName, schema: MentorMentee.schema }
+]);
 const baseService = { provide: BaseService, useClass: TasksService };
 @Module({
   imports: [
@@ -36,7 +40,8 @@ const baseService = { provide: BaseService, useClass: TasksService };
     SubmissionModel,
     TracksModule,
     UsersModule,
-    UserStageModel
+    UserStageModel,
+    MentorMenteeModel
   ],
   providers: [TasksService, MailService, baseService],
   controllers: [TasksController],
