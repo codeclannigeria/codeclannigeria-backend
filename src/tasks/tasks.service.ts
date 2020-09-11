@@ -6,6 +6,7 @@ import configuration from '~shared/config/configuration';
 import { MailService } from '~shared/mail/mail.service';
 import { BaseService } from '~shared/services';
 
+import { MentorMentee } from '../mentor/models/mentor-mentee.entity';
 import { Stage } from '../stages/models/stage.entity';
 import { TrackMentor } from '../tracks/models/track-mentor.entity';
 import { UserStage } from '../userstage/models/userstage.entity';
@@ -26,6 +27,8 @@ export class TasksService extends BaseService<Task> {
     protected readonly UserStageModel: ReturnModelType<typeof UserStage>,
     @InjectModel(Stage.modelName)
     protected readonly StageModel: ReturnModelType<typeof Stage>,
+    @InjectModel(MentorMentee.modelName)
+    protected readonly MentorMenteeModel: ReturnModelType<typeof MentorMentee>,
     protected readonly mailService: MailService
   ) {
     super(TaskModel);
@@ -52,9 +55,13 @@ export class TasksService extends BaseService<Task> {
       );
       return submission;
     }
-
-    const trackMentor = await this.TrackMentorModel.findOne({
+    const mentorMentee = await this.MentorMenteeModel.findOne({
+      mentee: createdBy,
       track: task.track
+    });
+    const trackMentor = await this.TrackMentorModel.findOne({
+      track: task.track,
+      mentor: mentorMentee.mentor
     });
     submission = await (
       await this.SubmissionModel.create({

@@ -1,3 +1,4 @@
+import { MentorMentee } from './../src/mentor/models/mentor-mentee.entity';
 import {
   ExecutionContext,
   INestApplication,
@@ -44,6 +45,7 @@ describe('TasksController (e2e)', () => {
   let TrackModel: ReturnModelType<typeof Track>;
   let StageModel: ReturnModelType<typeof Stage>;
   let TrackMentorModel: ReturnModelType<typeof TrackMentor>;
+  let MentorMenteeModel: ReturnModelType<typeof MentorMentee>;
 
   let CourseModel: ReturnModelType<typeof Course>;
 
@@ -98,7 +100,9 @@ describe('TasksController (e2e)', () => {
     TrackMentorModel = getModelForClass(TrackMentor, {
       existingMongoose: mongo
     });
-
+    MentorMenteeModel = getModelForClass(MentorMentee, {
+      existingMongoose: mongo
+    });
     UserModel = getModelForClass(User, { existingMongoose: mongo });
 
     const user = await UserModel.create({
@@ -191,8 +195,22 @@ describe('TasksController (e2e)', () => {
       it('should submit task', async () => {
         const promise = fs.promises;
         jest.spyOn(promise, 'readFile').mockResolvedValue('');
+
+        const mentor = await UserModel.create({
+          email: 'mentor' + validEmail,
+          firstName: 'Mentor',
+          lastName: 'Mentor',
+          password: validPass,
+          role: UserRole.MENTOR
+        });
         currentUser.role = UserRole.MENTEE;
-        TrackMentorModel.create({ mentor: currentUser.userId, track: track });
+
+        await MentorMenteeModel.create({
+          mentor: mentor.id,
+          mentee: currentUser.userId,
+          track: track
+        });
+        await TrackMentorModel.create({ mentor: mentor.id, track: track });
         const dto: CreateSubmissionDto = {
           menteeComment: 'comment',
           taskUrl: 'www.google.com'

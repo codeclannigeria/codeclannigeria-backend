@@ -148,7 +148,8 @@ export class TracksController extends BaseCtrl {
 
     const items = plainToClass(UserStageDto, userStages, {
       enableImplicitConversion: true,
-      excludeExtraneousValues: true
+      excludeExtraneousValues: true,
+      enableCircularCheck: false
     }) as any;
     const totalCount = await this.userStageService.countAsync({ user: userId });
     return { totalCount, items };
@@ -266,7 +267,11 @@ export class TracksController extends BaseCtrl {
     if (!mentor)
       throw new NotFoundException(`Mentor with ${input.mentorId} not found`);
 
-    await this.mentorService.assignMentor(req.user['userId'], mentor.id);
+    await this.mentorService.assignMentor(
+      req.user['userId'],
+      mentor.id,
+      trackId
+    );
     await this.trackService.enroll(track.id);
   }
 }

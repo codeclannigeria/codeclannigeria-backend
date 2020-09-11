@@ -156,21 +156,19 @@ describe('TracksController (e2e)', () => {
 
       expect(body.thumbnailUrl).toBe(thumbnailUrl);
     });
-    it('should return stages via track ID', async () => {
+    it('should return user stages via track ID', async () => {
       const UserStageModel = getModelForClass(UserStage, {
         existingMongoose: mongo
       });
       await UserStageModel.create({
         user: currentUser.userId,
         stage: stageId,
-        track: track.id,
-        taskRemaining: 2,
-        isCompleted: false
+        track: track.id
       });
+      currentUser.role = UserRole.MENTEE;
       const { body } = await route
-        .get(`/tracks/${track.id}/user_stages`)
+        .get(`/tracks/${track.id}/my_stages`)
         .expect(200);
-
       expect(body.items.length).toBeGreaterThan(0);
       expect(body.items[0].stage.id).toBe(stageId);
     });

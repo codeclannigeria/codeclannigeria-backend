@@ -1,4 +1,3 @@
-import { Track } from './../src/tracks/models/track.entity';
 import {
   ExecutionContext,
   HttpStatus,
@@ -21,6 +20,7 @@ import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { MentorMentee } from '../src/mentor/models/mentor-mentee.entity';
 import { UpdateProfileDto } from '../src/profile/dto/update-profile.dto';
 import { ProfileModule } from '../src/profile/profile.module';
+import { Track } from '../src/tracks/models/track.entity';
 import { Gender, User, UserRole } from '../src/users/models/user.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
@@ -138,7 +138,8 @@ describe('ProfileController (e2e)', () => {
       currentUser.role = UserRole.MENTOR;
       await MentorMenteeModel.create({
         mentor: currentUser.userId,
-        mentee: mentee.id
+        mentee: mentee.id,
+        track: track.id
       });
       const { body } = await route.get('/profile/mentees').expect(200);
       expect(body.items.length).toBeGreaterThan(0);
@@ -156,7 +157,8 @@ describe('ProfileController (e2e)', () => {
       currentUser.role = UserRole.MENTEE;
       await MentorMenteeModel.create({
         mentee: currentUser.userId,
-        mentor: mentor.id
+        mentor: mentor.id,
+        track: track.id
       });
       const { body } = await route.get('/profile/mentors').expect(200);
       expect(body.items.length).toBeGreaterThan(0);

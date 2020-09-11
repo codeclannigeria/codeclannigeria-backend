@@ -18,13 +18,21 @@ export class MentorService {
     private SubmissionModel: ReturnModelType<typeof Submission>
   ) {}
 
-  async assignMentor(menteeId: string, mentorId: string): Promise<void> {
+  async assignMentor(
+    menteeId: string,
+    mentorId: string,
+    trackId: string
+  ): Promise<void> {
     const mentor = await this.mentorMenteeModel.findOne({
       mentee: menteeId,
       mentor: mentorId
     });
     if (mentor) return;
-    await this.mentorMenteeModel.create({ mentor: mentorId, mentee: menteeId });
+    await this.mentorMenteeModel.create({
+      mentor: mentorId,
+      mentee: menteeId,
+      track: trackId
+    });
   }
   async assignMentorToTrack(
     trackId: string,
