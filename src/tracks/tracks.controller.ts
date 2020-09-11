@@ -139,10 +139,12 @@ export class TracksController extends BaseCtrl {
     const conditions = search && JSON.parse(search);
     const options = opts && JSON.parse(opts);
     const userId = req.user['userId'];
-    const userStages = await this.userStageService.findAll(
-      { ...conditions, user: userId, track: trackId },
-      { ...options, limit, skip }
-    );
+    const userStages = await this.userStageService
+      .findAll(
+        { ...conditions, user: userId, track: trackId },
+        { ...options, limit, skip }
+      )
+      .populate({ path: 'stage' });
 
     const items = plainToClass(UserStageDto, userStages, {
       enableImplicitConversion: true,
