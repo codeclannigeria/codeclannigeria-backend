@@ -1,5 +1,12 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { getModelForClass, index, pre, prop, Ref, ReturnModelType } from '@typegoose/typegoose';
+import {
+  getModelForClass,
+  index,
+  pre,
+  prop,
+  Ref,
+  ReturnModelType
+} from '@typegoose/typegoose';
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
@@ -32,14 +39,14 @@ export class User extends BaseEntity {
     required: true,
     maxlength: columnSize.length64,
     trim: true,
-    text: true,
+    text: true
   })
   readonly firstName!: string;
   @prop({
     required: true,
     maxlength: columnSize.length64,
     trim: true,
-    text: true,
+    text: true
   })
   readonly lastName!: string;
   @prop({
@@ -69,8 +76,6 @@ export class User extends BaseEntity {
     default: null
   })
   readonly description!: string;
-
-
   @prop({
     maxlength: columnSize.length64,
     trim: true,
@@ -78,7 +83,6 @@ export class User extends BaseEntity {
     default: null
   })
   readonly city: string = null;
-
   @prop({
     maxlength: columnSize.length64,
     trim: true,
@@ -86,21 +90,17 @@ export class User extends BaseEntity {
     default: null
   })
   readonly country: string = null;
-
   @prop({
     enum: Gender,
     type: String,
     default: Gender.UNSPECIFIED
   })
   readonly gender: Gender = Gender.UNSPECIFIED;
-
   @prop({
     type: Date,
     default: null
   })
   readonly dob: Date = null;
-
-
   @prop({ type: String, default: null })
   readonly technologies: string[] = [];
   @prop({ required: true, maxlength: columnSize.length64 })
@@ -118,15 +118,14 @@ export class User extends BaseEntity {
     default: UserRole.MENTEE
   })
   readonly role = UserRole.MENTEE;
-
   @prop({ required: true, default: false })
   readonly isEmailVerified: boolean;
   @prop({ default: undefined })
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
-  @prop({ ref: 'Track', default: [] })
-  readonly tracks: Ref<Track>[] = [];
+  @prop({ ref: Track, default: [] })
+  readonly tracks: Ref<Track>[];
   /**
    * Get User's full name
    *
@@ -144,7 +143,6 @@ export class User extends BaseEntity {
   confirmEmail(): void {
     (this as Writable<User>).isEmailVerified = true;
   }
-
   static get model(): ReturnModelType<typeof User> {
     return getModelForClass(this);
   }

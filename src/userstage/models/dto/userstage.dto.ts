@@ -5,7 +5,7 @@ import { columnSize } from '~shared/constants';
 import { PagedListDto } from '~shared/models/dto';
 import { BaseDto } from '~shared/models/dto/base.dto';
 
-import { StageOnlyDto } from './stageonly.dto';
+import { StageDto } from '../../../stages/models/dtos/stage.dto';
 
 @Exclude()
 export class UserStageDto extends BaseDto {
@@ -16,9 +16,9 @@ export class UserStageDto extends BaseDto {
   @MaxLength(columnSize.length128)
   @Expose()
   isCompleted: boolean;
+  @ApiProperty({ readOnly: true, type: StageDto })
   @Expose()
-  @ApiProperty({ type: StageOnlyDto, readOnly: true })
-  @Type(() => StageOnlyDto)
-  readonly stage: StageOnlyDto;
+  @Type(() => StageDto)
+  readonly stage: StageDto;
 }
-export class PagedListStageDto extends PagedListDto(UserStageDto) {}
+export class PagedUserStageDto extends PagedListDto(UserStageDto) {}

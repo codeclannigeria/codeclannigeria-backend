@@ -65,7 +65,7 @@ export class TasksService extends BaseService<Task> {
         mentor: trackMentor.mentor
       })
     )
-      .populate('mentee task mentor', 'firstName lastName title email')
+      .populate('mentee task mentor', 'firstName lastName title taskUrl email')
       .execPopulate();
     this.notifyMentorOfSubmission(submission);
 
@@ -81,7 +81,8 @@ export class TasksService extends BaseService<Task> {
     );
     html = html
       .replace('%menteeName%', `${mentee.firstName} ${mentee.lastName}`)
-      .replace('%taskTitle%', task.title);
+      .replace('%taskTitle%', task.title)
+      .replace('%taskUrl%', task.taskUrl);
 
     this.mailService.sendMailAsync({
       from: configuration().appEmail,

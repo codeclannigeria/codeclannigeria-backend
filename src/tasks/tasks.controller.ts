@@ -8,7 +8,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
@@ -23,7 +23,10 @@ import { TracksService } from '../tracks/tracks.service';
 import { UserRole } from '../users/models/user.entity';
 import { CreateSubmissionDto } from './models/dtos/create-subission.dto';
 import { CreateTaskDto } from './models/dtos/create-task.dto';
-import { PagedListSubmissionDto, SubmissionDto } from './models/dtos/submission.dto';
+import {
+  PagedListSubmissionDto,
+  SubmissionDto
+} from './models/dtos/submission.dto';
 import { PagedListTaskDto, TaskDto } from './models/dtos/task.dto';
 import { Task } from './models/task.entity';
 import { TasksService } from './tasks.service';
@@ -48,7 +51,7 @@ export class TasksController extends BaseCtrl {
     @Inject(TracksService)
     private trackService: TracksService,
     @Inject(CoursesService)
-    private coursesService: CoursesService,
+    private coursesService: CoursesService
   ) {
     super(tasksService);
   }
@@ -87,16 +90,18 @@ export class TasksController extends BaseCtrl {
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getMentors(@Param("taskId") taskId: string): Promise<PagedListSubmissionDto> {
+  async getMentors(
+    @Param('taskId') taskId: string
+  ): Promise<PagedListSubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);
-    if (!task) throw new NotFoundException(`Task with Id ${taskId} not found`)
+    if (!task) throw new NotFoundException(`Task with Id ${taskId} not found`);
     const submissions = await this.tasksService.getUserSubmissions(taskId);
 
     const items = plainToClass(SubmissionDto, submissions, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
     }) as any;
-    return { totalCount: submissions.length, items }
+    return { totalCount: submissions.length, items };
   }
 
   @Post(':taskId/submissions')
@@ -105,7 +110,10 @@ export class TasksController extends BaseCtrl {
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async submitTask(@Param('taskId') taskId: string, @Body() input: CreateSubmissionDto): Promise<SubmissionDto> {
+  async submitTask(
+    @Param('taskId') taskId: string,
+    @Body() input: CreateSubmissionDto
+  ): Promise<SubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);
     if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
 
@@ -113,6 +121,6 @@ export class TasksController extends BaseCtrl {
     return plainToClass(SubmissionDto, submission, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
-    })
+    });
   }
 }
