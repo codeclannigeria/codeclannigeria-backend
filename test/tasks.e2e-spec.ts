@@ -254,8 +254,8 @@ describe('TasksController (e2e)', () => {
       async (k) => await collections[`${k}`].deleteMany({})
     );
 
-    await mongo.disconnect();
-    await inMemoryDb.stop();
+    // await mongo.disconnect();
+    // await inMemoryDb.stop();
     await app.close();
   });
 });

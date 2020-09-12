@@ -195,8 +195,8 @@ describe('ProfileController (e2e)', () => {
       collections[`${k}`].deleteMany({})
     );
 
-    await mongo.disconnect();
-    await inMemoryDb.stop();
+    // await mongo.disconnect();
+    // await inMemoryDb.stop();
     await app.close();
   });
 });
