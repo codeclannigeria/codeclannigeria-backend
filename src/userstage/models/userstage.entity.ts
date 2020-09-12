@@ -30,13 +30,9 @@ export class UserStage extends BaseEntity {
   })
   readonly track!: Ref<Track>;
 
-  @prop({
-    default: 1
-  })
+  @prop({ default: 1 })
   readonly taskRemaining!: number;
 
-  @prop({
-    default: false
-  })
+  @prop({ default: false })
   readonly isCompleted!: boolean;
 }

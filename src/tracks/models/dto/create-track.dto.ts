@@ -9,16 +9,16 @@ export class CreateTrackDto extends OmitType(TrackDto, [
   'id',
   'createdAt',
   'updatedAt',
-  'thumbnailUrl',
-  'userStage'
+  'thumbnailUrl'
+  // 'stages'
 ]) {}
 
 export class CreateWithThumbnailTrackDto extends OmitType(TrackDto, [
   'id',
   'createdAt',
   'updatedAt',
-  'thumbnailUrl',
-  'userStage'
+  'thumbnailUrl'
+  // 'stages'
 ]) {
   @ApiProperty({ type: 'string', format: 'binary' })
   thumbnail: BufferedFile;

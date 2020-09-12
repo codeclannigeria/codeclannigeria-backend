@@ -11,7 +11,6 @@ import { Track } from './models/track.entity';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TracksService extends BaseService<Track> {
-
   constructor(
     @InjectModel(Track.modelName)
     protected readonly EntityModel: ReturnModelType<typeof Track>,
@@ -20,19 +19,23 @@ export class TracksService extends BaseService<Track> {
     @InjectModel(TrackMentor.modelName)
     protected readonly trackMentorModel: ReturnModelType<typeof TrackMentor>,
     protected readonly userService: UsersService
-
   ) {
     super(EntityModel);
   }
 
   async getMentors(trackId: string): Promise<User[]> {
-    const mentors = await this.trackMentorModel.find({ track: trackId }, { mentor: 1 }).populate("mentor");
-    return mentors.map(x => x.mentor) as unknown as User[];
+    const mentors = await this.trackMentorModel
+      .find({ track: trackId }, { mentor: 1 })
+      .populate('mentor');
+    return (mentors.map((x) => x.mentor) as unknown) as User[];
   }
 
   async enroll(trackId: string): Promise<User> {
     const userId = this.getUserId();
-    return this.userService.updateAsync(userId, { $addToSet: { tracks: trackId }, updatedBy: userId } as any)
+    return this.userService.updateAsync(userId, {
+      $addToSet: { tracks: trackId },
+      updatedBy: userId
+    } as any);
   }
 
   async getStages(trackId: string): Promise<Stage[]> {
