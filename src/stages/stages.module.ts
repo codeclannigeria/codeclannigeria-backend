@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BaseService } from '~shared/services';
 
+import { TasksModule } from '../tasks/tasks.module';
 import { TracksModule } from '../tracks/tracks.module';
 import { Stage } from './models/stage.entity';
 import { StagesController } from './stages.controller';
@@ -12,9 +13,9 @@ const StageModel = MongooseModule.forFeature([
 ]);
 const baseService = { provide: BaseService, useClass: StagesService };
 @Module({
-  imports: [StageModel, TracksModule],
+  imports: [StageModel, TracksModule, forwardRef(() => TasksModule)],
   providers: [StagesService, baseService],
   controllers: [StagesController],
   exports: [StageModel, StagesService, baseService]
 })
-export class StagesModule { }
+export class StagesModule {}

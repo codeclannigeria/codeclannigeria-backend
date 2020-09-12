@@ -144,13 +144,12 @@ describe('Courses Controller (e2e)', () => {
 
   afterAll(async () => {
     const { collections } = mongoose.connection;
-
     Object.keys(collections).forEach(async (k) =>
       collections[`${k}`].deleteMany({})
     );
 
-    await mongo.disconnect();
-    await inMemoryDb.stop();
+    // await mongo.disconnect();
+    // await inMemoryDb.stop();
     await app.close();
   });
 });

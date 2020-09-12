@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BaseService } from '~shared/services';
 import { DbTest } from '~test/helpers/db-test.module';
 
+import { TasksService } from '../tasks/tasks.service';
 import { TracksService } from '../tracks/tracks.service';
 import { CreateStageDto } from './models/dtos/create-stage.dto';
 import { StagesController } from './stages.controller';
@@ -11,13 +12,17 @@ import { StagesService } from './stages.service';
 
 describe('Stages Controller', () => {
   let controller: StagesController;
-  const trackService = {
-    findByIdAsync: () => null
+  const trackService: any = {
+    findByIdAsync: () => Promise.resolve()
+  };
+  const taskService: any = {
+    findByIdAsync: () => Promise.resolve()
   };
   const stageService = {
     createEntity: () => 'track',
     findOneAsync: () => null,
-    insertAsync: () => ({ id: 'id' })
+    insertAsync: () => ({ id: 'id' }),
+    findByIdAsync: jest.fn()
   };
 
   beforeEach(async () => {
@@ -30,6 +35,8 @@ describe('Stages Controller', () => {
       .useValue(stageService)
       .overrideProvider(TracksService)
       .useValue(trackService)
+      .overrideProvider(TasksService)
+      .useValue(taskService)
       .compile();
 
     controller = module.get<StagesController>(StagesController);
@@ -68,5 +75,16 @@ describe('Stages Controller', () => {
         ConflictException
       );
     });
+  });
+  it(`should throw ${NotFoundException.name} for non-existing Stage`, async () => {
+    return expect(
+      controller.getStages('trackId', { limit: 1 })
+    ).rejects.toThrowError(NotFoundException);
+  });
+  it('should get stages', async () => {
+    stageService.findByIdAsync = jest.fn(() => Promise.resolve({ stages: [] }));
+    taskService.findAll = jest.fn();
+    taskService.countAsync = jest.fn();
+    await controller.getStages('stageId', { limit: 10 });
   });
 });

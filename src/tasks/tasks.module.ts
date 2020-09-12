@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MailService } from '~shared/mail/mail.service';
 import { BaseService } from '~shared/services';
@@ -34,7 +34,7 @@ const baseService = { provide: BaseService, useClass: TasksService };
 @Module({
   imports: [
     TaskModel,
-    StagesModule,
+    forwardRef(() => StagesModule),
     CoursesModule,
     TrackMentorModel,
     SubmissionModel,

@@ -23,6 +23,7 @@ import { StagesService } from '../src/stages/stages.service';
 import { Track } from '../src/tracks/models/track.entity';
 import { TracksService } from '../src/tracks/tracks.service';
 import { User, UserRole } from '../src/users/models/user.entity';
+import { Task } from './../src/tasks/models/task.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('StagesController (e2e)', () => {
@@ -127,11 +128,13 @@ describe('StagesController (e2e)', () => {
     });
     let stage: Stage;
     let track: Track;
+    let task: Task;
     it('should return 201 if user role is permitted', async () => {
       const trackModel = await TrackModel.create({
         title: 'title',
         description: 'description'
       });
+
       input.track = trackModel.id;
       currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/stages').send(input).expect(201);
@@ -141,6 +144,14 @@ describe('StagesController (e2e)', () => {
       expect(stage.createdBy.toString()).toBe(currentUser.userId);
       expect(track.stages.includes(stage.id as any)).toBe(true);
       expect(body.track.id).toBe(trackModel.id);
+      const taskModel = getModelForClass(Task, { existingMongoose: mongo });
+      task = await taskModel.create({
+        title: 'title',
+        description: 'description',
+        track: track.id,
+        stage: stage.id,
+        course: mongo.Types.ObjectId().toHexString()
+      });
     });
     it('should return 409 for existing stage title', async () => {
       return route.post('/stages').send(input).expect(409);
@@ -164,7 +175,11 @@ describe('StagesController (e2e)', () => {
       const { body } = await route.get('/stages').expect(200);
       expect(body.items[0].track.id).toBe(track.id.toString());
     });
+    it('should return tasks per stage ID', async () => {
+      const { body } = await route.get(`/stages/${stage.id}/tasks`).expect(200);
 
+      expect(body.items[0].id).toBe(task.id.toString());
+    });
     it('should return 403 for non-permitted user trying to UPDATE stage', async () => {
       currentUser.role = UserRole.MENTEE;
       return route.put(`/stages/${stage.id}`).send(input).expect(403);
@@ -191,9 +206,6 @@ describe('StagesController (e2e)', () => {
     Object.keys(collections).forEach(
       async (k) => await collections[`${k}`].deleteMany({})
     );
-
-    await mongo.disconnect();
-    await inMemoryDb.stop();
     await app.close();
   });
 });
