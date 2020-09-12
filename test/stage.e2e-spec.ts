@@ -1,5 +1,3 @@
-import { Course } from './../src/courses/models/course.entity';
-import { Task } from './../src/tasks/models/task.entity';
 import {
   ExecutionContext,
   INestApplication,
@@ -25,6 +23,7 @@ import { StagesService } from '../src/stages/stages.service';
 import { Track } from '../src/tracks/models/track.entity';
 import { TracksService } from '../src/tracks/tracks.service';
 import { User, UserRole } from '../src/users/models/user.entity';
+import { Task } from './../src/tasks/models/task.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('StagesController (e2e)', () => {

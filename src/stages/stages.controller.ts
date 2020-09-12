@@ -19,10 +19,10 @@ import { ApiException } from '~shared/errors';
 import { FindDto } from '~shared/models/dto';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
+import { PagedListTaskDto, TaskDto } from '../tasks/models/dtos/task.dto';
 import { TasksService } from '../tasks/tasks.service';
 import { TracksService } from '../tracks/tracks.service';
 import { UserRole } from '../users/models/user.entity';
-import { PagedListTaskDto, TaskDto } from './../tasks/models/dtos/task.dto';
 import { CreateStageDto } from './models/dtos/create-stage.dto';
 import { PagedListStageDto, StageDto } from './models/dtos/stage.dto';
 import { Stage } from './models/stage.entity';
