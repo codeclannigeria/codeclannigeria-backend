@@ -18,7 +18,7 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger';
 import { Request } from 'express';
-import * as fs from "fs"
+import * as fs from 'fs';
 
 import { LoginReqDto } from '../auth/models/dto/auth.dto';
 import configuration from '../shared/config/configuration';
@@ -45,7 +45,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
     private readonly mailService: MailService
-  ) { }
+  ) {}
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -86,19 +86,16 @@ export class AuthController {
       expiresInMins: 60 * 24
     });
     if (!token) return;
-    const url = new URL(clientBaseUrl);
-    url.searchParams.set(tokenParamName, token);
-    url.searchParams.set(emailParamName, email);
-    let html = await fs.promises.readFile("./src/templates/welcome.html", { encoding: 'utf8' });
-    html = html.replace('%fullName%', user.fullName).replace('%verificationUrl%', url.href);
-
-    this.mailService.sendMailAsync({
-      from: configuration().appEmail,
-      to: user.email,
-      html,
-      date: new Date(Date.now())
-    });
+    await this.sendVerificationEmail(
+      clientBaseUrl,
+      tokenParamName,
+      token,
+      emailParamName,
+      email,
+      user
+    );
   }
+
   @Post('confirm-email')
   @HttpCode(HttpStatus.OK)
   async verifyEmailToken(@Body() input: ValidateTokenInput): Promise<void> {
@@ -147,6 +144,32 @@ export class AuthController {
       userId: exist.id,
       plainToken: token,
       newPassword
+    });
+  }
+  private async sendVerificationEmail(
+    clientBaseUrl: string,
+    tokenParamName: string,
+    token: string,
+    emailParamName: string,
+    email: string,
+    user: User
+  ) {
+    const url = new URL(clientBaseUrl);
+    url.searchParams.set(tokenParamName, token);
+    url.searchParams.set(emailParamName, email);
+    let html = await fs.promises.readFile('./src/templates/welcome.html', {
+      encoding: 'utf8'
+    });
+    html = html
+      .replace('%fullName%', user.fullName)
+      .replace('%verificationUrl%', url.href);
+
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: user.email,
+      html,
+      date: new Date(Date.now()),
+      subject: 'Welcome to Code Clan Nigeria'
     });
   }
 }
