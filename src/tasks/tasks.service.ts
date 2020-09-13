@@ -95,7 +95,8 @@ export class TasksService extends BaseService<Task> {
       from: configuration().appEmail,
       to: mentor.email,
       html,
-      date: new Date(Date.now())
+      date: new Date(Date.now()),
+      subject: 'Mentee Task Submission'
     });
   }
 
