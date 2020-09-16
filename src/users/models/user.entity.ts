@@ -2,6 +2,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import {
   getModelForClass,
   index,
+  plugin,
   pre,
   prop,
   Ref,
@@ -10,6 +11,7 @@ import {
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import * as crypto from 'crypto';
+import * as autopopulate from 'mongoose-autopopulate';
 import { Writable } from '~shared/types/abstract.type';
 
 import { columnSize } from '../../shared/constants';
@@ -34,6 +36,7 @@ export enum Gender {
   }
 })
 @index({ email: 1 }, { unique: true })
+@plugin(autopopulate as any)
 export class User extends BaseEntity {
   @prop({
     required: true,
@@ -124,7 +127,7 @@ export class User extends BaseEntity {
   readonly lockOutEndDate?: Date;
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
-  @prop({ ref: Track, default: [] })
+  @prop({ ref: Track, default: [], autopopulate: true })
   readonly tracks: Ref<Track>[];
   /**
    * Get User's full name
