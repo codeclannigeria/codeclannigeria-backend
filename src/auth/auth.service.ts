@@ -16,7 +16,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly tokenService: TempTokensService
-  ) { }
+  ) {}
   async validateUser(email: string, pw: string): Promise<User> {
     const user = await this.usersService.findOneAsync({
       email: email?.toLowerCase()
@@ -41,7 +41,7 @@ export class AuthService {
     if (!isValid) {
       throw authErrors.INVALID_LOGIN_ATTEMPT;
     }
-    await this.usersService.resetLoginAttempt(user.id)
+    await this.usersService.resetLoginAttempt(user.id);
     return user;
   }
 
@@ -55,7 +55,6 @@ export class AuthService {
     };
     return jwt.sign(payload, jwtSecret, { expiresIn });
   }
-
 
   async generateTempToken({
     user,

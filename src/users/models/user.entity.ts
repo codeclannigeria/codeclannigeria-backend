@@ -65,9 +65,7 @@ export class User extends BaseEntity {
     default: null
   })
   readonly phoneNumber!: string;
-  @prop({
-    default: null
-  })
+  @prop({ default: null })
   readonly photoUrl: string = null;
   @prop({
     maxlength: columnSize.length128,
@@ -96,10 +94,7 @@ export class User extends BaseEntity {
     default: Gender.UNSPECIFIED
   })
   readonly gender: Gender = Gender.UNSPECIFIED;
-  @prop({
-    type: Date,
-    default: null
-  })
+  @prop({ type: Date, default: null })
   readonly dob: Date = null;
   @prop({ type: String, default: null })
   readonly technologies: string[] = [];
@@ -107,9 +102,7 @@ export class User extends BaseEntity {
   @Exclude()
   readonly password!: string;
   @Exclude()
-  @prop({
-    default: 0
-  })
+  @prop({ default: 0 })
   readonly loginAttemptCount!: number;
   @prop({
     enum: UserRole,
@@ -125,7 +118,7 @@ export class User extends BaseEntity {
   @prop({ required: true, default: 0 })
   readonly failedSignInAttempts!: number;
   @prop({ ref: Track, default: [] })
-  readonly tracks: Ref<Track>[];
+  readonly tracks: Ref<Track>[] = [];
   /**
    * Get User's full name
    *

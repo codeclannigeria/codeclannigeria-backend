@@ -202,7 +202,8 @@ describe('StagesController (e2e)', () => {
   });
   afterAll(async () => {
     const { collections } = mongoose.connection;
-
+    const foo = await inMemoryDb.getDbPath();
+    console.log(foo);
     Object.keys(collections).forEach(
       async (k) => await collections[`${k}`].deleteMany({})
     );

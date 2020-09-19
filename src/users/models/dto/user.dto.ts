@@ -1,22 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import {
   IsArray,
+  IsDate,
   IsEmail,
   IsEnum,
   IsOptional,
   IsPhoneNumber,
   Length,
-  MaxLength,
-  IsDate
+  MaxLength
 } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
 import { TrackDto } from '../../../tracks/models/dto/track.dto';
-import { UserRole, Gender } from '../user.entity';
+import { Gender, UserRole } from '../user.entity';
 
-@Exclude()
 export class UserDto extends BaseDto {
   @Expose()
   @MaxLength(columnSize.length64)
@@ -80,7 +79,7 @@ export class UserDto extends BaseDto {
   @IsOptional()
   readonly photoUrl?: string;
 
-  @ApiProperty({ readOnly: true, type: TrackDto, isArray: true })
+  @ApiProperty({ readOnly: true, type: [TrackDto] })
   @Expose()
   @Type(() => TrackDto)
   readonly tracks: TrackDto[];
