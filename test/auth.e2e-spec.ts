@@ -1,8 +1,7 @@
-import { UsersService } from '../src/users/users.service';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
 import * as fs from 'fs';
+import * as request from 'supertest';
 
 import { AuthModule } from '../src/auth/auth.module';
 import { LoginReqDto } from '../src/auth/models/dto/auth.dto';
@@ -10,6 +9,7 @@ import { ResetPassInput } from '../src/auth/models/dto/reset-pw.dto';
 import { ValidateTokenInput } from '../src/auth/models/dto/validate-token.dto';
 import { MailService } from '../src/shared/mail/mail.service';
 import { RegisterUserDto } from '../src/users/models/dto/register-user.dto';
+import { UsersService } from '../src/users/users.service';
 import { DbTest } from './helpers/db-test.module';
 
 describe('AuthController (e2e)', () => {
