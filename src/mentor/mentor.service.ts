@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
+import * as fs from 'fs';
+import configuration from '~shared/config/configuration';
+import { MailService } from '~shared/mail/mail.service';
 
 import { Submission } from '../tasks/models/submission.entity';
 import { TrackMentor } from '../tracks/models/track-mentor.entity';
@@ -15,7 +18,8 @@ export class MentorService {
     @InjectModel(TrackMentor.modelName)
     private trackMentorModel: ReturnModelType<typeof TrackMentor>,
     @InjectModel(Submission.modelName)
-    private SubmissionModel: ReturnModelType<typeof Submission>
+    private SubmissionModel: ReturnModelType<typeof Submission>,
+    private mailService: MailService
   ) {}
 
   async assignMentor(
@@ -91,5 +95,29 @@ export class MentorService {
     return this.SubmissionModel.find({
       mentor: mentorId
     }).countDocuments();
+  }
+  async notifyMenteeOfGrading(submissionId: string): Promise<void> {
+    const submission = await (
+      await this.SubmissionModel.findById(submissionId).populate(
+        'mentee task mentor',
+        'firstName lastName title email'
+      )
+    ).execPopulate();
+    const { mentor, mentee, task }: any = submission;
+    let html = await fs.promises.readFile(
+      './src/templates/mentor-task-grade-notif.html',
+      { encoding: 'utf8' }
+    );
+    html = html
+      .replace('%mentorName%', `${mentor.firstName} ${mentor.lastName}`)
+      .replace('%taskTitle%', task.title);
+
+    this.mailService.sendMailAsync({
+      from: configuration().appEmail,
+      to: mentee.email,
+      html,
+      date: new Date(Date.now()),
+      subject: 'Your Task Has Been Graded'
+    });
   }
 }
