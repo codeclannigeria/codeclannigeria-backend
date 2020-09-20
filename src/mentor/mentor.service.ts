@@ -97,12 +97,10 @@ export class MentorService {
     }).countDocuments();
   }
   async notifyMenteeOfGrading(submissionId: string): Promise<void> {
-    const submission = await (
-      await this.SubmissionModel.findById(submissionId).populate(
-        'mentee task mentor',
-        'firstName lastName title email'
-      )
-    ).execPopulate();
+    const submission = await this.SubmissionModel.findById(submissionId);
+    await submission
+      .populate('mentee task mentor', 'firstName lastName title email')
+      .execPopulate();
     const { mentor, mentee, task }: any = submission;
     let html = await fs.promises.readFile(
       './src/templates/mentor-task-grade-notif.html',

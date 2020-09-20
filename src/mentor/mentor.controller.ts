@@ -93,6 +93,6 @@ export class MentorController {
       { _id: submissionId },
       { ...input, updatedBy: mentorId }
     );
-    this.mentorService.notifyMenteeOfGrading(submissionId);
+    await this.mentorService.notifyMenteeOfGrading(submissionId);
   }
 }

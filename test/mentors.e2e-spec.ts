@@ -7,14 +7,18 @@ import {
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelForClass, mongoose } from '@typegoose/typegoose';
+import * as fs from 'fs';
 import * as request from 'supertest';
+import { MailService } from '~shared/mail/mail.service';
 
 import { JwtAuthGuard } from '../src/auth/guards';
 import { JwtPayload } from '../src/auth/models/jwt-payload';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { MentorModule } from '../src/mentor/mentor.module';
 import { GradeSubmissionDto } from '../src/tasks/models/dtos/grade-submission.dto';
+import { TaskDto } from '../src/tasks/models/dtos/task.dto';
 import { Submission } from '../src/tasks/models/submission.entity';
+import { Task } from '../src/tasks/models/task.entity';
 import { User, UserRole } from '../src/users/models/user.entity';
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
@@ -39,6 +43,8 @@ describe('Courses Controller (e2e)', () => {
     })
       .overrideGuard(JwtAuthGuard)
       .useValue(jwtGuard)
+      .overrideProvider(MailService)
+      .useValue({ sendMailAsync: jest.fn() })
       .compile();
 
     app = module.createNestApplication();
@@ -65,45 +71,69 @@ describe('Courses Controller (e2e)', () => {
       useFindAndModify: false
     });
     const UserModel = getModelForClass(User, { existingMongoose: mongo });
-
+    const TaskModel = getModelForClass(Task, { existingMongoose: mongo });
     const validPass = 'pass@45Pdd';
     const user = await UserModel.create({
-      email: 'mentor@gmail.com',
+      email: 'user@gmail.com',
       firstName: 'firstName',
       lastName: 'lastName',
       password: validPass,
       role: UserRole.MENTOR
     });
-    // const mentee = await UserModel.create({
-    //   email: 'mentee@gmail.com',
-    //   firstName: 'Mentee',
-    //   lastName: 'Mentee',
-    //   password: validPass,
-    //   role: UserRole.MENTEE
-    // });
-
+    const mentee = await UserModel.create({
+      email: 'mentee@gmail.com',
+      firstName: 'Mentee',
+      lastName: 'Mentee',
+      password: validPass,
+      role: UserRole.MENTEE
+    });
+    const mentor = await UserModel.create({
+      email: 'mentor@gmail.com',
+      firstName: 'Mentor',
+      lastName: 'Mentor',
+      password: validPass,
+      role: UserRole.MENTEE
+    });
+    const task1 = await TaskModel.create<TaskDto>({
+      title: 'title1',
+      description: 'description',
+      stage: mongo.Types.ObjectId().toHexString(),
+      track: mongo.Types.ObjectId().toHexString()
+    });
+    const task2 = await TaskModel.create<TaskDto>({
+      title: 'title2',
+      description: 'description',
+      stage: mongo.Types.ObjectId().toHexString(),
+      track: mongo.Types.ObjectId().toHexString()
+    });
+    const task3 = await TaskModel.create<TaskDto>({
+      title: 'title3',
+      description: 'description',
+      stage: mongo.Types.ObjectId().toHexString(),
+      track: mongo.Types.ObjectId().toHexString()
+    });
     const SubmissionModel = getModelForClass(Submission, {
       existingMongoose: mongo
     });
-    const menteeId = mongo.Types.ObjectId().toHexString();
+    const menteeId = mentee.id;
     submission = await SubmissionModel.create({
       taskUrl: 'www.google.com',
-      task: mongo.Types.ObjectId().toHexString(),
+      task: task1.id,
       mentor: user.id,
       createdBy: menteeId,
       mentee: menteeId
     });
     await SubmissionModel.create({
       taskUrl: 'www.google.com',
-      task: mongo.Types.ObjectId().toHexString(),
+      task: task2.id,
       mentor: user.id,
       createdBy: menteeId,
       mentee: menteeId
     });
     await SubmissionModel.create({
       taskUrl: 'www.google.com',
-      task: mongo.Types.ObjectId().toHexString(),
-      mentor: mongo.Types.ObjectId().toHexString(),
+      task: task3.id,
+      mentor: mentor.id,
       createdBy: menteeId,
       mentee: menteeId
     });
@@ -113,6 +143,8 @@ describe('Courses Controller (e2e)', () => {
       userId: user.id,
       role: user.role
     };
+    const promise = fs.promises;
+    jest.spyOn(promise, 'readFile').mockResolvedValue('%mentorName%');
     route = request(app.getHttpServer());
   });
   it('should get submissions', async () => {
