@@ -27,6 +27,15 @@ export class SubmissionDto extends BaseDto {
   @Max(100)
   @Expose()
   gradePercentage: number;
+  // @Expose()
+  // @Transform((user) => `${user.firstName} ${user.lastName}`)
+  // mentor: UserDto;
+  // @Expose()
+  // @Transform((user) => `${user.firstName} ${user.lastName}`)
+  // mentee: UserDto;
+  // @Expose()
+  // @Transform((task) => task.title)
+  // task: TaskDto;
 }
 
 export class PagedListSubmissionDto extends PagedListDto(SubmissionDto) {}

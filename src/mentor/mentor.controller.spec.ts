@@ -13,7 +13,10 @@ import { NotFoundException } from '@nestjs/common';
 
 describe('Mentor Controller', () => {
   let controller: MentorController;
-  const mentorService: any = { countSubmissions: () => 1 };
+  const mentorService: any = {
+    countSubmissions: () => 1,
+    notifyMenteeOfGrading: jest.fn()
+  };
 
   const submissionModel: any = {
     find: () => jest.fn(),

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MailService } from '~shared/mail/mail.service';
 
 import { Submission } from '../tasks/models/submission.entity';
 import { TrackMentor } from '../tracks/models/track-mentor.entity';
@@ -20,7 +21,7 @@ const SubmissionModel = MongooseModule.forFeature([
 @Module({
   imports: [MentorMenteeModel, TrackMentorModel, SubmissionModel, UsersModule],
   controllers: [MentorController],
-  providers: [MentorService],
+  providers: [MentorService, MailService],
   exports: [MentorService, TrackMentorModel]
 })
 export class MentorModule {}
