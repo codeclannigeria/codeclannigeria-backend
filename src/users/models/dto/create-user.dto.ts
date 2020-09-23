@@ -6,5 +6,7 @@ export class CreateUserDto extends OmitType(UserDto, [
   'id',
   'updatedAt',
   'createdAt',
-  'tracks'
-]) { }
+  'tracks',
+  'notifUnreadCount',
+  'notifyCount'
+]) {}
