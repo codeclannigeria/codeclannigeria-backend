@@ -87,7 +87,7 @@ export class UserDto extends BaseDto {
   @ApiProperty({ readOnly: true })
   @Expose()
   @IsOptional()
-  readonly unreadCount: number;
+  readonly notifUnreadCount: number;
 
   @ApiProperty({ readOnly: true, type: [TrackDto] })
   @Expose()

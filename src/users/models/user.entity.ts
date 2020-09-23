@@ -119,6 +119,10 @@ export class User extends BaseEntity {
   readonly failedSignInAttempts!: number;
   @prop({ ref: Track, default: [] })
   readonly tracks: Ref<Track>[] = [];
+  @prop({ default: 0 })
+  readonly notifyCount: number;
+  @prop({ default: 0 })
+  readonly notifUnreadCount: number;
   /**
    * Get User's full name
    *
