@@ -79,6 +79,16 @@ export class UserDto extends BaseDto {
   @IsOptional()
   readonly photoUrl?: string;
 
+  @ApiProperty({ readOnly: true })
+  @Expose()
+  @IsOptional()
+  readonly notifyCount: number;
+
+  @ApiProperty({ readOnly: true })
+  @Expose()
+  @IsOptional()
+  readonly unreadCount: number;
+
   @ApiProperty({ readOnly: true, type: [TrackDto] })
   @Expose()
   @Type(() => TrackDto)
