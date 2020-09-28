@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/swagger';
-import { Expose, Transform } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import {
   IsNumber,
   IsOptional,
@@ -12,8 +12,6 @@ import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
 import { UserDto } from '../../../users/models/dto/user.dto';
-import { User } from '../../../users/models/user.entity';
-import { Task } from '../task.entity';
 import { TaskDto } from './task.dto';
 
 class SimpleUserDto extends PickType(UserDto, [
@@ -40,21 +38,10 @@ export class SubmissionDto extends BaseDto {
   @Expose()
   gradePercentage: number;
   @Expose()
-  @Transform((user: User) => ({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    id: user.id
-  }))
   readonly mentor: SimpleUserDto;
   @Expose()
-  @Transform((user: User) => ({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    id: user.id
-  }))
   readonly mentee: SimpleUserDto;
   @Expose()
-  @Transform((task: Task) => ({ title: task.title, id: task.id }))
   readonly task: SimpleTaskDto;
 }
 
