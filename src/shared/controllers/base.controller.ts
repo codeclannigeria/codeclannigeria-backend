@@ -19,7 +19,7 @@ import * as pluralize from 'pluralize';
 import { ApiSwaggerOperation, Authenticate } from '~shared/decorators';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { IBaseController } from '~shared/interfaces';
-import { IPagedListDto } from '~shared/models/dto';
+import { DeleteManyType, IPagedListDto } from '~shared/models/dto';
 import { getAuthObj } from '~shared/utils';
 
 import { JwtAuthGuard } from '../../auth/guards';
@@ -67,7 +67,7 @@ export function BaseCrudController<
     constructor(
       @Inject(BaseService)
       protected service: BaseService<TEntity>
-    ) { }
+    ) {}
 
     @Post()
     @ApiResponse({ type: EntityDto, status: HttpStatus.CREATED })
@@ -160,8 +160,25 @@ export function BaseCrudController<
     @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
     @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
     @ApiSwaggerOperation({ title: 'Delete' })
-    async delete(@Param('id') id: string) {
-      await this.service.softDeleteByIdAsync(id);
+    async delete(
+      @Param('id') id: string,
+      @Query('isHardDelete') isHardDelete: boolean
+    ) {
+      isHardDelete
+        ? await this.service.hardDeleteById(id)
+        : await this.service.softDeleteByIdAsync(id);
+    }
+
+    @Delete()
+    @ApiResponse({ status: HttpStatus.OK })
+    @Authenticate(auth.delete.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
+    @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
+    @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
+    @ApiSwaggerOperation({ title: 'Delete many' })
+    async deleteMany(@Body() input: DeleteManyType) {
+      await this.service.softDeleteByIdAsync({
+        _id: { $in: [...input.ids] }
+      } as any);
     }
   }
   return BaseController;

@@ -27,15 +27,38 @@ export class MentorService {
     mentorId: string,
     trackId: string
   ): Promise<void> {
-    const mentor = await this.mentorMenteeModel.findOne({
+    const result = await this.mentorMenteeModel.findOne({
       mentee: menteeId,
       mentor: mentorId
     });
-    if (mentor) return;
+    if (result) return;
     await this.mentorMenteeModel.create({
       mentor: mentorId,
       mentee: menteeId,
       track: trackId
+    });
+  }
+  async reassignMentee(input: {
+    trackId: string;
+    menteeId: string;
+    fromMentorId: string;
+    toMentorId: string;
+    adminId: any;
+  }): Promise<void> {
+    let mentorMentee = await this.mentorMenteeModel.findOne({
+      mentor: input.fromMentorId,
+      mentee: input.menteeId
+    });
+    mentorMentee.delete();
+    mentorMentee = await this.mentorMenteeModel.findOne({
+      mentor: input.toMentorId,
+      mentee: input.menteeId
+    });
+    if (mentorMentee) return;
+    await this.mentorMenteeModel.create({
+      mentor: input.toMentorId,
+      mentee: input.menteeId,
+      track: input.trackId
     });
   }
   async assignMentorToTrack(

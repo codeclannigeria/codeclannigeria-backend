@@ -37,7 +37,7 @@ export class TasksService extends BaseService<Task> {
     return this.SubmissionModel.find({
       task: taskId,
       createdBy: this.getUserId()
-    });
+    }).populate('mentee', 'firstName lastName');
   }
   async submitTask(
     input: CreateSubmissionDto,

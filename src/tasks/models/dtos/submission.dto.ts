@@ -1,4 +1,5 @@
-import { Expose } from 'class-transformer';
+import { PickType } from '@nestjs/swagger';
+import { Expose, Transform } from 'class-transformer';
 import {
   IsNumber,
   IsOptional,
@@ -9,6 +10,11 @@ import {
 } from 'class-validator';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
+
+import { UserDto } from '../../../users/models/dto/user.dto';
+import { User } from '../../../users/models/user.entity';
+
+class MenteeDto extends PickType(UserDto, ['firstName', 'lastName']) {}
 
 export class SubmissionDto extends BaseDto {
   @MaxLength(columnSize.length1024)
@@ -30,9 +36,12 @@ export class SubmissionDto extends BaseDto {
   // @Expose()
   // @Transform((user) => `${user.firstName} ${user.lastName}`)
   // mentor: UserDto;
-  // @Expose()
-  // @Transform((user) => `${user.firstName} ${user.lastName}`)
-  // mentee: UserDto;
+  @Expose()
+  @Transform((user: User) => ({
+    firstName: user.firstName,
+    lastName: user.lastName
+  }))
+  mentee: MenteeDto;
   // @Expose()
   // @Transform((task) => task.title)
   // task: TaskDto;
