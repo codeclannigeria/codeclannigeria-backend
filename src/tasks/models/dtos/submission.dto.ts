@@ -1,4 +1,4 @@
-import { ApiProperty, PickType } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
 import {
   IsNumber,
