@@ -41,7 +41,7 @@ export class SubmissionDto extends BaseDto {
     firstName: user.firstName,
     lastName: user.lastName
   }))
-  mentee: MenteeDto;
+  readonly mentee: MenteeDto;
   // @Expose()
   // @Transform((task) => task.title)
   // task: TaskDto;
