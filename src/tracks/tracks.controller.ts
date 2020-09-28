@@ -9,21 +9,23 @@ import {
   NotFoundException,
   Param,
   Post,
+  Query,
   Req,
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-  Query
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
+import { isMongoId } from 'class-validator';
 import { Request } from 'express';
 import { BaseCrudController } from '~shared/controllers/base.controller';
 import { Roles } from '~shared/decorators/roles.decorator';
 import { ApiException } from '~shared/errors';
 import { BufferedFile } from '~shared/interfaces';
+import { FindDto } from '~shared/models/dto';
 import { uploadFileToCloud } from '~shared/utils/upload-img.util';
 
 import { JwtAuthGuard, RolesGuard } from '../auth/guards';
@@ -34,19 +36,19 @@ import { PagedUserOutputDto } from '../users/models/dto/user.dto';
 import { UserRole } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import {
+  PagedUserStageDto,
+  UserStageDto
+} from '../userstage/models/dto/userstage.dto';
+import { UserStageService } from '../userstage/userstage.service';
+import {
   CreateTrackDto,
   CreateWithThumbnailTrackDto,
+  ReassignMenteeInput,
   MentorInput
 } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
 import { TracksService } from './tracks.service';
-import {
-  UserStageDto,
-  PagedUserStageDto
-} from '../userstage/models/dto/userstage.dto';
-import { UserStageService } from '../userstage/userstage.service';
-import { FindDto } from '~shared/models/dto';
 
 const BaseCtrl = BaseCrudController<Track, TrackDto, CreateTrackDto>({
   entity: Track,
@@ -175,27 +177,6 @@ export class TracksController extends BaseCtrl {
     return { totalCount, items };
   }
 
-  // @Get(':trackId/user_stages')
-  // @HttpCode(HttpStatus.OK)
-  // @ApiResponse({ status: HttpStatus.OK, type: PagedListStageDto })
-  // @UseGuards(JwtAuthGuard)
-  // @ApiBearerAuth()
-  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  // async getUserStages(
-  //   @Param('trackId') trackId: string
-  // ): Promise<PagedListStageDto> {
-  //   const track = await this.trackService.findByIdAsync(trackId);
-  //   if (!track)
-  //     throw new NotFoundException(`Track with Id ${trackId} not found`);
-  //   const userStages = await this.userStageService.getUserStages(trackId);
-
-  //   const totalCount = userStages.length;
-  //   const items = plainToClass(UserStageDto, userStages, {
-  //     enableImplicitConversion: true,
-  //     excludeExtraneousValues: true
-  //   }) as any;
-  //   return { totalCount, items };
-  // }
   @Get(':trackId/mentors')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({ status: HttpStatus.OK, type: PagedUserOutputDto })
@@ -244,7 +225,54 @@ export class TracksController extends BaseCtrl {
       req.user['id']
     );
   }
+  @Post(':trackId/reassign_mentee')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
+  async reassignMentee(
+    @Param('trackId') trackId: string,
+    @Body() input: ReassignMenteeInput,
+    @Req() req: Request
+  ): Promise<void> {
+    if (!isMongoId(trackId)) throw new BadRequestException('Invalid track ID');
+    const mentee = await this.userService.findOneAsync({
+      _id: input.menteeId,
+      role: UserRole.MENTEE
+    });
+    if (!mentee)
+      throw new NotFoundException(`Mentee with Id ${input.menteeId} not found`);
+    const toMentor = await this.userService.findOneAsync({
+      _id: input.toMentorId,
+      role: UserRole.MENTOR
+    });
+    if (!toMentor)
+      throw new NotFoundException(
+        `Mentor with Id ${input.toMentorId} not found`
+      );
+    const fromMentor = await this.userService.findOneAsync({
+      _id: input.fromMentorId,
+      role: UserRole.MENTOR
+    });
+    if (!fromMentor)
+      throw new NotFoundException(
+        `Mentor with Id ${input.fromMentorId} not found`
+      );
 
+    const track = await this.trackService.findByIdAsync(trackId);
+    if (!track)
+      throw new NotFoundException(`Track with Id ${trackId} not found`);
+
+    await this.mentorService.reassignMentee({
+      trackId,
+      menteeId: input.menteeId,
+      fromMentorId: input.fromMentorId,
+      toMentorId: input.toMentorId,
+      adminId: req.user['id']
+    });
+  }
   @Post(':trackId/enroll')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)

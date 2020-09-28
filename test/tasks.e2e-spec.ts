@@ -230,8 +230,10 @@ describe('TasksController (e2e)', () => {
         const { body } = await route
           .get(`/tasks/${task.id}/submissions`)
           .expect(200);
-        expect(body.items.length).toBeGreaterThan(0);
-        expect(body.items).toContainEqual(submissionDto);
+        const { items } = body;
+
+        expect(items.length).toBeGreaterThan(0);
+        expect(items).toContainEqual(submissionDto);
       });
     });
 

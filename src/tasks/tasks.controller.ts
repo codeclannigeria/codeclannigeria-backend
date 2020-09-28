@@ -90,7 +90,7 @@ export class TasksController extends BaseCtrl {
   @Roles(UserRole.MENTEE)
   @ApiBearerAuth()
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiException })
-  async getMentors(
+  async getSubmissions(
     @Param('taskId') taskId: string
   ): Promise<PagedListSubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);

@@ -48,6 +48,7 @@ describe('Mentor Controller', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       taskUrl: 'www.google.com',
+      mentee: { firstName: 'firstName', lastName: 'lastName' },
       menteeComment: null,
       mentorComment: null
     };

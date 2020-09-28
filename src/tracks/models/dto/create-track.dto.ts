@@ -29,3 +29,14 @@ export class MentorInput {
   @Expose()
   mentorId: string;
 }
+export class ReassignMenteeInput {
+  @IsMongoId()
+  @Expose()
+  menteeId: string;
+  @IsMongoId()
+  @Expose()
+  fromMentorId: string;
+  @IsMongoId()
+  @Expose()
+  toMentorId: string;
+}
