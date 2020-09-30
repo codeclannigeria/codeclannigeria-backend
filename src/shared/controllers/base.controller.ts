@@ -99,6 +99,15 @@ export function BaseCrudController<
       const conditions = JSON.parse(search || '{}');
       const options = JSON.parse(opts || '{}');
 
+      if (options?.sort) {
+        const sort = { ...options.sort };
+        Object.keys(sort).map((key) => {
+          if (sort[key] === 'ascend') sort[key] = 1;
+          else sort[key] = -1;
+          return sort;
+        });
+        options.sort = sort;
+      }
       const entities = await this.service
         .findAll(conditions, options)
         .limit(limit)
