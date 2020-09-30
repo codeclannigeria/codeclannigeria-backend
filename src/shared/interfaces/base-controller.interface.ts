@@ -12,5 +12,8 @@ export interface IBaseController<
   findById(input: string): TEntityDto | Promise<TEntityDto>;
   update(id: string, input: TUpdateDto): TEntityDto | Promise<TEntityDto>;
   delete(id: string, isHardDelete?: boolean): void | Promise<void>;
-  deleteMany(input: DeleteManyType): void | Promise<void>;
+  deleteMany(
+    input: DeleteManyType,
+    isHardDelete?: boolean
+  ): void | Promise<void>;
 }

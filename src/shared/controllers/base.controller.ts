@@ -184,10 +184,13 @@ export function BaseCrudController<
     @Authenticate(auth.delete.enableAuth, Roles(...auth.delete.authRoles))
     @Authenticate(auth.delete.enableAuth, ApiBearerAuth())
     @ApiSwaggerOperation({ title: 'Delete many' })
-    async deleteMany(@Body() input: DeleteManyType) {
-      await this.service.softDeleteByIdAsync({
-        _id: { $in: [...input.ids] }
-      } as any);
+    async deleteMany(
+      @Body() input: DeleteManyType,
+      @Query('isHardDelete') isHardDelete: boolean
+    ) {
+      isHardDelete
+        ? await this.service.hardDeleteMany({ _id: { $in: [...input.ids] } })
+        : await this.service.softDeleteMany({ _id: { $in: [...input.ids] } });
     }
   }
   return BaseController;
