@@ -95,7 +95,7 @@
     "@types/passport-local": "^1.0.33",
     "@types/pluralize": "0.0.29",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.2.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
