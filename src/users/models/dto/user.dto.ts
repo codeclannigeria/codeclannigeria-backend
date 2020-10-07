@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { plugin } from '@typegoose/typegoose';
 import { Expose, Type } from 'class-transformer';
 import {
   IsArray,
