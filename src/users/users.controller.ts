@@ -69,7 +69,6 @@ export class UsersController extends BaseCtrl {
       .populate('tracks')
       .limit(limit)
       .skip(skip)
-      .lean()
       .exec();
 
     const totalCount = await this.usersService.countAsync();
