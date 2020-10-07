@@ -26,7 +26,8 @@
     "test:ci": "npm run test:unit-ci && npm run test:e2e-ci",
     "test:coverage": "npm run test:ci && npx ts-node merge-coverage.ts --report coverage/unit/coverage-final.json coverage/e2e/coverage-final.json",
     "packages:check": "npx npm-check-updates -u",
-    "packages:update": "npm run packages:check && npm i"
+    "packages:update": "npm run packages:check && npm i",
+    "dev": "npm run start:hmr"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
