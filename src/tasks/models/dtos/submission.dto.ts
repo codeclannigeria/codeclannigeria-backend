@@ -8,15 +8,16 @@ import {
   MaxLength,
   Min
 } from 'class-validator';
+import { UserDto } from '~/users/models/dto/user.dto';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
-import { UserDto } from '../../../users/models/dto/user.dto';
 import { TaskDto } from './task.dto';
 
 export class SimpleUserDto extends PickType(UserDto, [
   'firstName',
   'lastName',
+  'photoUrl',
   'id'
 ]) {}
 export class SimpleTaskDto extends PickType(TaskDto, ['title', 'id']) {}
