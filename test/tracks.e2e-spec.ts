@@ -204,6 +204,7 @@ describe('TracksController (e2e)', () => {
       const { body } = await route
         .get(`/tracks/${track.id}/mentors`)
         .expect(200);
+
       expect(body.items[0].id).toBe(mentor.id);
     });
     it('should enroll to a track', async () => {
@@ -218,7 +219,7 @@ describe('TracksController (e2e)', () => {
       });
 
       expect(mentorMentee).toBeDefined();
-      expect(mentorMentee.mentee.toString()).toBe(currentUser.userId);
+      expect((mentorMentee.mentee as any).id).toBe(currentUser.userId);
     });
     it('should return 409 for existing track title', async () => {
       return route.post('/tracks').send(input).expect(409);
