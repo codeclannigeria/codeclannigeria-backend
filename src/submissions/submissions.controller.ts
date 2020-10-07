@@ -1,4 +1,4 @@
-import { Controller, Inject } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateSubmissionDto } from '~/tasks/models/dtos/create-subission.dto';
 import {
@@ -33,9 +33,7 @@ const BaseCtrl = BaseCrudController<
 @Controller('submissions')
 @ApiTags('Submissions')
 export class SubmissionsController extends BaseCtrl {
-  constructor(
-    @Inject(SubmissionsService) protected submissionService: SubmissionsService
-  ) {
+  constructor(protected submissionService: SubmissionsService) {
     super(submissionService);
   }
 }
