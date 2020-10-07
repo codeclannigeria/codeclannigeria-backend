@@ -10,7 +10,6 @@ import {
   Length,
   MaxLength
 } from 'class-validator';
-
 import { TrackDto } from '~/tracks/models/dto/track.dto';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';

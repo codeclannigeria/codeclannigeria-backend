@@ -89,7 +89,7 @@ export function BaseCrudController<
 
     @Get()
     @ApiResponse({ type: PagedListDto, status: HttpStatus.OK })
-    @ApiResponse({ type: ApiException, status: HttpStatus.OK })
+    @ApiResponse({ type: ApiException, status: HttpStatus.UNAUTHORIZED })
     @Authenticate(auth.find.enableAuth, UseGuards(JwtAuthGuard, RolesGuard))
     @Authenticate(auth.find.enableAuth, Roles(...auth.find.authRoles))
     @Authenticate(auth.find.enableAuth, ApiBearerAuth())
