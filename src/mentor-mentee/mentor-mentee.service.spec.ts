@@ -12,7 +12,7 @@ describe('MentorMenteeService', () => {
       imports: [MentorMenteeModule, DbTest]
     }).compile();
 
-    service = module.get<MentorMenteeService>(MentorMenteeService);
+    service = await module.resolve<MentorMenteeService>(MentorMenteeService);
   });
 
   it('should be defined', () => {

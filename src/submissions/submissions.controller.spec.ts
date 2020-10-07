@@ -12,7 +12,9 @@ describe('SubmissionsController', () => {
       imports: [SubmissionsModule, DbTest]
     }).compile();
 
-    controller = module.get<SubmissionsController>(SubmissionsController);
+    controller = await module.resolve<SubmissionsController>(
+      SubmissionsController
+    );
   });
 
   it('should be defined', () => {

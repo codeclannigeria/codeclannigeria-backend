@@ -12,7 +12,9 @@ describe('MentorMenteeController', () => {
       imports: [MentorMenteeModule, DbTest]
     }).compile();
 
-    controller = module.get<MentorMenteeController>(MentorMenteeController);
+    controller = await module.resolve<MentorMenteeController>(
+      MentorMenteeController
+    );
   });
 
   it('should be defined', () => {

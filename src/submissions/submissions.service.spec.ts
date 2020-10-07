@@ -12,7 +12,7 @@ describe('SubmissionsService', () => {
       imports: [SubmissionsModule, DbTest]
     }).compile();
 
-    service = module.get<SubmissionsService>(SubmissionsService);
+    service = await module.resolve<SubmissionsService>(SubmissionsService);
   });
 
   it('should be defined', () => {
