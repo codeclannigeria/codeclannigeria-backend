@@ -1,8 +1,9 @@
 import { PickType } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsMongoId } from 'class-validator';
-import { MentorMentee } from '~/mentor/models/mentor-mentee.entity';
-import { PagedListDto } from '~shared/models/dto';
+import { SimpleUserDto } from '~/tasks/models/dtos/submission.dto';
+import { TrackDto } from '~/tracks/models/dto/track.dto';
+import { BaseDto, PagedListDto } from '~shared/models/dto';
 
 // const applyMixins = (derivedCtor: any, baseCtors: any[]) => {
 //     baseCtors.forEach((baseCtor) => {
@@ -13,13 +14,16 @@ import { PagedListDto } from '~shared/models/dto';
 //       });
 //     });
 //   };
+class SimpleTrackDto extends PickType(TrackDto, ['title', 'id']) {}
 
-export class MentorMenteeDto extends PickType(MentorMentee, [
-  'mentee',
-  'mentor',
-  'track',
-  'id'
-]) {}
+export class MentorMenteeDto extends BaseDto {
+  @Expose()
+  readonly mentor: SimpleUserDto;
+  @Expose()
+  readonly mentee: SimpleUserDto;
+  @Expose()
+  readonly track: SimpleTrackDto;
+}
 
 export class CreateMentorMenteeDto {
   @IsMongoId()
