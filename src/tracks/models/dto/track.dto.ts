@@ -18,7 +18,7 @@ export class TrackDto extends BaseDto {
   @ApiProperty({ readOnly: true })
   @Expose()
   @IsOptional()
-  readonly thumbnailUrl?: string;
+  readonly thumbnailUrl?: string = null;
   // @ApiProperty({ readOnly: true, isArray: true, type: StageDto })
   // @Expose()
   // @Type(() => StageDto)
