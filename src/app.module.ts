@@ -17,6 +17,8 @@ import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
 import { MentorModule } from './mentor/mentor.module';
+import { SubmissionsModule } from './submissions/submissions.module';
+import { MentorMenteeModule } from './mentor-mentee/mentor-mentee.module';
 
 export const Config = ConfigModule.forRoot({
   isGlobal: true,
@@ -46,7 +48,9 @@ const Database = MongooseModule.forRoot(configuration().database.uri, {
     CategoriesModule,
     StagesModule,
     TasksModule,
-    MentorModule
+    MentorModule,
+    SubmissionsModule,
+    MentorMenteeModule
   ],
 
   controllers: [AppController],

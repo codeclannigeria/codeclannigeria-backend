@@ -1,3 +1,4 @@
+import { Optional } from '@nestjs/common';
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { IsMongoId } from 'class-validator';
@@ -35,7 +36,8 @@ export class ReassignMenteeInput {
   menteeId: string;
   @IsMongoId()
   @Expose()
-  fromMentorId: string;
+  @Optional()
+  fromMentorId?: string;
   @IsMongoId()
   @Expose()
   toMentorId: string;

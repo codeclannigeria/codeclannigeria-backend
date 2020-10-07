@@ -252,14 +252,14 @@ export class TracksController extends BaseCtrl {
       throw new NotFoundException(
         `Mentor with Id ${input.toMentorId} not found`
       );
-    const fromMentor = await this.userService.findOneAsync({
-      _id: input.fromMentorId,
-      role: UserRole.MENTOR
-    });
-    if (!fromMentor)
-      throw new NotFoundException(
-        `Mentor with Id ${input.fromMentorId} not found`
-      );
+    // const fromMentor = await this.userService.findOneAsync({
+    //   _id: input.fromMentorId,
+    //   role: UserRole.MENTOR
+    // });
+    // if (!fromMentor)
+    //   throw new NotFoundException(
+    //     `Mentor with Id ${input.fromMentorId} not found`
+    //   );
 
     const track = await this.trackService.findByIdAsync(trackId);
     if (!track)

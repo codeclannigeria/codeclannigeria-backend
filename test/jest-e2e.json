@@ -12,7 +12,8 @@
   "bail": 1,
   "moduleNameMapper": {
     "~shared(.*)$": "<rootDir>/src/shared$1",
-    "~test(.*)$": "<rootDir>/test$1"
+    "~test(.*)$": "<rootDir>/test$1",
+    "~(.*)$": "<rootDir>/src/$1"
   },
 
   "rootDir": "..",

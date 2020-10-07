@@ -49,7 +49,7 @@ export class MentorService {
       mentor: input.fromMentorId,
       mentee: input.menteeId
     });
-    mentorMentee.delete();
+    if (mentorMentee) mentorMentee.delete();
     mentorMentee = await this.mentorMenteeModel.findOne({
       mentor: input.toMentorId,
       mentee: input.menteeId
