@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { plugin } from '@typegoose/typegoose';
 import { Expose, Type } from 'class-transformer';
 import {
   IsArray,
@@ -10,10 +11,11 @@ import {
   Length,
   MaxLength
 } from 'class-validator';
+
+import { TrackDto } from '~/tracks/models/dto/track.dto';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
-import { TrackDto } from '../../../tracks/models/dto/track.dto';
 import { Gender, UserRole } from '../user.entity';
 
 export class UserDto extends BaseDto {

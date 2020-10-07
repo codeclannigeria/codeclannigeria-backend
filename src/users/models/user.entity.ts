@@ -34,6 +34,7 @@ export enum Gender {
   }
 })
 @index({ email: 1 }, { unique: true })
+// @plugin(autopopulate as any)
 export class User extends BaseEntity {
   @prop({
     required: true,
