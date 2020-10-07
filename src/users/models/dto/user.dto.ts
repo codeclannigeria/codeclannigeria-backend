@@ -10,7 +10,7 @@ import {
   Length,
   MaxLength
 } from 'class-validator';
-import { SimpleTrackDto } from '~/mentor-mentee/dto/mentor-mentee.dto';
+import { TrackDto } from '~/tracks/models/dto/track.dto';
 import { columnSize } from '~shared/constants';
 import { BaseDto, PagedListDto } from '~shared/models/dto';
 
@@ -89,10 +89,10 @@ export class UserDto extends BaseDto {
   @IsOptional()
   readonly notifUnreadCount: number;
 
-  @ApiProperty({ readOnly: true, type: [SimpleTrackDto] })
+  @ApiProperty({ readOnly: true, type: [TrackDto] })
   @Expose()
-  @Type(() => SimpleTrackDto)
-  readonly tracks: SimpleTrackDto[];
+  @Type(() => TrackDto)
+  readonly tracks: TrackDto[];
 }
 
 export class PagedUserOutputDto extends PagedListDto(UserDto) {}
