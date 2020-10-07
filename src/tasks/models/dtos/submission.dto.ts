@@ -17,7 +17,6 @@ import { TaskDto } from './task.dto';
 export class SimpleUserDto extends PickType(UserDto, [
   'firstName',
   'lastName',
-  'photoUrl',
   'id'
 ]) {}
 export class SimpleTaskDto extends PickType(TaskDto, ['title', 'id']) {}
