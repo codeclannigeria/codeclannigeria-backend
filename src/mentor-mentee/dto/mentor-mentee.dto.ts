@@ -14,7 +14,7 @@ import { BaseDto, PagedListDto } from '~shared/models/dto';
 //       });
 //     });
 //   };
-class SimpleTrackDto extends PickType(TrackDto, ['title', 'id']) {}
+export class SimpleTrackDto extends PickType(TrackDto, ['title', 'id']) {}
 
 export class MentorMenteeDto extends BaseDto {
   @Expose()
