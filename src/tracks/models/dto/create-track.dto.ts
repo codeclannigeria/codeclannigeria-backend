@@ -1,7 +1,6 @@
-import { Optional } from '@nestjs/common';
 import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
-import { IsMongoId } from 'class-validator';
+import { IsMongoId, IsOptional } from 'class-validator';
 import { BufferedFile } from '~shared/interfaces/buffer-file.interface';
 
 import { TrackDto } from './track.dto';
@@ -36,7 +35,7 @@ export class ReassignMenteeInput {
   menteeId: string;
   @IsMongoId()
   @Expose()
-  @Optional()
+  @IsOptional()
   fromMentorId?: string;
   @IsMongoId()
   @Expose()
