@@ -11,13 +11,9 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "~shared/*": [
-        "./src/shared/*"
-      ],
-      "~/*": [
-        "./src/*"
-      ],
-      "~test/*": ["./test/*"]
+      "~shared/*": ["./src/shared/*"],
+      "~test/*": ["./test/*"],
+      "~/*": ["./src/*"]
     },
     "incremental": true
   },
