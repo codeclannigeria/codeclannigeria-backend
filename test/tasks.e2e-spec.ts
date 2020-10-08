@@ -226,6 +226,25 @@ describe('TasksController (e2e)', () => {
 
         submissionDto = body;
       });
+      it('should update already submitted task', async () => {
+        const updatedComment = 'updated_comment';
+        const dto: CreateSubmissionDto = {
+          menteeComment: updatedComment,
+          taskUrl: 'www.google.com'
+        };
+
+        const { body } = await route
+          .post(`/tasks/${task.id}/submissions`)
+          .send(dto)
+          .expect(201);
+
+        const dbTask = await TaskModel.findById(task.id);
+
+        expect(dbTask.updatedBy.toString()).toBe(currentUser.userId);
+        expect(body.menteeComment).toBe(updatedComment);
+
+        submissionDto = body;
+      });
       it('should get task submissions', async () => {
         const { body } = await route
           .get(`/tasks/${task.id}/submissions`)
