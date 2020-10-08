@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import * as fs from 'fs';
@@ -54,7 +54,8 @@ export class MentorService {
       mentor: input.toMentorId,
       mentee: input.menteeId
     });
-    if (mentorMentee) return;
+    if (mentorMentee)
+      throw new ConflictException('Mentee already has a Mentor');
     await this.mentorMenteeModel.create({
       mentor: input.toMentorId,
       mentee: input.menteeId,
