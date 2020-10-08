@@ -49,9 +49,10 @@ export class TasksService extends BaseService<Task> {
       createdBy
     });
     if (submission) {
-      submission = await this.SubmissionModel.updateOne(
+      submission = await this.SubmissionModel.findOneAndUpdate(
         { _id: submission.id },
-        { ...input, updatedBy: createdBy } as any
+        { ...input, updatedBy: createdBy },
+        { new: true }
       );
       return submission;
     }
