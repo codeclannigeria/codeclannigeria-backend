@@ -103,7 +103,7 @@ export function BaseCrudController<
         const sort = { ...options.sort };
         Object.keys(sort).map((key) => {
           if (sort[key] === 'ascend') sort[key] = 1;
-          else sort[key] = -1;
+          else if (sort[key] === 'descend') sort[key] = -1;
           return sort;
         });
         options.sort = sort;
