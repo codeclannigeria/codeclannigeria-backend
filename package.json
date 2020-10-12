@@ -103,7 +103,7 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0",
     "istanbul-api": "^3.0.0",
-    "jest": "^26.5.2",
+    "jest": "^26.5.3",
     "mongodb-memory-server": "^6.9.1",
     "prettier": "^2.1.2",
     "start-server-webpack-plugin": "^2.2.5",
