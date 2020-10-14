@@ -28,12 +28,12 @@ export class MentorMenteeDto extends BaseDto {
 export class CreateMentorMenteeDto {
   @IsMongoId()
   @Expose()
-  trackId: string;
+  track: string;
   @IsMongoId()
   @Expose()
-  mentorId: string;
+  mentor: string;
   @IsMongoId()
   @Expose()
-  menteeId: string;
+  mentee: string;
 }
 export class PagedMentorMenteeDto extends PagedListDto(MentorMenteeDto) {}
