@@ -73,7 +73,7 @@ export class TasksService extends BaseService<Task> {
         mentor: trackMentor.mentor
       })
     )
-      .populate('mentee task mentor', 'firstName lastName title taskUrl email')
+      .populate('mentee task mentor', 'firstName lastName title email')
       .execPopulate();
     this.notifyMentorOfSubmission(submission);
 
@@ -82,7 +82,7 @@ export class TasksService extends BaseService<Task> {
     return submission;
   }
   private async notifyMentorOfSubmission(submission: Submission) {
-    const { mentor, mentee, task }: any = submission;
+    const { mentor, mentee, task, taskUrl }: any = submission;
     let html = await fs.promises.readFile(
       './src/templates/mentee-task-submission-notif.html',
       { encoding: 'utf8' }
@@ -90,7 +90,7 @@ export class TasksService extends BaseService<Task> {
     html = html
       .replace('%menteeName%', `${mentee.firstName} ${mentee.lastName}`)
       .replace('%taskTitle%', task.title)
-      .replace('%taskUrl%', task.taskUrl);
+      .replace('%taskUrl%', taskUrl);
 
     this.mailService.sendMailAsync({
       from: configuration().appEmail,
