@@ -52,6 +52,7 @@ async function bootstrap() {
 
   const MongoStore = connectMongo(session);
   app.set('trust proxy', 1);
+  app.setGlobalPrefix('/api');
   app.use(
     session({
       secret: jwtSecret,
