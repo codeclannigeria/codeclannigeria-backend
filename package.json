@@ -89,7 +89,7 @@
     "@types/jest": "^26.0.14",
     "@types/mongoose": "^5.7.36",
     "@types/mongoose-autopopulate": "^0.10.1",
-    "@types/node": "^14.11.8",
+    "@types/node": "^14.11.10",
     "@types/nodemailer": "^6.4.0",
     "@types/nodemailer-mailgun-transport": "^1.4.1",
     "@types/passport-jwt": "^3.0.3",
