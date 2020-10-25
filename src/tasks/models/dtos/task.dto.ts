@@ -17,7 +17,6 @@ export class TaskDto extends BaseDto {
   @IsNotEmpty()
   @Expose()
   title: string;
-  // @MaxLength(columnSize.length1024)
   @Expose()
   @IsNotEmpty()
   description: string;
