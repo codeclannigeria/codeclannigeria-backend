@@ -1,8 +1,7 @@
 import { index, prop, Ref } from '@typegoose/typegoose';
+import { Stage } from '~/stages/models/stage.entity';
 import { columnSize } from '~shared/constants';
 import { BaseEntity } from '~shared/models/base.entity';
-
-import { Stage } from '../../stages/models/stage.entity';
 
 @index({ title: 1 }, { unique: true })
 export class Track extends BaseEntity {
