@@ -17,6 +17,7 @@ export class TaskDto extends BaseDto {
   @IsNotEmpty()
   @Expose()
   title: string;
+  // @MaxLength(columnSize.length1024)
   @Expose()
   @IsNotEmpty()
   description: string;
@@ -28,7 +29,8 @@ export class TaskDto extends BaseDto {
   stage: string;
   @IsMongoId()
   @Expose()
-  course: string;
+  @IsOptional()
+  course?: string;
   @Expose()
   @IsDate()
   @MinDate(new Date(), { message: 'Date must be in future' })
