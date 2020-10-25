@@ -77,9 +77,11 @@ export class TasksController extends BaseCtrl {
     const track = await this.trackService.findByIdAsync(input.track);
     if (!track)
       throw new NotFoundException(`Track with ${input.track} not found`);
-    const course = await this.coursesService.findByIdAsync(input.course);
-    if (!course)
-      throw new NotFoundException(`Course with ${input.course} not found`);
+    if (input.course) {
+      const course = await this.coursesService.findByIdAsync(input.course);
+      if (!course)
+        throw new NotFoundException(`Course with ${input.course} not found`);
+    }
     return await super.create(input);
   }
 
