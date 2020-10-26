@@ -98,19 +98,22 @@ describe('Courses Controller (e2e)', () => {
       title: 'title1',
       description: 'description',
       stage: mongo.Types.ObjectId().toHexString(),
-      track: mongo.Types.ObjectId().toHexString()
+      track: mongo.Types.ObjectId().toHexString(),
+      course: mongo.Types.ObjectId().toHexString()
     });
     const task2 = await TaskModel.create<TaskDto>({
       title: 'title2',
       description: 'description',
       stage: mongo.Types.ObjectId().toHexString(),
-      track: mongo.Types.ObjectId().toHexString()
+      track: mongo.Types.ObjectId().toHexString(),
+      course: mongo.Types.ObjectId().toHexString()
     });
     const task3 = await TaskModel.create<TaskDto>({
       title: 'title3',
       description: 'description',
       stage: mongo.Types.ObjectId().toHexString(),
-      track: mongo.Types.ObjectId().toHexString()
+      track: mongo.Types.ObjectId().toHexString(),
+      course: mongo.Types.ObjectId().toHexString()
     });
     const SubmissionModel = getModelForClass(Submission, {
       existingMongoose: mongo
