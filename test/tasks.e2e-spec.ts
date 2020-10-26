@@ -1,4 +1,3 @@
-import { MentorMentee } from './../src/mentor/models/mentor-mentee.entity';
 import {
   ExecutionContext,
   INestApplication,
@@ -12,23 +11,25 @@ import {
   mongoose,
   ReturnModelType
 } from '@typegoose/typegoose';
-import * as request from 'supertest';
-import { MailService } from '~shared/mail/mail.service';
 import * as fs from 'fs';
-import { JwtAuthGuard } from '../src/auth/guards';
-import { JwtPayload } from '../src/auth/models/jwt-payload';
-import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
-import { Course } from '../src/courses/models/course.entity';
-import { Stage } from '../src/stages/models/stage.entity';
-import { CreateSubmissionDto } from '../src/tasks/models/dtos/create-subission.dto';
-import { CreateTaskDto } from '../src/tasks/models/dtos/create-task.dto';
-import { SubmissionDto } from '../src/tasks/models/dtos/submission.dto';
-import { Task } from '../src/tasks/models/task.entity';
-import { TasksModule } from '../src/tasks/tasks.module';
-import { TasksService } from '../src/tasks/tasks.service';
-import { TrackMentor } from '../src/tracks/models/track-mentor.entity';
-import { Track } from '../src/tracks/models/track.entity';
-import { User, UserRole } from '../src/users/models/user.entity';
+import * as request from 'supertest';
+import { JwtAuthGuard } from '~/auth/guards';
+import { JwtPayload } from '~/auth/models/jwt-payload';
+import { JwtStrategy } from '~/auth/strategies/jwt.strategy';
+import { Course } from '~/courses/models/course.entity';
+import { MentorMentee } from '~/mentor/models/mentor-mentee.entity';
+import { Stage } from '~/stages/models/stage.entity';
+import { CreateSubmissionDto } from '~/tasks/models/dtos/create-subission.dto';
+import { CreateTaskDto } from '~/tasks/models/dtos/create-task.dto';
+import { SubmissionDto } from '~/tasks/models/dtos/submission.dto';
+import { Task } from '~/tasks/models/task.entity';
+import { TasksModule } from '~/tasks/tasks.module';
+import { TasksService } from '~/tasks/tasks.service';
+import { TrackMentor } from '~/tracks/models/track-mentor.entity';
+import { Track } from '~/tracks/models/track.entity';
+import { User, UserRole } from '~/users/models/user.entity';
+import { MailService } from '~shared/mail/mail.service';
+
 import { DbTest, inMemoryDb } from './helpers/db-test.module';
 
 describe('TasksController (e2e)', () => {
@@ -128,7 +129,7 @@ describe('TasksController (e2e)', () => {
       track: '',
       course: ''
     };
-    it('should return 401 if user not logged in', () => {
+    it('should return 401 if user not logged in', async () => {
       return route.post('/tasks').send(input).expect(401);
     });
     it('should return 403 if user role is neither ADMIN nor MENTOR', async () => {
