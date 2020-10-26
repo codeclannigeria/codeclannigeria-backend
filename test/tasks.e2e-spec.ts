@@ -121,15 +121,21 @@ describe('TasksController (e2e)', () => {
   });
 
   describe('/tasks (POST)', () => {
-    const input: CreateTaskDto = {
-      title: 'Task1',
-      description: 'Description',
-      stage: '',
-      track: '',
-      course: ''
-    };
-    it('should return 401 if user not logged in', () => {
-      return route.post('/tasks').send(input).expect(401);
+    let input: CreateTaskDto;
+    it('should return 401 if user not logged in', async () => {
+      const { id } = await CourseModel.create({
+        title: 'HTML and CSS',
+        description: 'Lean HTML and CSS',
+        playlistUrl: 'https://www.google.com'
+      });
+      input = {
+        title: 'Task1',
+        description: 'Description',
+        stage: '',
+        track: '',
+        course: id
+      };
+      await route.post('/tasks').send(input).expect(401);
     });
     it('should return 403 if user role is neither ADMIN nor MENTOR', async () => {
       jest
