@@ -42,7 +42,7 @@
     "@nestjs/swagger": "^4.6.1",
     "@typegoose/typegoose": "^7.4.1",
     "bcrypt": "^5.0.0",
-    "bull": "^3.18.0",
+    "bull": "^3.19.1",
     "cache-manager": "^3.4.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
