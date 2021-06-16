@@ -9,6 +9,7 @@ import * as Sentry from '@sentry/node';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();

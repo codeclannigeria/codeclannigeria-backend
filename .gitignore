@@ -431,3 +431,4 @@ yarn.lock
 # Ignore history folder
 .history/
 target/
+.vscode

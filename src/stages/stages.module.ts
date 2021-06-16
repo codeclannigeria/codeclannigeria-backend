@@ -1,6 +1,7 @@
+import { BaseService } from '~shared/services';
+
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BaseService } from '~shared/services';
 
 import { TasksModule } from '../tasks/tasks.module';
 import { TracksModule } from '../tracks/tracks.module';

@@ -1,8 +1,3 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as Sentry from '@sentry/node';
 import * as compression from 'compression';
 import * as connectMongo from 'connect-mongo';
 import * as cookieParser from 'cookie-parser';
@@ -13,6 +8,12 @@ import * as passport from 'passport';
 import configuration from '~shared/config/configuration';
 import { AllExceptionsFilter } from '~shared/filters/all-exception.filter';
 import { HttpExceptionFilter } from '~shared/filters/http-exception.filter';
+
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as Sentry from '@sentry/node';
 
 import { AppModule } from './app.module';
 

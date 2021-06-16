@@ -7,7 +7,7 @@ import { User } from '../../users/models/user.entity';
 import { Stage } from '../../stages/models/stage.entity';
 
 @plugin(autopopulate as any)
-@index({ title: 1 }, { unique: true })
+// @index({ title: 1 }, { unique: true })
 export class UserStage extends BaseEntity {
   @prop({
     ref: 'User',
