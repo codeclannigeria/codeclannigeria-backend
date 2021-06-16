@@ -40,6 +40,8 @@
     "@nestjs/platform-express": "^7.4.4",
     "@nestjs/schedule": "^0.4.1",
     "@nestjs/swagger": "^4.6.1",
+    "@sentry/node": "^6.7.1",
+    "@sentry/tracing": "^6.7.1",
     "@typegoose/typegoose": "^7.4.1",
     "bcrypt": "^5.0.0",
     "bull": "^3.20.1",

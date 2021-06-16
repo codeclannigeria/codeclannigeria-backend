@@ -2,6 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as Sentry from '@sentry/node';
 import * as compression from 'compression';
 import * as connectMongo from 'connect-mongo';
 import * as cookieParser from 'cookie-parser';
@@ -9,10 +10,11 @@ import * as rateLimit from 'express-rate-limit';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
 import * as passport from 'passport';
+import configuration from '~shared/config/configuration';
+import { AllExceptionsFilter } from '~shared/filters/all-exception.filter';
+import { HttpExceptionFilter } from '~shared/filters/http-exception.filter';
 
 import { AppModule } from './app.module';
-import configuration from './shared/config/configuration';
-import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 
 declare const module: any;
 
@@ -32,7 +34,18 @@ async function bootstrap() {
   // compressions
   app.use(compression());
 
+  Sentry.init({
+    dsn:
+      'https://3dcfb48db352455a842415fe3f8af230@o854355.ingest.sentry.io/5819318',
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0
+  });
+
   // filters
+  app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
 
   // validation
