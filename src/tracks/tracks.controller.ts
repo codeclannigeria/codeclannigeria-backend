@@ -43,8 +43,8 @@ import { UserStageService } from '../userstage/userstage.service';
 import {
   CreateTrackDto,
   CreateWithThumbnailTrackDto,
-  ReassignMenteeInput,
-  MentorInput
+  MentorInput,
+  ReassignMenteeInput
 } from './models/dto/create-track.dto';
 import { PagedTrackOutputDto, TrackDto } from './models/dto/track.dto';
 import { Track } from './models/track.entity';
