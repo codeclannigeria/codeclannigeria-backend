@@ -12,7 +12,9 @@ import {
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  Param,
+  NotFoundException
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -161,6 +163,25 @@ export class ProfileController {
     return plainToClass(UserDto, user, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
+    });
+  }
+
+  @Get(':username')
+  @ApiResponse({ type: UserDto, status: HttpStatus.OK })
+  async getProfileForTalent(@Param('username') username: string): Promise<UserDto> {
+
+    let user = await this.userService.findOneAsync(username);
+
+    if(user == null){
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.tracks.length > 0)
+      user = await user.populate('tracks').execPopulate();
+      
+    return plainToClass(UserDto, user, {
+      excludeExtraneousValues: true,
+      enableImplicitConversion: true
     });
   }
 }
