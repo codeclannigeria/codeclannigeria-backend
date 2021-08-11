@@ -12,7 +12,9 @@ import {
   UnsupportedMediaTypeException,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
+  Param,
+  NotFoundException
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -38,6 +40,7 @@ import { UsersService } from '../users/users.service';
 import { AvatarUploadDto } from './dto/avatar-upload.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
+import { GetUserDto } from '../profile/dto/get-profile.dto';
 
 @ApiTags('Profile')
 @Controller('profile')
@@ -161,6 +164,25 @@ export class ProfileController {
     return plainToClass(UserDto, user, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
+    });
+  }
+
+  @Get(':username')
+  @ApiResponse({ type: GetUserDto, status: HttpStatus.OK })
+  async getProfileForTalent(@Param('username') username: string): Promise<GetUserDto> {
+
+    let user = await this.userService.findOneAsync({email: username});
+
+    if(!user){
+      throw new NotFoundException('User not found');
+    }
+
+    if (user.tracks.length > 0)
+      user = await user.populate('tracks').execPopulate();
+      
+    return plainToClass(GetUserDto, user, {
+      excludeExtraneousValues: true,
+      enableImplicitConversion: true
     });
   }
 }
