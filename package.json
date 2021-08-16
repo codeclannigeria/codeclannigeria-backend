@@ -71,7 +71,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
     "swagger-ui-express": "^4.1.4",
-    "tsconfig-paths": "^3.9.0"
+    "tsconfig-paths": "^3.10.1"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.11",
