@@ -41,4 +41,18 @@ export class TracksService extends BaseService<Track> {
   async getStages(trackId: string): Promise<Stage[]> {
     return this.StageModel.find({ track: trackId }).populate('track');
   }
+
+  // set track as not active
+  async deactivateTrack(trackId: string): Promise<Track> {
+    return this.updateAsync(trackId, {
+      isActive: false,
+      updatedBy: this.getUserId()
+    });
+  }
+  async activateTrack(trackId: string): Promise<Track> {
+    return this.updateAsync(trackId, {
+      isActive: true,
+      updatedBy: this.getUserId()
+    });
+  }
 }
