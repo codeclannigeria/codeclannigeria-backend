@@ -129,6 +129,7 @@ describe('TracksController (e2e)', () => {
       currentUser.role = UserRole.ADMIN;
       const { body } = await route.post('/tracks').send(input).expect(201);
       track = await service.findById(body.id);
+
       expect(track.createdBy.toString()).toBe(currentUser.userId);
 
       StageModel = getModelForClass(Stage, { existingMongoose: mongo });
@@ -253,6 +254,23 @@ describe('TracksController (e2e)', () => {
       expect(deletedBy.toString()).toBe(currentUser.userId);
       expect(isDeleted).toBe(true);
       expect(res).toBeFalsy();
+    });
+    it('should return 403 for non-permitted user trying to soft delete track', async () => {
+      currentUser.role = UserRole.MENTEE;
+      await route.delete(`/tracks/${track.id}`).send(input).expect(403);
+    });
+
+    describe('Deactivate/Activate Track', () => {
+      it.todo('should deactivate track');
+      it.todo('should reactivate track');
+      it('should return 403 for non-permitted user trying to deactivate track', async () => {
+        currentUser.role = UserRole.MENTEE;
+        await route.put(`/tracks/${track.id}/deactivate`).expect(403);
+      });
+      it('should return 403 for non-permitted user trying to reactivate track', async () => {
+        currentUser.role = UserRole.MENTEE;
+        await route.put(`/tracks/${track.id}/reactivate`).expect(403);
+      });
     });
   });
   afterAll(async () => {

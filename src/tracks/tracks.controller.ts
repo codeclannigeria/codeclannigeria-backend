@@ -9,6 +9,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UnsupportedMediaTypeException,
@@ -288,6 +289,9 @@ export class TracksController extends BaseCtrl {
     const track = await this.trackService.findByIdAsync(trackId);
     if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
 
+    if (!track.isActive)
+      throw new BadRequestException('Track is not unavailable at the moment');
+
     const mentor = await this.userService.findOneAsync({
       _id: input.mentorId,
       role: UserRole.MENTOR
@@ -301,5 +305,30 @@ export class TracksController extends BaseCtrl {
       trackId
     );
     await this.trackService.enroll(track.id);
+  }
+
+  @Put(':trackId/deactivate')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiResponse({ status: HttpStatus.OK })
+  @ApiBearerAuth()
+  async disableTrack(@Param('trackId') trackId: string): Promise<void> {
+    const track = await this.trackService.findByIdAsync(trackId);
+
+    if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
+
+    await this.trackService.deactivateTrack(trackId);
+  }
+  @Put(':trackId/reactivate')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiResponse({ status: HttpStatus.OK })
+  @ApiBearerAuth()
+  async enableTrack(@Param('trackId') trackId: string): Promise<void> {
+    const track = await this.trackService.findByIdAsync(trackId);
+
+    if (!track) throw new NotFoundException(`Track with ${trackId} not found`);
+
+    await this.trackService.activateTrack(trackId);
   }
 }
