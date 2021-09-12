@@ -1,10 +1,10 @@
-import { index, prop, Ref, plugin } from '@typegoose/typegoose';
+import { plugin, prop, Ref } from '@typegoose/typegoose';
 import * as autopopulate from 'mongoose-autopopulate';
 import { BaseEntity } from '~shared/models/base.entity';
 
+import { Stage } from '../../stages/models/stage.entity';
 import { Track } from '../../tracks/models/track.entity';
 import { User } from '../../users/models/user.entity';
-import { Stage } from '../../stages/models/stage.entity';
 
 @plugin(autopopulate as any)
 export class UserStage extends BaseEntity {
