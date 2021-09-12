@@ -38,7 +38,7 @@
     "@nestjs/mongoose": "^7.1.2",
     "@nestjs/passport": "^8.0.0",
     "@nestjs/platform-express": "^7.4.4",
-    "@nestjs/schedule": "^0.4.1",
+    "@nestjs/schedule": "^1.0.1",
     "@nestjs/swagger": "^4.7.12",
     "@sentry/node": "^6.7.1",
     "@sentry/tracing": "^6.7.1",
