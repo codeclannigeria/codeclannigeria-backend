@@ -117,9 +117,11 @@ export class TasksController extends BaseCtrl {
     @Body() input: CreateSubmissionDto
   ): Promise<SubmissionDto> {
     const task = await this.tasksService.findByIdAsync(taskId);
-    if (!task) throw new NotFoundException(`Track with ${taskId} not found`);
+
+    if (!task) throw new NotFoundException(`Task with Id ${taskId} not found`);
 
     const submission = await this.tasksService.submitTask(input, task);
+
     return plainToClass(SubmissionDto, submission, {
       enableImplicitConversion: true,
       excludeExtraneousValues: true
