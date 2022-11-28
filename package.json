@@ -107,7 +107,7 @@
     "istanbul-api": "^3.0.0",
     "jest": "^26.6.1",
     "mongodb-memory-server": "^6.9.2",
-    "prettier": "^2.1.2",
+    "prettier": "^2.8.0",
     "start-server-webpack-plugin": "^2.2.5",
     "supertest": "^5.0.0",
     "ts-jest": "^26.5.1",
